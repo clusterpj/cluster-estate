@@ -31,6 +31,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Separator } from "./ui/separator";
 import { cn } from "@/lib/utils";
+import { LanguageSwitcher } from './language-switcher';
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -178,6 +179,28 @@ export function Header() {
 
                   <Separator className="my-2" />
 
+                  {/* Activities Section */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2 px-2 py-1.5 text-lg font-semibold rounded-lg bg-accent/50">
+                      <SlidersHorizontal className="h-5 w-5" />
+                      Activities
+                    </div>
+                    <div className="ml-4 flex flex-col space-y-3">
+                      <Link 
+                        href="/activities" 
+                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Local Activities</span>
+                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                        </div>
+                        <span className="text-sm text-muted-foreground">Discover exciting activities in the Dominican Republic.</span>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <Separator className="my-2" />
+
                   {/* Agents Section */}
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 px-2 py-1.5 text-lg font-semibold rounded-lg bg-accent/50">
@@ -193,7 +216,7 @@ export function Header() {
                           <span className="text-sm font-medium group-hover:text-primary transition-colors">Find an Agent</span>
                           <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
                         </div>
-                        <span className="text-sm text-muted-foreground">Connect with experienced professionals.</span>
+                        <span className="text-sm text-muted-foreground">Connect with experienced real estate professionals.</span>
                       </Link>
                       <Link 
                         href="/agents/join" 
@@ -244,79 +267,84 @@ export function Header() {
           </div>
 
           {/* Center Section: Navigation Menu */}
-          <NavigationMenu className="hidden md:flex">
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <Link href="/properties" legacyBehavior passHref>
-                  <NavigationMenuTrigger>
-                    <span className="flex items-center gap-2">
-                      <Building2 className="h-4 w-4" />
-                      Properties
-                    </span>
-                  </NavigationMenuTrigger>
-                </Link>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    <ListItem href="/properties/buy" title="Buy Properties">
-                      Find your dream home from our extensive collection of properties for sale.
-                    </ListItem>
-                    <ListItem href="/properties/rent" title="Rent Properties">
-                      Discover rental properties that match your lifestyle and budget.
-                    </ListItem>
-                    <ListItem href="/properties/new" title="New Developments">
-                      Explore newly built properties and upcoming developments.
-                    </ListItem>
-                    <ListItem href="/properties/luxury" title="Luxury Properties">
-                      Experience luxury living with our premium property collection.
-                    </ListItem>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+          <nav className="hidden md:flex items-center gap-6">
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <Link href="/properties" legacyBehavior passHref>
+                    <NavigationMenuTrigger>
+                      <span className="flex items-center gap-2">
+                        <Building2 className="h-4 w-4" />
+                        Properties
+                      </span>
+                    </NavigationMenuTrigger>
+                  </Link>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      <ListItem href="/properties/buy" title="Buy Properties">
+                        Find your dream home from our collection.
+                      </ListItem>
+                      <ListItem href="/properties/rent" title="Rent Properties">
+                        Discover rental properties that match your needs.
+                      </ListItem>
+                      <ListItem href="/properties/new" title="New Developments">
+                        Explore newly built properties.
+                      </ListItem>
+                      <ListItem href="/properties/luxury" title="Luxury Properties">
+                        Experience luxury living.
+                      </ListItem>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
 
-              <NavigationMenuItem>
-                <Link href="/agents" legacyBehavior passHref>
-                  <NavigationMenuTrigger>
-                    <span className="flex items-center gap-2">
-                      <Users className="h-4 w-4" />
-                      Agents
-                    </span>
-                  </NavigationMenuTrigger>
-                </Link>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
-                    <ListItem href="/agents/find" title="Find an Agent">
-                      Connect with experienced real estate professionals.
-                    </ListItem>
-                    <ListItem href="/agents/join" title="Join Our Team">
-                      Become part of our growing network of real estate agents.
-                    </ListItem>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/agents" legacyBehavior passHref>
+                    <NavigationMenuTrigger>
+                      <span className="flex items-center gap-2">
+                        <Users className="h-4 w-4" />
+                        Agents
+                      </span>
+                    </NavigationMenuTrigger>
+                  </Link>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-3 p-6 md:w-[400px]">
+                      <ListItem href="/agents/find" title="Find an Agent">
+                        Connect with experienced professionals.
+                      </ListItem>
+                      <ListItem href="/agents/join" title="Join Our Team">
+                        Become part of our real estate family.
+                      </ListItem>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
 
-              <NavigationMenuItem>
-                <Link href="/about" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <span className="flex items-center gap-2">
-                      <Info className="h-4 w-4" />
+                <NavigationMenuItem>
+                  <Link href="/activities" legacyBehavior passHref>
+                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                      Activities
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link href="/about" legacyBehavior passHref>
+                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                       About
-                    </span>
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
 
-              <NavigationMenuItem>
-                <Link href="/contact" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <span className="flex items-center gap-2">
-                      <Phone className="h-4 w-4" />
+                <NavigationMenuItem>
+                  <Link href="/contact" legacyBehavior passHref>
+                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                       Contact
-                    </span>
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+            <LanguageSwitcher />
+          </nav>
 
           {/* Right Section: Search and Theme Toggle */}
           <div className="flex items-center gap-4">
@@ -378,6 +406,54 @@ export function Header() {
                     </p>
                   </div>
                   <SearchFilters />
+                </div>
+              </SheetContent>
+            </Sheet>
+
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu className="h-6 w-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent>
+                <div className="flex flex-col gap-4">
+                  <Link href="/properties" className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium group-hover:text-primary transition-colors">Properties</span>
+                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground">Find your dream home from our collection.</span>
+                  </Link>
+                  <Link href="/activities" className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium group-hover:text-primary transition-colors">Activities</span>
+                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground">Discover exciting activities in the Dominican Republic.</span>
+                  </Link>
+                  <Link href="/agents" className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium group-hover:text-primary transition-colors">Agents</span>
+                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground">Connect with experienced real estate professionals.</span>
+                  </Link>
+                  <Link href="/about" className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium group-hover:text-primary transition-colors">About</span>
+                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground">Learn more about us.</span>
+                  </Link>
+                  <Link href="/contact" className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium group-hover:text-primary transition-colors">Contact</span>
+                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground">Get in touch with us.</span>
+                  </Link>
+                  <LanguageSwitcher />
                 </div>
               </SheetContent>
             </Sheet>

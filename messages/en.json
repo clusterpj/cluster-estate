@@ -1,0 +1,167 @@
+{
+  "Hero": {
+    "title": "Find Your Dream Home in Paradise",
+    "description": "Discover exceptional properties that match your lifestyle in the Caribbean's most sought-after locations.",
+    "searchPlaceholder": "Enter location or property type...",
+    "searchButton": "Search",
+    "stats": {
+      "properties": "Properties",
+      "clients": "Happy Clients",
+      "locations": "Locations"
+    }
+  },
+  "FeaturedProperties": {
+    "title": "Featured Properties",
+    "description": "Explore our handpicked selection of premium properties across the Caribbean's most desirable locations.",
+    "viewDetails": "View Details",
+    "viewAllProperties": "View All Properties",
+    "propertyDetails": {
+      "beds": "Beds",
+      "baths": "Baths",
+      "sqft": "sqft"
+    },
+    "properties": [
+      {
+        "title": "Oceanfront Villa",
+        "location": "Palm Beach"
+      },
+      {
+        "title": "Beachside Condo",
+        "location": "Seven Mile Beach"
+      },
+      {
+        "title": "Luxury Penthouse",
+        "location": "Nassau"
+      }
+    ]
+  },
+  "WhyChooseUs": {
+    "title": "Why Choose Us",
+    "description": "Experience excellence in Caribbean real estate with our dedicated team and comprehensive services.",
+    "features": [
+      {
+        "title": "Expertise",
+        "description": "Over 20 years of Caribbean real estate experience"
+      },
+      {
+        "title": "Trust",
+        "description": "Licensed and regulated with a proven track record"
+      },
+      {
+        "title": "Dedication",
+        "description": "Personalized service tailored to your needs"
+      },
+      {
+        "title": "Support",
+        "description": "24/7 support throughout your journey"
+      }
+    ]
+  },
+  "FeaturedLocations": {
+    "title": "Featured Locations",
+    "description": "Explore our curated selection of premier Caribbean destinations",
+    "propertyCount": "{count} Properties",
+    "exploreLocation": "Explore Location",
+    "locations": [
+      {
+        "description": "Discover paradise with stunning beaches and lush mountains"
+      },
+      {
+        "description": "Experience luxury living in this tropical haven"
+      },
+      {
+        "description": "Find your dream home in this vibrant Caribbean culture"
+      },
+      {
+        "description": "Paradise found in crystal clear waters"
+      }
+    ]
+  },
+  "LifestylePreview": {
+    "title": "Caribbean Lifestyle",
+    "description": "Experience the perfect blend of luxury and island living."
+  },
+  "AboutUs": {
+    "title": "About Cabarete Villas",
+    "subtitle": "Your Paradise Home in the Adventure Capital of the Caribbean",
+    "intro": {
+      "title": "Our Story",
+      "content": "My husband Chuck and I are from Erie, Pennsylvania USA and have traveled the world to find a second home. In 2000 we traveled to Cabarete and knew this was the perfect place for us. We purchased our home on the spot."
+    },
+    "location": {
+      "title": "Cabarete: The Adventure Capital",
+      "content": "Cabarete is a vibrant beach town known as \"The Adventure Capital of the Caribbean.\" With perfect conditions for windsurfing, kitesurfing, and surfing, Cabarete is one of the top destinations in the world for water sports. Not a water sport enthusiast? There is something for everyone in Cabarete. You can bike, horseback ride, kayak, go canyoning, take part in so many other adventures, or simply just enjoy lounging on the beautiful beach."
+    },
+    "community": {
+      "title": "A Unique Community",
+      "content": "What makes Cabarete so unique and wonderful is the local charm combined with a great place to vacation. Only in Cabarete will you find locals and people from all over the world and all walks of life coming together to live, work, and play."
+    },
+    "service": {
+      "title": "Our Commitment",
+      "content": "At Cabarete Villas you can leave all of your worries behind while we take care of your every need. Our management staff is top notch. Our maids and grounds keepers go above and beyond to keep our villas looking amazing."
+    },
+    "signature": {
+      "names": "Chuck and Ronda Janicki",
+      "title": "Proprietors, Cabarete Villas"
+    }
+  },
+  "Activities": {
+    "hero": {
+      "title": "Discover Dominican Adventures",
+      "description": "Discover the Dominican Republic with its radiant nature, beautiful beaches, crystal clear waterfalls and pure Caribbean Life style. Learn about the past and the culture of the Taino Indians and the heritage of the Spanish conquistadores.",
+      "subtitle": "We offer you a variety of fun-activities and professionally guided tours. Family and group discounts apply!"
+    },
+    "activities": [
+      {
+        "title": "Ocean World Adventure Park",
+        "description": "There is so much to do! Swim with the dolphins, have an encounter with sea lions, sharks and stingrays. You can swim in the same pool as the tigers only separated by glass. There is a coral reef aquarium for snorkeler enthusiasts and a rain forest where you can see rhinoceroses, iguanas and a bird sanctuary. It's a once in a lifetime experience!",
+        "website": "www.oceanworld.net",
+        "image": "/images/activities/ocean-world.jpg"
+      },
+      {
+        "title": "Monkey Jungle",
+        "description": "Experience the thrill of zip lining through the jungle canopy while interacting with friendly squirrel monkeys. This unique eco-adventure combines adrenaline with animal encounters in a safe, controlled environment.",
+        "website": "www.monkeyjungledr.com",
+        "image": "/images/activities/monkey-jungle.jpg"
+      },
+      {
+        "title": "Horseback Riding",
+        "description": "Explore the beautiful Dominican countryside on horseback. Ride through lush forests, along pristine beaches, and discover hidden waterfalls on guided tours suitable for all experience levels.",
+        "image": "/images/activities/horseback.jpg",
+        "contact": "+1 809-555-0123"
+      },
+      {
+        "title": "Kite Surfing",
+        "description": "Cabarete is world-renowned for its perfect kitesurfing conditions. Whether you're a beginner or an expert, our certified instructors will help you catch the perfect wind.",
+        "image": "/images/activities/kite-surfing.jpg",
+        "contact": "+1 809-555-0124"
+      },
+      {
+        "title": "Paradise Island",
+        "description": "Visit one of the most beautiful islands in the Caribbean. Snorkel in crystal clear waters, relax on pristine beaches, and enjoy fresh seafood in this tropical paradise.",
+        "image": "/images/activities/paradise-island.jpg",
+        "details": "Daily tours available with lunch included"
+      },
+      {
+        "title": "27 Waterfalls of Damajagua",
+        "description": "Adventure through the famous 27 waterfalls, jumping, sliding, and swimming through natural water formations. A unique experience that combines hiking with water adventures.",
+        "image": "/images/activities/waterfalls.jpg",
+        "website": "www.27charcos.com"
+      },
+      {
+        "title": "Whale Watching with Kim Baddall",
+        "description": "Humpback Whales here in Samana Bay, DR. A unique opportunity to observe humpback whales in their natural calving and mating grounds. Listen to the male humpback's solitary courting song and witness incredible displays of flipping, tail lobbing and breaching by the most active species of whales in the Atlantic.",
+        "details": "On board a marine mammal specialist narrating vessel answering questions….it's an experience of a lifetime not to be missed. Dates: January 15 – March 25 from the main town dock in Samana on the Whale Watch vessel \"Pina Mia\"",
+        "contact": "809-538-2494",
+        "email": "reservations@whalesamana.com",
+        "image": "/images/activities/whale-watching.jpg"
+      },
+      {
+        "title": "Andari Spa",
+        "description": "This is our favorite! Massage, physiotherapy, hot stone massage, body scrubs, body wraps, facials, manicures & pedicures and hair removal. It's in the Millennium Resort & Spa, Cabarete.",
+        "website": "www.andarispa.com",
+        "image": "/images/activities/spa.jpg"
+      }
+    ]
+  }
+}

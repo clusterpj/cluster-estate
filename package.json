@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "verify-env": "tsx scripts/verify-env.ts",
+    "translate": "npm run verify-env && tsx scripts/translate-messages.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-alert-dialog": "^1.1.2",
@@ -37,15 +40,18 @@
     "@radix-ui/react-toggle": "^1.1.0",
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.4",
+    "@vercel/kv": "^3.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
+    "dotenv": "^16.4.7",
     "embla-carousel-react": "^8.5.1",
     "framer-motion": "^11.13.5",
     "input-otp": "^1.4.1",
     "lucide-react": "^0.468.0",
     "next": "14.2.16",
+    "next-intl": "^3.26.1",
     "next-themes": "^0.4.4",
     "react": "^18",
     "react-day-picker": "^8.10.1",
@@ -54,6 +60,8 @@
     "react-resizable-panels": "^2.1.7",
     "recharts": "^2.14.1",
     "sonner": "^1.7.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.1",
@@ -67,6 +75,7 @@
     "eslint-config-next": "14.2.16",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }
