@@ -1,151 +1,391 @@
-import Link from "next/link"
+"use client";
+
+import * as React from "react";
+import Link from "next/link";
+import { Menu, Search, SlidersHorizontal, Home, Building2, Users, Info, Phone } from "lucide-react";
+import { ModeToggle } from "./mode-toggle";
+import { Button } from "./ui/button";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "./ui/sheet";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
-import { Search, Home, MapPin, Menu } from "lucide-react"
-import { ModeToggle } from "./mode-toggle"
+} from "@/components/ui/select";
 import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Separator } from "./ui/separator";
+import { cn } from "@/lib/utils";
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";
+
+const SearchFilters = () => (
+  <div className="grid gap-3">
+    <div className="grid gap-1.5">
+      <Label htmlFor="price">Price Range</Label>
+      <Select>
+        <SelectTrigger>
+          <SelectValue placeholder="Select price range" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="0-250k">$0 - $250,000</SelectItem>
+          <SelectItem value="250k-500k">$250,000 - $500,000</SelectItem>
+          <SelectItem value="500k-750k">$500,000 - $750,000</SelectItem>
+          <SelectItem value="750k-1m">$750,000 - $1M</SelectItem>
+          <SelectItem value="1m+">$1M+</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
+    <div className="grid gap-1.5">
+      <Label htmlFor="property-type">Property Type</Label>
+      <Select>
+        <SelectTrigger>
+          <SelectValue placeholder="Select type" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="house">House</SelectItem>
+          <SelectItem value="apartment">Apartment</SelectItem>
+          <SelectItem value="condo">Condo</SelectItem>
+          <SelectItem value="townhouse">Townhouse</SelectItem>
+          <SelectItem value="land">Land</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
+    <div className="grid gap-1.5">
+      <Label htmlFor="beds">Bedrooms</Label>
+      <Select>
+        <SelectTrigger>
+          <SelectValue placeholder="Select bedrooms" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="1">1+</SelectItem>
+          <SelectItem value="2">2+</SelectItem>
+          <SelectItem value="3">3+</SelectItem>
+          <SelectItem value="4">4+</SelectItem>
+          <SelectItem value="5">5+</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
+    <Separator />
+    <Button>Apply Filters</Button>
+  </div>
+);
 
 export function Header() {
   return (
-    <header className="w-full sticky top-0 z-50">
-      <div className="w-full border-b bg-white/75 dark:bg-stone-950/75 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center min-h-16 w-full px-4 md:px-6">
-            <div className="flex items-center">
-              <Link 
-                href="/" 
-                className="text-xl md:text-2xl font-semibold text-stone-800 dark:text-stone-100 hover:text-stone-600 dark:hover:text-stone-300 transition-colors flex items-center gap-2"
-              >
-                <Home className="h-5 w-5 md:h-6 md:w-6" />
-                <span>RealtyWest</span>
-              </Link>
-            </div>
-            
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-6">
-              <Link 
-                href="/properties" 
-                className="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors text-sm font-medium"
-              >
-                Properties
-              </Link>
-              <Link 
-                href="/about" 
-                className="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors text-sm font-medium"
-              >
-                About
-              </Link>
-              <Link 
-                href="/contact" 
-                className="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors text-sm font-medium"
-              >
-                Contact
-              </Link>
-              <ModeToggle />
-            </nav>
-
-            {/* Mobile Navigation */}
-            <div className="md:hidden flex items-center gap-2">
-              <ModeToggle />
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="md:hidden">
-                    <Menu className="h-5 w-5" />
-                    <span className="sr-only">Toggle menu</span>
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                  <nav className="flex flex-col gap-4 mt-8">
-                    <Link 
-                      href="/properties" 
-                      className="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors text-lg font-medium"
-                    >
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container mx-auto px-4">
+        <div className="flex h-16 items-center justify-between">
+          {/* Left Section: Logo and Mobile Menu */}
+          <div className="flex items-center gap-4">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" className="px-0 text-base hover:bg-transparent hover:text-accent-foreground md:hidden">
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Toggle Menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[300px] sm:w-[400px] overflow-y-auto">
+                <nav className="flex flex-col space-y-6 mt-6">
+                  {/* Properties Section */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2 px-2 py-1.5 text-lg font-semibold rounded-lg bg-accent/50">
+                      <Building2 className="h-5 w-5" />
                       Properties
-                    </Link>
+                    </div>
+                    <div className="ml-4 flex flex-col space-y-3">
+                      <Link 
+                        href="/properties/buy" 
+                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Buy Properties</span>
+                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                        </div>
+                        <span className="text-sm text-muted-foreground">Find your dream home from our collection.</span>
+                      </Link>
+                      <Link 
+                        href="/properties/rent" 
+                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Rent Properties</span>
+                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                        </div>
+                        <span className="text-sm text-muted-foreground">Discover rental properties that match your needs.</span>
+                      </Link>
+                      <Link 
+                        href="/properties/new" 
+                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium group-hover:text-primary transition-colors">New Developments</span>
+                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                        </div>
+                        <span className="text-sm text-muted-foreground">Explore newly built properties.</span>
+                      </Link>
+                      <Link 
+                        href="/properties/luxury" 
+                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Luxury Properties</span>
+                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                        </div>
+                        <span className="text-sm text-muted-foreground">Experience luxury living.</span>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <Separator className="my-2" />
+
+                  {/* Agents Section */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2 px-2 py-1.5 text-lg font-semibold rounded-lg bg-accent/50">
+                      <Users className="h-5 w-5" />
+                      Agents
+                    </div>
+                    <div className="ml-4 flex flex-col space-y-3">
+                      <Link 
+                        href="/agents/find" 
+                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Find an Agent</span>
+                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                        </div>
+                        <span className="text-sm text-muted-foreground">Connect with experienced professionals.</span>
+                      </Link>
+                      <Link 
+                        href="/agents/join" 
+                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Join Our Team</span>
+                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                        </div>
+                        <span className="text-sm text-muted-foreground">Become part of our network.</span>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <Separator className="my-2" />
+
+                  {/* Quick Links */}
+                  <div className="space-y-3">
                     <Link 
                       href="/about" 
-                      className="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors text-lg font-medium"
+                      className="group flex items-center justify-between rounded-lg px-4 py-3 hover:bg-accent transition-all duration-200"
                     >
-                      About
+                      <div className="flex items-center gap-2">
+                        <Info className="h-5 w-5" />
+                        <span className="text-sm font-medium group-hover:text-primary transition-colors">About</span>
+                      </div>
+                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
                     </Link>
+
                     <Link 
                       href="/contact" 
-                      className="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors text-lg font-medium"
+                      className="group flex items-center justify-between rounded-lg px-4 py-3 hover:bg-accent transition-all duration-200"
                     >
-                      Contact
+                      <div className="flex items-center gap-2">
+                        <Phone className="h-5 w-5" />
+                        <span className="text-sm font-medium group-hover:text-primary transition-colors">Contact</span>
+                      </div>
+                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
                     </Link>
-                  </nav>
-                </SheetContent>
-              </Sheet>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="w-full bg-stone-900/95 backdrop-blur-md py-4">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col gap-4 w-full">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-stone-400" />
-              <Input 
-                placeholder="Search for properties" 
-                className="w-full pl-10 bg-stone-800/50 border-stone-700 hover:border-stone-600 transition-colors focus-visible:ring-stone-700"
-              />
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <Select>
-                <SelectTrigger className="w-full bg-stone-800/50 border-stone-700 hover:border-stone-600 transition-colors">
-                  <SelectValue placeholder="I want to..." />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="buy" className="hover:bg-stone-50 dark:hover:bg-stone-800">Buy</SelectItem>
-                  <SelectItem value="rent" className="hover:bg-stone-50 dark:hover:bg-stone-800">Rent</SelectItem>
-                  <SelectItem value="sold" className="hover:bg-stone-50 dark:hover:bg-stone-800">Sold</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select>
-                <SelectTrigger className="w-full bg-stone-800/50 border-stone-700 hover:border-stone-600 transition-colors">
-                  <SelectValue placeholder="Bedrooms" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1 bedroom" className="hover:bg-stone-50 dark:hover:bg-stone-800">1 Bedroom</SelectItem>
-                  <SelectItem value="2 bedroom" className="hover:bg-stone-50 dark:hover:bg-stone-800">2 Bedrooms</SelectItem>
-                  <SelectItem value="3 bedroom" className="hover:bg-stone-50 dark:hover:bg-stone-800">3 Bedrooms</SelectItem>
-                  <SelectItem value="4+ bedroom" className="hover:bg-stone-50 dark:hover:bg-stone-800">4+ Bedrooms</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select>
-                <SelectTrigger className="w-full bg-stone-800/50 border-stone-700 hover:border-stone-600 transition-colors">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-stone-400" />
-                    <SelectValue placeholder="Property Type" />
                   </div>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="house" className="hover:bg-stone-50 dark:hover:bg-stone-800">House</SelectItem>
-                  <SelectItem value="condo" className="hover:bg-stone-50 dark:hover:bg-stone-800">Condo</SelectItem>
-                  <SelectItem value="apartment" className="hover:bg-stone-50 dark:hover:bg-stone-800">Apartment</SelectItem>
-                  <SelectItem value="townhouse" className="hover:bg-stone-50 dark:hover:bg-stone-800">Townhouse</SelectItem>
-                </SelectContent>
-              </Select>
+                </nav>
+              </SheetContent>
+            </Sheet>
+            
+            <Link href="/" className="flex items-center space-x-2">
+              <span className="text-xl font-bold">RealtyWest</span>
+            </Link>
+          </div>
+
+          {/* Center Section: Navigation Menu */}
+          <NavigationMenu className="hidden md:flex">
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <Link href="/properties" legacyBehavior passHref>
+                  <NavigationMenuTrigger>
+                    <span className="flex items-center gap-2">
+                      <Building2 className="h-4 w-4" />
+                      Properties
+                    </span>
+                  </NavigationMenuTrigger>
+                </Link>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    <ListItem href="/properties/buy" title="Buy Properties">
+                      Find your dream home from our extensive collection of properties for sale.
+                    </ListItem>
+                    <ListItem href="/properties/rent" title="Rent Properties">
+                      Discover rental properties that match your lifestyle and budget.
+                    </ListItem>
+                    <ListItem href="/properties/new" title="New Developments">
+                      Explore newly built properties and upcoming developments.
+                    </ListItem>
+                    <ListItem href="/properties/luxury" title="Luxury Properties">
+                      Experience luxury living with our premium property collection.
+                    </ListItem>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link href="/agents" legacyBehavior passHref>
+                  <NavigationMenuTrigger>
+                    <span className="flex items-center gap-2">
+                      <Users className="h-4 w-4" />
+                      Agents
+                    </span>
+                  </NavigationMenuTrigger>
+                </Link>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
+                    <ListItem href="/agents/find" title="Find an Agent">
+                      Connect with experienced real estate professionals.
+                    </ListItem>
+                    <ListItem href="/agents/join" title="Join Our Team">
+                      Become part of our growing network of real estate agents.
+                    </ListItem>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link href="/about" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <span className="flex items-center gap-2">
+                      <Info className="h-4 w-4" />
+                      About
+                    </span>
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link href="/contact" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <span className="flex items-center gap-2">
+                      <Phone className="h-4 w-4" />
+                      Contact
+                    </span>
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+
+          {/* Right Section: Search and Theme Toggle */}
+          <div className="flex items-center gap-4">
+            {/* Desktop Search */}
+            <div className="hidden sm:block">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search properties..."
+                  className="w-[200px] pl-8 pr-4 md:w-[300px]"
+                />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost" size="icon" className="absolute right-0 top-0 h-full px-3 hover:bg-transparent">
+                      <SlidersHorizontal className="h-4 w-4" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[300px] p-4" align="end">
+                    <div className="grid gap-4">
+                      <div className="space-y-2">
+                        <h4 className="font-medium leading-none">Filters</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Refine your property search
+                        </p>
+                      </div>
+                      <SearchFilters />
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
             </div>
+
+            {/* Mobile Search Button */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="sm:hidden">
+                  <Search className="h-5 w-5" />
+                  <span className="sr-only">Open Search</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="bottom" className="h-[85%]">
+                <SheetHeader>
+                  <SheetTitle>Search Properties</SheetTitle>
+                </SheetHeader>
+                <div className="mt-4 space-y-4">
+                  <div className="relative">
+                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      type="search"
+                      placeholder="Search properties..."
+                      className="w-full pl-8"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-medium leading-none">Filters</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Refine your property search
+                    </p>
+                  </div>
+                  <SearchFilters />
+                </div>
+              </SheetContent>
+            </Sheet>
+
+            <ModeToggle />
           </div>
         </div>
       </div>
     </header>
-  )
+  );
 }
