@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { FadeInView } from "./animations/fade-in-view";
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 const locations = [
   {
@@ -42,28 +43,25 @@ export function FeaturedLocations() {
   const t = useTranslations('FeaturedLocations');
   
   return (
-    <section className="py-16 bg-white dark:bg-caribbean-950">
+    <section className="py-16 dark:bg-caribbean-950">
       <div className="container mx-auto px-4">
         <FadeInView>
-          <h2 className="text-4xl font-bold text-caribbean-900 dark:text-sand-100 text-center mb-4">
+          <h2 className="text-4xl font-bold text-center mb-4 dark:text-sand-50">
             {t('title')}
           </h2>
         </FadeInView>
-        
+
         <FadeInView delay={0.2}>
-          <p className="text-caribbean-600 dark:text-sand-300 text-center mb-12 max-w-2xl mx-auto">
+          <p className="text-center mb-12 max-w-2xl mx-auto dark:text-sand-200">
             {t('description')}
           </p>
         </FadeInView>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {locations.map((location, index) => (
-            <FadeInView key={location.id} delay={0.2 * (index + 1)}>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <Card className="overflow-hidden group cursor-pointer">
+            <FadeInView key={location.name} delay={0.2 * (index + 1)}>
+              <Link href={`/properties?location=${location.name.toLowerCase()}`}>
+                <Card className="group relative h-full overflow-hidden dark:bg-caribbean-900 dark:border-caribbean-800 shadow-lg">
                   <div className="relative h-48">
                     <Image
                       src={location.image}
@@ -71,27 +69,26 @@ export function FeaturedLocations() {
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-4 left-4 text-white">
-                      <h3 className="text-xl font-semibold mb-1">{location.name}</h3>
-                      <p className="text-sm opacity-90">
-                        {t('propertyCount', { count: location.properties })}
-                      </p>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex justify-between items-center mb-2">
+                      <h3 className="text-xl font-semibold dark:text-sand-50">
+                        {location.name}
+                      </h3>
+                      <span className="text-sm dark:text-sand-200">
+                        {location.properties} Properties
+                      </span>
+                    </div>
+                    <p className="dark:text-sand-200 mb-4">
+                      {location.description}
+                    </p>
+                    <div className="flex items-center dark:text-sand-200 hover:dark:text-sand-50 transition-colors">
+                      {t('exploreLocation')}
+                      <span className="ml-2">→</span>
                     </div>
                   </div>
-                  <div className="p-4">
-                    <p className="text-caribbean-600 dark:text-sand-300">
-                      {t(`locations.${index}.description`)}
-                    </p>
-                    <Button 
-                      variant="link" 
-                      className="mt-2 p-0 text-caribbean-700 dark:text-caribbean-300 hover:text-caribbean-800 dark:hover:text-caribbean-200"
-                    >
-                      {t('exploreLocation')} →
-                    </Button>
-                  </div>
                 </Card>
-              </motion.div>
+              </Link>
             </FadeInView>
           ))}
         </div>
