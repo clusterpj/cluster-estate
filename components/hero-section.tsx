@@ -17,7 +17,7 @@ export function HeroSection() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-black/40" /> {/* Dark overlay */}
+        <div className="absolute inset-0 bg-caribbean-900/40" /> {/* Caribbean overlay */}
       </div>
 
       {/* Content */}
@@ -26,37 +26,40 @@ export function HeroSection() {
           <h1 className="text-5xl md:text-6xl font-bold leading-tight">
             Find Your Dream Home in Paradise
           </h1>
-          <p className="text-xl md:text-2xl text-gray-200">
-            Discover exceptional properties that match your lifestyle. Your journey to the perfect home starts here.
+          <p className="text-xl md:text-2xl text-sand-100">
+            Discover exceptional properties that match your lifestyle in the Caribbean's most sought-after locations.
           </p>
 
           {/* Search Bar */}
-          <div className="flex flex-col md:flex-row gap-4 max-w-2xl bg-white/10 backdrop-blur-md p-4 rounded-lg">
+          <div className="flex flex-col md:flex-row gap-4 max-w-2xl bg-white/10 backdrop-blur-md p-4 rounded-lg border border-white/20">
             <div className="flex-1">
               <Input 
                 placeholder="Enter location or property type..."
-                className="w-full h-12 bg-white/80 text-black placeholder:text-gray-500"
+                className="w-full h-12 bg-white/90 text-caribbean-900 placeholder:text-caribbean-500/70"
               />
             </div>
-            <Button className="h-12 px-8 bg-primary hover:bg-primary/90" size="lg">
+            <Button 
+              className="h-12 px-8 bg-caribbean-600 hover:bg-caribbean-700 text-white transition-colors" 
+              size="lg"
+            >
               <Search className="mr-2 h-5 w-5" />
               Search
             </Button>
           </div>
 
           {/* Stats */}
-          <div className="flex gap-8 pt-8">
-            <div>
-              <p className="text-4xl font-bold">1000+</p>
-              <p className="text-gray-200">Properties</p>
+          <div className="flex gap-8 pt-8 flex-wrap">
+            <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg border border-white/20">
+              <p className="text-4xl font-bold text-sand-200">1000+</p>
+              <p className="text-sand-100">Properties</p>
             </div>
-            <div>
-              <p className="text-4xl font-bold">500+</p>
-              <p className="text-gray-200">Happy Clients</p>
+            <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg border border-white/20">
+              <p className="text-4xl font-bold text-sand-200">500+</p>
+              <p className="text-sand-100">Happy Clients</p>
             </div>
-            <div>
-              <p className="text-4xl font-bold">50+</p>
-              <p className="text-gray-200">Cities</p>
+            <div className="bg-white/10 backdrop-blur-md p-4 rounded-lg border border-white/20">
+              <p className="text-4xl font-bold text-sand-200">50+</p>
+              <p className="text-sand-100">Locations</p>
             </div>
           </div>
         </div>
