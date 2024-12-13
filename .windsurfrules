@@ -1,0 +1,5 @@
+My Dev Stack is NextJS, TailwindCSS, Typescript, Shadcn UI, Radix UI, Framer Motion, Internationalization i18n, supabase
+We are using App Router and CSS Variables
+Make Code Modular and Reusable
+Always validate your code and the existing code when implementing something new
+Never assume always have a bse for what you doing

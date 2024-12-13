@@ -10,6 +10,33 @@
       "locations": "Ubicaciones"
     }
   },
+  "ParadiseLiving": {
+    "title": "Vive la experiencia del Paraíso",
+    "subtitle": "Descubre un estilo de vida donde el lujo se encuentra con el paraíso tropical.",
+    "features": {
+      "beachfront": {
+        "title": "Vida en la playa",
+        "description": "Despierta al sonido de las olas y a las impresionantes vistas del océano."
+      },
+      "climate": {
+        "title": "Clima perfecto",
+        "description": "Disfrute del sol todo el año y de las brisas tropicales."
+      },
+      "culture": {
+        "title": "Cultura insular",
+        "description": "Sumérgete en el vibrante estilo de vida caribeño."
+      },
+      "activities": {
+        "title": "Actividades acuáticas",
+        "description": "Acceso a navegación, buceo y deportes acuáticos de primera clase"
+      }
+    },
+    "cta": {
+      "title": "Su hogar soñado te espera",
+      "description": "Déjanos ayudarte a encontrar tu pedazo de paraíso perfecto en el Caribe.",
+      "button": "Comienza tu Viaje"
+    }
+  },
   "FeaturedProperties": {
     "title": "Propiedades destacadas",
     "description": "Explore our handpicked selection of premium properties across the Caribbean's most desirable locations.\n\nExplora nuestra selección cuidadosamente elegida de propiedades premium en los lugares más codiciados del Caribe.",

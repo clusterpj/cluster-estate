@@ -1,13 +1,40 @@
 {
   "Hero": {
-    "title": "Trouvez votre maison de rêve dans le paradis",
+    "title": "Trouvez Votre Maison de Rêve au Paradis",
     "description": "Découvrez des propriétés exceptionnelles qui correspondent à votre style de vie dans les endroits les plus recherchés des Caraïbes.",
     "searchPlaceholder": "Entrez le lieu ou le type de propriété...",
-    "searchButton": "Chercher",
+    "searchButton": "Rechercher",
     "stats": {
       "properties": "Propriétés",
       "clients": "Clients Satisfaits",
-      "locations": "Lieux"
+      "locations": "Emplacements"
+    }
+  },
+  "ParadiseLiving": {
+    "title": "Vivez l'Expérience du Paradis",
+    "subtitle": "Découvrez un style de vie où le luxe rencontre le paradis tropical",
+    "features": {
+      "beachfront": {
+        "title": "Vie en Bord de Mer",
+        "description": "Réveillez-vous au son des vagues et profitez de vues océaniques spectaculaires"
+      },
+      "climate": {
+        "title": "Climat Parfait",
+        "description": "Profitez du soleil toute l'année et des brises tropicales"
+      },
+      "culture": {
+        "title": "Culture Insulaire",
+        "description": "Immergez-vous dans le style de vie vibrant des Caraïbes"
+      },
+      "activities": {
+        "title": "Activités Nautiques",
+        "description": "Accès à la voile, la plongée et aux sports nautiques de classe mondiale"
+      }
+    },
+    "cta": {
+      "title": "Votre Maison de Rêve Vous Attend",
+      "description": "Laissez-nous vous aider à trouver votre coin de paradis parfait dans les Caraïbes",
+      "button": "Commencez Votre Voyage"
     }
   },
   "FeaturedProperties": {
@@ -17,7 +44,7 @@
     "viewAllProperties": "Voir toutes les propriétés",
     "propertyDetails": {
       "beds": "Lits",
-      "baths": "Voici la traduction en français :\n\nBains",
+      "baths": "Bains",
       "sqft": "pied carré"
     },
     "properties": [
@@ -82,10 +109,10 @@
     "description": "Vivez l'alliance parfaite du luxe et de la vie insulaire."
   },
   "AboutUs": {
-    "title": "Voici la traduction en français :\n\nÀ propos des Villas de Cabarete",
+    "title": "À propos des Villas de Cabarete",
     "subtitle": "Votre maison de vacances dans la capitale de l'aventure des Caraïbes",
     "intro": {
-      "title": "Voici la traduction:\n\nNotre histoire",
+      "title": "Notre histoire",
       "content": "Mon mari Chuck et moi sommes originaires d'Erie, en Pennsylvanie, aux États-Unis, et avons parcouru le monde pour trouver une seconde maison. En 2000, nous nous sommes rendus à Cabarete et savions que c'était l'endroit parfait pour nous. Nous avons acheté notre maison sur-le-champ."
     },
     "location": {
@@ -133,7 +160,7 @@
       {
         "title": "Kite surf",
         "description": "Cabarete est mondialement connu pour ses conditions parfaites pour le kitesurf. Que vous soyez débutant ou expert, nos instructeurs certifiés vous aideront à attraper le vent parfait.",
-        "image": "Voici la traduction :\n\n/images/activities/kite-surfing.jpg",
+        "image": "/images/activities/kite-surfing.jpg",
         "contact": "+1 809-555-0124"
       },
       {
@@ -160,7 +187,7 @@
         "title": "Spa Andari",
         "description": "Voici notre préféré ! Massage, physiothérapie, massage aux pierres chaudes, gommages corporels, enveloppements corporels, soins du visage, manucures et pédicures et épilation. Il se trouve dans le Millennium Resort & Spa, Cabarete.",
         "website": "www.andarispa.com",
-        "image": "Voici la traduction :\n\n/images/activities/spa.jpg"
+        "image": "/images/activities/spa.jpg"
       }
     ]
   }

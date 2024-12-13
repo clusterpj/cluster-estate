@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const WavesIcon = () => (
   <svg
@@ -84,161 +85,98 @@ const AnchorIcon = () => (
   </svg>
 );
 
-const lifestyleFeatures = [
-  {
-    icon: <WavesIcon />,
-    title: "Beachfront Living",
-    description: "Wake up to the sound of waves and stunning ocean views",
-  },
-  {
-    icon: <SunIcon />,
-    title: "Perfect Climate",
-    description: "Enjoy year-round sunshine and tropical breezes",
-  },
-  {
-    icon: <PalmIcon />,
-    title: "Island Culture",
-    description: "Immerse yourself in the vibrant Caribbean lifestyle",
-  },
-  {
-    icon: <AnchorIcon />,
-    title: "Water Activities",
-    description: "Access to world-class sailing, diving, and water sports",
-  },
-];
-
 export function LifestylePreview() {
+  const t = useTranslations('ParadiseLiving');
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0]);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const lifestyleFeatures = [
+    {
+      icon: <WavesIcon />,
+      title: t('features.beachfront.title'),
+      description: t('features.beachfront.description'),
+    },
+    {
+      icon: <SunIcon />,
+      title: t('features.climate.title'),
+      description: t('features.climate.description'),
+    },
+    {
+      icon: <PalmIcon />,
+      title: t('features.culture.title'),
+      description: t('features.culture.description'),
+    },
+    {
+      icon: <AnchorIcon />,
+      title: t('features.activities.title'),
+      description: t('features.activities.description'),
+    },
+  ];
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      className="relative min-h-screen overflow-hidden bg-gradient-to-b from-caribbean-900 to-caribbean-700 dark:from-caribbean-950 dark:to-caribbean-900"
+      className="relative min-h-screen w-full overflow-hidden bg-background py-24 dark:bg-[#001219]"
     >
-      {/* Parallax Background */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0 bg-repeat opacity-10" style={{ backgroundImage: 'url("/pattern.svg")' }} />
-      </div>
-
-      {/* Content */}
-      <div className="relative container mx-auto px-4 py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Experience Paradise Living
+      <div className="container relative z-10 mx-auto px-4">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
+            {t('title')}
           </h2>
-          <p className="text-xl text-caribbean-100 max-w-2xl mx-auto">
-            Discover a lifestyle where luxury meets tropical paradise
+          <p className="text-muted-foreground">
+            {t('subtitle')}
           </p>
-        </motion.div>
+        </div>
 
-        {/* Interactive Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {lifestyleFeatures.map((feature, index) => (
-            <motion.div
+            <Card
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative overflow-hidden bg-card/50 p-6 backdrop-blur-sm"
             >
-              <Card className="relative overflow-hidden group h-full bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all duration-300">
-                <div className="p-6 text-center">
-                  <div className="mb-4 text-caribbean-300 group-hover:text-caribbean-200 transition-colors duration-300">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-caribbean-200">
-                    {feature.description}
-                  </p>
-                </div>
-                <div className="absolute inset-0 border-2 border-transparent group-hover:border-caribbean-400/30 rounded-lg transition-all duration-300" />
-              </Card>
-            </motion.div>
+              <div className="mb-4 text-primary">{feature.icon}</div>
+              <h3 className="mb-2 text-xl font-semibold">{feature.title}</h3>
+              <p className="text-sm text-muted-foreground">
+                {feature.description}
+              </p>
+            </Card>
           ))}
         </div>
 
-        {/* Parallax Images */}
-        <div className="relative h-[600px] rounded-xl overflow-hidden">
-          <motion.div
-            style={{ y }}
-            className="absolute inset-0"
-          >
-            <Image
-              src="/lifestyle-hero.jpg"
-              alt="Caribbean Lifestyle"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-caribbean-900 to-transparent" />
-          </motion.div>
-
-          {/* Floating Content */}
-          <motion.div
-            style={{ opacity }}
-            className="relative h-full flex items-center justify-center"
-          >
-            <div className="text-center p-8 backdrop-blur-sm bg-black/30 rounded-xl max-w-2xl">
-              <h3 className="text-3xl font-bold text-white mb-4">
-                Your Dream Home Awaits
-              </h3>
-              <p className="text-caribbean-100 mb-6">
-                Let us help you find your perfect piece of paradise in the Caribbean
-              </p>
-              <Button 
-                size="lg"
-                className="bg-caribbean-500 hover:bg-caribbean-600 text-white"
-              >
-                Start Your Journey
-              </Button>
-            </div>
-          </motion.div>
+        <div className="relative mt-24 overflow-hidden rounded-lg bg-[url('/images/beach-path.jpg')] bg-cover bg-center bg-no-repeat p-8 text-white shadow-lg md:p-16">
+          <div className="relative z-10 mx-auto max-w-3xl text-center">
+            <h3 className="mb-4 text-3xl font-bold md:text-4xl">
+              {t('cta.title')}
+            </h3>
+            <p className="mb-8 text-lg text-white/90">
+              {t('cta.description')}
+            </p>
+            <Button size="lg" variant="default">
+              {t('cta.button')}
+            </Button>
+          </div>
+          <div className="absolute inset-0 bg-black/40" />
         </div>
       </div>
 
-      {/* Decorative Wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg
-          viewBox="0 0 1440 120"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-auto"
-        >
-          <path
-            d="M0 0L48 8C96 16 192 32 288 37.3C384 43 480 37 576 32C672 27 768 21 864 24.7C960 27 1056 37 1152 40.3C1248 43 1344 37 1392 34.7L1440 32V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0V0Z"
-            fill="currentColor"
-            className="text-background"
-          />
-        </svg>
-      </div>
+      <motion.div
+        style={{ y, opacity }}
+        className="pointer-events-none absolute inset-0 z-0"
+      >
+        <Image
+          src="/images/lifestyle-bg.jpg"
+          alt="Lifestyle background"
+          fill
+          className="object-cover"
+          priority
+        />
+      </motion.div>
     </section>
   );
 }
