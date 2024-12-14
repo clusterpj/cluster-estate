@@ -1,9 +1,11 @@
 {
   "Hero": {
     "title": "Finden Sie Ihr Traumhaus im Paradies",
+    "subtitle": "Entdecken Sie Luxusimmobilien in erstklassigen Lagen",
     "description": "Entdecken Sie außergewöhnliche Immobilien, die zu Ihrem Lebensstil passen, an den begehrtesten Orten der Karibik.",
     "searchPlaceholder": "Standort oder Immobilientyp eingeben...",
     "searchButton": "Suchen",
+    "backgroundAlt": "Luxushaus",
     "stats": {
       "properties": "Immobilien",
       "clients": "Zufriedene Kunden",
@@ -190,5 +192,39 @@
         "image": "/images/activities/spa.jpg"
       }
     ]
+  },
+  "auth": {
+    "loginTitle": "Anmelden",
+    "loginDescription": "Willkommen zurück! Bitte melden Sie sich in Ihrem Konto an.",
+    "registerTitle": "Konto erstellen",
+    "registerDescription": "Erstellen Sie ein neues Konto, um loszulegen.",
+    "signIn": "Anmelden",
+    "signUp": "Registrieren",
+    "signOut": "Abmelden",
+    "dashboard": "Dashboard",
+    "profile": "Profil",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "forgotPassword": "Passwort vergessen?",
+    "rememberMe": "Angemeldet bleiben",
+    "dontHaveAccount": "Noch kein Konto?",
+    "alreadyHaveAccount": "Bereits ein Konto?",
+    "createAccount": "Konto erstellen",
+    "signInNow": "Jetzt anmelden",
+    "emailPlaceholder": "E-Mail-Adresse eingeben",
+    "passwordPlaceholder": "Passwort eingeben",
+    "confirmPasswordPlaceholder": "Passwort bestätigen",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "loggingIn": "Anmeldung läuft...",
+    "registering": "Konto wird erstellt...",
+    "noAccount": "Noch kein Konto?",
+    "haveAccount": "Bereits ein Konto?",
+    "loginSuccess": "Erfolgreich angemeldet!",
+    "loginError": "Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.",
+    "registrationSuccess": "Konto erfolgreich erstellt! Bitte melden Sie sich an.",
+    "registrationError": "Konto konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+    "passwordMismatch": "Die Passwörter stimmen nicht überein."
   }
 }

@@ -1,9 +1,11 @@
 {
   "Hero": {
-    "title": "Find Your Dream Home in Paradise",
+    "title": "Find Your Dream Home",
+    "subtitle": "Discover luxury properties in prime locations",
+    "searchPlaceholder": "Enter location, property type, or keywords...",
+    "searchButton": "Search Properties",
+    "backgroundAlt": "Luxury Home",
     "description": "Discover exceptional properties that match your lifestyle in the Caribbean's most sought-after locations.",
-    "searchPlaceholder": "Enter location or property type...",
-    "searchButton": "Search",
     "stats": {
       "properties": "Properties",
       "clients": "Happy Clients",
@@ -190,5 +192,39 @@
         "image": "/images/activities/spa.jpg"
       }
     ]
+  },
+  "auth": {
+    "loginTitle": "Sign In",
+    "loginDescription": "Welcome back! Please sign in to your account.",
+    "registerTitle": "Create Account",
+    "registerDescription": "Create a new account to get started.",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember Me",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "createAccount": "Create Account",
+    "signInNow": "Sign In Now",
+    "emailPlaceholder": "Enter your email address",
+    "passwordPlaceholder": "Enter your password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "login": "Sign In",
+    "register": "Sign Up",
+    "loggingIn": "Signing in...",
+    "registering": "Creating account...",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "loginSuccess": "Successfully signed in!",
+    "loginError": "Failed to sign in. Please check your credentials.",
+    "registrationSuccess": "Account created successfully! Please sign in.",
+    "registrationError": "Failed to create account. Please try again.",
+    "passwordMismatch": "Passwords do not match."
   }
 }

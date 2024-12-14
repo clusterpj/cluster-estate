@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, Search, SlidersHorizontal, Home, Building2, Users, Info, Phone } from "lucide-react";
+import { Menu, Search, SlidersHorizontal, Home, Building2, Users, Info, Phone, User, LogOut } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "./ui/sheet";
@@ -27,11 +27,21 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Separator } from "./ui/separator";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from './language-switcher';
+import { useAuth } from "@/components/providers/auth-provider";
+import { useTranslations } from 'next-intl';
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -112,6 +122,9 @@ const SearchFilters = () => (
 );
 
 export function Header() {
+  const { user, signOut } = useAuth();
+  const t = useTranslations();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
@@ -343,7 +356,6 @@ export function Header() {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            <LanguageSwitcher />
           </nav>
 
           {/* Right Section: Search and Theme Toggle */}
@@ -410,55 +422,54 @@ export function Header() {
               </SheetContent>
             </Sheet>
 
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
-                  <Menu className="h-6 w-6" />
+            {/* Authentication */}
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                    <span className="sr-only">User menu</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>
+                    {user.email}
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/dashboard">
+                      {t('auth.dashboard')}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/profile">
+                      {t('auth.profile')}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={signOut} className="text-red-600">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    {t('auth.signOut')}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" asChild>
+                  <Link href="/auth/login">
+                    {t('auth.signIn')}
+                  </Link>
                 </Button>
-              </SheetTrigger>
-              <SheetContent>
-                <div className="flex flex-col gap-4">
-                  <Link href="/properties" className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium group-hover:text-primary transition-colors">Properties</span>
-                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                    </div>
-                    <span className="text-sm text-muted-foreground">Find your dream home from our collection.</span>
+                <Button asChild>
+                  <Link href="/auth/register">
+                    {t('auth.signUp')}
                   </Link>
-                  <Link href="/activities" className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium group-hover:text-primary transition-colors">Activities</span>
-                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                    </div>
-                    <span className="text-sm text-muted-foreground">Discover exciting activities in the Dominican Republic.</span>
-                  </Link>
-                  <Link href="/agents" className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium group-hover:text-primary transition-colors">Agents</span>
-                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                    </div>
-                    <span className="text-sm text-muted-foreground">Connect with experienced real estate professionals.</span>
-                  </Link>
-                  <Link href="/about" className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium group-hover:text-primary transition-colors">About</span>
-                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                    </div>
-                    <span className="text-sm text-muted-foreground">Learn more about us.</span>
-                  </Link>
-                  <Link href="/contact" className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium group-hover:text-primary transition-colors">Contact</span>
-                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                    </div>
-                    <span className="text-sm text-muted-foreground">Get in touch with us.</span>
-                  </Link>
-                  <LanguageSwitcher />
-                </div>
-              </SheetContent>
-            </Sheet>
+                </Button>
+              </div>
+            )}
 
             <ModeToggle />
+            <LanguageSwitcher />
           </div>
         </div>
       </div>

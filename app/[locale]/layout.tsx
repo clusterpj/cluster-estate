@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { locales } from '@/config/i18n';
 import { ThemeProvider } from "@/components/theme-provider";
+import { AuthProvider } from "@/components/providers/auth-provider";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 
@@ -27,19 +28,23 @@ export default async function LocaleLayout({
   const messages = await getMessages(locale);
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <Header />
-        <main className="flex-1 w-full">
-          {children}
-        </main>
-        <Footer />
-      </ThemeProvider>
-    </NextIntlClientProvider>
+    <div className="min-h-screen flex flex-col antialiased">
+      <NextIntlClientProvider locale={locale} messages={messages}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider>
+            <Header />
+            <main className="flex-1 w-full">
+              {children}
+            </main>
+            <Footer />
+          </AuthProvider>
+        </ThemeProvider>
+      </NextIntlClientProvider>
+    </div>
   );
 }

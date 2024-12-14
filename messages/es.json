@@ -1,9 +1,11 @@
 {
   "Hero": {
     "title": "Encuentra tu hogar soñado en el paraíso.",
+    "subtitle": "Descubre propiedades de lujo en ubicaciones privilegiadas",
     "description": "Descubre propiedades excepcionales que se adapten a tu estilo de vida en los destinos más codiciados del Caribe.",
     "searchPlaceholder": "Ingrese la ubicación o el tipo de propiedad...",
     "searchButton": "Buscar",
+    "backgroundAlt": "Casa de Lujo",
     "stats": {
       "properties": "Propiedades",
       "clients": "Clientes Felices",
@@ -190,5 +192,39 @@
         "image": "/images/activities/spa.jpg"
       }
     ]
+  },
+  "auth": {
+    "loginTitle": "Iniciar Sesión",
+    "loginDescription": "¡Bienvenido de nuevo! Por favor, inicia sesión en tu cuenta.",
+    "registerTitle": "Crear Cuenta",
+    "registerDescription": "Crea una nueva cuenta para comenzar.",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar Sesión",
+    "dashboard": "Panel de Control",
+    "profile": "Perfil",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "rememberMe": "Recordarme",
+    "dontHaveAccount": "¿No tienes una cuenta?",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "createAccount": "Crear Cuenta",
+    "signInNow": "Iniciar Sesión Ahora",
+    "emailPlaceholder": "Ingresa tu correo electrónico",
+    "passwordPlaceholder": "Ingresa tu contraseña",
+    "confirmPasswordPlaceholder": "Confirma tu contraseña",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "loggingIn": "Iniciando sesión...",
+    "registering": "Creando cuenta...",
+    "noAccount": "¿No tienes una cuenta?",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "loginSuccess": "¡Has iniciado sesión exitosamente!",
+    "loginError": "Error al iniciar sesión. Por favor, verifica tus credenciales.",
+    "registrationSuccess": "¡Cuenta creada exitosamente! Por favor, inicia sesión.",
+    "registrationError": "Error al crear la cuenta. Por favor, inténtalo de nuevo.",
+    "passwordMismatch": "Las contraseñas no coinciden."
   }
 }
