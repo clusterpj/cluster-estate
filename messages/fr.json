@@ -194,15 +194,82 @@
     ]
   },
   "auth": {
-    "loginTitle": "Se connecter",
-    "loginDescription": "Bienvenue de retour ! Veuillez vous connecter à votre compte.",
+    "loginTitle": "Connexion",
+    "loginDescription": "Bienvenue ! Veuillez vous connecter à votre compte.",
     "registerTitle": "Créer un compte",
     "registerDescription": "Créez un nouveau compte pour commencer.",
     "signIn": "Se connecter",
-    "signUp": "Inscription",
+    "signUp": "S'inscrire",
     "signOut": "Se déconnecter",
+    "userMenu": "Menu utilisateur",
     "dashboard": "Tableau de bord",
     "profile": "Profil",
+    "adminDashboard": "Tableau de bord administrateur",
+    "adminSection": {
+      "title": "Tableau de Bord Admin",
+      "description": "Gérer vos propriétés et utilisateurs",
+      "stats": {
+        "totalProperties": "Total des Propriétés",
+        "available": "Disponibles",
+        "sold": "Vendues",
+        "pending": "En Attente"
+      },
+      "tabs": {
+        "properties": "Propriétés",
+        "users": "Utilisateurs"
+      },
+      "properties": {
+        "title": "Gestion des Propriétés",
+        "description": "Gérer toutes les annonces immobilières",
+        "loading": "Chargement des propriétés...",
+        "error": "Erreur",
+        "success": "Succès",
+        "fetchError": "Échec de la récupération des propriétés",
+        "updateError": "Échec de la mise à jour du statut de la propriété",
+        "updateSuccess": "Statut de la propriété mis à jour avec succès",
+        "table": {
+          "title": "Titre",
+          "price": "Prix",
+          "location": "Emplacement",
+          "status": "Statut",
+          "actions": "Actions"
+        },
+        "status": {
+          "available": "Disponible",
+          "pending": "En Attente",
+          "sold": "Vendue"
+        },
+        "actions": {
+          "markAvailable": "Marquer comme Disponible",
+          "markPending": "Marquer en Attente",
+          "markSold": "Marquer comme Vendue",
+          "edit": "Modifier",
+          "delete": "Supprimer"
+        }
+      },
+      "users": {
+        "title": "Gestion des Utilisateurs",
+        "description": "Gérer les comptes et les rôles des utilisateurs",
+        "loading": "Chargement des utilisateurs...",
+        "error": "Erreur",
+        "success": "Succès",
+        "fetchError": "Échec de la récupération des utilisateurs",
+        "updateError": "Échec de la mise à jour du rôle de l'utilisateur",
+        "updateSuccess": "Rôle de l'utilisateur mis à jour avec succès",
+        "table": {
+          "user": "Utilisateur",
+          "email": "Email",
+          "role": "Rôle",
+          "joined": "Inscrit le",
+          "actions": "Actions"
+        },
+        "roles": {
+          "user": "Utilisateur",
+          "agent": "Agent",
+          "admin": "Administrateur"
+        }
+      }
+    },
     "email": "Courriel",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
@@ -229,21 +296,29 @@
   },
   "nav": {
     "properties": "Propriétés",
+    "buyProperties": "Acheter des propriétés",
+    "buyPropertiesDesc": "Trouvez la maison de vos rêves parmi nos nombreuses annonces",
+    "rentProperties": "Louer des propriétés",
+    "rentPropertiesDesc": "Découvrez des locations qui correspondent à votre style de vie",
+    "newDevelopments": "Nouveaux développements",
+    "newDevelopmentsDesc": "Explorez les propriétés à venir et nouvellement construites",
     "agents": "Agents",
+    "findAgent": "Trouver un agent",
+    "findAgentDesc": "Connectez-vous avec des professionnels de l'immobilier expérimentés",
+    "joinTeam": "Rejoignez notre équipe",
+    "joinTeamDesc": "Commencez votre carrière dans l'immobilier avec nous",
     "activities": "Activités",
     "about": "À propos",
-    "contact": "Contactez-nous",
-    "search": "Chercher",
-    "filters": "Filtres",
-    "signIn": "Se connecter",
-    "signUp": "Inscription",
-    "dashboard": "Tableau de bord",
-    "profile": "Profil",
-    "signOut": "Se déconnecter"
+    "contact": "Contact",
+    "featuredProperties": "Propriétés en vedette",
+    "featuredPropertiesDesc": "Découvrez notre sélection de propriétés premium"
   },
   "search": {
     "placeholder": "Rechercher des propriétés...",
     "filters": "Filtres de recherche",
-    "filtersDesc": "Personnalisez votre recherche de propriété"
+    "filtersDesc": "Personnalisez votre recherche de propriétés",
+    "open": "Ouvrir la recherche",
+    "close": "Fermer la recherche",
+    "title": "Rechercher des propriétés"
   }
 }

@@ -201,8 +201,75 @@
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "signOut": "Sign Out",
+    "userMenu": "User Menu",
     "dashboard": "Dashboard",
     "profile": "Profile",
+    "adminDashboard": "Admin Dashboard",
+    "adminSection": {
+      "title": "Admin Dashboard",
+      "description": "Manage your properties and users",
+      "stats": {
+        "totalProperties": "Total Properties",
+        "available": "Available",
+        "sold": "Sold",
+        "pending": "Pending"
+      },
+      "tabs": {
+        "properties": "Properties",
+        "users": "Users"
+      },
+      "properties": {
+        "title": "Property Management",
+        "description": "Manage all real estate listings",
+        "loading": "Loading properties...",
+        "error": "Error",
+        "success": "Success",
+        "fetchError": "Failed to fetch properties",
+        "updateError": "Failed to update property status",
+        "updateSuccess": "Property status updated successfully",
+        "table": {
+          "title": "Title",
+          "price": "Price",
+          "location": "Location",
+          "status": "Status",
+          "actions": "Actions"
+        },
+        "status": {
+          "available": "Available",
+          "pending": "Pending",
+          "sold": "Sold"
+        },
+        "actions": {
+          "markAvailable": "Mark as Available",
+          "markPending": "Mark as Pending",
+          "markSold": "Mark as Sold",
+          "edit": "Edit",
+          "delete": "Delete"
+        }
+      },
+      "users": {
+        "title": "User Management",
+        "description": "Manage user accounts and roles",
+        "loading": "Loading users...",
+        "error": "Error",
+        "success": "Success",
+        "fetchError": "Failed to fetch users",
+        "updateError": "Failed to update user role",
+        "updateSuccess": "User role updated successfully",
+        "table": {
+          "user": "User",
+          "email": "Email",
+          "role": "Role",
+          "joined": "Joined",
+          "actions": "Actions"
+        },
+        "roles": {
+          "user": "User",
+          "agent": "Agent",
+          "admin": "Admin"
+        }
+      }
+    },
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm Password",
@@ -229,21 +296,29 @@
   },
   "nav": {
     "properties": "Properties",
+    "buyProperties": "Buy Properties",
+    "buyPropertiesDesc": "Find your dream home from our extensive listings",
+    "rentProperties": "Rent Properties",
+    "rentPropertiesDesc": "Discover rental properties that match your lifestyle",
+    "newDevelopments": "New Developments",
+    "newDevelopmentsDesc": "Explore upcoming and newly built properties",
     "agents": "Agents",
+    "findAgent": "Find an Agent",
+    "findAgentDesc": "Connect with experienced real estate professionals",
+    "joinTeam": "Join Our Team",
+    "joinTeamDesc": "Start your career in real estate with us",
     "activities": "Activities",
     "about": "About",
     "contact": "Contact",
-    "search": "Search",
-    "filters": "Filters",
-    "signIn": "Sign In",
-    "signUp": "Sign Up",
-    "dashboard": "Dashboard",
-    "profile": "Profile",
-    "signOut": "Sign Out"
+    "featuredProperties": "Featured Properties",
+    "featuredPropertiesDesc": "Discover our handpicked selection of premium properties"
   },
   "search": {
     "placeholder": "Search properties...",
     "filters": "Search Filters",
-    "filtersDesc": "Customize your property search"
+    "filtersDesc": "Customize your property search",
+    "open": "Open Search",
+    "close": "Close Search",
+    "title": "Search Properties"
   }
 }

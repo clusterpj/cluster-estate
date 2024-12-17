@@ -98,7 +98,7 @@ const SearchFilters = () => (
 );
 
 export function Header() {
-  const { user, signOut } = useAuth();
+  const { user, signOut, userProfile } = useAuth();
   const t = useTranslations();
   const pathname = usePathname();
   const currentLocale = pathname.split('/')[1];
@@ -350,9 +350,19 @@ export function Header() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>
-                    {user.email}
+                    {userProfile?.full_name || user.email}
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  {userProfile?.role === 'admin' && (
+                    <>
+                      <DropdownMenuItem asChild>
+                        <Link href={localizedHref('/admin')}>
+                          {t('auth.adminDashboard')}
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                    </>
+                  )}
                   <DropdownMenuItem asChild>
                     <Link href={localizedHref('/dashboard')}>
                       {t('auth.dashboard')}

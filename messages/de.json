@@ -195,14 +195,78 @@
   },
   "auth": {
     "loginTitle": "Anmelden",
-    "loginDescription": "Willkommen zurück! Bitte melden Sie sich bei Ihrem Konto an.",
+    "loginDescription": "Willkommen zurück! Bitte melden Sie sich in Ihrem Konto an.",
     "registerTitle": "Konto erstellen",
     "registerDescription": "Erstellen Sie ein neues Konto, um loszulegen.",
     "signIn": "Anmelden",
-    "signUp": "Anmelden",
+    "signUp": "Registrieren",
     "signOut": "Abmelden",
-    "dashboard": "Armaturenbrett",
+    "userMenu": "Benutzermenü",
+    "dashboard": "Dashboard",
     "profile": "Profil",
+    "adminDashboard": "Admin-Dashboard",
+    "adminSection": {
+      "title": "Admin-Dashboard",
+      "description": "Verwalten Sie Immobilien, Benutzer und Systemeinstellungen",
+      "stats": {
+        "totalProperties": "Gesamtimmobilien",
+        "available": "Verfügbar",
+        "sold": "Verkauft",
+        "pending": "Ausstehend"
+      },
+      "tabs": {
+        "properties": "Immobilien",
+        "users": "Benutzer"
+      },
+      "properties": {
+        "title": "Immobilienverwaltung",
+        "description": "Verwalten Sie alle Immobilienangebote",
+        "loading": "Immobilien werden geladen...",
+        "error": "Fehler",
+        "success": "Erfolg",
+        "fetchError": "Fehler beim Laden der Immobilien",
+        "updateError": "Fehler beim Aktualisieren des Immobilienstatus",
+        "updateSuccess": "Immobilienstatus erfolgreich aktualisiert",
+        "table": {
+          "title": "Titel",
+          "price": "Preis",
+          "location": "Standort",
+          "status": "Status",
+          "actions": "Aktionen"
+        },
+        "status": {
+          "available": "Verfügbar",
+          "pending": "Ausstehend",
+          "sold": "Verkauft"
+        },
+        "actions": {
+          "markAvailable": "Als verfügbar markieren",
+          "markPending": "Als ausstehend markieren",
+          "markSold": "Als verkauft markieren"
+        }
+      },
+      "users": {
+        "title": "Benutzerverwaltung",
+        "description": "Verwalten Sie Benutzerkonten und -rollen",
+        "loading": "Benutzer werden geladen...",
+        "error": "Fehler",
+        "success": "Erfolg",
+        "fetchError": "Fehler beim Laden der Benutzer",
+        "updateError": "Fehler beim Aktualisieren der Benutzerrolle",
+        "updateSuccess": "Benutzerrolle erfolgreich aktualisiert",
+        "table": {
+          "user": "Benutzer",
+          "email": "E-Mail",
+          "role": "Rolle",
+          "joined": "Beigetreten"
+        },
+        "roles": {
+          "user": "Benutzer",
+          "agent": "Agent",
+          "admin": "Administrator"
+        }
+      }
+    },
     "email": "E-Mail",
     "password": "Passwort",
     "confirmPassword": "Bestätigen Sie das Passwort",
@@ -228,22 +292,30 @@
     "passwordMismatch": "Passwörter stimmen nicht überein."
   },
   "nav": {
-    "properties": "Eigenschaften",
-    "agents": "Agenten",
+    "properties": "Immobilien",
+    "buyProperties": "Immobilien kaufen",
+    "buyPropertiesDesc": "Finden Sie Ihr Traumhaus in unseren Angeboten",
+    "rentProperties": "Immobilien mieten",
+    "rentPropertiesDesc": "Entdecken Sie Mietobjekte, die zu Ihrem Lebensstil passen",
+    "newDevelopments": "Neubauprojekte",
+    "newDevelopmentsDesc": "Erkunden Sie zukünftige und neu gebaute Immobilien",
+    "agents": "Makler",
+    "findAgent": "Makler finden",
+    "findAgentDesc": "Kontaktieren Sie erfahrene Immobilienprofis",
+    "joinTeam": "Team beitreten",
+    "joinTeamDesc": "Starten Sie Ihre Immobilienkarriere bei uns",
     "activities": "Aktivitäten",
-    "about": "Über",
+    "about": "Über uns",
     "contact": "Kontakt",
-    "search": "Suchen",
-    "filters": "Filter",
-    "signIn": "Anmelden",
-    "signUp": "Anmelden",
-    "dashboard": "Armaturenbrett",
-    "profile": "Profil",
-    "signOut": "Abmelden"
+    "featuredProperties": "Ausgewählte Immobilien",
+    "featuredPropertiesDesc": "Entdecken Sie unsere handverlesene Auswahl an Premium-Immobilien"
   },
   "search": {
     "placeholder": "Immobilien suchen...",
     "filters": "Suchfilter",
-    "filtersDesc": "Passen Sie Ihre Immobiliensuche an"
+    "filtersDesc": "Passen Sie Ihre Immobiliensuche an",
+    "open": "Suche öffnen",
+    "close": "Suche schließen",
+    "title": "Immobilien suchen"
   }
 }

@@ -194,56 +194,105 @@
     ]
   },
   "auth": {
-    "loginTitle": "Iniciar sesión",
-    "loginDescription": "¡Bienvenido de vuelta! Por favor, inicia sesión en tu cuenta.",
-    "registerTitle": "Crear cuenta",
-    "registerDescription": "Crea una nueva cuenta para comenzar.",
-    "signIn": "Iniciar sesión",
-    "signUp": "Regístrese",
-    "signOut": "Cerrar sesión",
-    "dashboard": "Tablero",
+    "loginTitle": "Iniciar Sesión",
+    "loginDescription": "¡Bienvenido de nuevo! Por favor, inicie sesión en su cuenta.",
+    "registerTitle": "Crear Cuenta",
+    "registerDescription": "Cree una nueva cuenta para comenzar.",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar Sesión",
+    "userMenu": "Menú de Usuario",
+    "dashboard": "Panel de Control",
     "profile": "Perfil",
-    "email": "Correo electrónico",
-    "password": "Contraseña",
-    "confirmPassword": "Confirmar Contraseña",
-    "forgotPassword": "¿Olvidaste la contraseña?",
-    "rememberMe": "Recuérdame",
-    "dontHaveAccount": "¿No tienes una cuenta?",
-    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
-    "createAccount": "Crear cuenta",
-    "signInNow": "Iniciar sesión ahora",
-    "emailPlaceholder": "Ingrese su dirección de correo electrónico",
-    "passwordPlaceholder": "Ingresa tu contraseña",
-    "confirmPasswordPlaceholder": "Confirma tu contraseña",
-    "login": "Iniciar sesión",
-    "register": "Regístrese",
-    "loggingIn": "Iniciando sesión...",
-    "registering": "Creando cuenta...",
-    "noAccount": "¿No tienes una cuenta?",
-    "haveAccount": "¿Ya tienes una cuenta?",
-    "loginSuccess": "¡Inicio de sesión exitoso!",
-    "loginError": "No se pudo iniciar sesión. Compruebe sus credenciales.",
-    "registrationSuccess": "Cuenta creada exitosamente. Por favor, inicia sesión.",
-    "registrationError": "No se pudo crear la cuenta. Inténtalo de nuevo.",
-    "passwordMismatch": "Contraseñas no coinciden."
+    "adminDashboard": "Panel de Administración",
+    "adminSection": {
+      "title": "Panel de Administración",
+      "description": "Gestione propiedades, usuarios y configuración del sistema",
+      "stats": {
+        "totalProperties": "Total de Propiedades",
+        "available": "Disponible",
+        "sold": "Vendido",
+        "pending": "Pendiente"
+      },
+      "tabs": {
+        "properties": "Propiedades",
+        "users": "Usuarios"
+      },
+      "properties": {
+        "title": "Gestión de Propiedades",
+        "description": "Gestionar todos los listados de propiedades",
+        "loading": "Cargando propiedades...",
+        "error": "Error",
+        "success": "Éxito",
+        "fetchError": "Error al cargar las propiedades",
+        "updateError": "Error al actualizar el estado de la propiedad",
+        "updateSuccess": "Estado de la propiedad actualizado con éxito",
+        "table": {
+          "title": "Título",
+          "price": "Precio",
+          "location": "Ubicación",
+          "status": "Estado",
+          "actions": "Acciones"
+        },
+        "status": {
+          "available": "Disponible",
+          "pending": "Pendiente",
+          "sold": "Vendido"
+        },
+        "actions": {
+          "markAvailable": "Marcar como Disponible",
+          "markPending": "Marcar como Pendiente",
+          "markSold": "Marcar como Vendido"
+        }
+      },
+      "users": {
+        "title": "Gestión de Usuarios",
+        "description": "Gestionar cuentas y roles de usuarios",
+        "loading": "Cargando usuarios...",
+        "error": "Error",
+        "success": "Éxito",
+        "fetchError": "Error al cargar los usuarios",
+        "updateError": "Error al actualizar el rol del usuario",
+        "updateSuccess": "Rol del usuario actualizado con éxito",
+        "table": {
+          "user": "Usuario",
+          "email": "Correo",
+          "role": "Rol",
+          "joined": "Se unió"
+        },
+        "roles": {
+          "user": "Usuario",
+          "agent": "Agente",
+          "admin": "Administrador"
+        }
+      }
+    }
   },
   "nav": {
     "properties": "Propiedades",
+    "buyProperties": "Comprar propiedades",
+    "buyPropertiesDesc": "Encuentra la casa de tus sueños en nuestros listados",
+    "rentProperties": "Alquilar propiedades",
+    "rentPropertiesDesc": "Descubre propiedades en alquiler que se ajusten a tu estilo de vida",
+    "newDevelopments": "Nuevos desarrollos",
+    "newDevelopmentsDesc": "Explora propiedades por construir y recién construidas",
     "agents": "Agentes",
+    "findAgent": "Encontrar un agente",
+    "findAgentDesc": "Conecta con profesionales inmobiliarios experimentados",
+    "joinTeam": "Únete a nuestro equipo",
+    "joinTeamDesc": "Comienza tu carrera inmobiliaria con nosotros",
     "activities": "Actividades",
-    "about": "Sobre",
+    "about": "Acerca de",
     "contact": "Contacto",
-    "search": "Buscar",
-    "filters": "Filtros",
-    "signIn": "Iniciar sesión",
-    "signUp": "Regístrese",
-    "dashboard": "Tablero",
-    "profile": "Perfil",
-    "signOut": "Cerrar sesión"
+    "featuredProperties": "Propiedades Destacadas",
+    "featuredPropertiesDesc": "Descubre nuestra selección de propiedades premium"
   },
   "search": {
     "placeholder": "Buscar propiedades...",
     "filters": "Filtros de búsqueda",
-    "filtersDesc": "Personaliza tu búsqueda de propiedades"
+    "filtersDesc": "Personaliza tu búsqueda de propiedades",
+    "open": "Abrir búsqueda",
+    "close": "Cerrar búsqueda",
+    "title": "Buscar Propiedades"
   }
 }
