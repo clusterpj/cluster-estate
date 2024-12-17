@@ -220,13 +220,14 @@
       },
       "properties": {
         "title": "Property Management",
-        "description": "Manage all real estate listings",
         "loading": "Loading properties...",
         "error": "Error",
         "success": "Success",
-        "fetchError": "Failed to fetch properties",
-        "updateError": "Failed to update property status",
-        "updateSuccess": "Property status updated successfully",
+        "fetchError": "Error loading properties",
+        "updateError": "Error updating property",
+        "updateSuccess": "Property updated successfully",
+        "createError": "Error creating property",
+        "createSuccess": "Property created successfully",
         "table": {
           "title": "Title",
           "price": "Price",
@@ -240,11 +241,29 @@
           "sold": "Sold"
         },
         "actions": {
-          "markAvailable": "Mark as Available",
-          "markPending": "Mark as Pending",
-          "markSold": "Mark as Sold",
-          "edit": "Edit",
-          "delete": "Delete"
+          "createProperty": "Create Property",
+          "markAvailable": "Mark Available",
+          "markPending": "Mark Pending",
+          "markSold": "Mark Sold"
+        },
+        "form": {
+          "createProperty": "Create New Property",
+          "createPropertyDescription": "Fill in the details below to create a new property listing.",
+          "title": "Title",
+          "description": "Description",
+          "price": "Price",
+          "location": "Location",
+          "bedrooms": "Bedrooms",
+          "bathrooms": "Bathrooms",
+          "squareFeet": "Square Feet",
+          "status": "Status",
+          "selectStatus": "Select a status",
+          "features": "Features",
+          "featuresDescription": "Press Enter to add a new feature",
+          "featuresPlaceholder": "Type a feature and press Enter",
+          "images": "Images",
+          "imagesDescription": "Upload property images (JPG, PNG)",
+          "submit": "Create Property"
         }
       },
       "users": {

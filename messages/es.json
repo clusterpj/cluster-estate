@@ -194,22 +194,22 @@
     ]
   },
   "auth": {
-    "loginTitle": "Iniciar Sesión",
-    "loginDescription": "¡Bienvenido de nuevo! Por favor, inicie sesión en su cuenta.",
-    "registerTitle": "Crear Cuenta",
-    "registerDescription": "Cree una nueva cuenta para comenzar.",
-    "signIn": "Iniciar Sesión",
-    "signUp": "Registrarse",
-    "signOut": "Cerrar Sesión",
-    "userMenu": "Menú de Usuario",
-    "dashboard": "Panel de Control",
+    "loginTitle": "Iniciar sesión",
+    "loginDescription": "¡Bienvenido de vuelta! Por favor, inicia sesión en tu cuenta.",
+    "registerTitle": "Crear cuenta",
+    "registerDescription": "Crea una nueva cuenta para comenzar.",
+    "signIn": "Iniciar sesión",
+    "signUp": "Regístrese",
+    "signOut": "Cerrar sesión",
+    "userMenu": "Menú de usuario",
+    "dashboard": "Tablero",
     "profile": "Perfil",
-    "adminDashboard": "Panel de Administración",
+    "adminDashboard": "Panel de administración",
     "adminSection": {
-      "title": "Panel de Administración",
-      "description": "Gestione propiedades, usuarios y configuración del sistema",
+      "title": "Panel de administración",
+      "description": "Administra tus propiedades y usuarios",
       "stats": {
-        "totalProperties": "Total de Propiedades",
+        "totalProperties": "Propiedades Totales",
         "available": "Disponible",
         "sold": "Vendido",
         "pending": "Pendiente"
@@ -219,14 +219,15 @@
         "users": "Usuarios"
       },
       "properties": {
-        "title": "Gestión de Propiedades",
-        "description": "Gestionar todos los listados de propiedades",
+        "title": "Gestión Inmobiliaria",
         "loading": "Cargando propiedades...",
         "error": "Error",
         "success": "Éxito",
-        "fetchError": "Error al cargar las propiedades",
-        "updateError": "Error al actualizar el estado de la propiedad",
-        "updateSuccess": "Estado de la propiedad actualizado con éxito",
+        "fetchError": "Error cargando propiedades",
+        "updateError": "Error actualizando la propiedad",
+        "updateSuccess": "Propiedad actualizada exitosamente",
+        "createError": "Error al crear la propiedad",
+        "createSuccess": "Propiedad creada con éxito",
         "table": {
           "title": "Título",
           "price": "Precio",
@@ -240,25 +241,40 @@
           "sold": "Vendido"
         },
         "actions": {
-          "markAvailable": "Marcar como Disponible",
-          "markPending": "Marcar como Pendiente",
-          "markSold": "Marcar como Vendido"
+          "createProperty": "Crear propiedad",
+          "markAvailable": "Disponible Mark",
+          "markPending": "Pendiente de Mark",
+          "markSold": "Vendió Marcos"
+        },
+        "form": {
+          "createProperty": "Crear Nueva Propiedad",
+          "title": "Título",
+          "description": "La descripción.",
+          "price": "Precio",
+          "location": "Ubicación",
+          "bedrooms": "Dormitorios",
+          "bathrooms": "Baños",
+          "squareFeet": "Pies cuadrados",
+          "status": "Estado",
+          "selectStatus": "Seleccionar estado",
+          "submit": "Crear propiedad"
         }
       },
       "users": {
-        "title": "Gestión de Usuarios",
-        "description": "Gestionar cuentas y roles de usuarios",
+        "title": "Administración de usuarios",
+        "description": "Administrar cuentas y roles de usuario",
         "loading": "Cargando usuarios...",
         "error": "Error",
         "success": "Éxito",
-        "fetchError": "Error al cargar los usuarios",
-        "updateError": "Error al actualizar el rol del usuario",
-        "updateSuccess": "Rol del usuario actualizado con éxito",
+        "fetchError": "No se pudo obtener a los usuarios",
+        "updateError": "No se pudo actualizar el rol de usuario",
+        "updateSuccess": "El rol de usuario se actualizó correctamente.",
         "table": {
           "user": "Usuario",
-          "email": "Correo",
+          "email": "Correo electrónico",
           "role": "Rol",
-          "joined": "Se unió"
+          "joined": "Unido",
+          "actions": "Acciones"
         },
         "roles": {
           "user": "Usuario",
@@ -266,33 +282,56 @@
           "admin": "Administrador"
         }
       }
-    }
+    },
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "forgotPassword": "¿Olvidaste la contraseña?",
+    "rememberMe": "Recuérdame",
+    "dontHaveAccount": "¿No tienes una cuenta?",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "createAccount": "Crear cuenta",
+    "signInNow": "Iniciar sesión ahora",
+    "emailPlaceholder": "Ingrese su dirección de correo electrónico",
+    "passwordPlaceholder": "Ingresa tu contraseña",
+    "confirmPasswordPlaceholder": "Confirma tu contraseña",
+    "login": "Iniciar sesión",
+    "register": "Regístrese",
+    "loggingIn": "Iniciando sesión...",
+    "registering": "Creando cuenta...",
+    "noAccount": "¿No tienes una cuenta?",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "loginSuccess": "¡Inicio de sesión exitoso!",
+    "loginError": "No se pudo iniciar sesión. Compruebe sus credenciales.",
+    "registrationSuccess": "Cuenta creada exitosamente. Por favor, inicia sesión.",
+    "registrationError": "No se pudo crear la cuenta. Inténtalo de nuevo.",
+    "passwordMismatch": "Contraseñas no coinciden."
   },
   "nav": {
     "properties": "Propiedades",
-    "buyProperties": "Comprar propiedades",
-    "buyPropertiesDesc": "Encuentra la casa de tus sueños en nuestros listados",
-    "rentProperties": "Alquilar propiedades",
-    "rentPropertiesDesc": "Descubre propiedades en alquiler que se ajusten a tu estilo de vida",
+    "buyProperties": "Comprar Propiedades",
+    "buyPropertiesDesc": "Encuentra tu hogar soñado entre nuestras amplias listas.",
+    "rentProperties": "Alquiler de propiedades",
+    "rentPropertiesDesc": "Descubre propiedades de alquiler que se ajusten a tu estilo de vida.",
     "newDevelopments": "Nuevos desarrollos",
-    "newDevelopmentsDesc": "Explora propiedades por construir y recién construidas",
+    "newDevelopmentsDesc": "Explora las propiedades próximas y recién construidas",
     "agents": "Agentes",
-    "findAgent": "Encontrar un agente",
-    "findAgentDesc": "Conecta con profesionales inmobiliarios experimentados",
-    "joinTeam": "Únete a nuestro equipo",
-    "joinTeamDesc": "Comienza tu carrera inmobiliaria con nosotros",
+    "findAgent": "Encuentra un agente",
+    "findAgentDesc": "Conéctate con profesionales inmobiliarios experimentados",
+    "joinTeam": "Únete a Nuestro Equipo",
+    "joinTeamDesc": "Inicia tu carrera en bienes raíces con nosotros.",
     "activities": "Actividades",
-    "about": "Acerca de",
+    "about": "Sobre",
     "contact": "Contacto",
-    "featuredProperties": "Propiedades Destacadas",
-    "featuredPropertiesDesc": "Descubre nuestra selección de propiedades premium"
+    "featuredProperties": "Propiedades destacadas",
+    "featuredPropertiesDesc": "Descubre nuestra selección cuidadosamente elegida de propiedades premium."
   },
   "search": {
     "placeholder": "Buscar propiedades...",
     "filters": "Filtros de búsqueda",
     "filtersDesc": "Personaliza tu búsqueda de propiedades",
-    "open": "Abrir búsqueda",
+    "open": "Búsqueda abierta",
     "close": "Cerrar búsqueda",
-    "title": "Buscar Propiedades"
+    "title": "Buscar propiedades"
   }
 }

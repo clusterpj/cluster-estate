@@ -25,7 +25,7 @@
         "description": "Profitez du soleil et des brises tropicales toute l'année."
       },
       "culture": {
-        "title": "Culture insulaire",
+        "title": "Voici la traduction en français :\n\nCulture insulaire",
         "description": "Plongez-vous dans le mode de vie dynamique des Caraïbes."
       },
       "activities": {
@@ -46,7 +46,7 @@
     "viewAllProperties": "Voir toutes les propriétés",
     "propertyDetails": {
       "beds": "Lits",
-      "baths": "Bains",
+      "baths": "Voici la traduction en français :\n\nBains",
       "sqft": "pied carré"
     },
     "properties": [
@@ -111,10 +111,10 @@
     "description": "Vivez l'alliance parfaite du luxe et de la vie insulaire."
   },
   "AboutUs": {
-    "title": "À propos des Villas de Cabarete",
+    "title": "Voici la traduction en français :\n\nÀ propos des Villas de Cabarete",
     "subtitle": "Votre maison de vacances dans la capitale de l'aventure des Caraïbes",
     "intro": {
-      "title": "Notre histoire",
+      "title": "Voici la traduction:\n\nNotre histoire",
       "content": "Mon mari Chuck et moi sommes originaires d'Erie, en Pennsylvanie, aux États-Unis, et avons parcouru le monde pour trouver une seconde maison. En 2000, nous nous sommes rendus à Cabarete et savions que c'était l'endroit parfait pour nous. Nous avons acheté notre maison sur-le-champ."
     },
     "location": {
@@ -162,7 +162,7 @@
       {
         "title": "Kite surf",
         "description": "Cabarete est mondialement connu pour ses conditions parfaites pour le kitesurf. Que vous soyez débutant ou expert, nos instructeurs certifiés vous aideront à attraper le vent parfait.",
-        "image": "/images/activities/kite-surfing.jpg",
+        "image": "Voici la traduction :\n\n/images/activities/kite-surfing.jpg",
         "contact": "+1 809-555-0124"
       },
       {
@@ -189,44 +189,45 @@
         "title": "Spa Andari",
         "description": "Voici notre préféré ! Massage, physiothérapie, massage aux pierres chaudes, gommages corporels, enveloppements corporels, soins du visage, manucures et pédicures et épilation. Il se trouve dans le Millennium Resort & Spa, Cabarete.",
         "website": "www.andarispa.com",
-        "image": "/images/activities/spa.jpg"
+        "image": "Voici la traduction :\n\n/images/activities/spa.jpg"
       }
     ]
   },
   "auth": {
-    "loginTitle": "Connexion",
-    "loginDescription": "Bienvenue ! Veuillez vous connecter à votre compte.",
+    "loginTitle": "Se connecter",
+    "loginDescription": "Bienvenue de retour ! Veuillez vous connecter à votre compte.",
     "registerTitle": "Créer un compte",
     "registerDescription": "Créez un nouveau compte pour commencer.",
     "signIn": "Se connecter",
-    "signUp": "S'inscrire",
+    "signUp": "Inscription",
     "signOut": "Se déconnecter",
-    "userMenu": "Menu utilisateur",
+    "userMenu": "Menus d'utilisateur",
     "dashboard": "Tableau de bord",
     "profile": "Profil",
-    "adminDashboard": "Tableau de bord administrateur",
+    "adminDashboard": "Tableau de bord d'administration",
     "adminSection": {
-      "title": "Tableau de Bord Admin",
-      "description": "Gérer vos propriétés et utilisateurs",
+      "title": "Tableau de bord d'administration",
+      "description": "Gérez vos biens et utilisateurs",
       "stats": {
-        "totalProperties": "Total des Propriétés",
-        "available": "Disponibles",
-        "sold": "Vendues",
-        "pending": "En Attente"
+        "totalProperties": "Propriétés totales",
+        "available": "Disponible",
+        "sold": "Vendu",
+        "pending": "En attente"
       },
       "tabs": {
         "properties": "Propriétés",
         "users": "Utilisateurs"
       },
       "properties": {
-        "title": "Gestion des Propriétés",
-        "description": "Gérer toutes les annonces immobilières",
+        "title": "Gestion immobilière",
         "loading": "Chargement des propriétés...",
         "error": "Erreur",
         "success": "Succès",
-        "fetchError": "Échec de la récupération des propriétés",
-        "updateError": "Échec de la mise à jour du statut de la propriété",
-        "updateSuccess": "Statut de la propriété mis à jour avec succès",
+        "fetchError": "Erreur de chargement des propriétés",
+        "updateError": "Erreur lors de la mise à jour de la propriété",
+        "updateSuccess": "La propriété a été mise à jour avec succès.",
+        "createError": "Erreur lors de la création de la propriété",
+        "createSuccess": "Propriété créée avec succès",
         "table": {
           "title": "Titre",
           "price": "Prix",
@@ -236,31 +237,44 @@
         },
         "status": {
           "available": "Disponible",
-          "pending": "En Attente",
-          "sold": "Vendue"
+          "pending": "En attente",
+          "sold": "Vendu"
         },
         "actions": {
-          "markAvailable": "Marquer comme Disponible",
-          "markPending": "Marquer en Attente",
-          "markSold": "Marquer comme Vendue",
-          "edit": "Modifier",
-          "delete": "Supprimer"
+          "createProperty": "Créer une propriété",
+          "markAvailable": "Marque disponible",
+          "markPending": "Marque en attente",
+          "markSold": "Vendu par Marc"
+        },
+        "form": {
+          "createProperty": "Créer une nouvelle propriété",
+          "createPropertyDescription": "Remplissez les détails ci-dessous pour créer une nouvelle annonce immobilière.",
+          "title": "Titre",
+          "description": "Voici la traduction en français du texte donné :\n\nDescription",
+          "price": "Prix",
+          "location": "Emplacement",
+          "bedrooms": "Chambres",
+          "bathrooms": "Salles de bains",
+          "squareFeet": "Pieds carrés",
+          "status": "Statut",
+          "selectStatus": "Sélectionnez le statut",
+          "submit": "Créer une propriété"
         }
       },
       "users": {
-        "title": "Gestion des Utilisateurs",
+        "title": "Gestion des utilisateurs",
         "description": "Gérer les comptes et les rôles des utilisateurs",
         "loading": "Chargement des utilisateurs...",
         "error": "Erreur",
         "success": "Succès",
         "fetchError": "Échec de la récupération des utilisateurs",
         "updateError": "Échec de la mise à jour du rôle de l'utilisateur",
-        "updateSuccess": "Rôle de l'utilisateur mis à jour avec succès",
+        "updateSuccess": "Rôle d'utilisateur mis à jour avec succès",
         "table": {
           "user": "Utilisateur",
-          "email": "Email",
+          "email": "Courriel",
           "role": "Rôle",
-          "joined": "Inscrit le",
+          "joined": "Rejointe",
           "actions": "Actions"
         },
         "roles": {
@@ -297,27 +311,27 @@
   "nav": {
     "properties": "Propriétés",
     "buyProperties": "Acheter des propriétés",
-    "buyPropertiesDesc": "Trouvez la maison de vos rêves parmi nos nombreuses annonces",
+    "buyPropertiesDesc": "Trouvez votre maison de rêve parmi nos nombreuses annonces.",
     "rentProperties": "Louer des propriétés",
-    "rentPropertiesDesc": "Découvrez des locations qui correspondent à votre style de vie",
+    "rentPropertiesDesc": "Découvrez des propriétés locatives qui correspondent à votre mode de vie.",
     "newDevelopments": "Nouveaux développements",
     "newDevelopmentsDesc": "Explorez les propriétés à venir et nouvellement construites",
-    "agents": "Agents",
-    "findAgent": "Trouver un agent",
-    "findAgentDesc": "Connectez-vous avec des professionnels de l'immobilier expérimentés",
+    "agents": "Voici la traduction en français :\n\nAgents",
+    "findAgent": "Trouvez un agent",
+    "findAgentDesc": "Connectez-vous avec des professionnels immobiliers expérimentés.",
     "joinTeam": "Rejoignez notre équipe",
-    "joinTeamDesc": "Commencez votre carrière dans l'immobilier avec nous",
+    "joinTeamDesc": "Commencez votre carrière dans l'immobilier avec nous.",
     "activities": "Activités",
-    "about": "À propos",
-    "contact": "Contact",
+    "about": "Voici la traduction en français :\n\nÀ propos",
+    "contact": "Contactez-nous",
     "featuredProperties": "Propriétés en vedette",
-    "featuredPropertiesDesc": "Découvrez notre sélection de propriétés premium"
+    "featuredPropertiesDesc": "Découvrez notre sélection de propriétés haut de gamme choisies avec soin"
   },
   "search": {
     "placeholder": "Rechercher des propriétés...",
     "filters": "Filtres de recherche",
-    "filtersDesc": "Personnalisez votre recherche de propriétés",
-    "open": "Ouvrir la recherche",
+    "filtersDesc": "Personnalisez votre recherche de propriété",
+    "open": "Rechercher",
     "close": "Fermer la recherche",
     "title": "Rechercher des propriétés"
   }

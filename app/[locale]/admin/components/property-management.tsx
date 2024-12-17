@@ -14,6 +14,15 @@ import {
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Toast } from '@/components/ui/toast'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { PropertyForm } from './property-form'
 import { useTranslations } from 'next-intl'
 
 type Property = Database['public']['Tables']['properties']['Row']
@@ -21,6 +30,7 @@ type Property = Database['public']['Tables']['properties']['Row']
 export function PropertyManagement() {
   const [properties, setProperties] = useState<Property[]>([])
   const [loading, setLoading] = useState(true)
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [toastMessage, setToastMessage] = useState<{ title: string; description: string; type: 'success' | 'error' } | null>(null)
   const supabase = createClientComponentClient<Database>()
   const t = useTranslations('auth.adminSection.properties')
@@ -91,6 +101,42 @@ export function PropertyManagement() {
           onOpenChange={() => setToastMessage(null)}
         />
       )}
+      
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold">{t('title')}</h2>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button>{t('actions.createProperty')}</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[600px]">
+            <DialogHeader>
+              <DialogTitle>{t('form.createProperty')}</DialogTitle>
+              <DialogDescription>
+                {t('form.createPropertyDescription')}
+              </DialogDescription>
+            </DialogHeader>
+            <PropertyForm
+              onSuccess={() => {
+                setIsDialogOpen(false)
+                fetchProperties()
+                setToastMessage({
+                  title: t('success'),
+                  description: t('createSuccess'),
+                  type: 'success'
+                })
+              }}
+              onError={(error) => {
+                setToastMessage({
+                  title: t('error'),
+                  description: t('createError'),
+                  type: 'error'
+                })
+              }}
+            />
+          </DialogContent>
+        </Dialog>
+      </div>
+
       <Table>
         <TableHeader>
           <TableRow>
