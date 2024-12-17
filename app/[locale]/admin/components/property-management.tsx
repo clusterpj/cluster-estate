@@ -17,6 +17,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { PropertyForm } from './property-form'
 import { useTranslations } from 'next-intl'
 import { useToast } from "@/hooks/use-toast"
+import { X } from 'lucide-react'
 
 type Property = Database['public']['Tables']['properties']['Row']
 
@@ -128,16 +129,29 @@ export function PropertyManagement() {
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">{t('title')}</h2>
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <Dialog open={isDialogOpen} onOpenChange={(open) => {
+          // Only allow closing via the close button
+          if (!open) {
+            return;
+          }
+          setIsDialogOpen(open);
+        }}>
           <DialogTrigger asChild>
             <Button>{t('actions.createProperty')}</Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
+          <DialogContent className="sm:max-w-[600px]" hideDefaultClose>
             <DialogHeader>
-              <DialogTitle>{t('form.createProperty')}</DialogTitle>
-              <DialogDescription>
-                {t('form.createPropertyDescription')}
-              </DialogDescription>
+              <div className="flex justify-between items-center">
+                <DialogTitle>{t('form.createProperty')}</DialogTitle>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsDialogOpen(false)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+              <DialogDescription>{t('form.createPropertyDescription')}</DialogDescription>
             </DialogHeader>
             <PropertyForm
               onSuccess={() => {
@@ -161,13 +175,26 @@ export function PropertyManagement() {
         </Dialog>
       </div>
 
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="sm:max-w-[600px]">
+      <Dialog open={isEditDialogOpen} onOpenChange={(open) => {
+        // Only allow closing via the close button
+        if (!open) {
+          return;
+        }
+        setIsEditDialogOpen(open);
+      }}>
+        <DialogContent className="sm:max-w-[600px]" hideDefaultClose>
           <DialogHeader>
-            <DialogTitle>{t('form.editProperty')}</DialogTitle>
-            <DialogDescription>
-              {t('form.editPropertyDescription')}
-            </DialogDescription>
+            <div className="flex justify-between items-center">
+              <DialogTitle>{t('form.editProperty')}</DialogTitle>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsEditDialogOpen(false)}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <DialogDescription>{t('form.editPropertyDescription')}</DialogDescription>
           </DialogHeader>
           {selectedProperty && (
             <PropertyForm
@@ -195,13 +222,17 @@ export function PropertyManagement() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <DialogContent>
+      <Dialog open={isDeleteDialogOpen} onOpenChange={(open) => {
+        // Only allow closing via the close button
+        if (!open) {
+          return;
+        }
+        setIsDeleteDialogOpen(open);
+      }}>
+        <DialogContent hideDefaultClose>
           <DialogHeader>
             <DialogTitle>{t('deleteConfirmation.title')}</DialogTitle>
-            <DialogDescription>
-              {t('deleteConfirmation.description')}
-            </DialogDescription>
+            <DialogDescription>{t('deleteConfirmation.description')}</DialogDescription>
           </DialogHeader>
           <div className="flex justify-end space-x-2 mt-4">
             <Button
