@@ -6,20 +6,9 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
   // Enable parallel routes handling
   experimental: {
-    parallelRoutes: true,
+    // Remove parallelRoutes as it's not needed and might cause conflicts
   }
 };
 
-export default withNextIntl({
-  ...nextConfig,
-  // Ensure proper handling of dynamic routes
-  async redirects() {
-    return [
-      {
-        source: '/admin',
-        destination: '/en/admin',
-        permanent: true,
-      },
-    ];
-  },
-});
+// Apply next-intl plugin
+export default withNextIntl(nextConfig);

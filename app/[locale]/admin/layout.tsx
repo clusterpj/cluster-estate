@@ -3,14 +3,17 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import type { Database } from '../../../types/supabase'
 import { Suspense } from 'react'
+import type { Locale } from '../../../config/i18n'
 
 interface AdminLayoutProps {
   children: React.ReactNode
+  params: { locale: Locale }
   parallel?: React.ReactNode
 }
 
 export default async function AdminLayout({
   children,
+  params: { locale },
   parallel
 }: AdminLayoutProps) {
   const supabase = createServerComponentClient<Database>({ cookies })
@@ -20,7 +23,7 @@ export default async function AdminLayout({
   } = await supabase.auth.getSession()
 
   if (!session) {
-    redirect('/auth/login')
+    redirect(`/${locale}/auth/login`)
   }
 
   // Fetch user profile to check role
@@ -31,7 +34,7 @@ export default async function AdminLayout({
     .single()
 
   if (!profile || profile.role !== 'admin') {
-    redirect('/')
+    redirect(`/${locale}`)
   }
 
   return (

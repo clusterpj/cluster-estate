@@ -1,104 +1,78 @@
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-import type { Database } from './types/supabase'
-import { defaultLocale, locales, type Locale } from './config/i18n'
+import createMiddleware from 'next-intl/middleware';
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { defaultLocale, locales } from './config/i18n';
 
-// Define protected routes that require authentication
-const PROTECTED_ROUTES = ['/profile', '/admin']
-const AUTH_ROUTES = ['/auth/login', '/auth/register']
+const publicPages = ['/', '/auth/login', '/auth/register', '/about'];
 
-export async function middleware(request: NextRequest) {
-  const { pathname, search } = request.nextUrl
-  const supabase = createMiddlewareClient<Database>({ req: request, res: NextResponse.next() })
+// Create next-intl middleware
+const intlMiddleware = createMiddleware({
+  locales,
+  defaultLocale,
+  localePrefix: 'always'
+});
 
-  // Check if the pathname starts with a locale
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  )
+export default async function middleware(req: NextRequest) {
+  const response = await intlMiddleware(req);
 
-  // Get locale from pathname or use default
-  const pathnameParts = pathname.split('/')
-  const potentialLocale = pathnameParts[1]
-  const currentLocale: Locale = pathnameHasLocale && locales.includes(potentialLocale as Locale)
-    ? potentialLocale as Locale
-    : defaultLocale
+  // Create a Supabase client configured to use cookies
+  const supabase = createMiddlewareClient({ req, res: response });
+
+  // Refresh session if expired - required for Server Components
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  // Get the pathname of the request
+  const { pathname } = req.nextUrl;
 
   // Get path without locale
-  const pathWithoutLocale = pathnameHasLocale 
-    ? `/${pathnameParts.slice(2).join('/')}` 
-    : pathname
+  const pathnameHasLocale = locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
+  const pathWithoutLocale = pathnameHasLocale
+    ? pathname.slice(pathname.indexOf('/', 1))
+    : pathname;
 
-  // Handle session
-  const { data: { session } } = await supabase.auth.getSession()
-
-  // Redirect if no locale is present
-  if (!pathnameHasLocale) {
-    return NextResponse.redirect(
-      new URL(
-        `/${defaultLocale}${pathname === '/' ? '' : pathname}${search}`,
-        request.url
-      )
-    )
-  }
-
-  // Validate locale
-  if (pathnameHasLocale && !locales.includes(potentialLocale as Locale)) {
-    return NextResponse.redirect(
-      new URL(
-        `/${defaultLocale}${pathWithoutLocale}${search}`,
-        request.url
-      )
-    )
-  }
+  // Check if the page is public or protected
+  const isPublicPage = publicPages.includes(pathWithoutLocale);
 
   // Handle protected routes
-  if (PROTECTED_ROUTES.some(route => pathWithoutLocale.startsWith(route))) {
-    if (!session) {
-      const searchParams = new URLSearchParams({
-        next: `/${currentLocale}${pathWithoutLocale}`,
-      })
-      return NextResponse.redirect(
-        new URL(`/${currentLocale}/auth/login?${searchParams}`, request.url)
-      )
-    }
-
-    // Special handling for admin routes
-    if (pathWithoutLocale.startsWith('/admin')) {
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', session.user.id)
-        .single()
-
-      if (!profile || profile.role !== 'admin') {
-        return NextResponse.redirect(
-          new URL(`/${currentLocale}`, request.url)
-        )
-      }
-    }
+  if (!isPublicPage && !session) {
+    // Get locale from pathname
+    const locale = pathnameHasLocale ? pathname.split('/')[1] : defaultLocale;
+    
+    // Redirect to login page with callback URL
+    const redirectUrl = new URL(`/${locale}/auth/login`, req.url);
+    redirectUrl.searchParams.set('callbackUrl', pathname);
+    return NextResponse.redirect(redirectUrl);
   }
 
-  // Redirect authenticated users away from auth routes
-  if (AUTH_ROUTES.some(route => pathWithoutLocale.startsWith(route)) && session) {
-    return NextResponse.redirect(
-      new URL(`/${currentLocale}`, request.url)
-    )
-  }
-
-  // Handle parallel routes for admin section
+  // Special handling for admin routes
   if (pathWithoutLocale.startsWith('/admin')) {
-    const response = NextResponse.next()
-    response.headers.set('x-middleware-cache', 'no-cache')
-    return response
+    if (!session) {
+      const locale = pathnameHasLocale ? pathname.split('/')[1] : defaultLocale;
+      const redirectUrl = new URL(`/${locale}/auth/login`, req.url);
+      redirectUrl.searchParams.set('callbackUrl', pathname);
+      return NextResponse.redirect(redirectUrl);
+    }
+
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', session.user.id)
+      .single();
+
+    if (!profile || profile.role !== 'admin') {
+      const locale = pathnameHasLocale ? pathname.split('/')[1] : defaultLocale;
+      return NextResponse.redirect(new URL(`/${locale}`, req.url));
+    }
   }
 
-  return NextResponse.next()
+  return response;
 }
 
 export const config = {
-  matcher: [
-    // Match all paths except static assets and api routes
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
-}
+  matcher: ['/((?!api|_next|.*\\..*).*)']
+};

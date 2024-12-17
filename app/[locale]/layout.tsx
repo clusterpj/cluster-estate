@@ -1,15 +1,15 @@
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
-import { locales } from '@/config/i18n';
-import { ThemeProvider } from "@/components/theme-provider";
-import { AuthProvider } from "@/components/providers/auth-provider";
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
+import { locales, type Locale } from '../../config/i18n';
+import { ThemeProvider } from '../../components/theme-provider';
+import { AuthProvider } from '../../components/providers/auth-provider';
+import { Footer } from '../../components/footer';
+import { Header } from '../../components/header';
 
-async function getMessages(locale: string) {
+async function getMessages(locale: Locale) {
   try {
-    return (await import(`@/messages/${locale}.json`)).default;
-  } catch (error) {
+    return (await import(`../../messages/${locale}.json`)).default;
+  } catch {
     notFound();
   }
 }
@@ -23,28 +23,36 @@ export default async function LocaleLayout({
   params: { locale },
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: { locale: Locale };
 }) {
+  // Validate locale
+  if (!locales.includes(locale)) {
+    notFound();
+  }
+
   const messages = await getMessages(locale);
 
   return (
-    <div className="min-h-screen flex flex-col antialiased">
-      <NextIntlClientProvider locale={locale} messages={messages}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AuthProvider>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <AuthProvider>
+          <div className="min-h-screen flex flex-col antialiased">
             <Header />
             <main className="flex-1 w-full">
               {children}
             </main>
             <Footer />
-          </AuthProvider>
-        </ThemeProvider>
-      </NextIntlClientProvider>
-    </div>
+          </div>
+        </AuthProvider>
+      </ThemeProvider>
+    </NextIntlClientProvider>
   );
 }
+
+// Prevent static rendering to ensure proper locale handling
+export const dynamic = 'force-dynamic';

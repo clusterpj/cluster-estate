@@ -9,14 +9,20 @@ export const metadata: Metadata = {
   description: 'Your premier real estate platform',
 };
 
+// This layout only handles the base HTML structure
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning>
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        {children}
+      </body>
     </html>
   );
 }
+
+// Prevent static rendering to ensure proper locale handling
+export const dynamic = 'force-dynamic';
