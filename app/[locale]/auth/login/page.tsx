@@ -24,6 +24,9 @@ export default function LoginPage() {
     try {
       setLoading(true)
       await signIn(email, password)
+      
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
       setToastMessage({
         title: t('success'),
         description: t('loginSuccess'),

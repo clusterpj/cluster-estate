@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { Button } from "@/components/ui/button";
 import { HeroSection } from "@/components/hero-section";
 import { FeaturedProperties } from "@/components/featured-properties";
@@ -12,7 +12,7 @@ type Props = {
 }
 
 export default function Home({ params: { locale } }: Props) {
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   
   return (
     <main className="min-h-screen">
