@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { toast } from 'sonner'
+import { Toast } from '@/components/ui/toast'
 
 export default function LoginPage() {
   const t = useTranslations('auth')
@@ -17,16 +17,25 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [toastMessage, setToastMessage] = useState<{ title: string; description: string; type: 'success' | 'error' } | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
       setLoading(true)
       await signIn(email, password)
-      toast.success(t('loginSuccess'))
+      setToastMessage({
+        title: t('success'),
+        description: t('loginSuccess'),
+        type: 'success'
+      })
       router.push('/')
     } catch (error) {
-      toast.error(t('loginError'))
+      setToastMessage({
+        title: t('error'),
+        description: t('loginError'),
+        type: 'error'
+      })
       console.error('Login error:', error)
     } finally {
       setLoading(false)
@@ -35,6 +44,14 @@ export default function LoginPage() {
 
   return (
     <div className="container mx-auto flex h-screen items-center justify-center px-4">
+      {toastMessage && (
+        <Toast
+          title={toastMessage.title}
+          description={toastMessage.description}
+          variant={toastMessage.type === 'error' ? 'destructive' : 'default'}
+          onOpenChange={() => setToastMessage(null)}
+        />
+      )}
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>{t('loginTitle')}</CardTitle>

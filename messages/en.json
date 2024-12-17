@@ -228,6 +228,8 @@
         "updateSuccess": "Property updated successfully",
         "createError": "Error creating property",
         "createSuccess": "Property created successfully",
+        "deleteSuccess": "Property deleted successfully",
+        "deleteError": "Failed to delete property",
         "table": {
           "title": "Title",
           "price": "Price",
@@ -244,11 +246,15 @@
           "createProperty": "Create Property",
           "markAvailable": "Mark Available",
           "markPending": "Mark Pending",
-          "markSold": "Mark Sold"
+          "markSold": "Mark Sold",
+          "edit": "Edit",
+          "delete": "Delete"
         },
         "form": {
           "createProperty": "Create New Property",
           "createPropertyDescription": "Fill in the details below to create a new property listing.",
+          "editProperty": "Edit Property",
+          "editPropertyDescription": "Update the property details below.",
           "title": "Title",
           "description": "Description",
           "price": "Price",
@@ -263,7 +269,13 @@
           "featuresPlaceholder": "Type a feature and press Enter",
           "images": "Images",
           "imagesDescription": "Upload property images (JPG, PNG)",
-          "submit": "Create Property"
+          "submit": "Save Property"
+        },
+        "deleteConfirmation": {
+          "title": "Delete Property",
+          "description": "Are you sure you want to delete this property? This action cannot be undone.",
+          "confirm": "Delete",
+          "cancel": "Cancel"
         }
       },
       "users": {

@@ -13,17 +13,10 @@ import {
 } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Toast } from '@/components/ui/toast'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogTrigger,
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from '@/components/ui/dialog'
 import { PropertyForm } from './property-form'
 import { useTranslations } from 'next-intl'
+import { useToast } from "@/hooks/use-toast"
 
 type Property = Database['public']['Tables']['properties']['Row']
 
@@ -31,9 +24,13 @@ export function PropertyManagement() {
   const [properties, setProperties] = useState<Property[]>([])
   const [loading, setLoading] = useState(true)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [toastMessage, setToastMessage] = useState<{ title: string; description: string; type: 'success' | 'error' } | null>(null)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
   const supabase = createClientComponentClient<Database>()
   const t = useTranslations('auth.adminSection.properties')
+  const [toastMessage, setToastMessage] = useState<{ title: string; description: string; type: 'success' | 'error' } | null>(null)
+  const { toast } = useToast()
 
   // Fetch properties on component mount
   useEffect(() => {
@@ -72,7 +69,6 @@ export function PropertyManagement() {
 
       // Refresh properties
       fetchProperties()
-      
       setToastMessage({
         title: t('success'),
         description: t('updateSuccess'),
@@ -87,21 +83,49 @@ export function PropertyManagement() {
     }
   }
 
+  async function handleDeleteProperty(id: string) {
+    try {
+      const { error } = await supabase
+        .from('properties')
+        .delete()
+        .eq('id', id)
+
+      if (error) throw error
+
+      fetchProperties()
+      setIsDeleteDialogOpen(false)
+      setToastMessage({
+        title: t('success'),
+        description: t('deleteSuccess'),
+        type: 'success'
+      })
+    } catch (error) {
+      console.error('Error deleting property:', error)
+      setToastMessage({
+        title: t('error'),
+        description: t('deleteError'),
+        type: 'error'
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (toastMessage) {
+      toast({
+        title: toastMessage.title,
+        description: toastMessage.description,
+        variant: toastMessage.type === 'error' ? 'destructive' : 'default',
+      })
+      setToastMessage(null)
+    }
+  }, [toastMessage, toast])
+
   if (loading) {
     return <div>{t('loading')}</div>
   }
 
   return (
     <div className="space-y-4">
-      {toastMessage && (
-        <Toast
-          title={toastMessage.title}
-          description={toastMessage.description}
-          variant={toastMessage.type === 'error' ? 'destructive' : 'default'}
-          onOpenChange={() => setToastMessage(null)}
-        />
-      )}
-      
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">{t('title')}</h2>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -137,6 +161,65 @@ export function PropertyManagement() {
         </Dialog>
       </div>
 
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="sm:max-w-[600px]">
+          <DialogHeader>
+            <DialogTitle>{t('form.editProperty')}</DialogTitle>
+            <DialogDescription>
+              {t('form.editPropertyDescription')}
+            </DialogDescription>
+          </DialogHeader>
+          {selectedProperty && (
+            <PropertyForm
+              mode="edit"
+              propertyId={selectedProperty.id}
+              initialData={selectedProperty}
+              onSuccess={() => {
+                setIsEditDialogOpen(false)
+                fetchProperties()
+                setToastMessage({
+                  title: t('success'),
+                  description: t('updateSuccess'),
+                  type: 'success'
+                })
+              }}
+              onError={(error) => {
+                setToastMessage({
+                  title: t('error'),
+                  description: t('updateError'),
+                  type: 'error'
+                })
+              }}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t('deleteConfirmation.title')}</DialogTitle>
+            <DialogDescription>
+              {t('deleteConfirmation.description')}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end space-x-2 mt-4">
+            <Button
+              variant="outline"
+              onClick={() => setIsDeleteDialogOpen(false)}
+            >
+              {t('deleteConfirmation.cancel')}
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => selectedProperty && handleDeleteProperty(selectedProperty.id)}
+            >
+              {t('deleteConfirmation.confirm')}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       <Table>
         <TableHeader>
           <TableRow>
@@ -157,7 +240,7 @@ export function PropertyManagement() {
                 <Badge variant={
                   property.status === 'available' ? 'default' :
                   property.status === 'pending' ? 'secondary' :
-                  'success'
+                  'outline'
                 }>
                   {t(`status.${property.status}`)}
                 </Badge>
@@ -187,6 +270,26 @@ export function PropertyManagement() {
                     disabled={property.status === 'sold'}
                   >
                     {t('actions.markSold')}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setSelectedProperty(property)
+                      setIsEditDialogOpen(true)
+                    }}
+                  >
+                    {t('actions.edit')}
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => {
+                      setSelectedProperty(property)
+                      setIsDeleteDialogOpen(true)
+                    }}
+                  >
+                    {t('actions.delete')}
                   </Button>
                 </div>
               </TableCell>

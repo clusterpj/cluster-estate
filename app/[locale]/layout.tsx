@@ -5,6 +5,7 @@ import { ThemeProvider } from '../../components/theme-provider';
 import { AuthProvider } from '../../components/providers/auth-provider';
 import { Footer } from '../../components/footer';
 import { Header } from '../../components/header';
+import { Toaster } from '@/components/ui/toaster';
 
 async function getMessages(locale: Locale) {
   try {
@@ -47,6 +48,7 @@ export default async function LocaleLayout({
               {children}
             </main>
             <Footer />
+            <Toaster />
           </div>
         </AuthProvider>
       </ThemeProvider>

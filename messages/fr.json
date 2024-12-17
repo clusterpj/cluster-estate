@@ -228,6 +228,8 @@
         "updateSuccess": "La propriété a été mise à jour avec succès.",
         "createError": "Erreur lors de la création de la propriété",
         "createSuccess": "Propriété créée avec succès",
+        "deleteSuccess": "Propriété supprimée avec succès.",
+        "deleteError": "Échec de la suppression de la propriété",
         "table": {
           "title": "Titre",
           "price": "Prix",
@@ -244,11 +246,15 @@
           "createProperty": "Créer une propriété",
           "markAvailable": "Marque disponible",
           "markPending": "Marque en attente",
-          "markSold": "Vendu par Marc"
+          "markSold": "Vendu par Marc",
+          "edit": "Éditer",
+          "delete": "Supprimer"
         },
         "form": {
           "createProperty": "Créer une nouvelle propriété",
-          "createPropertyDescription": "Remplissez les détails ci-dessous pour créer une nouvelle annonce immobilière.",
+          "createPropertyDescription": "Remplissez les détails ci-dessous pour créer une nouvelle annonce de propriété.",
+          "editProperty": "Modifier la propriété",
+          "editPropertyDescription": "Mettez à jour les détails de la propriété ci-dessous.",
           "title": "Titre",
           "description": "Voici la traduction en français du texte donné :\n\nDescription",
           "price": "Prix",
@@ -257,8 +263,19 @@
           "bathrooms": "Salles de bains",
           "squareFeet": "Pieds carrés",
           "status": "Statut",
-          "selectStatus": "Sélectionnez le statut",
-          "submit": "Créer une propriété"
+          "selectStatus": "Sélectionnez un statut",
+          "features": "Fonctionnalités",
+          "featuresDescription": "Appuyez sur Entrée pour ajouter une nouvelle fonctionnalité",
+          "featuresPlaceholder": "Tapez une fonctionnalité et appuyez sur Entrée",
+          "images": "Voici la traduction en français :\n\nImages",
+          "imagesDescription": "Télécharger les images de la propriété (JPG, PNG)",
+          "submit": "Sauver la propriété"
+        },
+        "deleteConfirmation": {
+          "title": "Supprimer la propriété",
+          "description": "Êtes-vous sûr de vouloir supprimer cette propriété ? Cette action ne peut pas être annulée.",
+          "confirm": "Supprimer",
+          "cancel": "Annuler"
         }
       },
       "users": {

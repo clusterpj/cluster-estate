@@ -41,7 +41,7 @@
   },
   "FeaturedProperties": {
     "title": "Propiedades destacadas",
-    "description": "Explore our handpicked selection of premium properties across the Caribbean's most desirable locations.\n\nExplora nuestra selección cuidadosamente elegida de propiedades premium en los lugares más codiciados del Caribe.",
+    "description": "Explora nuestra selección cuidadosamente elegida de propiedades premium en los lugares más codiciados del Caribe.",
     "viewDetails": "Ver Detalles",
     "viewAllProperties": "Ver todas las propiedades",
     "propertyDetails": {
@@ -228,6 +228,8 @@
         "updateSuccess": "Propiedad actualizada exitosamente",
         "createError": "Error al crear la propiedad",
         "createSuccess": "Propiedad creada con éxito",
+        "deleteSuccess": "Propiedad eliminada exitosamente",
+        "deleteError": "No se pudo eliminar la propiedad",
         "table": {
           "title": "Título",
           "price": "Precio",
@@ -242,12 +244,17 @@
         },
         "actions": {
           "createProperty": "Crear propiedad",
-          "markAvailable": "Disponible Mark",
-          "markPending": "Pendiente de Mark",
-          "markSold": "Vendió Marcos"
+          "markAvailable": "Disponible",
+          "markPending": "Pendiente",
+          "markSold": "Vendida",
+          "edit": "Editar",
+          "delete": "Borrar"
         },
         "form": {
           "createProperty": "Crear Nueva Propiedad",
+          "createPropertyDescription": "Rellena los detalles a continuación para crear una nueva publicación de propiedad.",
+          "editProperty": "Editar Propiedad",
+          "editPropertyDescription": "Actualice los detalles de la propiedad a continuación.",
           "title": "Título",
           "description": "La descripción.",
           "price": "Precio",
@@ -256,8 +263,19 @@
           "bathrooms": "Baños",
           "squareFeet": "Pies cuadrados",
           "status": "Estado",
-          "selectStatus": "Seleccionar estado",
-          "submit": "Crear propiedad"
+          "selectStatus": "Selecciona un estado",
+          "features": "Características",
+          "featuresDescription": "Presiona Enter para agregar una nueva función.",
+          "featuresPlaceholder": "Escriba una característica y presione Enter",
+          "images": "Imágenes",
+          "imagesDescription": "Cargar imágenes de la propiedad (JPG, PNG)",
+          "submit": "Guardar propiedad"
+        },
+        "deleteConfirmation": {
+          "title": "Eliminar propiedad",
+          "description": "¿Está seguro de que desea eliminar esta propiedad? Esta acción no se puede deshacer.",
+          "confirm": "Borrar",
+          "cancel": "Cancelar"
         }
       },
       "users": {

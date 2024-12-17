@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { toast } from 'sonner'
+import { Toast } from '@/components/ui/toast'
 
 export default function RegisterPage() {
   const t = useTranslations('auth')
@@ -18,21 +18,34 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [toastMessage, setToastMessage] = useState<{ title: string; description: string; type: 'success' | 'error' } | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (password !== confirmPassword) {
-      toast.error(t('passwordMismatch'))
+      setToastMessage({
+        title: t('error'),
+        description: t('passwordMismatch'),
+        type: 'error'
+      })
       return
     }
 
     try {
       setLoading(true)
       await signUp(email, password)
-      toast.success(t('registrationSuccess'))
+      setToastMessage({
+        title: t('success'),
+        description: t('registrationSuccess'),
+        type: 'success'
+      })
       router.push('/auth/login')
     } catch (error) {
-      toast.error(t('registrationError'))
+      setToastMessage({
+        title: t('error'),
+        description: t('registrationError'),
+        type: 'error'
+      })
       console.error('Registration error:', error)
     } finally {
       setLoading(false)
@@ -41,6 +54,14 @@ export default function RegisterPage() {
 
   return (
     <div className="container mx-auto flex h-screen items-center justify-center px-4">
+      {toastMessage && (
+        <Toast
+          title={toastMessage.title}
+          description={toastMessage.description}
+          variant={toastMessage.type === 'error' ? 'destructive' : 'default'}
+          onOpenChange={() => setToastMessage(null)}
+        />
+      )}
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>{t('registerTitle')}</CardTitle>

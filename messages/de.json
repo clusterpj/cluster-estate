@@ -228,6 +228,8 @@
         "updateSuccess": "Eigenschaft erfolgreich aktualisiert",
         "createError": "Fehler beim Erstellen der Eigenschaft",
         "createSuccess": "Eigentum erfolgreich erstellt",
+        "deleteSuccess": "Eigentum erfolgreich gelöscht",
+        "deleteError": "Fehlgeschlagen, Eigenschaft zu löschen",
         "table": {
           "title": "Titel",
           "price": "Preis",
@@ -244,10 +246,15 @@
           "createProperty": "Erstellen Sie eine Immobilie",
           "markAvailable": "Mark verfügbar",
           "markPending": "Offen stehend",
-          "markSold": "Mark verkaufte"
+          "markSold": "Mark verkaufte",
+          "edit": "Bearbeiten",
+          "delete": "Löschen"
         },
         "form": {
           "createProperty": "Neue Immobilie erstellen",
+          "createPropertyDescription": "Füllen Sie die Details unten aus, um eine neue Immobilienlistung zu erstellen.",
+          "editProperty": "Eigentum bearbeiten",
+          "editPropertyDescription": "Aktualisieren Sie die unten stehenden Objektdetails.",
           "title": "Titel",
           "description": "Beschreibung",
           "price": "Preis",
@@ -257,7 +264,18 @@
           "squareFeet": "Quadratfuß",
           "status": "Status",
           "selectStatus": "Wähle den Status aus",
+          "features": "Funktionen",
+          "featuresDescription": "Drücke Enter, um eine neue Funktion hinzuzufügen.",
+          "featuresPlaceholder": "Tippen Sie ein Feature ein und drücken Sie die Eingabetaste.",
+          "images": "Bilder",
+          "imagesDescription": "Immobilienbilder hochladen (JPG, PNG)",
           "submit": "Erstellen Sie eine Immobilie"
+        },
+        "deleteConfirmation": {
+          "title": "Löschen Sie die Eigenschaft",
+          "description": "Sind Sie sicher, dass Sie diese Eigenschaft löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+          "confirm": "Löschen",
+          "cancel": "Stornieren"
         }
       },
       "users": {

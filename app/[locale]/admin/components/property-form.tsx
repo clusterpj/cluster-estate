@@ -48,15 +48,24 @@ type PropertyFormValues = z.infer<typeof propertyFormSchema>
 interface PropertyFormProps {
   onSuccess?: () => void
   onError?: (error: any) => void
+  initialData?: PropertyFormValues
+  mode?: 'create' | 'edit'
+  propertyId?: string
 }
 
-export function PropertyForm({ onSuccess, onError }: PropertyFormProps) {
+export function PropertyForm({ 
+  onSuccess, 
+  onError, 
+  initialData, 
+  mode = 'create',
+  propertyId 
+}: PropertyFormProps) {
   const t = useTranslations('auth.adminSection.properties')
   const supabase = createClientComponentClient<Database>()
 
   const form = useForm<PropertyFormValues>({
     resolver: zodResolver(propertyFormSchema),
-    defaultValues: {
+    defaultValues: initialData || {
       title: '',
       description: '',
       price: 0,
@@ -95,21 +104,35 @@ export function PropertyForm({ onSuccess, onError }: PropertyFormProps) {
         user_id: user.id,
       }
 
-      console.log('Inserting property data:', propertyData)
+      console.log('Processing property data:', propertyData)
 
-      const { data: insertedData, error: insertError } = await supabase
-        .from('properties')
-        .insert(propertyData)
-        .select()
-        .single()
-
-      if (insertError) {
-        console.error('Error inserting property:', insertError)
-        throw insertError
+      let result;
+      if (mode === 'create') {
+        result = await supabase
+          .from('properties')
+          .insert(propertyData)
+          .select()
+          .single()
+      } else {
+        result = await supabase
+          .from('properties')
+          .update(propertyData)
+          .eq('id', propertyId)
+          .select()
+          .single()
       }
 
-      console.log('Property created successfully:', insertedData)
-      form.reset()
+      const { data: savedData, error: saveError } = result
+
+      if (saveError) {
+        console.error('Error saving property:', saveError)
+        throw saveError
+      }
+
+      console.log('Property saved successfully:', savedData)
+      if (mode === 'create') {
+        form.reset()
+      }
       onSuccess?.()
     } catch (error) {
       console.error('Error in form submission:', error)
