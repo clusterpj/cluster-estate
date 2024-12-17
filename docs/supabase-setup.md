@@ -83,77 +83,73 @@ create policy "Users can update their own profile"
   using (auth.uid() = id);
 ```
 
-## Authentication
+## Schema Verification
 
-Authentication is handled through middleware and protected routes. The following routes are public:
-- / (home)
-- /auth/login
-- /auth/register
-- /about
+### Running Database Tests
 
-All other routes require authentication. Unauthenticated users will be redirected to the login page.
+The project includes automated tests to verify the database schema, relationships, and RLS policies. To run the tests:
 
-## Usage Examples
-
-### Client-side Data Fetching
-```typescript
-import { createBrowserClient } from '@/lib/supabase'
-
-// In your component
-const supabase = createBrowserClient()
-
-// Fetch properties
-const { data: properties, error } = await supabase
-  .from('properties')
-  .select('*')
-  .order('created_at', { ascending: false })
-
-if (error) {
-  handleSupabaseError(error)
-}
+1. Ensure your environment variables are set in `.env.local`
+2. Run the database tests:
+```bash
+npm run test-db
 ```
 
-### Server-side Data Fetching
-```typescript
-import { createServerClient } from '@/lib/supabase'
+The tests verify:
+- Table creation and constraints
+- Foreign key relationships
+- Automatic profile creation on user signup
+- Row Level Security policies
+- Data integrity
 
-// In your Server Component
-const supabase = createServerClient()
+### Test Coverage
 
-// Fetch properties
-const { data: properties } = await supabase
-  .from('properties')
-  .select('*')
-  .order('created_at', { ascending: false })
+The automated tests check:
+
+1. User Management:
+   - User creation
+   - Automatic profile creation
+   - Profile-user relationship
+
+2. Property Management:
+   - Property creation
+   - Foreign key constraints
+   - Data validation
+
+3. RLS Policies:
+   - Public read access
+   - Owner-only write access
+   - Unauthorized access prevention
+
+4. Data Integrity:
+   - Constraint enforcement
+   - Default values
+   - Timestamps
+   - Cascading deletes
+
+### Manual Verification
+
+After running migrations, you can manually verify the setup:
+
+1. Check Tables:
+```sql
+SELECT table_name 
+FROM information_schema.tables 
+WHERE table_schema = 'public';
 ```
 
-### Admin Operations
-```typescript
-import { supabaseAdmin } from '@/lib/supabase'
-
-// Admin-only operations (backend)
-const { data, error } = await supabaseAdmin
-  .from('profiles')
-  .update({ role: 'admin' })
-  .eq('id', userId)
+2. Check RLS:
+```sql
+SELECT tablename, hasrls 
+FROM pg_tables 
+WHERE schemaname = 'public';
 ```
 
-### Error Handling
-```typescript
-import { handleSupabaseError } from '@/lib/supabase'
-
-try {
-  const { error } = await supabase
-    .from('properties')
-    .insert(newProperty)
-  
-  if (error) {
-    handleSupabaseError(error)
-  }
-} catch (error) {
-  // Handle other errors
-  console.error('Failed to insert property:', error)
-}
+3. Check Policies:
+```sql
+SELECT * 
+FROM pg_policies 
+WHERE schemaname = 'public';
 ```
 
 ## Type Safety
@@ -171,8 +167,47 @@ type Profile = Database['public']['Tables']['profiles']['Row']
 
 ## Next Steps
 
-1. Run database migrations to create tables and policies
-2. Set up authentication providers in Supabase dashboard
-3. Configure email templates for auth
-4. Set up storage buckets for property images
-5. Configure real-time subscriptions if needed
+1. Run database migrations:
+```bash
+supabase db reset
+```
+
+2. Run schema verification tests:
+```bash
+npm run test-db
+```
+
+3. Set up authentication providers in Supabase dashboard
+4. Configure email templates for auth
+5. Set up storage buckets for property images
+6. Configure real-time subscriptions if needed
+
+## Troubleshooting
+
+### Common Issues
+
+1. Migration Failures:
+   - Check for existing tables/conflicts
+   - Verify database permissions
+   - Check syntax errors in migration files
+
+2. RLS Policy Issues:
+   - Verify user authentication
+   - Check policy definitions
+   - Test with different user roles
+
+3. Foreign Key Errors:
+   - Ensure referenced records exist
+   - Check cascade settings
+   - Verify constraint names
+
+### Debug Queries
+
+To debug RLS policies:
+
+```sql
+SET request.jwt.claim.role = 'authenticated';
+SET request.jwt.claim.sub = 'user-id-here';
+
+-- Then run your query
+SELECT * FROM properties;
