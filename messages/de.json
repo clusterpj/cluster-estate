@@ -1,133 +1,133 @@
 {
   "Hero": {
-    "title": "Finden Sie Ihr Traumhaus im Paradies",
-    "subtitle": "Entdecken Sie Luxusimmobilien in erstklassigen Lagen",
-    "description": "Entdecken Sie außergewöhnliche Immobilien, die zu Ihrem Lebensstil passen, an den begehrtesten Orten der Karibik.",
-    "searchPlaceholder": "Standort oder Immobilientyp eingeben...",
-    "searchButton": "Suchen",
+    "title": "Finden Sie Ihr Traumhaus",
+    "subtitle": "Entdecken Sie luxuriöse Immobilien an erstklassigen Standorten.",
+    "searchPlaceholder": "Geben Sie den Standort, den Immobilientyp oder Schlüsselwörter ein...",
+    "searchButton": "Immobilien suchen",
     "backgroundAlt": "Luxushaus",
+    "description": "Entdecken Sie außergewöhnliche Immobilien, die zu Ihrem Lebensstil in den begehrtesten Lagen der Karibik passen.",
     "stats": {
-      "properties": "Immobilien",
-      "clients": "Zufriedene Kunden",
+      "properties": "Eigenschaften",
+      "clients": "Glückliche Kunden",
       "locations": "Standorte"
     }
   },
   "ParadiseLiving": {
-    "title": "Erleben Sie das Paradies-Leben",
-    "subtitle": "Entdecken Sie einen Lebensstil, wo Luxus auf tropisches Paradies trifft",
+    "title": "Erleben Sie das Paradies der Lebenserfahrung.",
+    "subtitle": "Entdecken Sie einen Lebensstil, bei dem Luxus auf tropisches Paradies trifft.",
     "features": {
       "beachfront": {
-        "title": "Leben am Strand",
-        "description": "Wachen Sie auf zum Rauschen der Wellen und atemberaubenden Meerblick"
+        "title": "Strandnahes Wohnen",
+        "description": "Wache auf zum Klang der Wellen und zu atemberaubenden Meeresblicken."
       },
       "climate": {
         "title": "Perfektes Klima",
-        "description": "Genießen Sie ganzjährigen Sonnenschein und tropische Brisen"
+        "description": "Genießen Sie ganzjährigen Sonnenschein und tropische Brisen."
       },
       "culture": {
         "title": "Inselkultur",
-        "description": "Tauchen Sie ein in den lebendigen karibischen Lebensstil"
+        "description": "Tauchen Sie ein in die lebendige karibische Lebensart."
       },
       "activities": {
-        "title": "Wasseraktivitäten",
+        "title": "Wassersportarten",
         "description": "Zugang zu erstklassigem Segeln, Tauchen und Wassersport"
       }
     },
     "cta": {
-      "title": "Ihr Traumhaus wartet auf Sie",
-      "description": "Lassen Sie uns Ihnen helfen, Ihr perfektes Stück Paradies in der Karibik zu finden",
-      "button": "Starten Sie Ihre Reise"
+      "title": "Dein Traumhaus erwartet dich.",
+      "description": "Lassen Sie uns Ihnen helfen, Ihr perfektes Stück Paradies in der Karibik zu finden.",
+      "button": "Starte Deine Reise"
     }
   },
   "FeaturedProperties": {
     "title": "Ausgewählte Immobilien",
-    "description": "Entdecken Sie unsere handverlesene Auswahl an Premium-Immobilien an den begehrtesten Standorten der Karibik.",
-    "viewDetails": "Details anzeigen",
-    "viewAllProperties": "Alle Immobilien anzeigen",
+    "description": "Entdecken Sie unsere handverlesene Auswahl an exklusiven Immobilien in den begehrtesten Lagen der Karibik.",
+    "viewDetails": "Einzelheiten anzeigen",
+    "viewAllProperties": "Alle Objekte ansehen",
     "propertyDetails": {
-      "beds": "Schlafzimmer",
-      "baths": "Badezimmer",
-      "sqft": "m²"
+      "beds": "Betten",
+      "baths": "Bäder",
+      "sqft": "qm"
     },
     "properties": [
       {
-        "title": "Villa am Meer",
+        "title": "Meerfront-Villa",
         "location": "Palm Beach"
       },
       {
         "title": "Strandwohnung",
-        "location": "Seven Mile Beach"
+        "location": "Seven Mile Strand"
       },
       {
-        "title": "Luxus-Penthouse",
+        "title": "Luxuriöses Penthaus",
         "location": "Nassau"
       }
     ]
   },
   "WhyChooseUs": {
     "title": "Warum uns wählen",
-    "description": "Erleben Sie Exzellenz in karibischen Immobilien mit unserem engagierten Team und umfassenden Dienstleistungen.",
+    "description": "Erfahren Sie Exzellenz in der karibischen Immobilienbranche mit unserem engagierten Team und unseren umfassenden Dienstleistungen.",
     "features": [
       {
-        "title": "Expertise",
-        "description": "Über 20 Jahre Erfahrung mit karibischen Immobilien"
+        "title": "Fachkompetenz",
+        "description": "Über 20 Jahre Erfahrung in der Karibischen Immobilienbranche"
       },
       {
         "title": "Vertrauen",
-        "description": "Lizenziert und reguliert mit nachgewiesener Erfolgsbilanz"
+        "description": "Lizenziert und reguliert mit einem nachgewiesenen Leistungsnachweis"
       },
       {
-        "title": "Engagement",
-        "description": "Personalisierter Service nach Ihren Bedürfnissen"
+        "title": "Widmung",
+        "description": "Individueller Service, der auf Ihre Bedürfnisse zugeschnitten ist."
       },
       {
         "title": "Unterstützung",
-        "description": "24/7 Betreuung während Ihrer gesamten Reise"
+        "description": "24/7-Unterstützung während Ihrer gesamten Reise"
       }
     ]
   },
   "FeaturedLocations": {
     "title": "Ausgewählte Standorte",
-    "description": "Entdecken Sie unsere kuratierte Auswahl an erstklassigen karibischen Destinationen",
+    "description": "Entdecken Sie unsere kuratierte Auswahl erstklassiger karibischer Reiseziele",
     "propertyCount": "{count} Immobilien",
-    "exploreLocation": "Standort erkunden",
+    "exploreLocation": "Erkunden Sie den Ort",
     "locations": [
       {
-        "description": "Entdecken Sie das Paradies mit traumhaften Stränden und üppigen Bergen"
+        "description": "Entdecken Sie das Paradies mit atemberaubenden Stränden und üppigen Bergen."
       },
       {
-        "description": "Erleben Sie Luxusleben in diesem tropischen Paradies"
+        "description": "Erleben Sie luxuriöses Wohnen in diesem tropischen Paradies."
       },
       {
-        "description": "Finden Sie Ihr Traumhaus in dieser lebendigen karibischen Kultur"
+        "description": "Finden Sie Ihr Traumhaus in dieser lebendigen karibischen Kultur."
       },
       {
-        "description": "Paradies gefunden in kristallklarem Wasser"
+        "description": "Paradies in kristallklarem Wasser gefunden."
       }
     ]
   },
   "LifestylePreview": {
     "title": "Karibischer Lebensstil",
-    "description": "Erleben Sie die perfekte Mischung aus Luxus und Inselleben."
+    "description": "Erleben Sie die perfekte Mischung aus Luxus und Insel-Lebensart."
   },
   "AboutUs": {
-    "title": "Über Cabarete Villas",
-    "subtitle": "Ihr Paradieshaus in der Abenteuerhauptstadt der Karibik",
+    "title": "Über Cabarete Villen",
+    "subtitle": "Ihr Paradies-Zuhause in der Abenteuerhauptstadt der Karibik",
     "intro": {
       "title": "Unsere Geschichte",
-      "content": "Mein Mann Chuck und ich kommen aus Erie, Pennsylvania USA und haben die Welt bereist, um ein zweites Zuhause zu finden. Im Jahr 2000 reisten wir nach Cabarete und wussten sofort, dass dies der perfekte Ort für uns war. Wir kauften unser Haus direkt vor Ort."
+      "content": "Mein Mann Chuck und ich kommen aus Erie, Pennsylvania, USA, und haben die Welt bereist, um ein zweites Zuhause zu finden. Im Jahr 2000 reisten wir nach Cabarete und wussten, dass dies der perfekte Ort für uns ist. Wir haben unser Haus auf der Stelle gekauft."
     },
     "location": {
       "title": "Cabarete: Die Abenteuerhauptstadt",
-      "content": "Cabarete ist eine lebendige Strandstadt, bekannt als \"Die Abenteuerhauptstadt der Karibik.\" Mit perfekten Bedingungen für Windsurfen, Kitesurfen und Surfen ist Cabarete eines der Top-Reiseziele der Welt für Wassersport. Kein Wassersport-Enthusiast? In Cabarete gibt es für jeden etwas. Sie können Rad fahren, reiten, Kajak fahren, Canyoning betreiben, an vielen anderen Abenteuern teilnehmen oder einfach nur am wunderschönen Strand entspannen."
+      "content": "Cabarete ist eine lebendige Strandstadt, die als \"Die Abenteuerhauptstadt der Karibik\" bekannt ist. Mit perfekten Bedingungen für Windsurfen, Kitesurfen und Wellenreiten ist Cabarete eine der Top-Destinationen der Welt für Wassersportarten. Nicht wassersportbegeistert? In Cabarete gibt es für jeden etwas. Du kannst Fahrrad fahren, reiten, Kajak fahren, canyoning unternehmen, an vielen anderen Abenteuern teilnehmen oder einfach nur am schönen Strand entspannen."
     },
     "community": {
       "title": "Eine einzigartige Gemeinschaft",
-      "content": "Was Cabarete so einzigartig und wunderbar macht, ist der lokale Charme kombiniert mit einem großartigen Urlaubsort. Nur in Cabarete finden Sie Einheimische und Menschen aus aller Welt und allen Gesellschaftsschichten, die zusammenkommen, um zu leben, zu arbeiten und zu spielen."
+      "content": "Was Cabarete so einzigartig und wunderbar macht, ist der lokale Charme in Kombination mit einem tollen Urlaubsort. Nur in Cabarete finden Sie Einheimische und Menschen aus aller Welt und aus allen Lebensbereichen, die zusammenkommen, um zu leben, zu arbeiten und zu spielen."
     },
     "service": {
-      "title": "Unser Versprechen",
-      "content": "Bei Cabarete Villas können Sie all Ihre Sorgen hinter sich lassen, während wir uns um alle Ihre Bedürfnisse kümmern. Unser Management-Team ist erstklassig. Unsere Haushälterinnen und Gärtner geben ihr Bestes, um unsere Villen in einem erstklassigen Zustand zu halten."
+      "title": "Unser Engagement",
+      "content": "Bei Cabarete Villas können Sie alle Ihre Sorgen hinter sich lassen, während wir uns um Ihre Bedürfnisse kümmern. Unser Management-Team ist erstklassig. Unsere Hausmädchen und Gärtner gehen über das Übliche hinaus, um unsere Villen fantastisch aussehen zu lassen."
     },
     "signature": {
       "names": "Chuck und Ronda Janicki",
@@ -136,95 +136,114 @@
   },
   "Activities": {
     "hero": {
-      "title": "Entdecken Sie dominikanische Abenteuer",
-      "description": "Entdecken Sie die Dominikanische Republik mit ihrer strahlenden Natur, wunderschönen Stränden, kristallklaren Wasserfällen und echtem karibischen Lebensstil. Erfahren Sie mehr über die Vergangenheit und Kultur der Taino-Indianer und das Erbe der spanischen Eroberer.",
-      "subtitle": "Wir bieten Ihnen eine Vielzahl von Freizeitaktivitäten und professionell geführten Touren. Familien- und Gruppenrabatte möglich!"
+      "title": "Entdecken Sie Dominikanische Abenteuer",
+      "description": "Entdecken Sie die Dominikanische Republik mit ihrer strahlenden Natur, schönen Stränden, kristallklaren Wasserfällen und dem reinen karibischen Lebensstil. Erfahren Sie mehr über die Vergangenheit und die Kultur der Taíno-Indianer und das Erbe der spanischen Eroberer.",
+      "subtitle": "Wir bieten Ihnen eine Vielzahl an Spaßaktivitäten und professionell geführte Touren an. Familien- und Gruppenrabatte gelten!"
     },
     "activities": [
       {
-        "title": "Ocean World Abenteuerpark",
-        "description": "Es gibt so viel zu tun! Schwimmen Sie mit Delfinen, begegnen Sie Seelöwen, Haien und Rochen. Sie können im gleichen Becken wie die Tiger schwimmen, nur durch Glas getrennt. Es gibt ein Korallenriff-Aquarium für Schnorchel-Enthusiasten und einen Regenwald, wo Sie Nashörner, Leguane und ein Vogelschutzgebiet sehen können. Es ist ein einmaliges Erlebnis!",
-        "website": "www.oceanworld.net",
-        "image": "/images/activities/ocean-world.jpg"
+        "title": "Ozean Welt Abenteuerpark",
+        "description": "Es gibt so viel zu tun! Schwimmen Sie mit Delfinen, haben Sie eine Begegnung mit Seelöwen, Haien und Rochen. Sie können im selben Pool wie die Tiger schwimmen, nur durch Glas getrennt. Es gibt ein Korallenwasser-Aquarium für Schnorchelbegeisterte und einen Regenwald, in dem Sie Nashörner, Leguane und ein Vogelschutzgebiet sehen können. Das ist ein einmaliges Erlebnis!",
+        "website": "www.ozeanwelt.net",
+        "image": "Ozeanwelt"
       },
       {
-        "title": "Monkey Jungle",
-        "description": "Erleben Sie den Nervenkitzel beim Zip-Lining durch das Blätterdach des Dschungels während der Interaktion mit freundlichen Totenkopfäffchen. Dieses einzigartige Öko-Abenteuer verbindet Adrenalin mit Tierbegegnungen in einer sicheren, kontrollierten Umgebung.",
-        "website": "www.monkeyjungledr.com",
-        "image": "/images/activities/monkey-jungle.jpg"
+        "title": "Der Affendschungel",
+        "description": "Erleben Sie den Nervenkitzel des Seilrutschens durch das Dschungelblätterdach, während Sie mit freundlichen Eichhörnchenaffen interagieren. Dieses einzigartige Ökoabenteuer verbindet Adrenalin mit Tierbegegnungen in einer sicheren, kontrollierten Umgebung.",
+        "website": "www.affenjungleddr.com",
+        "image": "/Bilder/Aktivitäten/Affenjungel.jpg"
       },
       {
         "title": "Reiten",
-        "description": "Erkunden Sie die wunderschöne dominikanische Landschaft zu Pferd. Reiten Sie durch üppige Wälder, entlang unberührter Strände und entdecken Sie versteckte Wasserfälle auf geführten Touren für alle Erfahrungsstufen.",
-        "image": "/images/activities/horseback.jpg",
+        "description": "Erkunden Sie die schöne Landschaft der Dominikanischen Republik auf dem Rücken eines Pferdes. Reiten Sie durch üppige Wälder, entlang unberührter Strände und entdecken Sie auf geführten Touren für alle Erfahrungsstufen versteckte Wasserfälle.",
+        "image": "/images/activities/reiten.jpg",
         "contact": "+1 809-555-0123"
       },
       {
         "title": "Kitesurfen",
-        "description": "Cabarete ist weltbekannt für seine perfekten Kitesurfbedingungen. Ob Anfänger oder Experte, unsere zertifizierten Instruktoren helfen Ihnen dabei, den perfekten Wind zu erwischen.",
-        "image": "/images/activities/kite-surfing.jpg",
+        "description": "Cabarete ist weltweit für seine perfekten Kitesurfbedingungen bekannt. Egal ob Anfänger oder Experte, unsere zertifizierten Instruktoren werden Ihnen helfen, den perfekten Wind zu erwischen.",
+        "image": "Bildergalerie: Kitesurfen",
         "contact": "+1 809-555-0124"
       },
       {
-        "title": "Paradiesinsel",
-        "description": "Besuchen Sie eine der schönsten Inseln der Karibik. Schnorcheln Sie in kristallklarem Wasser, entspannen Sie an unberührten Stränden und genießen Sie frische Meeresfrüchte in diesem tropischen Paradies.",
-        "image": "/images/activities/paradise-island.jpg",
-        "details": "Tägliche Touren verfügbar mit Mittagessen inklusive"
+        "title": "Paradies-Insel",
+        "description": "Besuchen Sie eine der schönsten Inseln in der Karibik. Schnorcheln Sie in kristallklaren Gewässern, entspannen Sie auf unberührten Stränden und genießen Sie frische Meeresfrüchte in diesem tropischen Paradies.",
+        "image": "Paradies-Insel",
+        "details": "Tägliche Touren mit Mittagessen inklusive verfügbar"
       },
       {
         "title": "27 Wasserfälle von Damajagua",
-        "description": "Erleben Sie ein Abenteuer durch die berühmten 27 Wasserfälle, springen, rutschen und schwimmen Sie durch natürliche Wasserformationen. Eine einzigartige Erfahrung, die Wandern mit Wasserabenteuern verbindet.",
-        "image": "/images/activities/waterfalls.jpg",
+        "description": "Abenteuer durch die berühmten 27 Wasserfälle, mit Springen, Rutschen und Schwimmen durch natürliche Wasserformationen. Ein einzigartiges Erlebnis, das Wandern mit Wasserabenteuern verbindet.",
+        "image": "Wasserfälle",
         "website": "www.27charcos.com"
       },
       {
-        "title": "Walbeobachtung mit Kim Baddall",
-        "description": "Buckelwale hier in der Samana Bucht, DR. Eine einzigartige Gelegenheit, Buckelwale in ihrem natürlichen Kalb- und Paarungsgebiet zu beobachten. Hören Sie den einsamen Balzgesang der männlichen Buckelwale und erleben Sie unglaubliche Vorführungen von Flips, Schwanzschlagen und Sprüngen der aktivsten Walart im Atlantik.",
-        "details": "An Bord eines von Meeressäugetier-Spezialisten kommentierten Schiffes werden Fragen beantwortet... es ist ein einmaliges Erlebnis, das man nicht verpassen sollte. Termine: 15. Januar - 25. März vom Hauptanleger in Samana auf dem Walbeobachtungsschiff \"Pina Mia\"",
+        "title": "Walbeobachten mit Kim Baddall",
+        "description": "Buckelwale hier in der Samana-Bucht, DR. Eine einzigartige Gelegenheit, Buckelwale in ihren natürlichen Kalb- und Paarungsgebieten zu beobachten. Hören Sie den einsamen Balzgesang des männlichen Buckelwals und erleben Sie unglaubliche Vorführungen von Überschlägen, Schwanz-Lobbing und Herausspringen durch die aktivste Walart im Atlantik.",
+        "details": "An Bord eines Schiffes, auf dem ein Spezialist für marine Säugetiere Fragen beantwortet... es ist ein einmaliges Erlebnis, das man nicht verpassen sollte. Termine: 15. Januar – 25. März vom Hauptstadthafen in Samana aus auf dem Walbeobachtungsschiff \"Pina Mia\".",
         "contact": "809-538-2494",
-        "email": "reservations@whalesamana.com",
-        "image": "/images/activities/whale-watching.jpg"
+        "email": "reservationen@whalesamana.com",
+        "image": "Das Bild zeigt eine Szene beim Walbeobachten."
       },
       {
         "title": "Andari Spa",
-        "description": "Das ist unser Favorit! Massage, Physiotherapie, Hot Stone Massage, Körperpeeling, Körperpackungen, Gesichtsbehandlungen, Maniküre & Pediküre und Haarentfernung. Es befindet sich im Millennium Resort & Spa, Cabarete.",
+        "description": "Das ist unser Favorit! Massage, Physiotherapie, Heißsteinmassage, Körperpeeling, Körperwickel, Gesichtsbehandlungen, Maniküre & Pediküre und Haarentfernung. Es befindet sich im Millennium Resort & Spa, Cabarete.",
         "website": "www.andarispa.com",
-        "image": "/images/activities/spa.jpg"
+        "image": "/bilder/aktivitäten/spa.jpg"
       }
     ]
   },
   "auth": {
     "loginTitle": "Anmelden",
-    "loginDescription": "Willkommen zurück! Bitte melden Sie sich in Ihrem Konto an.",
+    "loginDescription": "Willkommen zurück! Bitte melden Sie sich bei Ihrem Konto an.",
     "registerTitle": "Konto erstellen",
     "registerDescription": "Erstellen Sie ein neues Konto, um loszulegen.",
     "signIn": "Anmelden",
-    "signUp": "Registrieren",
+    "signUp": "Anmelden",
     "signOut": "Abmelden",
-    "dashboard": "Dashboard",
+    "dashboard": "Armaturenbrett",
     "profile": "Profil",
     "email": "E-Mail",
     "password": "Passwort",
-    "confirmPassword": "Passwort bestätigen",
+    "confirmPassword": "Bestätigen Sie das Passwort",
     "forgotPassword": "Passwort vergessen?",
-    "rememberMe": "Angemeldet bleiben",
-    "dontHaveAccount": "Noch kein Konto?",
-    "alreadyHaveAccount": "Bereits ein Konto?",
+    "rememberMe": "Erinnere dich an mich.",
+    "dontHaveAccount": "Haben Sie noch keinen Account?",
+    "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
     "createAccount": "Konto erstellen",
     "signInNow": "Jetzt anmelden",
-    "emailPlaceholder": "E-Mail-Adresse eingeben",
-    "passwordPlaceholder": "Passwort eingeben",
-    "confirmPasswordPlaceholder": "Passwort bestätigen",
+    "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein",
+    "passwordPlaceholder": "Geben Sie Ihr Passwort ein",
+    "confirmPasswordPlaceholder": "Bestätigen Sie Ihr Passwort",
     "login": "Anmelden",
-    "register": "Registrieren",
-    "loggingIn": "Anmeldung läuft...",
+    "register": "Anmelden",
+    "loggingIn": "Anmelden...",
     "registering": "Konto wird erstellt...",
-    "noAccount": "Noch kein Konto?",
-    "haveAccount": "Bereits ein Konto?",
+    "noAccount": "Haben Sie noch keinen Account?",
+    "haveAccount": "Haben Sie bereits ein Konto?",
     "loginSuccess": "Erfolgreich angemeldet!",
     "loginError": "Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.",
     "registrationSuccess": "Konto erfolgreich erstellt! Bitte melden Sie sich an.",
-    "registrationError": "Konto konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
-    "passwordMismatch": "Die Passwörter stimmen nicht überein."
+    "registrationError": "Fehlgeschlagen, Konto zu erstellen. Bitte versuchen Sie es erneut.",
+    "passwordMismatch": "Passwörter stimmen nicht überein."
+  },
+  "nav": {
+    "properties": "Eigenschaften",
+    "agents": "Agenten",
+    "activities": "Aktivitäten",
+    "about": "Über",
+    "contact": "Kontakt",
+    "search": "Suchen",
+    "filters": "Filter",
+    "signIn": "Anmelden",
+    "signUp": "Anmelden",
+    "dashboard": "Armaturenbrett",
+    "profile": "Profil",
+    "signOut": "Abmelden"
+  },
+  "search": {
+    "placeholder": "Immobilien suchen...",
+    "filters": "Suchfilter",
+    "filtersDesc": "Passen Sie Ihre Immobiliensuche an"
   }
 }

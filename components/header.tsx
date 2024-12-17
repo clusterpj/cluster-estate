@@ -2,39 +2,15 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 import { Menu, Search, SlidersHorizontal, Home, Building2, Users, Info, Phone, User, LogOut } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "./ui/sheet";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Separator } from "./ui/separator";
@@ -124,6 +100,10 @@ const SearchFilters = () => (
 export function Header() {
   const { user, signOut } = useAuth();
   const t = useTranslations();
+  const pathname = usePathname();
+  const currentLocale = pathname.split('/')[1];
+
+  const localizedHref = (path: string) => `/${currentLocale}${path}`;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -144,221 +124,158 @@ export function Header() {
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 px-2 py-1.5 text-lg font-semibold rounded-lg bg-accent/50">
                       <Building2 className="h-5 w-5" />
-                      Properties
+                      {t('nav.properties')}
                     </div>
                     <div className="ml-4 flex flex-col space-y-3">
                       <Link 
-                        href="/properties/buy" 
+                        href={localizedHref('/properties/buy')}
                         className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Buy Properties</span>
+                          <span className="text-sm font-medium group-hover:text-primary transition-colors">{t('nav.buyProperties')}</span>
                           <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
                         </div>
-                        <span className="text-sm text-muted-foreground">Find your dream home from our collection.</span>
+                        <span className="text-sm text-muted-foreground">{t('nav.buyPropertiesDesc')}</span>
                       </Link>
                       <Link 
-                        href="/properties/rent" 
+                        href={localizedHref('/properties/rent')}
                         className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Rent Properties</span>
+                          <span className="text-sm font-medium group-hover:text-primary transition-colors">{t('nav.rentProperties')}</span>
                           <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
                         </div>
-                        <span className="text-sm text-muted-foreground">Discover rental properties that match your needs.</span>
-                      </Link>
-                      <Link 
-                        href="/properties/new" 
-                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-primary transition-colors">New Developments</span>
-                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                        </div>
-                        <span className="text-sm text-muted-foreground">Explore newly built properties.</span>
-                      </Link>
-                      <Link 
-                        href="/properties/luxury" 
-                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Luxury Properties</span>
-                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                        </div>
-                        <span className="text-sm text-muted-foreground">Experience luxury living.</span>
+                        <span className="text-sm text-muted-foreground">{t('nav.rentPropertiesDesc')}</span>
                       </Link>
                     </div>
                   </div>
 
-                  <Separator className="my-2" />
-
-                  {/* Activities Section */}
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2 px-2 py-1.5 text-lg font-semibold rounded-lg bg-accent/50">
-                      <SlidersHorizontal className="h-5 w-5" />
-                      Activities
-                    </div>
-                    <div className="ml-4 flex flex-col space-y-3">
-                      <Link 
-                        href="/activities" 
-                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Local Activities</span>
-                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                        </div>
-                        <span className="text-sm text-muted-foreground">Discover exciting activities in the Dominican Republic.</span>
-                      </Link>
-                    </div>
-                  </div>
-
-                  <Separator className="my-2" />
-
-                  {/* Agents Section */}
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2 px-2 py-1.5 text-lg font-semibold rounded-lg bg-accent/50">
-                      <Users className="h-5 w-5" />
-                      Agents
-                    </div>
-                    <div className="ml-4 flex flex-col space-y-3">
-                      <Link 
-                        href="/agents/find" 
-                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Find an Agent</span>
-                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                        </div>
-                        <span className="text-sm text-muted-foreground">Connect with experienced real estate professionals.</span>
-                      </Link>
-                      <Link 
-                        href="/agents/join" 
-                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Join Our Team</span>
-                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                        </div>
-                        <span className="text-sm text-muted-foreground">Become part of our network.</span>
-                      </Link>
-                    </div>
-                  </div>
-
-                  <Separator className="my-2" />
-
-                  {/* Quick Links */}
-                  <div className="space-y-3">
-                    <Link 
-                      href="/about" 
-                      className="group flex items-center justify-between rounded-lg px-4 py-3 hover:bg-accent transition-all duration-200"
-                    >
-                      <div className="flex items-center gap-2">
-                        <Info className="h-5 w-5" />
-                        <span className="text-sm font-medium group-hover:text-primary transition-colors">About</span>
-                      </div>
-                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                    </Link>
-
-                    <Link 
-                      href="/contact" 
-                      className="group flex items-center justify-between rounded-lg px-4 py-3 hover:bg-accent transition-all duration-200"
-                    >
-                      <div className="flex items-center gap-2">
-                        <Phone className="h-5 w-5" />
-                        <span className="text-sm font-medium group-hover:text-primary transition-colors">Contact</span>
-                      </div>
-                      <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                    </Link>
-                  </div>
+                  {/* Other Mobile Menu Items */}
+                  <Link href={localizedHref('/agents')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
+                    <Users className="h-5 w-5" />
+                    {t('nav.agents')}
+                  </Link>
+                  <Link href={localizedHref('/activities')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
+                    <Home className="h-5 w-5" />
+                    {t('nav.activities')}
+                  </Link>
+                  <Link href={localizedHref('/about')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
+                    <Info className="h-5 w-5" />
+                    {t('nav.about')}
+                  </Link>
+                  <Link href={localizedHref('/contact')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
+                    <Phone className="h-5 w-5" />
+                    {t('nav.contact')}
+                  </Link>
                 </nav>
               </SheetContent>
             </Sheet>
-            
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="text-xl font-bold">RealtyWest</span>
-            </Link>
-          </div>
 
-          {/* Center Section: Navigation Menu */}
-          <nav className="hidden md:flex items-center gap-6">
-            <NavigationMenu>
+            {/* Desktop Navigation */}
+            <NavigationMenu className="hidden md:flex">
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <Link href="/properties" legacyBehavior passHref>
-                    <NavigationMenuTrigger>
-                      <span className="flex items-center gap-2">
-                        <Building2 className="h-4 w-4" />
-                        Properties
-                      </span>
-                    </NavigationMenuTrigger>
-                  </Link>
+                  <NavigationMenuTrigger>
+                    <span className="flex items-center gap-2">
+                      <Building2 className="h-4 w-4" />
+                      {t('nav.properties')}
+                    </span>
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      <ListItem href="/properties/buy" title="Buy Properties">
-                        Find your dream home from our collection.
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
+                      <li className="row-span-3">
+                        <NavigationMenuLink asChild>
+                          <Link
+                            href={localizedHref('/properties/featured')}
+                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                          >
+                            <Building2 className="h-6 w-6" />
+                            <div className="mb-2 mt-4 text-lg font-medium">
+                              {t('nav.featuredProperties')}
+                            </div>
+                            <p className="text-sm leading-tight text-muted-foreground">
+                              {t('nav.featuredPropertiesDesc')}
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <ListItem
+                        href={localizedHref('/properties/buy')}
+                        title={t('nav.buyProperties')}
+                      >
+                        {t('nav.buyPropertiesDesc')}
                       </ListItem>
-                      <ListItem href="/properties/rent" title="Rent Properties">
-                        Discover rental properties that match your needs.
+                      <ListItem
+                        href={localizedHref('/properties/rent')}
+                        title={t('nav.rentProperties')}
+                      >
+                        {t('nav.rentPropertiesDesc')}
                       </ListItem>
-                      <ListItem href="/properties/new" title="New Developments">
-                        Explore newly built properties.
-                      </ListItem>
-                      <ListItem href="/properties/luxury" title="Luxury Properties">
-                        Experience luxury living.
+                      <ListItem
+                        href={localizedHref('/properties/new')}
+                        title={t('nav.newDevelopments')}
+                      >
+                        {t('nav.newDevelopmentsDesc')}
                       </ListItem>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/agents" legacyBehavior passHref>
+                  <Link href={localizedHref('/agents')} legacyBehavior passHref>
                     <NavigationMenuTrigger>
                       <span className="flex items-center gap-2">
                         <Users className="h-4 w-4" />
-                        Agents
+                        {t('nav.agents')}
                       </span>
                     </NavigationMenuTrigger>
                   </Link>
                   <NavigationMenuContent>
                     <ul className="grid gap-3 p-6 md:w-[400px]">
-                      <ListItem href="/agents/find" title="Find an Agent">
-                        Connect with experienced professionals.
+                      <ListItem
+                        href={localizedHref('/agents/find')}
+                        title={t('nav.findAgent')}
+                      >
+                        {t('nav.findAgentDesc')}
                       </ListItem>
-                      <ListItem href="/agents/join" title="Join Our Team">
-                        Become part of our real estate family.
+                      <ListItem
+                        href={localizedHref('/agents/join')}
+                        title={t('nav.joinTeam')}
+                      >
+                        {t('nav.joinTeamDesc')}
                       </ListItem>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/activities" legacyBehavior passHref>
+                  <Link href={localizedHref('/activities')} legacyBehavior passHref>
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Activities
+                      {t('nav.activities')}
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/about" legacyBehavior passHref>
+                  <Link href={localizedHref('/about')} legacyBehavior passHref>
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      About
+                      {t('nav.about')}
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/contact" legacyBehavior passHref>
+                  <Link href={localizedHref('/contact')} legacyBehavior passHref>
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Contact
+                      {t('nav.contact')}
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-          </nav>
+          </div>
 
-          {/* Right Section: Search and Theme Toggle */}
+          {/* Right Section: Search, Auth, Theme, Language */}
           <div className="flex items-center gap-4">
             {/* Desktop Search */}
             <div className="hidden sm:block">
@@ -366,7 +283,7 @@ export function Header() {
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
                   type="search"
-                  placeholder="Search properties..."
+                  placeholder={t('search.placeholder')}
                   className="w-[200px] pl-8 pr-4 md:w-[300px]"
                 />
                 <Popover>
@@ -378,9 +295,9 @@ export function Header() {
                   <PopoverContent className="w-[300px] p-4" align="end">
                     <div className="grid gap-4">
                       <div className="space-y-2">
-                        <h4 className="font-medium leading-none">Filters</h4>
+                        <h4 className="font-medium leading-none">{t('search.filters')}</h4>
                         <p className="text-sm text-muted-foreground">
-                          Refine your property search
+                          {t('search.filtersDesc')}
                         </p>
                       </div>
                       <SearchFilters />
@@ -395,26 +312,26 @@ export function Header() {
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="sm:hidden">
                   <Search className="h-5 w-5" />
-                  <span className="sr-only">Open Search</span>
+                  <span className="sr-only">{t('search.open')}</span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="bottom" className="h-[85%]">
                 <SheetHeader>
-                  <SheetTitle>Search Properties</SheetTitle>
+                  <SheetTitle>{t('search.title')}</SheetTitle>
                 </SheetHeader>
                 <div className="mt-4 space-y-4">
                   <div className="relative">
                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
                       type="search"
-                      placeholder="Search properties..."
+                      placeholder={t('search.placeholder')}
                       className="w-full pl-8"
                     />
                   </div>
                   <div className="space-y-2">
-                    <h4 className="font-medium leading-none">Filters</h4>
+                    <h4 className="font-medium leading-none">{t('search.filters')}</h4>
                     <p className="text-sm text-muted-foreground">
-                      Refine your property search
+                      {t('search.filtersDesc')}
                     </p>
                   </div>
                   <SearchFilters />
@@ -428,7 +345,7 @@ export function Header() {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon">
                     <User className="h-5 w-5" />
-                    <span className="sr-only">User menu</span>
+                    <span className="sr-only">{t('auth.userMenu')}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -437,12 +354,12 @@ export function Header() {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard">
+                    <Link href={localizedHref('/dashboard')}>
                       {t('auth.dashboard')}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/profile">
+                    <Link href={localizedHref('/profile')}>
                       {t('auth.profile')}
                     </Link>
                   </DropdownMenuItem>
@@ -456,12 +373,12 @@ export function Header() {
             ) : (
               <div className="flex items-center gap-2">
                 <Button variant="ghost" asChild>
-                  <Link href="/auth/login">
+                  <Link href={localizedHref('/auth/login')}>
                     {t('auth.signIn')}
                   </Link>
                 </Button>
                 <Button asChild>
-                  <Link href="/auth/register">
+                  <Link href={localizedHref('/auth/register')}>
                     {t('auth.signUp')}
                   </Link>
                 </Button>

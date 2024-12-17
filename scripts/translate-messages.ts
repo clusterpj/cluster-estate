@@ -40,7 +40,7 @@ async function translateMessages() {
     );
 
     // Target languages to translate to
-    const targetLanguages = ['es', 'fr'];
+    const targetLanguages = ['es', 'fr', 'de'];
 
     // Translate to each target language
     for (const lang of targetLanguages) {

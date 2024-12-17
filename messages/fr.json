@@ -1,42 +1,42 @@
 {
   "Hero": {
-    "title": "Trouvez Votre Maison de Rêve au Paradis",
-    "subtitle": "Découvrez des propriétés de luxe dans des emplacements privilégiés",
+    "title": "Trouvez votre maison de rêve",
+    "subtitle": "Découvrez des propriétés de luxe dans des emplacements de choix",
+    "searchPlaceholder": "Entrez l'emplacement, le type de propriété ou des mots-clés...",
+    "searchButton": "Rechercher des propriétés",
+    "backgroundAlt": "Maison de luxe",
     "description": "Découvrez des propriétés exceptionnelles qui correspondent à votre style de vie dans les endroits les plus recherchés des Caraïbes.",
-    "searchPlaceholder": "Entrez le lieu ou le type de propriété...",
-    "searchButton": "Rechercher",
-    "backgroundAlt": "Maison de Luxe",
     "stats": {
       "properties": "Propriétés",
       "clients": "Clients Satisfaits",
-      "locations": "Emplacements"
+      "locations": "Lieux"
     }
   },
   "ParadiseLiving": {
-    "title": "Vivez l'Expérience du Paradis",
-    "subtitle": "Découvrez un style de vie où le luxe rencontre le paradis tropical",
+    "title": "Découvrez le Paradis sur Terre",
+    "subtitle": "Découvrez un mode de vie où le luxe rencontre le paradis tropical.",
     "features": {
       "beachfront": {
-        "title": "Vie en Bord de Mer",
-        "description": "Réveillez-vous au son des vagues et profitez de vues océaniques spectaculaires"
+        "title": "Vivre au bord de la plage",
+        "description": "Réveillez-vous au son des vagues et à la vue imprenable sur l'océan."
       },
       "climate": {
-        "title": "Climat Parfait",
-        "description": "Profitez du soleil toute l'année et des brises tropicales"
+        "title": "Climat parfait",
+        "description": "Profitez du soleil et des brises tropicales toute l'année."
       },
       "culture": {
-        "title": "Culture Insulaire",
-        "description": "Immergez-vous dans le style de vie vibrant des Caraïbes"
+        "title": "Culture insulaire",
+        "description": "Plongez-vous dans le mode de vie dynamique des Caraïbes."
       },
       "activities": {
-        "title": "Activités Nautiques",
-        "description": "Accès à la voile, la plongée et aux sports nautiques de classe mondiale"
+        "title": "Activités aquatiques",
+        "description": "Accès à la navigation de classe mondiale, la plongée et les sports nautiques"
       }
     },
     "cta": {
-      "title": "Votre Maison de Rêve Vous Attend",
-      "description": "Laissez-nous vous aider à trouver votre coin de paradis parfait dans les Caraïbes",
-      "button": "Commencez Votre Voyage"
+      "title": "Votre rêve de maison vous attend.",
+      "description": "Laissez-nous vous aider à trouver votre paradis parfait dans les Caraïbes.",
+      "button": "Commencez votre voyage"
     }
   },
   "FeaturedProperties": {
@@ -194,29 +194,29 @@
     ]
   },
   "auth": {
-    "loginTitle": "Se Connecter",
-    "loginDescription": "Bienvenue ! Veuillez vous connecter à votre compte.",
-    "registerTitle": "Créer un Compte",
+    "loginTitle": "Se connecter",
+    "loginDescription": "Bienvenue de retour ! Veuillez vous connecter à votre compte.",
+    "registerTitle": "Créer un compte",
     "registerDescription": "Créez un nouveau compte pour commencer.",
-    "signIn": "Se Connecter",
-    "signUp": "S'inscrire",
-    "signOut": "Se Déconnecter",
-    "dashboard": "Tableau de Bord",
+    "signIn": "Se connecter",
+    "signUp": "Inscription",
+    "signOut": "Se déconnecter",
+    "dashboard": "Tableau de bord",
     "profile": "Profil",
-    "email": "Email",
-    "password": "Mot de Passe",
-    "confirmPassword": "Confirmer le Mot de Passe",
+    "email": "Courriel",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
     "forgotPassword": "Mot de passe oublié ?",
-    "rememberMe": "Se souvenir de moi",
+    "rememberMe": "Souviens-toi de moi",
     "dontHaveAccount": "Vous n'avez pas de compte ?",
     "alreadyHaveAccount": "Vous avez déjà un compte ?",
-    "createAccount": "Créer un Compte",
-    "signInNow": "Se Connecter Maintenant",
-    "emailPlaceholder": "Entrez votre adresse email",
-    "passwordPlaceholder": "Entrez votre mot de passe",
+    "createAccount": "Créer un compte",
+    "signInNow": "Connectez-vous maintenant",
+    "emailPlaceholder": "Entrez votre adresse e-mail",
+    "passwordPlaceholder": "Entrez votre mot de passe.",
     "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
-    "login": "Se Connecter",
-    "register": "S'inscrire",
+    "login": "Se connecter",
+    "register": "Inscription",
     "loggingIn": "Connexion en cours...",
     "registering": "Création du compte...",
     "noAccount": "Vous n'avez pas de compte ?",
@@ -225,6 +225,25 @@
     "loginError": "Échec de la connexion. Veuillez vérifier vos identifiants.",
     "registrationSuccess": "Compte créé avec succès ! Veuillez vous connecter.",
     "registrationError": "Échec de la création du compte. Veuillez réessayer.",
-    "passwordMismatch": "Les mots de passe ne correspondent pas."
+    "passwordMismatch": "Mots de passe ne correspondent pas."
+  },
+  "nav": {
+    "properties": "Propriétés",
+    "agents": "Agents",
+    "activities": "Activités",
+    "about": "À propos",
+    "contact": "Contactez-nous",
+    "search": "Chercher",
+    "filters": "Filtres",
+    "signIn": "Se connecter",
+    "signUp": "Inscription",
+    "dashboard": "Tableau de bord",
+    "profile": "Profil",
+    "signOut": "Se déconnecter"
+  },
+  "search": {
+    "placeholder": "Rechercher des propriétés...",
+    "filters": "Filtres de recherche",
+    "filtersDesc": "Personnalisez votre recherche de propriété"
   }
 }

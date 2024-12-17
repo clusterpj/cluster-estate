@@ -226,5 +226,24 @@
     "registrationSuccess": "Account created successfully! Please sign in.",
     "registrationError": "Failed to create account. Please try again.",
     "passwordMismatch": "Passwords do not match."
+  },
+  "nav": {
+    "properties": "Properties",
+    "agents": "Agents",
+    "activities": "Activities",
+    "about": "About",
+    "contact": "Contact",
+    "search": "Search",
+    "filters": "Filters",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "signOut": "Sign Out"
+  },
+  "search": {
+    "placeholder": "Search properties...",
+    "filters": "Search Filters",
+    "filtersDesc": "Customize your property search"
   }
 }
