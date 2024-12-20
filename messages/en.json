@@ -253,7 +253,16 @@
           "markFeatured": "Mark Featured",
           "unmarkFeatured": "Unmark Featured",
           "edit": "Edit",
-          "delete": "Delete"
+          "delete": "Delete",
+          "manage": "Manage Property",
+          "status": "Change Status"
+        },
+        "tooltips": {
+          "featured": "This property is featured on the homepage",
+          "notFeatured": "This property is not featured",
+          "available": "Property is available for purchase",
+          "pending": "Property sale is pending",
+          "sold": "Property has been sold"
         },
         "form": {
           "createProperty": "Create New Property",
