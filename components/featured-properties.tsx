@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { FadeInView } from "./animations/fade-in-view";
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
+import { createClient } from '../lib/supabase/client';
 
 interface Property {
   id: string;
