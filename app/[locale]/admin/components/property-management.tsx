@@ -17,7 +17,15 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { PropertyForm } from './property-form'
 import { useTranslations } from 'next-intl'
 import { useToast } from '@/hooks/use-toast'
-import { X } from 'lucide-react'
+import { X, MoreHorizontal, Check, Ban, Star, Edit, Trash } from 'lucide-react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export function PropertyManagement() {
   const [properties, setProperties] = useState<Property[]>([])
@@ -271,59 +279,74 @@ export function PropertyManagement() {
                 </Badge>
               </TableCell>
               <TableCell>
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => updatePropertyStatus(property.id, { featured: !property.featured })}
-                  >
-                    {property.featured ? t('actions.unmarkFeatured') : t('actions.markFeatured')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => updatePropertyStatus(property.id, 'available')}
-                    disabled={property.status === 'available'}
-                  >
-                    {t('actions.markAvailable')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => updatePropertyStatus(property.id, 'pending')}
-                    disabled={property.status === 'pending'}
-                  >
-                    {t('actions.markPending')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => updatePropertyStatus(property.id, 'sold')}
-                    disabled={property.status === 'sold'}
-                  >
-                    {t('actions.markSold')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      setSelectedProperty(property)
-                      setIsEditDialogOpen(true)
-                    }}
-                  >
-                    {t('actions.edit')}
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => {
-                      setSelectedProperty(property)
-                      setIsDeleteDialogOpen(true)
-                    }}
-                  >
-                    {t('actions.delete')}
-                  </Button>
-                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>{t('actions.manage')}</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    
+                    <DropdownMenuItem
+                      onClick={() => updatePropertyStatus(property.id, { featured: !property.featured })}
+                    >
+                      <Star className="mr-2 h-4 w-4" />
+                      {property.featured ? t('actions.unmarkFeatured') : t('actions.markFeatured')}
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel>{t('actions.status')}</DropdownMenuLabel>
+                    
+                    <DropdownMenuItem
+                      onClick={() => updatePropertyStatus(property.id, 'available')}
+                      disabled={property.status === 'available'}
+                    >
+                      <Check className="mr-2 h-4 w-4" />
+                      {t('actions.markAvailable')}
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuItem
+                      onClick={() => updatePropertyStatus(property.id, 'pending')}
+                      disabled={property.status === 'pending'}
+                    >
+                      <Ban className="mr-2 h-4 w-4" />
+                      {t('actions.markPending')}
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuItem
+                      onClick={() => updatePropertyStatus(property.id, 'sold')}
+                      disabled={property.status === 'sold'}
+                    >
+                      <Check className="mr-2 h-4 w-4" />
+                      {t('actions.markSold')}
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuSeparator />
+                    
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setSelectedProperty(property)
+                        setIsEditDialogOpen(true)
+                      }}
+                    >
+                      <Edit className="mr-2 h-4 w-4" />
+                      {t('actions.edit')}
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuItem
+                      className="text-red-600"
+                      onClick={() => {
+                        setSelectedProperty(property)
+                        setIsDeleteDialogOpen(true)
+                      }}
+                    >
+                      <Trash className="mr-2 h-4 w-4" />
+                      {t('actions.delete')}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </TableCell>
             </TableRow>
           ))}
