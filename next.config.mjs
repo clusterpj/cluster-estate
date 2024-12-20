@@ -4,10 +4,16 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable parallel routes handling
-  experimental: {
-    // Remove parallelRoutes as it's not needed and might cause conflicts
-  }
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ebydkdkayaukivmtljmo.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/**',
+      },
+    ],
+  },
 };
 
 // Apply next-intl plugin
