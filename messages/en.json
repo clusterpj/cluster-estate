@@ -235,18 +235,23 @@
           "price": "Price",
           "location": "Location",
           "status": "Status",
+          "featured": "Featured",
           "actions": "Actions"
         },
         "status": {
           "available": "Available",
           "pending": "Pending",
-          "sold": "Sold"
+          "sold": "Sold",
+          "featured": "Featured",
+          "notFeatured": "Not Featured"
         },
         "actions": {
           "createProperty": "Create Property",
           "markAvailable": "Mark Available",
           "markPending": "Mark Pending",
           "markSold": "Mark Sold",
+          "markFeatured": "Mark Featured",
+          "unmarkFeatured": "Unmark Featured",
           "edit": "Edit",
           "delete": "Delete"
         },
@@ -269,6 +274,8 @@
           "featuresPlaceholder": "Type a feature and press Enter",
           "images": "Images",
           "imagesDescription": "Upload property images (JPG, PNG)",
+          "featured": "Featured Property",
+          "featuredDescription": "Mark this property to be showcased on the homepage",
           "submit": "Save Property"
         },
         "deleteConfirmation": {
