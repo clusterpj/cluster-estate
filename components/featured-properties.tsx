@@ -8,8 +8,24 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { FadeInView } from "./animations/fade-in-view";
 import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
 
-const featuredProperties = [
+interface Property {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  location: string;
+  bedrooms: number;
+  bathrooms: number;
+  square_feet: number;
+  type: string;
+  featured: boolean;
+  images: string[];
+}
+
+const dummyProperties = [
   {
     id: 1,
     image: "/property1.jpg",
@@ -51,7 +67,30 @@ const container = {
 
 export function FeaturedProperties() {
   const t = useTranslations('FeaturedProperties');
-  
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchFeaturedProperties() {
+      const supabase = createClient();
+      
+      const { data, error } = await supabase
+        .from('properties')
+        .select('*')
+        .eq('featured', true)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching featured properties:', error);
+        return;
+      }
+
+      setProperties(data || []);
+      setLoading(false);
+    }
+
+    fetchFeaturedProperties();
+  }, []);
   return (
     <section className="py-16 bg-background">
       <div className="container mx-auto px-4">
@@ -74,7 +113,7 @@ export function FeaturedProperties() {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {featuredProperties.map((property, index) => (
+          {properties.map((property, index) => (
             <motion.div
               key={property.id}
               whileHover={{ 
@@ -85,8 +124,8 @@ export function FeaturedProperties() {
               <Card className="group hover:shadow-lg transition-shadow duration-300 dark:bg-caribbean-900/40 dark:border-caribbean-700/50 overflow-hidden">
                 <CardHeader className="p-0 relative aspect-[4/3] overflow-hidden">
                   <Image
-                    src={property.image}
-                    alt={t(`properties.${index}.title`)}
+                    src={property.images[0] || '/placeholder-property.jpg'}
+                    alt={property.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
@@ -96,27 +135,32 @@ export function FeaturedProperties() {
                 </CardHeader>
                 <CardContent className="p-6">
                   <CardTitle className="text-xl mb-2 text-caribbean-900 dark:text-caribbean-100">
-                    {t(`properties.${index}.title`)}
+                    {property.title}
                   </CardTitle>
                   <CardDescription className="flex items-center text-muted-foreground mb-4 dark:text-caribbean-300">
                     <MapPin className="h-4 w-4 mr-1" />
-                    {t(`properties.${index}.location`)}
+                    {property.location}
                   </CardDescription>
                   <div className="flex justify-between items-center text-sm text-muted-foreground dark:text-caribbean-300 mb-4">
                     <div className="flex items-center">
                       <Bed className="h-4 w-4 mr-1" />
-                      <span>{property.beds} {t('propertyDetails.beds')}</span>
+                      <span>{property.bedrooms} {t('propertyDetails.beds')}</span>
                     </div>
                     <div className="flex items-center">
                       <Bath className="h-4 w-4 mr-1" />
-                      <span>{property.baths} {t('propertyDetails.baths')}</span>
+                      <span>{property.bathrooms} {t('propertyDetails.baths')}</span>
                     </div>
                     <div className="flex items-center">
                       <Maximize className="h-4 w-4 mr-1" />
-                      <span>{property.sqft} {t('propertyDetails.sqft')}</span>
+                      <span>{property.square_feet} {t('propertyDetails.sqft')}</span>
                     </div>
                   </div>
-                  <div className="text-2xl font-bold text-caribbean-700 dark:text-caribbean-200">{property.price}</div>
+                  <div className="text-2xl font-bold text-caribbean-700 dark:text-caribbean-200">
+                    ${new Intl.NumberFormat('en-US', {
+                      notation: 'compact',
+                      maximumFractionDigits: 1
+                    }).format(property.price)}
+                  </div>
                 </CardContent>
                 <CardFooter className="p-6 pt-0">
                   <Button className="w-full bg-sand-400 hover:bg-sand-500 text-caribbean-900 dark:bg-caribbean-600 dark:hover:bg-caribbean-700 dark:text-white">
