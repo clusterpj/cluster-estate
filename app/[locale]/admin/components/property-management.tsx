@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import type { Database } from '@/types/supabase'
+import { Property } from '@/types/property'
 import {
   Table,
   TableBody,
@@ -16,10 +16,8 @@ import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from '@/components/ui/dialog'
 import { PropertyForm } from './property-form'
 import { useTranslations } from 'next-intl'
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from '@/hooks/use-toast'
 import { X } from 'lucide-react'
-
-type Property = Database['public']['Tables']['properties']['Row']
 
 export function PropertyManagement() {
   const [properties, setProperties] = useState<Property[]>([])
@@ -28,12 +26,11 @@ export function PropertyManagement() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
-  const supabase = createClientComponentClient<Database>()
+  const supabase = createClientComponentClient()
   const t = useTranslations('auth.adminSection.properties')
   const [toastMessage, setToastMessage] = useState<{ title: string; description: string; type: 'success' | 'error' } | null>(null)
   const { toast } = useToast()
 
-  // Fetch properties on component mount
   useEffect(() => {
     fetchProperties()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -47,8 +44,8 @@ export function PropertyManagement() {
 
       if (error) throw error
       setProperties(data || [])
-    } catch (error) {
-      console.error('Error fetching properties:', error)
+    } catch (err) {
+      console.error('Error fetching properties:', err)
       setToastMessage({
         title: t('error'),
         description: t('fetchError'),
@@ -59,23 +56,23 @@ export function PropertyManagement() {
     }
   }
 
-  async function updatePropertyStatus(id: string, status: Property['status']) {
+  async function updatePropertyStatus(id: string, status: Property['status'] | { featured?: boolean }) {
     try {
       const { error } = await supabase
         .from('properties')
-        .update({ status })
+        .update(typeof status === 'string' ? { status } : status)
         .eq('id', id)
 
       if (error) throw error
 
-      // Refresh properties
       fetchProperties()
       setToastMessage({
         title: t('success'),
         description: t('updateSuccess'),
         type: 'success'
       })
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
       setToastMessage({
         title: t('error'),
         description: t('updateError'),
@@ -100,8 +97,8 @@ export function PropertyManagement() {
         description: t('deleteSuccess'),
         type: 'success'
       })
-    } catch (error) {
-      console.error('Error deleting property:', error)
+    } catch (err) {
+      console.error('Error deleting property:', err)
       setToastMessage({
         title: t('error'),
         description: t('deleteError'),
@@ -130,10 +127,7 @@ export function PropertyManagement() {
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">{t('title')}</h2>
         <Dialog open={isDialogOpen} onOpenChange={(open) => {
-          // Only allow closing via the close button
-          if (!open) {
-            return;
-          }
+          if (!open) return;
           setIsDialogOpen(open);
         }}>
           <DialogTrigger asChild>
@@ -163,7 +157,7 @@ export function PropertyManagement() {
                   type: 'success'
                 })
               }}
-              onError={(error) => {
+              onError={() => {
                 setToastMessage({
                   title: t('error'),
                   description: t('createError'),
@@ -176,10 +170,7 @@ export function PropertyManagement() {
       </div>
 
       <Dialog open={isEditDialogOpen} onOpenChange={(open) => {
-        // Only allow closing via the close button
-        if (!open) {
-          return;
-        }
+        if (!open) return;
         setIsEditDialogOpen(open);
       }}>
         <DialogContent className="sm:max-w-[600px]" hideDefaultClose>
@@ -210,7 +201,7 @@ export function PropertyManagement() {
                   type: 'success'
                 })
               }}
-              onError={(error) => {
+              onError={() => {
                 setToastMessage({
                   title: t('error'),
                   description: t('updateError'),
@@ -223,10 +214,7 @@ export function PropertyManagement() {
       </Dialog>
 
       <Dialog open={isDeleteDialogOpen} onOpenChange={(open) => {
-        // Only allow closing via the close button
-        if (!open) {
-          return;
-        }
+        if (!open) return;
         setIsDeleteDialogOpen(open);
       }}>
         <DialogContent hideDefaultClose>
@@ -258,6 +246,7 @@ export function PropertyManagement() {
             <TableHead>{t('table.price')}</TableHead>
             <TableHead>{t('table.location')}</TableHead>
             <TableHead>{t('table.status')}</TableHead>
+            <TableHead>{t('table.featured')}</TableHead>
             <TableHead>{t('table.actions')}</TableHead>
           </TableRow>
         </TableHeader>
@@ -277,7 +266,19 @@ export function PropertyManagement() {
                 </Badge>
               </TableCell>
               <TableCell>
+                <Badge variant={property.featured ? 'default' : 'outline'}>
+                  {property.featured ? t('status.featured') : t('status.notFeatured')}
+                </Badge>
+              </TableCell>
+              <TableCell>
                 <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => updatePropertyStatus(property.id, { featured: !property.featured })}
+                  >
+                    {property.featured ? t('actions.unmarkFeatured') : t('actions.markFeatured')}
+                  </Button>
                   <Button
                     variant="outline"
                     size="sm"
