@@ -38,7 +38,14 @@ const propertyFormSchema = z.object({
   bedrooms: z.number().min(0, 'Number of bedrooms must be positive'),
   bathrooms: z.number().min(0, 'Number of bathrooms must be positive'),
   square_feet: z.number().min(0, 'Square feet must be positive'),
-  status: z.enum(['available', 'sold', 'pending']).default('available'),
+  status: z.enum(['available', 'sold', 'pending', 'rented']).default('available'),
+  listing_type: z.enum(['sale', 'rent', 'both']).default('sale'),
+  rental_price: z.number().min(0, 'Rental price must be positive').optional(),
+  rental_frequency: z.enum(['daily', 'weekly', 'monthly', 'yearly']).optional(),
+  minimum_rental_period: z.number().min(0, 'Minimum rental period must be positive').optional(),
+  deposit_amount: z.number().min(0, 'Deposit amount must be positive').optional(),
+  available_from: z.string().optional(),
+  available_to: z.string().optional(),
   features: z.array(z.string()).default([]),
   images: z.array(z.string()).default([]),
 })
@@ -74,6 +81,13 @@ export function PropertyForm({
       bathrooms: 0,
       square_feet: 0,
       status: 'available',
+      listing_type: 'sale',
+      rental_price: 0,
+      rental_frequency: undefined,
+      minimum_rental_period: 0,
+      deposit_amount: 0,
+      available_from: '',
+      available_to: '',
       features: [],
       images: [],
     },
@@ -212,6 +226,29 @@ export function PropertyForm({
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
+          name="listing_type"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t('form.listingType')}</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder={t('form.selectListingType')} />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="sale">{t('listingType.sale')}</SelectItem>
+                  <SelectItem value="rent">{t('listingType.rent')}</SelectItem>
+                  <SelectItem value="both">{t('listingType.both')}</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
           name="title"
           render={({ field }) => (
             <FormItem>
@@ -342,14 +379,135 @@ export function PropertyForm({
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="available">{t('status.available')}</SelectItem>
-                  <SelectItem value="pending">{t('status.pending')}</SelectItem>
                   <SelectItem value="sold">{t('status.sold')}</SelectItem>
+                  <SelectItem value="pending">{t('status.pending')}</SelectItem>
+                  <SelectItem value="rented">{t('status.rented')}</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
             </FormItem>
           )}
         />
+
+        {(form.watch('listing_type') === 'rent' || form.watch('listing_type') === 'both') && (
+          <div className="space-y-4">
+            <FormField
+              control={form.control}
+              name="rental_price"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('form.rentalPrice')}</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      {...field}
+                      onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="rental_frequency"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('form.rentalFrequency')}</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder={t('form.selectRentalFrequency')} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="daily">{t('rentalFrequency.daily')}</SelectItem>
+                      <SelectItem value="weekly">{t('rentalFrequency.weekly')}</SelectItem>
+                      <SelectItem value="monthly">{t('rentalFrequency.monthly')}</SelectItem>
+                      <SelectItem value="yearly">{t('rentalFrequency.yearly')}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="minimum_rental_period"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('form.minimumRentalPeriod')}</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        {...field}
+                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="deposit_amount"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('form.depositAmount')}</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        {...field}
+                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="available_from"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('form.availableFrom')}</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="date"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="available_to"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('form.availableTo')}</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="date"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+        )}
 
         <FormField
           control={form.control}

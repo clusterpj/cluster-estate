@@ -22,7 +22,15 @@ export interface Database {
           square_feet: number
           images: string[]
           features: string[]
-          status: 'available' | 'sold' | 'pending'
+          featured: boolean
+          status: 'available' | 'sold' | 'pending' | 'rented'
+          listing_type: 'sale' | 'rent' | 'both'
+          rental_price?: number
+          rental_frequency?: 'daily' | 'weekly' | 'monthly' | 'yearly'
+          minimum_rental_period?: number
+          deposit_amount?: number
+          available_from?: string
+          available_to?: string
           user_id: string
         }
         Insert: {
@@ -37,7 +45,15 @@ export interface Database {
           square_feet: number
           images?: string[]
           features?: string[]
-          status?: 'available' | 'sold' | 'pending'
+          featured?: boolean
+          status?: 'available' | 'sold' | 'pending' | 'rented'
+          listing_type?: 'sale' | 'rent' | 'both'
+          rental_price?: number
+          rental_frequency?: 'daily' | 'weekly' | 'monthly' | 'yearly'
+          minimum_rental_period?: number
+          deposit_amount?: number
+          available_from?: string
+          available_to?: string
           user_id: string
         }
         Update: {
@@ -52,7 +68,15 @@ export interface Database {
           square_feet?: number
           images?: string[]
           features?: string[]
-          status?: 'available' | 'sold' | 'pending'
+          featured?: boolean
+          status?: 'available' | 'sold' | 'pending' | 'rented'
+          listing_type?: 'sale' | 'rent' | 'both'
+          rental_price?: number
+          rental_frequency?: 'daily' | 'weekly' | 'monthly' | 'yearly'
+          minimum_rental_period?: number
+          deposit_amount?: number
+          available_from?: string
+          available_to?: string
           user_id?: string
         }
       }

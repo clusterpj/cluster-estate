@@ -199,7 +199,6 @@
     "registerTitle": "Konto erstellen",
     "registerDescription": "Erstellen Sie ein neues Konto, um loszulegen.",
     "signIn": "Anmelden",
-    "signUp": "Anmelden",
     "signOut": "Abmelden",
     "userMenu": "Benutzermenu",
     "dashboard": "Armaturenbrett",
@@ -223,37 +222,113 @@
         "loading": "Eigenschaften werden geladen...",
         "error": "Fehler",
         "success": "Erfolg",
-        "fetchError": "Fehler beim Laden der Eigenschaften",
-        "updateError": "Fehler beim Aktualisieren der Eigenschaft",
-        "updateSuccess": "Eigenschaft erfolgreich aktualisiert",
-        "createError": "Fehler beim Erstellen der Eigenschaft",
-        "createSuccess": "Eigentum erfolgreich erstellt",
-        "deleteSuccess": "Eigentum erfolgreich gelöscht",
-        "deleteError": "Fehlgeschlagen, Eigenschaft zu löschen",
-        "table": {
-          "title": "Titel",
-          "price": "Preis",
-          "location": "Standort",
-          "status": "Status",
-          "actions": "Handlungen"
+        "filters": {
+          "all": [
+            {
+              "type": "text",
+              "text": "Alle Eigenschaften"
+            }
+          ],
+          "selectListingType": [
+            {
+              "type": "text",
+              "text": "Filtern nach Typ"
+            }
+          ]
+        },
+        "listingType": {
+          "sale": [
+            {
+              "type": "text",
+              "text": "Zu verkaufen"
+            }
+          ],
+          "rent": [
+            {
+              "type": "text",
+              "text": "Zu vermieten"
+            }
+          ],
+          "both": [
+            {
+              "type": "text",
+              "text": "Verkauf & Vermietung"
+            }
+          ]
+        },
+        "rentalFrequency": {
+          "daily": [
+            {
+              "type": "text",
+              "text": "pro Tag"
+            }
+          ],
+          "weekly": [
+            {
+              "type": "text",
+              "text": "pro Woche"
+            }
+          ],
+          "monthly": [
+            {
+              "type": "text",
+              "text": "pro Monat"
+            }
+          ],
+          "yearly": [
+            {
+              "type": "text",
+              "text": "pro Jahr"
+            }
+          ]
         },
         "status": {
           "available": "Verfügbar",
           "pending": "Ausstehend",
-          "sold": "Verkauft"
+          "sold": "Verkauft",
+          "rented": [
+            {
+              "type": "text",
+              "text": "Gemietet"
+            }
+          ],
+          "featured": [
+            {
+              "type": "text",
+              "text": "Ausgewählt"
+            }
+          ],
+          "notFeatured": [
+            {
+              "type": "text",
+              "text": "Nicht vorgestellt"
+            }
+          ]
         },
-        "actions": {
-          "createProperty": "Erstellen Sie eine Immobilie",
-          "markAvailable": "Mark verfügbar",
-          "markPending": "Offen stehend",
-          "markSold": "Mark verkaufte",
-          "edit": "Bearbeiten",
-          "delete": "Löschen"
+        "table": {
+          "title": "Titel",
+          "listingType": [
+            {
+              "type": "text",
+              "text": "Typ"
+            }
+          ],
+          "price": "Preis",
+          "rentalPrice": [
+            {
+              "type": "text",
+              "text": "Mietpreis"
+            }
+          ],
+          "location": "Standort",
+          "status": "Status",
+          "featured": "[object Object]",
+          "actions": "Handlungen"
         },
         "form": {
           "createProperty": "Neue Immobilie erstellen",
-          "createPropertyDescription": "Füllen Sie die Details unten aus, um eine neue Immobilienlistung zu erstellen.",
           "editProperty": "Eigentum bearbeiten",
+          "createPropertyDescription": "Füllen Sie die Details unten aus, um eine neue Immobilienlistung zu erstellen.",
           "editPropertyDescription": "Aktualisieren Sie die unten stehenden Objektdetails.",
           "title": "Titel",
           "description": "Beschreibung",
@@ -263,42 +338,134 @@
           "bathrooms": "Badezimmer",
           "squareFeet": "Quadratfuß",
           "status": "Status",
-          "selectStatus": "Wähle den Status aus",
+          "listingType": [
+            {
+              "type": "text",
+              "text": "Angebotstyp"
+            }
+          ],
+          "selectListingType": [
+            {
+              "type": "text",
+              "text": "Wählen Sie den Listungstyp aus"
+            }
+          ],
           "features": "Funktionen",
           "featuresDescription": "Drücke Enter, um eine neue Funktion hinzuzufügen.",
           "featuresPlaceholder": "Tippen Sie ein Feature ein und drücken Sie die Eingabetaste.",
           "images": "Bilder",
           "imagesDescription": "Immobilienbilder hochladen (JPG, PNG)",
-          "submit": "Erstellen Sie eine Immobilie"
+          "rentalPrice": "[object Object]",
+          "rentalFrequency": [
+            {
+              "type": "text",
+              "text": "Mietfrequenz"
+            }
+          ],
+          "selectRentalFrequency": [
+            {
+              "type": "text",
+              "text": "Wähle die Frequenz"
+            }
+          ],
+          "minimumRentalPeriod": [
+            {
+              "type": "text",
+              "text": "Mindestmietdauer"
+            }
+          ],
+          "depositAmount": [
+            {
+              "type": "text",
+              "text": "Kaution"
+            }
+          ],
+          "availableFrom": [
+            {
+              "type": "text",
+              "text": "Verfügbar von"
+            }
+          ],
+          "availableTo": [
+            {
+              "type": "text",
+              "text": "Verfügbar für"
+            }
+          ]
+        },
+        "actions": {
+          "createProperty": "Erstellen Sie eine Immobilie",
+          "manage": [
+            {
+              "type": "text",
+              "text": "Verwalten Sie Eigentum"
+            }
+          ],
+          "markFeatured": [
+            {
+              "type": "text",
+              "text": "Kennzeichnen als Ausgezeichnet"
+            }
+          ],
+          "unmarkFeatured": [
+            {
+              "type": "text",
+              "text": "Entfernen Sie Hervorgehobenes"
+            }
+          ],
+          "markAvailable": "Mark verfügbar",
+          "markPending": "Offen stehend",
+          "markSold": "Mark verkaufte",
+          "markRented": [
+            {
+              "type": "text",
+              "text": "Vermietet"
+            }
+          ],
+          "edit": "Bearbeiten",
+          "delete": "Löschen",
+          "status": [
+            {
+              "type": "text",
+              "text": "Statusänderung"
+            }
+          ]
         },
         "deleteConfirmation": {
           "title": "Löschen Sie die Eigenschaft",
           "description": "Sind Sie sicher, dass Sie diese Eigenschaft löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
-          "confirm": "Löschen",
-          "cancel": "Stornieren"
-        }
-      },
-      "users": {
-        "title": "Benutzerverwaltung",
-        "description": "Benutzerkonten und Rollen verwalten",
-        "loading": "Benutzer werden geladen...",
-        "error": "Fehler",
-        "success": "Erfolg",
-        "fetchError": "Nutzer konnten nicht abgerufen werden",
-        "updateError": "Nutzer-Rolle konnte nicht aktualisiert werden",
-        "updateSuccess": "Benutzerrolle erfolgreich aktualisiert",
-        "table": {
-          "user": "Benutzer",
-          "email": "E-Mail",
-          "role": "Rolle",
-          "joined": "Beigetreten",
-          "actions": "Handlungen"
+          "cancel": "Stornieren",
+          "confirm": "Löschen"
         },
-        "roles": {
-          "user": "Benutzer",
-          "agent": "Agent",
-          "admin": "Admin"
-        }
+        "fetchError": "Fehler beim Laden der Eigenschaften",
+        "updateError": "Fehler beim Aktualisieren der Eigenschaft",
+        "createError": "Fehler beim Erstellen der Eigenschaft",
+        "deleteError": "Fehlgeschlagen, Eigenschaft zu löschen",
+        "updateSuccess": "Eigenschaft erfolgreich aktualisiert",
+        "createSuccess": "Eigentum erfolgreich erstellt",
+        "deleteSuccess": "Eigentum erfolgreich gelöscht"
+      }
+    },
+    "users": {
+      "title": "Benutzerverwaltung",
+      "description": "Benutzerkonten und Rollen verwalten",
+      "loading": "Benutzer werden geladen...",
+      "error": "Fehler",
+      "success": "Erfolg",
+      "fetchError": "Nutzer konnten nicht abgerufen werden",
+      "updateError": "Nutzer-Rolle konnte nicht aktualisiert werden",
+      "updateSuccess": "Benutzerrolle erfolgreich aktualisiert",
+      "table": {
+        "user": "Benutzer",
+        "email": "E-Mail",
+        "role": "Rolle",
+        "joined": "Beigetreten",
+        "actions": "Handlungen"
+      },
+      "roles": {
+        "user": "Benutzer",
+        "agent": "Agent",
+        "admin": "Admin"
       }
     },
     "email": "E-Mail",

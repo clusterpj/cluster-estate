@@ -199,7 +199,6 @@
     "registerTitle": "Créer un compte",
     "registerDescription": "Créez un nouveau compte pour commencer.",
     "signIn": "Se connecter",
-    "signUp": "Inscription",
     "signOut": "Se déconnecter",
     "userMenu": "Menus d'utilisateur",
     "dashboard": "Tableau de bord",
@@ -223,37 +222,113 @@
         "loading": "Chargement des propriétés...",
         "error": "Erreur",
         "success": "Succès",
-        "fetchError": "Erreur de chargement des propriétés",
-        "updateError": "Erreur lors de la mise à jour de la propriété",
-        "updateSuccess": "La propriété a été mise à jour avec succès.",
-        "createError": "Erreur lors de la création de la propriété",
-        "createSuccess": "Propriété créée avec succès",
-        "deleteSuccess": "Propriété supprimée avec succès.",
-        "deleteError": "Échec de la suppression de la propriété",
-        "table": {
-          "title": "Titre",
-          "price": "Prix",
-          "location": "Emplacement",
-          "status": "Statut",
-          "actions": "Actions"
+        "filters": {
+          "all": [
+            {
+              "type": "text",
+              "text": "Toutes les propriétés"
+            }
+          ],
+          "selectListingType": [
+            {
+              "type": "text",
+              "text": "Filtrer par type"
+            }
+          ]
+        },
+        "listingType": {
+          "sale": [
+            {
+              "type": "text",
+              "text": "À vendre"
+            }
+          ],
+          "rent": [
+            {
+              "type": "text",
+              "text": "À Louer"
+            }
+          ],
+          "both": [
+            {
+              "type": "text",
+              "text": "Vente et location"
+            }
+          ]
+        },
+        "rentalFrequency": {
+          "daily": [
+            {
+              "type": "text",
+              "text": "par jour"
+            }
+          ],
+          "weekly": [
+            {
+              "type": "text",
+              "text": "par semaine"
+            }
+          ],
+          "monthly": [
+            {
+              "type": "text",
+              "text": "par mois"
+            }
+          ],
+          "yearly": [
+            {
+              "type": "text",
+              "text": "par année"
+            }
+          ]
         },
         "status": {
           "available": "Disponible",
           "pending": "En attente",
-          "sold": "Vendu"
+          "sold": "Vendu",
+          "rented": [
+            {
+              "type": "text",
+              "text": "Loué"
+            }
+          ],
+          "featured": [
+            {
+              "type": "text",
+              "text": "Vedette"
+            }
+          ],
+          "notFeatured": [
+            {
+              "type": "text",
+              "text": "Pas en vedette"
+            }
+          ]
         },
-        "actions": {
-          "createProperty": "Créer une propriété",
-          "markAvailable": "Marque disponible",
-          "markPending": "Marque en attente",
-          "markSold": "Vendu par Marc",
-          "edit": "Éditer",
-          "delete": "Supprimer"
+        "table": {
+          "title": "Titre",
+          "listingType": [
+            {
+              "type": "text",
+              "text": "Tapez"
+            }
+          ],
+          "price": "Prix",
+          "rentalPrice": [
+            {
+              "type": "text",
+              "text": "Prix de location"
+            }
+          ],
+          "location": "Emplacement",
+          "status": "Statut",
+          "featured": "[object Object]",
+          "actions": "Actions"
         },
         "form": {
           "createProperty": "Créer une nouvelle propriété",
-          "createPropertyDescription": "Remplissez les détails ci-dessous pour créer une nouvelle annonce de propriété.",
           "editProperty": "Modifier la propriété",
+          "createPropertyDescription": "Remplissez les détails ci-dessous pour créer une nouvelle annonce de propriété.",
           "editPropertyDescription": "Mettez à jour les détails de la propriété ci-dessous.",
           "title": "Titre",
           "description": "Voici la traduction en français du texte donné :\n\nDescription",
@@ -263,42 +338,134 @@
           "bathrooms": "Salles de bains",
           "squareFeet": "Pieds carrés",
           "status": "Statut",
-          "selectStatus": "Sélectionnez un statut",
+          "listingType": [
+            {
+              "type": "text",
+              "text": "Type de liste"
+            }
+          ],
+          "selectListingType": [
+            {
+              "type": "text",
+              "text": "Sélectionnez le type de liste"
+            }
+          ],
           "features": "Fonctionnalités",
           "featuresDescription": "Appuyez sur Entrée pour ajouter une nouvelle fonctionnalité",
           "featuresPlaceholder": "Tapez une fonctionnalité et appuyez sur Entrée",
           "images": "Voici la traduction en français :\n\nImages",
           "imagesDescription": "Télécharger les images de la propriété (JPG, PNG)",
-          "submit": "Sauver la propriété"
+          "rentalPrice": "[object Object]",
+          "rentalFrequency": [
+            {
+              "type": "text",
+              "text": "Fréquence de location"
+            }
+          ],
+          "selectRentalFrequency": [
+            {
+              "type": "text",
+              "text": "Sélectionner la fréquence"
+            }
+          ],
+          "minimumRentalPeriod": [
+            {
+              "type": "text",
+              "text": "Période de location minimale"
+            }
+          ],
+          "depositAmount": [
+            {
+              "type": "text",
+              "text": "Dépôt de garantie"
+            }
+          ],
+          "availableFrom": [
+            {
+              "type": "text",
+              "text": "Disponible à partir de"
+            }
+          ],
+          "availableTo": [
+            {
+              "type": "text",
+              "text": "Disponible à"
+            }
+          ]
+        },
+        "actions": {
+          "createProperty": "Créer une propriété",
+          "manage": [
+            {
+              "type": "text",
+              "text": "Gérer la propriété"
+            }
+          ],
+          "markFeatured": [
+            {
+              "type": "text",
+              "text": "Marquer comme en vedette"
+            }
+          ],
+          "unmarkFeatured": [
+            {
+              "type": "text",
+              "text": "Supprimer en vedette"
+            }
+          ],
+          "markAvailable": "Marque disponible",
+          "markPending": "Marque en attente",
+          "markSold": "Vendu par Marc",
+          "markRented": [
+            {
+              "type": "text",
+              "text": "Marquer comme loué"
+            }
+          ],
+          "edit": "Éditer",
+          "delete": "Supprimer",
+          "status": [
+            {
+              "type": "text",
+              "text": "Changement de statut"
+            }
+          ]
         },
         "deleteConfirmation": {
           "title": "Supprimer la propriété",
           "description": "Êtes-vous sûr de vouloir supprimer cette propriété ? Cette action ne peut pas être annulée.",
-          "confirm": "Supprimer",
-          "cancel": "Annuler"
-        }
-      },
-      "users": {
-        "title": "Gestion des utilisateurs",
-        "description": "Gérer les comptes et les rôles des utilisateurs",
-        "loading": "Chargement des utilisateurs...",
-        "error": "Erreur",
-        "success": "Succès",
-        "fetchError": "Échec de la récupération des utilisateurs",
-        "updateError": "Échec de la mise à jour du rôle de l'utilisateur",
-        "updateSuccess": "Rôle d'utilisateur mis à jour avec succès",
-        "table": {
-          "user": "Utilisateur",
-          "email": "Courriel",
-          "role": "Rôle",
-          "joined": "Rejointe",
-          "actions": "Actions"
+          "cancel": "Annuler",
+          "confirm": "Supprimer"
         },
-        "roles": {
-          "user": "Utilisateur",
-          "agent": "Agent",
-          "admin": "Administrateur"
-        }
+        "fetchError": "Erreur de chargement des propriétés",
+        "updateError": "Erreur lors de la mise à jour de la propriété",
+        "createError": "Erreur lors de la création de la propriété",
+        "deleteError": "Échec de la suppression de la propriété",
+        "updateSuccess": "La propriété a été mise à jour avec succès.",
+        "createSuccess": "Propriété créée avec succès",
+        "deleteSuccess": "Propriété supprimée avec succès."
+      }
+    },
+    "users": {
+      "title": "Gestion des utilisateurs",
+      "description": "Gérer les comptes et les rôles des utilisateurs",
+      "loading": "Chargement des utilisateurs...",
+      "error": "Erreur",
+      "success": "Succès",
+      "fetchError": "Échec de la récupération des utilisateurs",
+      "updateError": "Échec de la mise à jour du rôle de l'utilisateur",
+      "updateSuccess": "Rôle d'utilisateur mis à jour avec succès",
+      "table": {
+        "user": "Utilisateur",
+        "email": "Courriel",
+        "role": "Rôle",
+        "joined": "Rejointe",
+        "actions": "Actions"
+      },
+      "roles": {
+        "user": "Utilisateur",
+        "agent": "Agent",
+        "admin": "Administrateur"
       }
     },
     "email": "Courriel",

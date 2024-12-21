@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Toast } from '@/components/ui/toast'
+import { Toast, ToastTitle, ToastDescription } from '@/components/ui/toast'
 
 export default function LoginPage() {
   const t = useTranslations('auth')
@@ -49,11 +49,14 @@ export default function LoginPage() {
     <div className="container mx-auto flex h-screen items-center justify-center px-4">
       {toastMessage && (
         <Toast
-          title={toastMessage.title}
-          description={toastMessage.description}
           variant={toastMessage.type === 'error' ? 'destructive' : 'default'}
           onOpenChange={() => setToastMessage(null)}
-        />
+        >
+          <div className="grid gap-1">
+            <ToastTitle>{toastMessage.title}</ToastTitle>
+            <ToastDescription>{toastMessage.description}</ToastDescription>
+          </div>
+        </Toast>
       )}
       <Card className="w-full max-w-md">
         <CardHeader>

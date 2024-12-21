@@ -43,7 +43,7 @@ export async function translateText(text: string, targetLanguage: string) {
       ],
     });
 
-    const translation = message.content[0].text;
+    const translation = message.content;
 
     // Cache the translation
     await db.run(

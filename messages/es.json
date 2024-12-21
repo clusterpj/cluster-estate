@@ -199,7 +199,6 @@
     "registerTitle": "Crear cuenta",
     "registerDescription": "Crea una nueva cuenta para comenzar.",
     "signIn": "Iniciar sesión",
-    "signUp": "Regístrese",
     "signOut": "Cerrar sesión",
     "userMenu": "Menú de usuario",
     "dashboard": "Tablero",
@@ -223,37 +222,113 @@
         "loading": "Cargando propiedades...",
         "error": "Error",
         "success": "Éxito",
-        "fetchError": "Error cargando propiedades",
-        "updateError": "Error actualizando la propiedad",
-        "updateSuccess": "Propiedad actualizada exitosamente",
-        "createError": "Error al crear la propiedad",
-        "createSuccess": "Propiedad creada con éxito",
-        "deleteSuccess": "Propiedad eliminada exitosamente",
-        "deleteError": "No se pudo eliminar la propiedad",
-        "table": {
-          "title": "Título",
-          "price": "Precio",
-          "location": "Ubicación",
-          "status": "Estado",
-          "actions": "Acciones"
+        "filters": {
+          "all": [
+            {
+              "type": "text",
+              "text": "Todas las propiedades"
+            }
+          ],
+          "selectListingType": [
+            {
+              "type": "text",
+              "text": "Filtrar por tipo"
+            }
+          ]
+        },
+        "listingType": {
+          "sale": [
+            {
+              "type": "text",
+              "text": "En venta"
+            }
+          ],
+          "rent": [
+            {
+              "type": "text",
+              "text": "En Alquiler"
+            }
+          ],
+          "both": [
+            {
+              "type": "text",
+              "text": "Venta y alquiler"
+            }
+          ]
+        },
+        "rentalFrequency": {
+          "daily": [
+            {
+              "type": "text",
+              "text": "por día"
+            }
+          ],
+          "weekly": [
+            {
+              "type": "text",
+              "text": "por semana"
+            }
+          ],
+          "monthly": [
+            {
+              "type": "text",
+              "text": "por mes"
+            }
+          ],
+          "yearly": [
+            {
+              "type": "text",
+              "text": "por año"
+            }
+          ]
         },
         "status": {
           "available": "Disponible",
           "pending": "Pendiente",
-          "sold": "Vendido"
+          "sold": "Vendido",
+          "rented": [
+            {
+              "type": "text",
+              "text": "Alquilado"
+            }
+          ],
+          "featured": [
+            {
+              "type": "text",
+              "text": "Destacado"
+            }
+          ],
+          "notFeatured": [
+            {
+              "type": "text",
+              "text": "No destacado"
+            }
+          ]
         },
-        "actions": {
-          "createProperty": "Crear propiedad",
-          "markAvailable": "Disponible",
-          "markPending": "Pendiente",
-          "markSold": "Vendida",
-          "edit": "Editar",
-          "delete": "Borrar"
+        "table": {
+          "title": "Título",
+          "listingType": [
+            {
+              "type": "text",
+              "text": "Tipo"
+            }
+          ],
+          "price": "Precio",
+          "rentalPrice": [
+            {
+              "type": "text",
+              "text": "Precio de Alquiler"
+            }
+          ],
+          "location": "Ubicación",
+          "status": "Estado",
+          "featured": "[object Object]",
+          "actions": "Acciones"
         },
         "form": {
           "createProperty": "Crear Nueva Propiedad",
-          "createPropertyDescription": "Rellena los detalles a continuación para crear una nueva publicación de propiedad.",
           "editProperty": "Editar Propiedad",
+          "createPropertyDescription": "Rellena los detalles a continuación para crear una nueva publicación de propiedad.",
           "editPropertyDescription": "Actualice los detalles de la propiedad a continuación.",
           "title": "Título",
           "description": "La descripción.",
@@ -263,42 +338,134 @@
           "bathrooms": "Baños",
           "squareFeet": "Pies cuadrados",
           "status": "Estado",
-          "selectStatus": "Selecciona un estado",
+          "listingType": [
+            {
+              "type": "text",
+              "text": "Tipo de listado"
+            }
+          ],
+          "selectListingType": [
+            {
+              "type": "text",
+              "text": "Selecciona el tipo de listado"
+            }
+          ],
           "features": "Características",
           "featuresDescription": "Presiona Enter para agregar una nueva función.",
           "featuresPlaceholder": "Escriba una característica y presione Enter",
           "images": "Imágenes",
           "imagesDescription": "Cargar imágenes de la propiedad (JPG, PNG)",
-          "submit": "Guardar propiedad"
+          "rentalPrice": "[object Object]",
+          "rentalFrequency": [
+            {
+              "type": "text",
+              "text": "Frecuencia del alquiler"
+            }
+          ],
+          "selectRentalFrequency": [
+            {
+              "type": "text",
+              "text": "Seleccione la frecuencia"
+            }
+          ],
+          "minimumRentalPeriod": [
+            {
+              "type": "text",
+              "text": "El período de alquiler mínimo"
+            }
+          ],
+          "depositAmount": [
+            {
+              "type": "text",
+              "text": "Depósito de garantía"
+            }
+          ],
+          "availableFrom": [
+            {
+              "type": "text",
+              "text": "Disponible desde"
+            }
+          ],
+          "availableTo": [
+            {
+              "type": "text",
+              "text": "Disponible a"
+            }
+          ]
+        },
+        "actions": {
+          "createProperty": "Crear propiedad",
+          "manage": [
+            {
+              "type": "text",
+              "text": "Administrar la propiedad"
+            }
+          ],
+          "markFeatured": [
+            {
+              "type": "text",
+              "text": "Marcar como destacado"
+            }
+          ],
+          "unmarkFeatured": [
+            {
+              "type": "text",
+              "text": "Eliminar destacado"
+            }
+          ],
+          "markAvailable": "Disponible",
+          "markPending": "Pendiente",
+          "markSold": "Vendida",
+          "markRented": [
+            {
+              "type": "text",
+              "text": "Marcar como Alquilado"
+            }
+          ],
+          "edit": "Editar",
+          "delete": "Borrar",
+          "status": [
+            {
+              "type": "text",
+              "text": "Cambiar estado"
+            }
+          ]
         },
         "deleteConfirmation": {
           "title": "Eliminar propiedad",
           "description": "¿Está seguro de que desea eliminar esta propiedad? Esta acción no se puede deshacer.",
-          "confirm": "Borrar",
-          "cancel": "Cancelar"
-        }
-      },
-      "users": {
-        "title": "Administración de usuarios",
-        "description": "Administrar cuentas y roles de usuario",
-        "loading": "Cargando usuarios...",
-        "error": "Error",
-        "success": "Éxito",
-        "fetchError": "No se pudo obtener a los usuarios",
-        "updateError": "No se pudo actualizar el rol de usuario",
-        "updateSuccess": "El rol de usuario se actualizó correctamente.",
-        "table": {
-          "user": "Usuario",
-          "email": "Correo electrónico",
-          "role": "Rol",
-          "joined": "Unido",
-          "actions": "Acciones"
+          "cancel": "Cancelar",
+          "confirm": "Borrar"
         },
-        "roles": {
-          "user": "Usuario",
-          "agent": "Agente",
-          "admin": "Administrador"
-        }
+        "fetchError": "Error cargando propiedades",
+        "updateError": "Error actualizando la propiedad",
+        "createError": "Error al crear la propiedad",
+        "deleteError": "No se pudo eliminar la propiedad",
+        "updateSuccess": "Propiedad actualizada exitosamente",
+        "createSuccess": "Propiedad creada con éxito",
+        "deleteSuccess": "Propiedad eliminada exitosamente"
+      }
+    },
+    "users": {
+      "title": "Administración de usuarios",
+      "description": "Administrar cuentas y roles de usuario",
+      "loading": "Cargando usuarios...",
+      "error": "Error",
+      "success": "Éxito",
+      "fetchError": "No se pudo obtener a los usuarios",
+      "updateError": "No se pudo actualizar el rol de usuario",
+      "updateSuccess": "El rol de usuario se actualizó correctamente.",
+      "table": {
+        "user": "Usuario",
+        "email": "Correo electrónico",
+        "role": "Rol",
+        "joined": "Unido",
+        "actions": "Acciones"
+      },
+      "roles": {
+        "user": "Usuario",
+        "agent": "Agente",
+        "admin": "Administrador"
       }
     },
     "email": "Correo electrónico",

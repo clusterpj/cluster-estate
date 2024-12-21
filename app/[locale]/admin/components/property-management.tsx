@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { Property } from '@/types/property'
+import type { Property } from '@/types/property'
 import {
   Table,
   TableBody,
@@ -26,6 +26,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 export function PropertyManagement() {
   const [properties, setProperties] = useState<Property[]>([])
@@ -34,6 +35,7 @@ export function PropertyManagement() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
+  const [listingTypeFilter, setListingTypeFilter] = useState<'all' | 'sale' | 'rent' | 'both'>('all')
   const supabase = createClientComponentClient()
   const t = useTranslations('auth.adminSection.properties')
   const [toastMessage, setToastMessage] = useState<{ title: string; description: string; type: 'success' | 'error' } | null>(null)
@@ -79,7 +81,6 @@ export function PropertyManagement() {
         description: t('updateSuccess'),
         type: 'success'
       })
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setToastMessage({
         title: t('error'),
@@ -126,6 +127,10 @@ export function PropertyManagement() {
     }
   }, [toastMessage, toast])
 
+  const filteredProperties = properties.filter(property => 
+    listingTypeFilter === 'all' ? true : property.listing_type === listingTypeFilter
+  )
+
   if (loading) {
     return <div>{t('loading')}</div>
   }
@@ -133,7 +138,22 @@ export function PropertyManagement() {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">{t('title')}</h2>
+        <div className="space-y-1">
+          <h2 className="text-2xl font-bold">{t('title')}</h2>
+          <div className="flex gap-2">
+            <Select value={listingTypeFilter} onValueChange={(value: typeof listingTypeFilter) => setListingTypeFilter(value)}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder={t('filters.selectListingType')} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">{t('filters.all')}</SelectItem>
+                <SelectItem value="sale">{t('listingType.sale')}</SelectItem>
+                <SelectItem value="rent">{t('listingType.rent')}</SelectItem>
+                <SelectItem value="both">{t('listingType.both')}</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
         <Dialog open={isDialogOpen} onOpenChange={(open) => {
           if (!open) return;
           setIsDialogOpen(open);
@@ -251,7 +271,9 @@ export function PropertyManagement() {
         <TableHeader>
           <TableRow>
             <TableHead>{t('table.title')}</TableHead>
+            <TableHead>{t('table.listingType')}</TableHead>
             <TableHead>{t('table.price')}</TableHead>
+            <TableHead>{t('table.rentalPrice')}</TableHead>
             <TableHead>{t('table.location')}</TableHead>
             <TableHead>{t('table.status')}</TableHead>
             <TableHead>{t('table.featured')}</TableHead>
@@ -259,15 +281,35 @@ export function PropertyManagement() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {properties.map((property) => (
+          {filteredProperties.map((property) => (
             <TableRow key={property.id}>
               <TableCell>{property.title}</TableCell>
-              <TableCell>${property.price.toLocaleString()}</TableCell>
+              <TableCell>
+                <Badge variant="outline">
+                  {t(`listingType.${property.listing_type}`)}
+                </Badge>
+              </TableCell>
+              <TableCell>
+                {property.listing_type !== 'rent' && (
+                  <>${property.price.toLocaleString()}</>
+                )}
+              </TableCell>
+              <TableCell>
+                {(property.listing_type === 'rent' || property.listing_type === 'both') && property.rental_price && (
+                  <div className="flex flex-col">
+                    <span>${property.rental_price.toLocaleString()}</span>
+                    <span className="text-sm text-muted-foreground">
+                      {property.rental_frequency && t(`rentalFrequency.${property.rental_frequency}`)}
+                    </span>
+                  </div>
+                )}
+              </TableCell>
               <TableCell>{property.location}</TableCell>
               <TableCell>
                 <Badge variant={
                   property.status === 'available' ? 'default' :
                   property.status === 'pending' ? 'secondary' :
+                  property.status === 'rented' ? 'secondary' :
                   'outline'
                 }>
                   {t(`status.${property.status}`)}
@@ -321,6 +363,14 @@ export function PropertyManagement() {
                     >
                       <Check className="mr-2 h-4 w-4" />
                       {t('actions.markSold')}
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuItem
+                      onClick={() => updatePropertyStatus(property.id, 'rented')}
+                      disabled={property.status === 'rented'}
+                    >
+                      <Check className="mr-2 h-4 w-4" />
+                      {t('actions.markRented')}
                     </DropdownMenuItem>
                     
                     <DropdownMenuSeparator />
