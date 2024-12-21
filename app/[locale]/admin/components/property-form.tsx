@@ -27,7 +27,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useTranslations } from 'next-intl'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 type PropertyInsert = Database['public']['Tables']['properties']['Insert']
@@ -69,59 +69,56 @@ export function PropertyForm({
   mode = 'create',
   propertyId 
 }: PropertyFormProps) {
-  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+  const [uploadedImages, setUploadedImages] = useState<string[]>(initialData?.images || []);
   const t = useTranslations('auth.adminSection.properties')
   const supabase = createClientComponentClient<Database>()
 
+  useEffect(() => {
+    if (initialData?.images) {
+      setUploadedImages(initialData.images);
+    }
+  }, [initialData?.images]);
+
   const form = useForm<PropertyFormValues>({
     resolver: zodResolver(propertyFormSchema),
-    defaultValues: initialData || {
-      title: '',
-      description: '',
-      price: 0,
-      location: '',
-      bedrooms: 0,
-      bathrooms: 0,
-      square_feet: 0,
-      status: 'available',
-      listing_type: 'sale',
-      rental_price: 0,
-      rental_frequency: undefined,
-      minimum_rental_period: 0,
-      deposit_amount: 0,
-      available_from: '',
-      available_to: '',
-      features: [],
-      images: [],
+    defaultValues: {
+      title: initialData?.title || '',
+      description: initialData?.description || '',
+      price: initialData?.sale_price || 0,
+      location: initialData?.location || '',
+      bedrooms: initialData?.bedrooms || 0,
+      bathrooms: initialData?.bathrooms || 0,
+      square_feet: initialData?.square_feet || 0,
+      status: initialData?.status || 'available',
+      listing_type: initialData?.listing_type || 'sale',
+      rental_price: initialData?.rental_price || 0,
+      rental_frequency: initialData?.rental_frequency || undefined,
+      minimum_rental_period: initialData?.minimum_rental_period || 0,
+      deposit_amount: initialData?.deposit_amount || 0,
+      available_from: initialData?.available_from || '',
+      available_to: initialData?.available_to || '',
+      features: Array.isArray(initialData?.features) ? initialData.features : [],
+      images: uploadedImages,
     },
   })
 
   const processPropertyData = async () => {
-    const {
-      data: { user },
-      error: userError
-    } = await supabase.auth.getUser();
-
-    if (userError || !user) {
-      throw new Error('No user found');
-    }
-
     const formData = form.getValues();
-    const { price, ...rest } = formData;
-    
+    const { data: { user } } = await supabase.auth.getUser();
+
     const processedData = {
-      ...rest,
-      user_id: user.id,
-      sale_price: formData.listing_type === 'sale' || formData.listing_type === 'both' ? price : null,
-      rental_price: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.rental_price : null,
-      legacy_price: price,
-      rental_frequency: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.rental_frequency : null,
-      minimum_rental_period: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.minimum_rental_period : null,
-      deposit_amount: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.deposit_amount : null,
+      ...formData,
+      sale_price: formData.price,
+      features: Array.isArray(formData.features) ? formData.features : [],
+      images: uploadedImages,
+      user_id: user?.id,
       available_from: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.available_from : null,
       available_to: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.available_to : null,
-      images: uploadedImages
     };
+
+    // Remove the old price field since we're using sale_price
+    delete processedData.price;
+    
     return processedData;
   };
 
@@ -132,11 +129,25 @@ export function PropertyForm({
       const propertyData = await processPropertyData();
       console.log('Processing property data:', propertyData);
 
-      const { data: savedProperty, error } = await supabase
-        .from('properties')
-        .insert([propertyData])
-        .select()
-        .single();
+      let dbOperation;
+      if (mode === 'edit' && propertyId) {
+        // Update existing property
+        dbOperation = supabase
+          .from('properties')
+          .update(propertyData)
+          .eq('id', propertyId)
+          .select()
+          .single();
+      } else {
+        // Create new property
+        dbOperation = supabase
+          .from('properties')
+          .insert([propertyData])
+          .select()
+          .single();
+      }
+
+      const { data: savedProperty, error } = await dbOperation;
 
       if (error) {
         console.error('Error saving property:', error);
