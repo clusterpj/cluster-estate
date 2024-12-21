@@ -49,8 +49,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
-    // Check active sessions and sets the user
+    // Check active sessions and handle expiry
     supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (session?.expires_at && Date.now() > session.expires_at * 1000) {
+        await signOut();
+        return;
+      }
       setUser(session?.user ?? null)
       if (session?.user) {
         const profile = await fetchUserProfile(session.user.id)

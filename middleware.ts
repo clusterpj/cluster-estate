@@ -4,9 +4,10 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { defaultLocale, locales } from './config/i18n';
 
-// Define public and protected routes
+// Define route access levels
 const publicPages = ['/', '/properties', '/about', '/contact', '/auth/login', '/auth/register'];
-const protectedPages = ['/admin', '/profile', '/favorites'];
+const protectedPages = ['/profile', '/favorites'];
+const adminPages = ['/admin'];
 
 // Create next-intl middleware
 const intlMiddleware = createMiddleware({
@@ -37,13 +38,19 @@ export default async function middleware(req: NextRequest) {
     ? pathname.slice(pathname.indexOf('/', 1))
     : pathname;
 
-  // Check if the page is protected
+  // Check page access level
   const isProtectedPage = protectedPages.some(route => 
     pathWithoutLocale.startsWith(route)
   );
+  const isAdminPage = adminPages.some(route => 
+    pathWithoutLocale.startsWith(route)
+  );
 
-  // Only redirect if trying to access protected pages without session
-  if (isProtectedPage && !session) {
+  // Get user role from session
+  const userRole = session?.user?.user_metadata?.role || 'user';
+
+  // Handle access control
+  if ((isProtectedPage && !session) || (isAdminPage && userRole !== 'admin')) {
     // Get locale from pathname
     const locale = pathnameHasLocale ? pathname.split('/')[1] : defaultLocale;
     
