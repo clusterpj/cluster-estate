@@ -223,106 +223,36 @@
         "error": "Error",
         "success": "Éxito",
         "filters": {
-          "all": [
-            {
-              "type": "text",
-              "text": "Todas las propiedades"
-            }
-          ],
-          "selectListingType": [
-            {
-              "type": "text",
-              "text": "Filtrar por tipo"
-            }
-          ]
+          "all": "Todas las propiedades",
+          "selectListingType": "Filtrar por tipo"
         },
         "listingType": {
-          "sale": [
-            {
-              "type": "text",
-              "text": "En venta"
-            }
-          ],
-          "rent": [
-            {
-              "type": "text",
-              "text": "En Alquiler"
-            }
-          ],
-          "both": [
-            {
-              "type": "text",
-              "text": "Venta y alquiler"
-            }
-          ]
+          "sale": "En venta",
+          "rent": "En Alquiler",
+          "both": "Venta y alquiler"
         },
         "rentalFrequency": {
-          "daily": [
-            {
-              "type": "text",
-              "text": "por día"
-            }
-          ],
-          "weekly": [
-            {
-              "type": "text",
-              "text": "por semana"
-            }
-          ],
-          "monthly": [
-            {
-              "type": "text",
-              "text": "por mes"
-            }
-          ],
-          "yearly": [
-            {
-              "type": "text",
-              "text": "por año"
-            }
-          ]
+          "daily": "por día",
+          "weekly": "por semana",
+          "monthly": "por mes",
+          "yearly": "por año"
         },
         "status": {
           "available": "Disponible",
           "pending": "Pendiente",
           "sold": "Vendido",
-          "rented": [
-            {
-              "type": "text",
-              "text": "Alquilado"
-            }
-          ],
-          "featured": [
-            {
-              "type": "text",
-              "text": "Destacado"
-            }
-          ],
-          "notFeatured": [
-            {
-              "type": "text",
-              "text": "No destacado"
-            }
-          ]
+          "rented": "Alquilado",
+          "featured": "Destacado",
+          "notFeatured": "No destacado"
         },
         "table": {
           "title": "Título",
-          "listingType": [
-            {
-              "type": "text",
-              "text": "Tipo"
-            }
-          ],
+          "listingType": "Tipo",
           "price": "Precio",
-          "rentalPrice": [
-            {
-              "type": "text",
-              "text": "Precio de Alquiler"
-            }
-          ],
+          "rentalPrice": "Precio de Alquiler",
           "location": "Ubicación",
           "status": "Estado",
-          "featured": "[object Object]",
+          "featured": "Destacado",
           "actions": "Acciones"
         },
         "form": {
@@ -338,98 +268,33 @@
           "bathrooms": "Baños",
           "squareFeet": "Pies cuadrados",
           "status": "Estado",
-          "listingType": [
-            {
-              "type": "text",
-              "text": "Tipo de listado"
-            }
-          ],
-          "selectListingType": [
-            {
-              "type": "text",
-              "text": "Selecciona el tipo de listado"
-            }
-          ],
+          "listingType": "Tipo de listado",
+          "selectListingType": "Selecciona el tipo de listado",
           "features": "Características",
           "featuresDescription": "Presiona Enter para agregar una nueva función.",
           "featuresPlaceholder": "Escriba una característica y presione Enter",
           "images": "Imágenes",
           "imagesDescription": "Cargar imágenes de la propiedad (JPG, PNG)",
-          "rentalPrice": "[object Object]",
-          "rentalFrequency": [
-            {
-              "type": "text",
-              "text": "Frecuencia del alquiler"
-            }
-          ],
-          "selectRentalFrequency": [
-            {
-              "type": "text",
-              "text": "Seleccione la frecuencia"
-            }
-          ],
-          "minimumRentalPeriod": [
-            {
-              "type": "text",
-              "text": "El período de alquiler mínimo"
-            }
-          ],
-          "depositAmount": [
-            {
-              "type": "text",
-              "text": "Depósito de garantía"
-            }
-          ],
-          "availableFrom": [
-            {
-              "type": "text",
-              "text": "Disponible desde"
-            }
-          ],
-          "availableTo": [
-            {
-              "type": "text",
-              "text": "Disponible a"
-            }
-          ]
+          "rentalPrice": "Precio de Alquiler",
+          "rentalFrequency": "Frecuencia del alquiler",
+          "selectRentalFrequency": "Seleccione la frecuencia",
+          "minimumRentalPeriod": "El período de alquiler mínimo",
+          "depositAmount": "Depósito de garantía",
+          "availableFrom": "Disponible desde",
+          "availableTo": "Disponible a"
         },
         "actions": {
           "createProperty": "Crear propiedad",
-          "manage": [
-            {
-              "type": "text",
-              "text": "Administrar la propiedad"
-            }
-          ],
-          "markFeatured": [
-            {
-              "type": "text",
-              "text": "Marcar como destacado"
-            }
-          ],
-          "unmarkFeatured": [
-            {
-              "type": "text",
-              "text": "Eliminar destacado"
-            }
-          ],
+          "manage": "Administrar la propiedad",
+          "markFeatured": "Marcar como destacado",
+          "unmarkFeatured": "Eliminar destacado",
           "markAvailable": "Disponible",
           "markPending": "Pendiente",
           "markSold": "Vendida",
-          "markRented": [
-            {
-              "type": "text",
-              "text": "Marcar como Alquilado"
-            }
-          ],
+          "markRented": "Marcar como Alquilado",
           "edit": "Editar",
           "delete": "Borrar",
-          "status": [
-            {
-              "type": "text",
-              "text": "Cambiar estado"
-            }
-          ]
+          "status": "Cambiar estado"
         },
         "deleteConfirmation": {
           "title": "Eliminar propiedad",

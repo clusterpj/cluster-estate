@@ -33,6 +33,20 @@ function generateCacheKey(value: string, context: string[]): string {
   return `${context.join('.')}:${value}`;
 }
 
+function normalizeTranslation(value: any): any {
+  // If it's an array with objects containing type and text, convert to string
+  if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object' && 'text' in value[0]) {
+    return value[0].text;
+  }
+  
+  // If it's [object Object], convert to empty string to be translated
+  if (value === '[object Object]') {
+    return '';
+  }
+
+  return value;
+}
+
 async function translateObjectWithCache(
   obj: any, 
   targetLang: string, 
@@ -50,6 +64,9 @@ async function translateObjectWithCache(
     for (const key of context) {
       existingValue = existingValue?.[key];
     }
+
+    // Normalize existing value if needed
+    existingValue = normalizeTranslation(existingValue);
 
     // If the existing translation matches the context and the original hasn't changed
     if (existingValue && typeof existingValue === 'string') {
@@ -81,19 +98,8 @@ async function translateObjectWithCache(
   }
 
   if (Array.isArray(obj)) {
-    const translations = await Promise.all(
-      obj.map((item, index) => 
-        translateObjectWithCache(
-          item, 
-          targetLang, 
-          existingTranslations?.[index],
-          [...context, index.toString()],
-          cache,
-          stats
-        )
-      )
-    );
-    return translations;
+    // Don't translate arrays, just pass them through
+    return obj;
   }
 
   if (typeof obj === 'object' && obj !== null) {
@@ -123,9 +129,12 @@ async function ensureStructuralParity(
   stats: TranslationStats = { reused: 0, translated: 0, missing: [] }
 ): Promise<any> {
   if (typeof sourceObj === 'string') {
-    if (typeof targetObj === 'string') {
-      return targetObj;
+    const targetValue = normalizeTranslation(targetObj);
+    
+    if (typeof targetValue === 'string' && targetValue) {
+      return targetValue;
     }
+    
     // If target is missing or of wrong type, translate the source
     const cacheKey = generateCacheKey(sourceObj, context);
     console.log(`Missing translation [${context.join('.')}]: "${sourceObj}"`);
@@ -141,21 +150,8 @@ async function ensureStructuralParity(
   }
 
   if (Array.isArray(sourceObj)) {
-    if (!Array.isArray(targetObj)) {
-      targetObj = [];
-    }
-    return Promise.all(
-      sourceObj.map((item, index) =>
-        ensureStructuralParity(
-          item,
-          targetObj[index],
-          targetLang,
-          [...context, index.toString()],
-          cache,
-          stats
-        )
-      )
-    );
+    // Don't translate arrays, just pass them through
+    return sourceObj;
   }
 
   if (typeof sourceObj === 'object' && sourceObj !== null) {

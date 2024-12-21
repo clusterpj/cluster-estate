@@ -25,7 +25,7 @@
         "description": "Profitez du soleil et des brises tropicales toute l'année."
       },
       "culture": {
-        "title": "Voici la traduction en français :\n\nCulture insulaire",
+        "title": "Culture insulaire",
         "description": "Plongez-vous dans le mode de vie dynamique des Caraïbes."
       },
       "activities": {
@@ -46,7 +46,7 @@
     "viewAllProperties": "Voir toutes les propriétés",
     "propertyDetails": {
       "beds": "Lits",
-      "baths": "Voici la traduction en français :\n\nBains",
+      "baths": "Bains",
       "sqft": "pied carré"
     },
     "properties": [
@@ -111,15 +111,15 @@
     "description": "Vivez l'alliance parfaite du luxe et de la vie insulaire."
   },
   "AboutUs": {
-    "title": "Voici la traduction en français :\n\nÀ propos des Villas de Cabarete",
+    "title": "À propos des Villas de Cabarete",
     "subtitle": "Votre maison de vacances dans la capitale de l'aventure des Caraïbes",
     "intro": {
-      "title": "Voici la traduction:\n\nNotre histoire",
+      "title": "Notre histoire",
       "content": "Mon mari Chuck et moi sommes originaires d'Erie, en Pennsylvanie, aux États-Unis, et avons parcouru le monde pour trouver une seconde maison. En 2000, nous nous sommes rendus à Cabarete et savions que c'était l'endroit parfait pour nous. Nous avons acheté notre maison sur-le-champ."
     },
     "location": {
-      "title": "Cabarete: La capitale de l'aventure",
-      "content": "Cabarete est une ville balnéaire dynamique connue sous le nom de \"La capitale de l'aventure des Caraïbes\". Avec des conditions idéales pour le windsurf, le kitesurf et le surf, Cabarete est l'une des principales destinations au monde pour les sports nautiques. Vous n'êtes pas passionné de sports nautiques ? Il y a quelque chose pour tout le monde à Cabarete. Vous pouvez faire du vélo, de l'équitation, du kayak, de la descente de canyons, participer à de nombreuses autres aventures, ou simplement profiter de vous détendre sur la belle plage."
+      "title": "Notre emplacement",
+      "description": "Cabarete est une ville balnéaire animée sur la côte nord de la République dominicaine, réputée pour ses sports nautiques et son ambiance décontractée."
     },
     "community": {
       "title": "Une Communauté Unique",
@@ -162,7 +162,7 @@
       {
         "title": "Kite surf",
         "description": "Cabarete est mondialement connu pour ses conditions parfaites pour le kitesurf. Que vous soyez débutant ou expert, nos instructeurs certifiés vous aideront à attraper le vent parfait.",
-        "image": "Voici la traduction :\n\n/images/activities/kite-surfing.jpg",
+        "image": "/images/activities/kite-surfing.jpg",
         "contact": "+1 809-555-0124"
       },
       {
@@ -189,7 +189,7 @@
         "title": "Spa Andari",
         "description": "Voici notre préféré ! Massage, physiothérapie, massage aux pierres chaudes, gommages corporels, enveloppements corporels, soins du visage, manucures et pédicures et épilation. Il se trouve dans le Millennium Resort & Spa, Cabarete.",
         "website": "www.andarispa.com",
-        "image": "Voici la traduction :\n\n/images/activities/spa.jpg"
+        "image": "/images/activities/spa.jpg"
       }
     ]
   },
@@ -223,227 +223,78 @@
         "error": "Erreur",
         "success": "Succès",
         "filters": {
-          "all": [
-            {
-              "type": "text",
-              "text": "Toutes les propriétés"
-            }
-          ],
-          "selectListingType": [
-            {
-              "type": "text",
-              "text": "Filtrer par type"
-            }
-          ]
+          "all": "Toutes les propriétés",
+          "selectListingType": "Filtrer par type"
         },
         "listingType": {
-          "sale": [
-            {
-              "type": "text",
-              "text": "À vendre"
-            }
-          ],
-          "rent": [
-            {
-              "type": "text",
-              "text": "À Louer"
-            }
-          ],
-          "both": [
-            {
-              "type": "text",
-              "text": "Vente et location"
-            }
-          ]
+          "sale": "À vendre",
+          "rent": "À Louer",
+          "both": "Vente et location"
         },
         "rentalFrequency": {
-          "daily": [
-            {
-              "type": "text",
-              "text": "par jour"
-            }
-          ],
-          "weekly": [
-            {
-              "type": "text",
-              "text": "par semaine"
-            }
-          ],
-          "monthly": [
-            {
-              "type": "text",
-              "text": "par mois"
-            }
-          ],
-          "yearly": [
-            {
-              "type": "text",
-              "text": "par année"
-            }
-          ]
+          "daily": "par jour",
+          "weekly": "par semaine",
+          "monthly": "par mois",
+          "yearly": "par année"
         },
         "status": {
           "available": "Disponible",
           "pending": "En attente",
           "sold": "Vendu",
-          "rented": [
-            {
-              "type": "text",
-              "text": "Loué"
-            }
-          ],
-          "featured": [
-            {
-              "type": "text",
-              "text": "Vedette"
-            }
-          ],
-          "notFeatured": [
-            {
-              "type": "text",
-              "text": "Pas en vedette"
-            }
-          ]
-        },
-        "table": {
-          "title": "Titre",
-          "listingType": [
-            {
-              "type": "text",
-              "text": "Tapez"
-            }
-          ],
-          "price": "Prix",
-          "rentalPrice": [
-            {
-              "type": "text",
-              "text": "Prix de location"
-            }
-          ],
-          "location": "Emplacement",
-          "status": "Statut",
-          "featured": "[object Object]",
-          "actions": "Actions"
-        },
-        "form": {
-          "createProperty": "Créer une nouvelle propriété",
-          "editProperty": "Modifier la propriété",
-          "createPropertyDescription": "Remplissez les détails ci-dessous pour créer une nouvelle annonce de propriété.",
-          "editPropertyDescription": "Mettez à jour les détails de la propriété ci-dessous.",
-          "title": "Titre",
-          "description": "Voici la traduction en français du texte donné :\n\nDescription",
-          "price": "Prix",
-          "location": "Emplacement",
-          "bedrooms": "Chambres",
-          "bathrooms": "Salles de bains",
-          "squareFeet": "Pieds carrés",
-          "status": "Statut",
-          "listingType": [
-            {
-              "type": "text",
-              "text": "Type de liste"
-            }
-          ],
-          "selectListingType": [
-            {
-              "type": "text",
-              "text": "Sélectionnez le type de liste"
-            }
-          ],
-          "features": "Fonctionnalités",
-          "featuresDescription": "Appuyez sur Entrée pour ajouter une nouvelle fonctionnalité",
-          "featuresPlaceholder": "Tapez une fonctionnalité et appuyez sur Entrée",
-          "images": "Voici la traduction en français :\n\nImages",
-          "imagesDescription": "Télécharger les images de la propriété (JPG, PNG)",
-          "rentalPrice": "[object Object]",
-          "rentalFrequency": [
-            {
-              "type": "text",
-              "text": "Fréquence de location"
-            }
-          ],
-          "selectRentalFrequency": [
-            {
-              "type": "text",
-              "text": "Sélectionner la fréquence"
-            }
-          ],
-          "minimumRentalPeriod": [
-            {
-              "type": "text",
-              "text": "Période de location minimale"
-            }
-          ],
-          "depositAmount": [
-            {
-              "type": "text",
-              "text": "Dépôt de garantie"
-            }
-          ],
-          "availableFrom": [
-            {
-              "type": "text",
-              "text": "Disponible à partir de"
-            }
-          ],
-          "availableTo": [
-            {
-              "type": "text",
-              "text": "Disponible à"
-            }
-          ]
+          "rented": "Loué",
+          "featured": "Vedette",
+          "notFeatured": "Non vedette"
         },
         "actions": {
           "createProperty": "Créer une propriété",
-          "manage": [
-            {
-              "type": "text",
-              "text": "Gérer la propriété"
-            }
-          ],
-          "markFeatured": [
-            {
-              "type": "text",
-              "text": "Marquer comme en vedette"
-            }
-          ],
-          "unmarkFeatured": [
-            {
-              "type": "text",
-              "text": "Supprimer en vedette"
-            }
-          ],
-          "markAvailable": "Marque disponible",
-          "markPending": "Marque en attente",
-          "markSold": "Vendu par Marc",
-          "markRented": [
-            {
-              "type": "text",
-              "text": "Marquer comme loué"
-            }
-          ],
-          "edit": "Éditer",
+          "manage": "Gérer la propriété",
+          "markFeatured": "Marquer comme en vedette",
+          "unmarkFeatured": "Retirer des vedettes",
+          "markAvailable": "Marquer comme disponible",
+          "markPending": "Marquer comme en attente",
+          "markSold": "Marquer comme vendu",
+          "markRented": "Marquer comme loué",
+          "edit": "Modifier",
           "delete": "Supprimer",
-          "status": [
-            {
-              "type": "text",
-              "text": "Changement de statut"
-            }
-          ]
+          "status": "Changer le statut"
         },
-        "deleteConfirmation": {
-          "title": "Supprimer la propriété",
-          "description": "Êtes-vous sûr de vouloir supprimer cette propriété ? Cette action ne peut pas être annulée.",
-          "cancel": "Annuler",
-          "confirm": "Supprimer"
+        "form": {
+          "createProperty": "Créer une propriété",
+          "createPropertyDescription": "Remplissez les détails ci-dessous pour créer une nouvelle annonce de propriété.",
+          "editPropertyDescription": "Mettez à jour les détails de la propriété ci-dessous.",
+          "title": "Titre",
+          "description": "Description",
+          "price": "Prix",
+          "location": "Emplacement",
+          "bedrooms": "Chambres",
+          "bathrooms": "Salles de bain",
+          "squareFeet": "Pieds carrés",
+          "status": "Statut",
+          "listingType": "Type de liste",
+          "selectListingType": "Sélectionnez le type de liste",
+          "features": "Caractéristiques",
+          "featuresDescription": "Appuyez sur Entrée pour ajouter une nouvelle caractéristique",
+          "featuresPlaceholder": "Tapez une caractéristique et appuyez sur Entrée",
+          "images": "Images",
+          "imagesDescription": "Télécharger les images de la propriété (JPG, PNG)",
+          "rentalPrice": "Prix de location",
+          "rentalFrequency": "Fréquence de location",
+          "selectRentalFrequency": "Sélectionner la fréquence",
+          "minimumRentalPeriod": "Période de location minimale",
+          "depositAmount": "Dépôt de garantie",
+          "availableFrom": "Disponible à partir de",
+          "availableTo": "Disponible jusqu'à"
         },
-        "fetchError": "Erreur de chargement des propriétés",
-        "updateError": "Erreur lors de la mise à jour de la propriété",
-        "createError": "Erreur lors de la création de la propriété",
-        "deleteError": "Échec de la suppression de la propriété",
-        "updateSuccess": "La propriété a été mise à jour avec succès.",
-        "createSuccess": "Propriété créée avec succès",
-        "deleteSuccess": "Propriété supprimée avec succès."
+        "table": {
+          "title": "Titre",
+          "listingType": "Type",
+          "price": "Prix",
+          "rentalPrice": "Prix de location",
+          "location": "Emplacement",
+          "status": "Statut",
+          "featured": "En vedette",
+          "actions": "Actions"
+        }
       }
     },
     "users": {
@@ -500,13 +351,13 @@
     "rentPropertiesDesc": "Découvrez des propriétés locatives qui correspondent à votre mode de vie.",
     "newDevelopments": "Nouveaux développements",
     "newDevelopmentsDesc": "Explorez les propriétés à venir et nouvellement construites",
-    "agents": "Voici la traduction en français :\n\nAgents",
+    "agents": "Agents",
     "findAgent": "Trouvez un agent",
     "findAgentDesc": "Connectez-vous avec des professionnels immobiliers expérimentés.",
     "joinTeam": "Rejoignez notre équipe",
     "joinTeamDesc": "Commencez votre carrière dans l'immobilier avec nous.",
     "activities": "Activités",
-    "about": "Voici la traduction en français :\n\nÀ propos",
+    "about": "À propos",
     "contact": "Contactez-nous",
     "featuredProperties": "Propriétés en vedette",
     "featuredPropertiesDesc": "Découvrez notre sélection de propriétés haut de gamme choisies avec soin"
