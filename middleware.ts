@@ -38,6 +38,9 @@ export default async function middleware(req: NextRequest) {
     ? pathname.slice(pathname.indexOf('/', 1))
     : pathname;
 
+  // Check if current page is auth related
+  const isAuthPage = pathWithoutLocale.startsWith('/auth/');
+
   // Check page access level
   const isProtectedPage = protectedPages.some(route => 
     pathWithoutLocale.startsWith(route)
@@ -49,26 +52,41 @@ export default async function middleware(req: NextRequest) {
   // Get user role from session
   const userRole = session?.user?.user_metadata?.role || 'user';
 
+  // If user is logged in and trying to access auth pages, redirect to home
+  if (session && isAuthPage) {
+    const locale = pathnameHasLocale ? pathname.split('/')[1] : defaultLocale;
+    return NextResponse.redirect(new URL(`/${locale}`, req.url));
+  }
+
   // Enhanced access control with role verification
   const hasAccess = async () => {
-    if (!session) return false
+    // Allow access to auth pages without session
+    if (isAuthPage) return true;
+    
+    // Allow access to public pages without session
+    if (publicPages.some(route => pathWithoutLocale.startsWith(route))) return true;
+    
+    if (!session) return false;
     
     // Admin pages require admin role
-    if (isAdminPage && userRole !== 'admin') return false
+    if (isAdminPage && userRole !== 'admin') return false;
     
     // Protected pages require authenticated user
-    if (isProtectedPage && !session) return false
+    if (isProtectedPage && !session) return false;
     
-    return true
+    return true;
   }
 
   if (!(await hasAccess())) {
     // Get locale from pathname
     const locale = pathnameHasLocale ? pathname.split('/')[1] : defaultLocale;
     
+    // Store the attempted URL as the callback URL, but only if it's not an auth page
+    const callbackUrl = !isAuthPage ? pathname : `/${locale}`;
+    
     // Redirect to login page with callback URL
     const redirectUrl = new URL(`/${locale}/auth/login`, req.url);
-    redirectUrl.searchParams.set('callbackUrl', pathname);
+    redirectUrl.searchParams.set('callbackUrl', callbackUrl);
     return NextResponse.redirect(redirectUrl);
   }
 
