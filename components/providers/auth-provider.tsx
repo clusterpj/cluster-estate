@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { User } from '@supabase/supabase-js'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import type { Database } from '@/types/supabase'
+import { Toaster } from '@/components/ui/toaster'
 
 type UserProfile = Database['public']['Tables']['profiles']['Row']
 type UserRole = UserProfile['role']
@@ -187,6 +188,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   return (
     <AuthContext.Provider value={{ user, userProfile, loading, supabase, signIn, signUp, signOut, resetPassword }}>
       {children}
+      <Toaster />
     </AuthContext.Provider>
   )
 }
