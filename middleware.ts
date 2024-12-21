@@ -49,8 +49,20 @@ export default async function middleware(req: NextRequest) {
   // Get user role from session
   const userRole = session?.user?.user_metadata?.role || 'user';
 
-  // Handle access control
-  if ((isProtectedPage && !session) || (isAdminPage && userRole !== 'admin')) {
+  // Enhanced access control with role verification
+  const hasAccess = async () => {
+    if (!session) return false
+    
+    // Admin pages require admin role
+    if (isAdminPage && userRole !== 'admin') return false
+    
+    // Protected pages require authenticated user
+    if (isProtectedPage && !session) return false
+    
+    return true
+  }
+
+  if (!(await hasAccess())) {
     // Get locale from pathname
     const locale = pathnameHasLocale ? pathname.split('/')[1] : defaultLocale;
     

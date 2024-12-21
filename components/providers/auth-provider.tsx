@@ -17,6 +17,8 @@ type AuthContextType = {
   signUp: (email: string, password: string) => Promise<void>
   signOut: () => Promise<void>
   resetPassword: (email: string) => Promise<void>
+  refreshSession: () => Promise<void>
+  hasRole: (role: UserRole) => boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -28,7 +30,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   // Fetch user profile data
+  // Cache user profiles to reduce database calls
+  const profileCache = new Map<string, UserProfile>()
+
   const fetchUserProfile = async (userId: string) => {
+    // Check cache first
+    if (profileCache.has(userId)) {
+      return profileCache.get(userId)!
+    }
     try {
       const { data: profile, error } = await supabase
         .from('profiles')
@@ -41,6 +50,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return null
       }
 
+      if (profile) {
+        profileCache.set(userId, profile)
+      }
       return profile
     } catch (error) {
       console.error('Error fetching user profile:', error)
@@ -48,12 +60,51 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  const refreshSession = async () => {
+    try {
+      const { data: { session }, error } = await supabase.auth.refreshSession()
+      if (error) throw error
+      return session
+    } catch (error) {
+      console.error('Error refreshing session:', error)
+      await signOut()
+      return null
+    }
+  }
+
+  const hasRole = (role: UserRole): boolean => {
+    return userProfile?.role === role
+  }
+
   useEffect(() => {
-    // Check active sessions and handle expiry
+    let refreshTimer: NodeJS.Timeout
+
+    const setupSessionRefresh = (expiresAt: number) => {
+      // Clear any existing timer
+      if (refreshTimer) clearTimeout(refreshTimer)
+      
+      // Calculate time until refresh (5 minutes before expiry)
+      const refreshTime = expiresAt * 1000 - Date.now() - 5 * 60 * 1000
+      
+      if (refreshTime > 0) {
+        refreshTimer = setTimeout(refreshSession, refreshTime)
+      }
+    }
+
+    // Initial session check
     supabase.auth.getSession().then(async ({ data: { session } }) => {
-      if (session?.expires_at && Date.now() > session.expires_at * 1000) {
-        await signOut();
-        return;
+      if (!session) {
+        setUser(null)
+        setUserProfile(null)
+        return
+      }
+
+      if (session.expires_at) {
+        if (Date.now() > session.expires_at * 1000) {
+          await signOut()
+          return
+        }
+        setupSessionRefresh(session.expires_at)
       }
       setUser(session?.user ?? null)
       if (session?.user) {
@@ -77,7 +128,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(false)
     })
 
-    return () => subscription.unsubscribe()
+    return () => {
+      subscription.unsubscribe()
+      if (refreshTimer) clearTimeout(refreshTimer)
+    }
   }, [])
 
   const signIn = async (email: string, password: string) => {
