@@ -4,7 +4,9 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { defaultLocale, locales } from './config/i18n';
 
-const publicPages = ['/', '/auth/login', '/auth/register', '/about'];
+// Define public and protected routes
+const publicPages = ['/', '/properties', '/about', '/contact', '/auth/login', '/auth/register'];
+const protectedPages = ['/admin', '/profile', '/favorites'];
 
 // Create next-intl middleware
 const intlMiddleware = createMiddleware({
@@ -35,11 +37,13 @@ export default async function middleware(req: NextRequest) {
     ? pathname.slice(pathname.indexOf('/', 1))
     : pathname;
 
-  // Check if the page is public or protected
-  const isPublicPage = publicPages.includes(pathWithoutLocale);
+  // Check if the page is protected
+  const isProtectedPage = protectedPages.some(route => 
+    pathWithoutLocale.startsWith(route)
+  );
 
-  // Handle protected routes
-  if (!isPublicPage && !session) {
+  // Only redirect if trying to access protected pages without session
+  if (isProtectedPage && !session) {
     // Get locale from pathname
     const locale = pathnameHasLocale ? pathname.split('/')[1] : defaultLocale;
     
@@ -49,27 +53,7 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  // Special handling for admin routes
-  if (pathWithoutLocale.startsWith('/admin')) {
-    if (!session) {
-      const locale = pathnameHasLocale ? pathname.split('/')[1] : defaultLocale;
-      const redirectUrl = new URL(`/${locale}/auth/login`, req.url);
-      redirectUrl.searchParams.set('callbackUrl', pathname);
-      return NextResponse.redirect(redirectUrl);
-    }
-
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', session.user.id)
-      .single();
-
-    if (!profile || profile.role !== 'admin') {
-      const locale = pathnameHasLocale ? pathname.split('/')[1] : defaultLocale;
-      return NextResponse.redirect(new URL(`/${locale}`, req.url));
-    }
-  }
-
+  // For all other routes, proceed normally
   return response;
 }
 

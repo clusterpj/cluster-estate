@@ -27,6 +27,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useTranslations } from 'next-intl'
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 type PropertyInsert = Database['public']['Tables']['properties']['Insert']
 
@@ -67,6 +69,7 @@ export function PropertyForm({
   mode = 'create',
   propertyId 
 }: PropertyFormProps) {
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const t = useTranslations('auth.adminSection.properties')
   const supabase = createClientComponentClient<Database>()
 
@@ -93,108 +96,102 @@ export function PropertyForm({
     },
   })
 
+  const processPropertyData = async () => {
+    const {
+      data: { user },
+      error: userError
+    } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+      throw new Error('No user found');
+    }
+
+    const formData = form.getValues();
+    const { price, ...rest } = formData;
+    
+    const processedData = {
+      ...rest,
+      user_id: user.id,
+      sale_price: formData.listing_type === 'sale' || formData.listing_type === 'both' ? price : null,
+      rental_price: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.rental_price : null,
+      legacy_price: price,
+      rental_frequency: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.rental_frequency : null,
+      minimum_rental_period: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.minimum_rental_period : null,
+      deposit_amount: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.deposit_amount : null,
+      available_from: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.available_from : null,
+      available_to: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.available_to : null,
+      images: uploadedImages
+    };
+    return processedData;
+  };
+
   async function onSubmit(data: PropertyFormValues) {
-    console.log('Form submitted with data:', data)
+    console.log('Form submitted with data:', data);
     try {
-      const {
-        data: { user },
-        error: userError
-      } = await supabase.auth.getUser()
+      // Process the property data with user information
+      const propertyData = await processPropertyData();
+      console.log('Processing property data:', propertyData);
 
-      if (userError) {
-        console.error('Error getting user:', userError)
-        throw userError
+      const { data: savedProperty, error } = await supabase
+        .from('properties')
+        .insert([propertyData])
+        .select()
+        .single();
+
+      if (error) {
+        console.error('Error saving property:', error);
+        throw error;
       }
 
-      if (!user) {
-        console.error('No user found')
-        throw new Error('No user found')
-      }
-
-      console.log('Current user:', user)
-
-      const propertyData: PropertyInsert = {
-        ...data,
-        user_id: user.id,
-      }
-
-      console.log('Processing property data:', propertyData)
-
-      let result;
-      if (mode === 'create') {
-        result = await supabase
-          .from('properties')
-          .insert(propertyData)
-          .select()
-          .single()
-      } else {
-        result = await supabase
-          .from('properties')
-          .update(propertyData)
-          .eq('id', propertyId)
-          .select()
-          .single()
-      }
-
-      const { data: savedData, error: saveError } = result
-
-      if (saveError) {
-        console.error('Error saving property:', saveError)
-        throw saveError
-      }
-
-      console.log('Property saved successfully:', savedData)
-      if (mode === 'create') {
-        form.reset()
-      }
-      onSuccess?.()
+      console.log('Property saved successfully:', savedProperty);
+      onSuccess?.();
     } catch (error) {
-      console.error('Error in form submission:', error)
-      onError?.(error)
+      console.error('Error in form submission:', error);
+      onError?.(error);
     }
   }
 
-  async function handleImageUpload(files: FileList | null) {
+  const handleImageUpload = async (files: FileList | null) => {
     if (!files || files.length === 0) return
 
     try {
       console.log('Starting image upload for files:', files)
-      const uploadPromises = Array.from(files).map(async (file) => {
-        const fileExt = file.name.split('.').pop()
-        const fileName = `${crypto.randomUUID()}.${fileExt}`
-        const filePath = `properties/${fileName}`
+      const uploadedUrls: string[] = [];
+
+      for (const file of Array.from(files)) {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${uuidv4()}.${fileExt}`;
+        const filePath = `properties/${fileName}`;
         
-        console.log('Uploading file:', filePath)
+        console.log('Uploading file:', filePath);
         
-        const { error: uploadError, data } = await supabase.storage
+        const { data: uploadData, error: uploadError } = await supabase.storage
           .from('property-images')
-          .upload(filePath, file)
+          .upload(filePath, file);
 
         if (uploadError) {
-          console.error('Error uploading file:', uploadError)
-          throw uploadError
+          console.error('Error uploading file:', uploadError);
+          throw uploadError;
         }
 
-        console.log('File uploaded successfully:', data)
+        console.log('File uploaded successfully:', uploadData);
 
+        // Get public URL for the uploaded file
         const { data: { publicUrl } } = supabase.storage
           .from('property-images')
-          .getPublicUrl(filePath)
+          .getPublicUrl(filePath);
 
-        console.log('Generated public URL:', publicUrl)
-        return publicUrl
-      })
+        console.log('Generated public URL:', publicUrl);
+        uploadedUrls.push(publicUrl);
+      }
 
-      const uploadedUrls = await Promise.all(uploadPromises)
-      console.log('All images uploaded successfully:', uploadedUrls)
-      
-      const currentImages = form.getValues('images')
-      const newImages = [...currentImages, ...uploadedUrls]
-      form.setValue('images', newImages)
-      console.log('Updated form images:', newImages)
+      console.log('All images uploaded successfully:', uploadedUrls);
+      setUploadedImages(uploadedUrls);
+      console.log('Updated form images:', uploadedUrls);
+
     } catch (error) {
-      console.error('Error uploading images:', error)
-      onError?.(error)
+      console.error('Error uploading images:', error);
+      onError?.(error);
     }
   }
 
@@ -217,235 +214,25 @@ export function PropertyForm({
   }
 
   function handleImageRemove(image: string) {
-    const currentImages = form.getValues('images')
-    form.setValue('images', currentImages.filter(img => img !== image))
+    const currentImages = uploadedImages
+    setUploadedImages(currentImages.filter(img => img !== image))
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="listing_type"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('form.listingType')}</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder={t('form.selectListingType')} />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="sale">{t('listingType.sale')}</SelectItem>
-                  <SelectItem value="rent">{t('listingType.rent')}</SelectItem>
-                  <SelectItem value="both">{t('listingType.both')}</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('form.title')}</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('form.description')}</FormLabel>
-              <FormControl>
-                <Textarea {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <div className="grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="price"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('form.price')}</FormLabel>
-                <FormControl>
-                  <Input
-                    type="number"
-                    {...field}
-                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="location"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('form.location')}</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <div className="grid grid-cols-3 gap-4">
-          <FormField
-            control={form.control}
-            name="bedrooms"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('form.bedrooms')}</FormLabel>
-                <FormControl>
-                  <Input
-                    type="number"
-                    {...field}
-                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="bathrooms"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('form.bathrooms')}</FormLabel>
-                <FormControl>
-                  <Input
-                    type="number"
-                    {...field}
-                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="square_feet"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('form.squareFeet')}</FormLabel>
-                <FormControl>
-                  <Input
-                    type="number"
-                    {...field}
-                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <FormField
-          control={form.control}
-          name="status"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('form.status')}</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder={t('form.selectStatus')} />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="available">{t('status.available')}</SelectItem>
-                  <SelectItem value="sold">{t('status.sold')}</SelectItem>
-                  <SelectItem value="pending">{t('status.pending')}</SelectItem>
-                  <SelectItem value="rented">{t('status.rented')}</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {(form.watch('listing_type') === 'rent' || form.watch('listing_type') === 'both') && (
-          <div className="space-y-4">
-            <FormField
-              control={form.control}
-              name="rental_price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('form.rentalPrice')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      {...field}
-                      onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="rental_frequency"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('form.rentalFrequency')}</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder={t('form.selectRentalFrequency')} />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="daily">{t('rentalFrequency.daily')}</SelectItem>
-                      <SelectItem value="weekly">{t('rentalFrequency.weekly')}</SelectItem>
-                      <SelectItem value="monthly">{t('rentalFrequency.monthly')}</SelectItem>
-                      <SelectItem value="yearly">{t('rentalFrequency.yearly')}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div className="grid grid-cols-2 gap-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+        <div className="grid grid-cols-2 gap-x-12 gap-y-8">
+          {/* Left Column */}
+          <div className="space-y-6">
+            <div className="grid grid-cols-2 gap-6">
               <FormField
                 control={form.control}
-                name="minimum_rental_period"
+                name="title"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('form.minimumRentalPeriod')}</FormLabel>
+                  <FormItem className="col-span-2">
+                    <FormLabel>{t('form.title')}</FormLabel>
                     <FormControl>
-                      <Input
-                        type="number"
-                        {...field}
-                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                      />
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -454,16 +241,12 @@ export function PropertyForm({
 
               <FormField
                 control={form.control}
-                name="deposit_amount"
+                name="location"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('form.depositAmount')}</FormLabel>
+                    <FormLabel>{t('form.location')}</FormLabel>
                     <FormControl>
-                      <Input
-                        type="number"
-                        {...field}
-                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                      />
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -471,17 +254,32 @@ export function PropertyForm({
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('form.description')}</FormLabel>
+                  <FormControl>
+                    <Textarea className="min-h-[150px]" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="grid grid-cols-4 gap-6">
               <FormField
                 control={form.control}
-                name="available_from"
+                name="bedrooms"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('form.availableFrom')}</FormLabel>
+                    <FormLabel>{t('form.bedrooms')}</FormLabel>
                     <FormControl>
                       <Input
-                        type="date"
+                        type="number"
                         {...field}
+                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
                       />
                     </FormControl>
                     <FormMessage />
@@ -491,15 +289,318 @@ export function PropertyForm({
 
               <FormField
                 control={form.control}
-                name="available_to"
+                name="bathrooms"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('form.availableTo')}</FormLabel>
+                    <FormLabel>{t('form.bathrooms')}</FormLabel>
                     <FormControl>
                       <Input
-                        type="date"
+                        type="number"
                         {...field}
+                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
                       />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="square_feet"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('form.squareFeet')}</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        {...field}
+                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('form.status')}</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('form.selectStatus')} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="available">{t('status.available')}</SelectItem>
+                        <SelectItem value="sold">{t('status.sold')}</SelectItem>
+                        <SelectItem value="pending">{t('status.pending')}</SelectItem>
+                        <SelectItem value="rented">{t('status.rented')}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
+                name="listing_type"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('form.listingType')}</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('form.selectListingType')} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="sale">{t('listingType.sale')}</SelectItem>
+                        <SelectItem value="rent">{t('listingType.rent')}</SelectItem>
+                        <SelectItem value="both">{t('listingType.both')}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+
+          {/* Right Column */}
+          <div className="space-y-6">
+            {/* Sale Information */}
+            {(form.watch('listing_type') === 'sale' || form.watch('listing_type') === 'both') && (
+              <div className="space-y-6">
+                <div className="border-b pb-2">
+                  <h3 className="font-semibold text-lg">{t('form.saleInformation')}</h3>
+                </div>
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('form.salePrice')}</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          {...field}
+                          onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )}
+
+            {/* Rental Information */}
+            {(form.watch('listing_type') === 'rent' || form.watch('listing_type') === 'both') && (
+              <div className="space-y-6">
+                <div className="border-b pb-2">
+                  <h3 className="font-semibold text-lg">{t('form.rentalInformation')}</h3>
+                </div>
+                <div className="grid grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="rental_price"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('form.rentalPrice')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            {...field}
+                            onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="rental_frequency"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('form.rentalFrequency')}</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder={t('form.selectRentalFrequency')} />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="daily">{t('rentalFrequency.daily')}</SelectItem>
+                            <SelectItem value="weekly">{t('rentalFrequency.weekly')}</SelectItem>
+                            <SelectItem value="monthly">{t('rentalFrequency.monthly')}</SelectItem>
+                            <SelectItem value="yearly">{t('rentalFrequency.yearly')}</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="minimum_rental_period"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('form.minimumRentalPeriod')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            {...field}
+                            onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="deposit_amount"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('form.depositAmount')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            {...field}
+                            onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="available_from"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('form.availableFrom')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="date"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="available_to"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('form.availableTo')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="date"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Features and Images Section */}
+            <div className="space-y-6">
+              <div className="border-b pb-2">
+                <h3 className="font-semibold text-lg">{t('form.additionalInformation')}</h3>
+              </div>
+              <FormField
+                control={form.control}
+                name="features"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('form.features')}</FormLabel>
+                    <FormDescription>{t('form.featuresDescription')}</FormDescription>
+                    <FormControl>
+                      <div className="space-y-2">
+                        <Input
+                          placeholder={t('form.featuresPlaceholder')}
+                          onKeyDown={handleFeatureAdd}
+                        />
+                        <div className="flex flex-wrap gap-2">
+                          {field.value.map((feature, index) => (
+                            <Badge key={index} variant="secondary">
+                              {feature}
+                              <button
+                                type="button"
+                                onClick={() => handleFeatureRemove(feature)}
+                                className="ml-1 hover:text-destructive"
+                              >
+                                <X className="h-3 w-3" />
+                              </button>
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="images"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('form.images')}</FormLabel>
+                    <FormDescription>{t('form.imagesDescription')}</FormDescription>
+                    <FormControl>
+                      <div className="space-y-2">
+                        <Input
+                          type="file"
+                          accept="image/jpeg,image/png"
+                          multiple
+                          onChange={(e) => handleImageUpload(e.target.files)}
+                        />
+                        <div className="grid grid-cols-3 gap-2">
+                          {uploadedImages.map((image, index) => (
+                            <div key={index} className="relative group">
+                              <img
+                                src={image}
+                                alt={`Property ${index + 1}`}
+                                className="w-full h-24 object-cover rounded-md"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => handleImageRemove(image)}
+                                className="absolute top-1 right-1 p-1 bg-background/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                              >
+                                <X className="h-4 w-4 text-destructive" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -507,83 +608,11 @@ export function PropertyForm({
               />
             </div>
           </div>
-        )}
+        </div>
 
-        <FormField
-          control={form.control}
-          name="features"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('form.features')}</FormLabel>
-              <FormDescription>{t('form.featuresDescription')}</FormDescription>
-              <FormControl>
-                <Input
-                  placeholder={t('form.featuresPlaceholder')}
-                  onKeyDown={handleFeatureAdd}
-                />
-              </FormControl>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {field.value.map((feature, index) => (
-                  <Badge
-                    key={index}
-                    variant="secondary"
-                    className="flex items-center gap-1"
-                  >
-                    {feature}
-                    <button
-                      type="button"
-                      onClick={() => handleFeatureRemove(feature)}
-                      className="ml-1 hover:text-destructive"
-                    >
-                      <X className="h-3 w-3" />
-                    </button>
-                  </Badge>
-                ))}
-              </div>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="images"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('form.images')}</FormLabel>
-              <FormDescription>{t('form.imagesDescription')}</FormDescription>
-              <FormControl>
-                <Input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={(e) => handleImageUpload(e.target.files)}
-                />
-              </FormControl>
-              <div className="grid grid-cols-4 gap-4 mt-2">
-                {field.value.map((image, index) => (
-                  <div key={index} className="relative">
-                    <img
-                      src={image}
-                      alt={`Property image ${index + 1}`}
-                      className="w-full h-24 object-cover rounded-md"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => handleImageRemove(image)}
-                      className="absolute -top-2 -right-2 bg-destructive text-white rounded-full p-1 hover:bg-destructive/90"
-                    >
-                      <X className="h-3 w-3" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit">{t('form.submit')}</Button>
+        <div className="flex justify-end">
+          <Button type="submit">{t('form.submit')}</Button>
+        </div>
       </form>
     </Form>
   )

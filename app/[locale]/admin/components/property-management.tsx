@@ -161,7 +161,7 @@ export function PropertyManagement() {
           <DialogTrigger asChild>
             <Button>{t('actions.createProperty')}</Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]" hideDefaultClose>
+          <DialogContent className="max-w-[95vw] w-full lg:max-w-[1400px]" hideDefaultClose>
             <DialogHeader>
               <div className="flex justify-between items-center">
                 <DialogTitle>{t('form.createProperty')}</DialogTitle>
@@ -201,7 +201,7 @@ export function PropertyManagement() {
         if (!open) return;
         setIsEditDialogOpen(open);
       }}>
-        <DialogContent className="sm:max-w-[600px]" hideDefaultClose>
+        <DialogContent className="max-w-[95vw] w-full lg:max-w-[1400px]" hideDefaultClose>
           <DialogHeader>
             <div className="flex justify-between items-center">
               <DialogTitle>{t('form.editProperty')}</DialogTitle>
@@ -290,8 +290,8 @@ export function PropertyManagement() {
                 </Badge>
               </TableCell>
               <TableCell>
-                {property.listing_type !== 'rent' && (
-                  <>${property.price.toLocaleString()}</>
+                {(property.listing_type === 'sale' || property.listing_type === 'both') && property.sale_price && (
+                  <>${property.sale_price.toLocaleString()}</>
                 )}
               </TableCell>
               <TableCell>
