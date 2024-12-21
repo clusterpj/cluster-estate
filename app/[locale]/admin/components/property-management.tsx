@@ -53,7 +53,14 @@ export function PropertyManagement() {
         .order('created_at', { ascending: false })
 
       if (error) throw error
-      setProperties(data || [])
+      
+      // Ensure the status is properly typed
+      const typedData = (data || []).map(property => ({
+        ...property,
+        status: property.status as 'available' | 'sold' | 'pending' | 'rented'
+      }))
+      
+      setProperties(typedData)
     } catch (err) {
       console.error('Error fetching properties:', err)
       setToastMessage({
