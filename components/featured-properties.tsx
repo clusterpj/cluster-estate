@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { FadeInView } from "./animations/fade-in-view";
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { createClient } from '../lib/supabase/client';
+import { useAuth } from './providers/auth-provider';
 
 interface Property {
   id: string;
@@ -70,10 +70,10 @@ export function FeaturedProperties() {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const { supabase } = useAuth();
+  
   useEffect(() => {
     async function fetchFeaturedProperties() {
-      const supabase = createClient();
-      
       const { data, error } = await supabase
         .from('properties')
         .select('*')

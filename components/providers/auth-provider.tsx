@@ -12,6 +12,7 @@ type AuthContextType = {
   user: User | null
   userProfile: UserProfile | null
   loading: boolean
+  supabase: ReturnType<typeof createClientComponentClient<Database>>
   signIn: (email: string, password: string) => Promise<void>
   signUp: (email: string, password: string) => Promise<void>
   signOut: () => Promise<void>
@@ -126,7 +127,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, userProfile, loading, signIn, signUp, signOut, resetPassword }}>
+    <AuthContext.Provider value={{ user, userProfile, loading, supabase, signIn, signUp, signOut, resetPassword }}>
       {children}
     </AuthContext.Provider>
   )
