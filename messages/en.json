@@ -1,0 +1,446 @@
+{
+  "Hero": {
+    "title": "Find Your Dream Home",
+    "subtitle": "Discover luxury properties in prime locations",
+    "searchPlaceholder": "Enter location, property type, or keywords...",
+    "searchButton": "Search Properties",
+    "backgroundAlt": "Luxury Home",
+    "description": "Discover exceptional properties that match your lifestyle in the Caribbean's most sought-after locations.",
+    "stats": {
+      "properties": "Properties",
+      "clients": "Happy Clients",
+      "locations": "Locations"
+    }
+  },
+  "ParadiseLiving": {
+    "title": "Experience Paradise Living",
+    "subtitle": "Discover a lifestyle where luxury meets tropical paradise",
+    "features": {
+      "beachfront": {
+        "title": "Beachfront Living",
+        "description": "Wake up to the sound of waves and stunning ocean views"
+      },
+      "climate": {
+        "title": "Perfect Climate",
+        "description": "Enjoy year-round sunshine and tropical breezes"
+      },
+      "culture": {
+        "title": "Island Culture",
+        "description": "Immerse yourself in the vibrant Caribbean lifestyle"
+      },
+      "activities": {
+        "title": "Water Activities",
+        "description": "Access to world-class sailing, diving, and water sports"
+      }
+    },
+    "cta": {
+      "title": "Your Dream Home Awaits",
+      "description": "Let us help you find your perfect piece of paradise in the Caribbean",
+      "button": "Start Your Journey"
+    }
+  },
+  "FeaturedProperties": {
+    "title": "Featured Properties",
+    "description": "Explore our handpicked selection of premium properties across the Caribbean's most desirable locations.",
+    "viewDetails": "View Details",
+    "viewAllProperties": "View All Properties",
+    "propertyDetails": {
+      "beds": "Beds",
+      "baths": "Baths",
+      "sqft": "sqft"
+    },
+    "properties": [
+      {
+        "title": "Oceanfront Villa",
+        "location": "Palm Beach"
+      },
+      {
+        "title": "Beachside Condo",
+        "location": "Seven Mile Beach"
+      },
+      {
+        "title": "Luxury Penthouse",
+        "location": "Nassau"
+      }
+    ]
+  },
+  "WhyChooseUs": {
+    "title": "Why Choose Us",
+    "description": "Experience excellence in Caribbean real estate with our dedicated team and comprehensive services.",
+    "features": [
+      {
+        "title": "Expertise",
+        "description": "Over 20 years of Caribbean real estate experience"
+      },
+      {
+        "title": "Trust",
+        "description": "Licensed and regulated with a proven track record"
+      },
+      {
+        "title": "Dedication",
+        "description": "Personalized service tailored to your needs"
+      },
+      {
+        "title": "Support",
+        "description": "24/7 support throughout your journey"
+      }
+    ]
+  },
+  "FeaturedLocations": {
+    "title": "Featured Locations",
+    "description": "Explore our curated selection of premier Caribbean destinations",
+    "propertyCount": "{count} Properties",
+    "exploreLocation": "Explore Location",
+    "locations": [
+      {
+        "description": "Discover paradise with stunning beaches and lush mountains"
+      },
+      {
+        "description": "Experience luxury living in this tropical haven"
+      },
+      {
+        "description": "Find your dream home in this vibrant Caribbean culture"
+      },
+      {
+        "description": "Paradise found in crystal clear waters"
+      }
+    ]
+  },
+  "LifestylePreview": {
+    "title": "Caribbean Lifestyle",
+    "description": "Experience the perfect blend of luxury and island living."
+  },
+  "AboutUs": {
+    "title": "About Cabarete Villas",
+    "subtitle": "Your Paradise Home in the Adventure Capital of the Caribbean",
+    "intro": {
+      "title": "Our Story",
+      "content": "My husband Chuck and I are from Erie, Pennsylvania USA and have traveled the world to find a second home. In 2000 we traveled to Cabarete and knew this was the perfect place for us. We purchased our home on the spot."
+    },
+    "location": {
+      "title": "Cabarete: The Adventure Capital",
+      "content": "Cabarete is a vibrant beach town known as \"The Adventure Capital of the Caribbean.\" With perfect conditions for windsurfing, kitesurfing, and surfing, Cabarete is one of the top destinations in the world for water sports. Not a water sport enthusiast? There is something for everyone in Cabarete. You can bike, horseback ride, kayak, go canyoning, take part in so many other adventures, or simply just enjoy lounging on the beautiful beach."
+    },
+    "community": {
+      "title": "A Unique Community",
+      "content": "What makes Cabarete so unique and wonderful is the local charm combined with a great place to vacation. Only in Cabarete will you find locals and people from all over the world and all walks of life coming together to live, work, and play."
+    },
+    "service": {
+      "title": "Our Commitment",
+      "content": "At Cabarete Villas you can leave all of your worries behind while we take care of your every need. Our management staff is top notch. Our maids and grounds keepers go above and beyond to keep our villas looking amazing."
+    },
+    "signature": {
+      "names": "Chuck and Ronda Janicki",
+      "title": "Proprietors, Cabarete Villas"
+    }
+  },
+  "Activities": {
+    "hero": {
+      "title": "Discover Dominican Adventures",
+      "description": "Discover the Dominican Republic with its radiant nature, beautiful beaches, crystal clear waterfalls and pure Caribbean Life style. Learn about the past and the culture of the Taino Indians and the heritage of the Spanish conquistadores.",
+      "subtitle": "We offer you a variety of fun-activities and professionally guided tours. Family and group discounts apply!"
+    },
+    "activities": [
+      {
+        "title": "Ocean World Adventure Park",
+        "description": "There is so much to do! Swim with the dolphins, have an encounter with sea lions, sharks and stingrays. You can swim in the same pool as the tigers only separated by glass. There is a coral reef aquarium for snorkeler enthusiasts and a rain forest where you can see rhinoceroses, iguanas and a bird sanctuary. It's a once in a lifetime experience!",
+        "website": "www.oceanworld.net",
+        "image": "/images/activities/ocean-world.jpg"
+      },
+      {
+        "title": "Monkey Jungle",
+        "description": "Experience the thrill of zip lining through the jungle canopy while interacting with friendly squirrel monkeys. This unique eco-adventure combines adrenaline with animal encounters in a safe, controlled environment.",
+        "website": "www.monkeyjungledr.com",
+        "image": "/images/activities/monkey-jungle.jpg"
+      },
+      {
+        "title": "Horseback Riding",
+        "description": "Explore the beautiful Dominican countryside on horseback. Ride through lush forests, along pristine beaches, and discover hidden waterfalls on guided tours suitable for all experience levels.",
+        "image": "/images/activities/horseback.jpg",
+        "contact": "+1 809-555-0123"
+      },
+      {
+        "title": "Kite Surfing",
+        "description": "Cabarete is world-renowned for its perfect kitesurfing conditions. Whether you're a beginner or an expert, our certified instructors will help you catch the perfect wind.",
+        "image": "/images/activities/kite-surfing.jpg",
+        "contact": "+1 809-555-0124"
+      },
+      {
+        "title": "Paradise Island",
+        "description": "Visit one of the most beautiful islands in the Caribbean. Snorkel in crystal clear waters, relax on pristine beaches, and enjoy fresh seafood in this tropical paradise.",
+        "image": "/images/activities/paradise-island.jpg",
+        "details": "Daily tours available with lunch included"
+      },
+      {
+        "title": "27 Waterfalls of Damajagua",
+        "description": "Adventure through the famous 27 waterfalls, jumping, sliding, and swimming through natural water formations. A unique experience that combines hiking with water adventures.",
+        "image": "/images/activities/waterfalls.jpg",
+        "website": "www.27charcos.com"
+      },
+      {
+        "title": "Whale Watching with Kim Baddall",
+        "description": "Humpback Whales here in Samana Bay, DR. A unique opportunity to observe humpback whales in their natural calving and mating grounds. Listen to the male humpback's solitary courting song and witness incredible displays of flipping, tail lobbing and breaching by the most active species of whales in the Atlantic.",
+        "details": "On board a marine mammal specialist narrating vessel answering questions….it's an experience of a lifetime not to be missed. Dates: January 15 – March 25 from the main town dock in Samana on the Whale Watch vessel \"Pina Mia\"",
+        "contact": "809-538-2494",
+        "email": "reservations@whalesamana.com",
+        "image": "/images/activities/whale-watching.jpg"
+      },
+      {
+        "title": "Andari Spa",
+        "description": "This is our favorite! Massage, physiotherapy, hot stone massage, body scrubs, body wraps, facials, manicures & pedicures and hair removal. It's in the Millennium Resort & Spa, Cabarete.",
+        "website": "www.andarispa.com",
+        "image": "/images/activities/spa.jpg"
+      }
+    ]
+  },
+  "auth": {
+    "loginTitle": "Sign In",
+    "loginDescription": "Welcome back! Please sign in to your account.",
+    "registerTitle": "Create Account",
+    "registerDescription": "Create a new account to get started.",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "userMenu": "User Menu",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "adminDashboard": "Admin Dashboard",
+    "adminSection": {
+      "title": "Admin Dashboard",
+      "description": "Manage your properties and users",
+      "stats": {
+        "totalProperties": "Total Properties",
+        "available": "Available",
+        "sold": "Sold",
+        "pending": "Pending",
+        "rented": "Rented"
+      },
+      "properties": {
+        "listingType": {
+          "sale": "For Sale",
+          "rent": "For Rent",
+          "both": "Sale & Rent",
+          "undefined": "Not Specified"
+        },
+        "form": {
+          "createProperty": "Create New Property",
+          "editProperty": "Edit Property",
+          "createPropertyDescription": "Add a new property to your listings",
+          "editPropertyDescription": "Modify property details",
+          "title": "Property Title",
+          "description": "Description",
+          "price": "Price",
+          "salePrice": "Sale Price",
+          "saleInformation": "Sale Information",
+          "rentalInformation": "Rental Information",
+          "additionalInformation": "Additional Information",
+          "location": "Location",
+          "bedrooms": "Bedrooms",
+          "bathrooms": "Bathrooms",
+          "squareFeet": "Square Feet",
+          "status": "Status",
+          "selectStatus": "Select property status",
+          "listingType": "Listing Type",
+          "selectListingType": "Select listing type",
+          "features": "Features",
+          "featuresDescription": "Press Enter to add a feature",
+          "featuresPlaceholder": "Add a feature...",
+          "images": "Images",
+          "imagesDescription": "Upload property images",
+          "rentalPrice": "Rental Price",
+          "rentalFrequency": "Rental Frequency",
+          "selectRentalFrequency": "Select frequency",
+          "minimumRentalPeriod": "Minimum Rental Period",
+          "depositAmount": "Security Deposit",
+          "availableFrom": "Available From",
+          "availableTo": "Available To",
+          "submit": "Save Property"
+        },
+        "saleInformationHeader": "Sale Information",
+        "rentalInformationHeader": "Rental Information",
+        "additionalInformationHeader": "Additional Information"
+      },
+      "tabs": {
+        "properties": "Properties",
+        "users": "Users"
+      },
+      "users": {
+        "title": "User Management",
+        "description": "Manage user accounts and roles",
+        "loading": "Loading users...",
+        "error": "Error loading users",
+        "success": "Success",
+        "fetchError": "Failed to fetch users",
+        "updateError": "Failed to update user",
+        "updateSuccess": "User updated successfully",
+        "table": {
+          "user": "User",
+          "email": "Email",
+          "role": "Role",
+          "joined": "Joined",
+          "actions": "Actions"
+        },
+        "roles": {
+          "user": "User",
+          "agent": "Agent",
+          "admin": "Admin"
+        },
+        "actions": {
+          "edit": "Edit User",
+          "delete": "Delete User",
+          "changeRole": "Change Role"
+        }
+      },
+      "properties": {
+        "title": "Property Management",
+        "loading": "Loading properties...",
+        "error": "Error",
+        "success": "Success",
+        "filters": {
+          "all": "All Properties",
+          "selectListingType": "Filter by type"
+        },
+        "listingType": {
+          "sale": "For Sale",
+          "rent": "For Rent",
+          "both": "Sale & Rent",
+          "undefined": "Not Specified"
+        },
+        "rentalFrequency": {
+          "daily": "per day",
+          "weekly": "per week",
+          "monthly": "per month",
+          "yearly": "per year"
+        },
+        "status": {
+          "available": "Available",
+          "pending": "Pending",
+          "sold": "Sold",
+          "rented": "Rented",
+          "featured": "Featured",
+          "notFeatured": "Not Featured"
+        },
+        "table": {
+          "title": "Title",
+          "listingType": "Type",
+          "price": "Price",
+          "rentalPrice": "Rental Price",
+          "location": "Location",
+          "status": "Status",
+          "featured": "Featured",
+          "actions": "Actions"
+        },
+        "form": {
+          "createProperty": "Create New Property",
+          "editProperty": "Edit Property",
+          "createPropertyDescription": "Add a new property to your listings",
+          "editPropertyDescription": "Modify property details",
+          "title": "Property Title",
+          "description": "Description",
+          "price": "Price",
+          "salePrice": "Sale Price",
+          "saleInformation": "Sale Information",
+          "rentalInformation": "Rental Information",
+          "additionalInformation": "Additional Information",
+          "location": "Location",
+          "bedrooms": "Bedrooms",
+          "bathrooms": "Bathrooms",
+          "squareFeet": "Square Feet",
+          "status": "Status",
+          "selectStatus": "Select property status",
+          "listingType": "Listing Type",
+          "selectListingType": "Select listing type",
+          "features": "Features",
+          "featuresDescription": "Press Enter to add a feature",
+          "featuresPlaceholder": "Add a feature...",
+          "images": "Images",
+          "imagesDescription": "Upload property images",
+          "rentalPrice": "Rental Price",
+          "rentalFrequency": "Rental Frequency",
+          "selectRentalFrequency": "Select frequency",
+          "minimumRentalPeriod": "Minimum Rental Period",
+          "depositAmount": "Security Deposit",
+          "availableFrom": "Available From",
+          "availableTo": "Available To",
+          "submit": "Save Property"
+        },
+        "actions": {
+          "createProperty": "Add Property",
+          "manage": "Manage Property",
+          "markFeatured": "Mark as Featured",
+          "unmarkFeatured": "Remove Featured",
+          "markAvailable": "Mark as Available",
+          "markPending": "Mark as Pending",
+          "markSold": "Mark as Sold",
+          "markRented": "Mark as Rented",
+          "edit": "Edit Property",
+          "delete": "Delete Property",
+          "status": "Change Status"
+        },
+        "deleteConfirmation": {
+          "title": "Delete Property",
+          "description": "Are you sure you want to delete this property? This action cannot be undone.",
+          "cancel": "Cancel",
+          "confirm": "Delete"
+        },
+        "fetchError": "Failed to fetch properties",
+        "updateError": "Failed to update property",
+        "createError": "Failed to create property",
+        "deleteError": "Failed to delete property",
+        "updateSuccess": "Property updated successfully",
+        "createSuccess": "Property created successfully",
+        "deleteSuccess": "Property deleted successfully"
+      }
+    },
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember Me",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "createAccount": "Create Account",
+    "signInNow": "Sign In Now",
+    "emailPlaceholder": "Enter your email address",
+    "passwordPlaceholder": "Enter your password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "login": "Sign In",
+    "register": "Sign Up",
+    "loggingIn": "Signing in...",
+    "registering": "Creating account...",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "loginSuccess": "Successfully signed in!",
+    "loginError": "Failed to sign in. Please check your credentials.",
+    "registrationSuccess": "Account created successfully! Please sign in.",
+    "registrationError": "Failed to create account. Please try again.",
+    "passwordMismatch": "Passwords do not match"
+  },
+  "nav": {
+    "properties": "Properties",
+    "buyProperties": "Buy Properties",
+    "buyPropertiesDesc": "Find your dream home from our extensive listings",
+    "rentProperties": "Rent Properties",
+    "rentPropertiesDesc": "Discover rental properties that match your lifestyle",
+    "newDevelopments": "New Developments",
+    "newDevelopmentsDesc": "Explore upcoming and newly built properties",
+    "agents": "Agents",
+    "findAgent": "Find an Agent",
+    "findAgentDesc": "Connect with experienced real estate professionals",
+    "joinTeam": "Join Our Team",
+    "joinTeamDesc": "Start your career in real estate with us",
+    "activities": "Activities",
+    "about": "About",
+    "contact": "Contact",
+    "featuredProperties": "Featured Properties",
+    "featuredPropertiesDesc": "Discover our handpicked selection of premium properties"
+  },
+  "search": {
+    "placeholder": "Search properties...",
+    "filters": "Search Filters",
+    "filtersDesc": "Customize your property search",
+    "open": "Open Search",
+    "close": "Close Search",
+    "title": "Search Properties"
+  }
+}

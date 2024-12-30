@@ -1,0 +1,251 @@
+
+# 2024-12-19 21:01:22.768974
++y
+
+# 2024-12-19 21:35:32.929264
++/paste
+
+# 2024-12-19 21:36:46.617026
++on the admin adashboard we need handle the actions better because if you notice on the image it's getting cluttered. how can we make this better?
+
+# 2024-12-19 21:39:05.895083
++/add app\[locale]\admin\components\property-management.tsx
+
+# 2024-12-19 21:39:18.972257
++I have shared the file you requested
+
+# 2024-12-19 21:39:46.557860
++y
+
+# 2024-12-19 21:39:46.561370
++/run npx shadcn-ui@latest add dropdown-menu
+
+# 2024-12-19 21:39:46.563286
++/run npx shadcn-ui@latest add dropdown-menu
+
+# 2024-12-19 21:40:43.446483
++n
+
+# 2024-12-19 21:41:00.218229
++I already have that component installed
+
+# 2024-12-19 21:42:58.845433
++/undo
+
+# 2024-12-19 21:43:44.270069
++/drop
+
+# 2024-12-19 21:43:49.434326
++/paste
+
+# 2024-12-19 21:44:47.130083
++Now we need to make sure the translations are added to the new actions dropdown. If you see in the image the keys are missing. Please add it to the english properly and i'll translate them 
+
+# 2024-12-19 21:44:55.878239
++y
+
+# 2024-12-19 21:47:24.041181
++/drop
+
+# 2024-12-19 21:47:34.276285
++/add components\featured-properties.tsx
+
+# 2024-12-19 21:48:01.337280
++Now i want you to configure that the featured properties component only gets the properties marked as featured
+
+# 2024-12-19 21:48:54.547984
++y
+
+# 2024-12-19 21:48:54.552286
++/run curl -o public/placeholder-property.jpg https://via.placeholder.com/800x600.jpg?text=Property+Image
+
+# 2024-12-19 21:48:54.552286
++/run curl -o public/placeholder-property.jpg https://via.placeholder.com/800x600.jpg?text=Property+Image
+
+# 2024-12-19 21:49:57.049308
++We hage some issue on the homepage where the featured properties component is Uncaught Error: Module not found: Can't resolve '@/lib/supabase/client'
++  10 | import { useTranslations } from 'next-intl';
++  11 | import { useEffect, useState } from 'react';
++> 12 | import { createClient } from '@/lib/supabase/client';
++     | ^
++  13 |
++  14 | interface Property {
++  15 |   id: string;
++
++https://nextjs.org/docs/messages/module-not-found
++nodeStackFrames.ts:30:10
++    getServerError nodeStackFrames.ts:30
++    hydrate index.tsx:935
++    (Async: setTimeout handler)
++    hydrate index.tsx:922
++    InterpretGeneratorResume self-hosted:1413
++    AsyncFunctionNext self-hosted:800
++    (Async: async)
++    pageBootrap page-bootstrap.ts:22
++    <anonymous> next-dev.ts:21
++    (Async: promise callback)
++    <anonymous> next-dev.ts:20
++    NextJS 7
++[HMR] connected websocket.ts:27:21
++./components/featured-properties.tsx:12:1
++Module not found: Can't resolve '@/lib/supabase/client'
++  10 | import { useTranslations } from 'next-intl';
++  11 | import { useEffect, useState } from 'react';
++> 12 | import { createClient } from '@/lib/supabase/client';
++     | ^
++  13 |
++  14 | interface Property {
++  15 |   id: string;
++
++https://nextjs.org/docs/messages/module-not-found <anonymous code>:1:145535
++    overrideMethod <anonymous code>:1
++    error hydration-error-info.ts:72
++    error setup-hydration-warning.ts:21
++    handleErrors hot-reloader-client.ts:199
++    processMessage hot-reloader-client.ts:295
++    connect hot-reloader-client.ts:82
++    handleMessage websocket.ts:34
++    (Async: EventHandlerNonNull)
++    init websocket.ts:61
++    connectHMR websocket.ts:64
++    pageBootrap page-bootstrap.ts:20
++    <anonymous> next-dev.ts:21
++    (Async: promise callback)
++    <anonymous> next-dev.ts:20
++    NextJS 7
+
+# 2024-12-19 21:49:59.574325
++n
+
+# 2024-12-19 21:50:50.994014
++y
+
+# 2024-12-19 21:50:55.402055
++/run npm install @supabase/supabase-js
+
+# 2024-12-19 21:50:55.402055
++/run npm install @supabase/supabase-js
+
+# 2024-12-19 21:53:32.024637
++Unhandled Runtime Error
++
++Error: Invalid src prop (https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/61e384d0-f70f-4985-9c3f-a2ca7823d9ad.jpg) on `next/image`, hostname "ebydkdkayaukivmtljmo.supabase.co" is not configured under images in your `next.config.js`
++See more info: https://nextjs.org/docs/messages/next-image-unconfigured-host
++Call Stack
++defaultLoader
++webpack:/src/shared/lib/image-loader.ts
++generateImgAttrs/<.srcSet<
++webpack:/src/shared/lib/get-img-props.ts
++map
++webpack:/src/shared/lib/get-img-props.ts
++getImgProps
++webpack:/src/shared/lib/get-img-props.ts
++props
++webpack:/src/client/image-component.tsx
++React
++Next.js
++options.factory
++file:/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/.next/static/chunks/webpack.js (715:31)
++Next.js
++fn
++file:/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/.next/static/chunks/webpack.js (371:21)
++React
++Next.js
++options.factory
++file:/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/.next/static/chunks/webpack.js (715:31)
++Next.js
++fn
++file:/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/.next/static/chunks/webpack.js (371:21)
+
+# 2024-12-19 21:53:35.157896
++n
+
+# 2024-12-19 21:53:47.517544
++y
+
+# 2024-12-19 21:53:57.106931
++n
+
+# 2024-12-19 21:55:17.990836
++Unhandled Runtime Error
++
++Error: Couldn't find next-intl config file. Please follow the instructions at https://next-intl.dev/docs/getting-started/app-router
++Call Stack
++getConfig
++node_modules\.pnpm\next-intl@3.26.1_next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1__react@18.3.1\node_modules\next-intl\dist\development\config.js (6:1)
++eval
++node_modules\.pnpm\next-intl@3.26.1_next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1__react@18.3.1\node_modules\next-intl\dist\esm\server\react-server\getConfig.js (1:922)
++Next.js
++eval
++node_modules\.pnpm\next-intl@3.26.1_next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1__react@18.3.1\node_modules\next-intl\dist\esm\server\react-server\getConfig.js (1:1409)
++Next.js
++eval
++node_modules\.pnpm\next-intl@3.26.1_next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1__react@18.3.1\node_modules\next-intl\dist\esm\server\react-server\getNow.js (1:104)
++Next.js
++r
++node_modules\.pnpm\next-intl@3.26.1_next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1__react@18.3.1\node_modules\next-intl\dist\esm\server\react-server\getNow.js (1:136)
++i
++node_modules\.pnpm\next-intl@3.26.1_next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1__react@18.3.1\node_modules\next-intl\dist\esm\react-server\NextIntlClientProviderServer.js (1:426)
++Next.js
+
+# 2024-12-19 21:55:26.431555
++n
+
+# 2024-12-19 21:55:40.124953
++y
+
+# 2024-12-19 21:55:57.702776
++/run npm install next-intl@latest
+
+# 2024-12-19 21:55:57.702776
++/run npm install next-intl@latest
+
+# 2024-12-19 21:56:21.454958
++/undo
+
+# 2024-12-19 22:00:39.915754
++/drop
+
+# 2024-12-19 22:01:03.040899
++/add app\[locale]\admin\components\property-management.tsx
+
+# 2024-12-19 22:01:07.469326
++Cannot find module '@/types/property' or its corresponding type declarations.ts(2307)
+
+# 2024-12-19 22:01:30.657571
++y
+
+# 2024-12-19 22:04:28.683822
++Unhandled Runtime Error
++
++Error: Invalid src prop (https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/61e384d0-f70f-4985-9c3f-a2ca7823d9ad.jpg) on `next/image`, hostname "ebydkdkayaukivmtljmo.supabase.co" is not configured under images in your `next.config.js`
++See more info: https://nextjs.org/docs/messages/next-image-unconfigured-host
++Call Stack
++defaultLoader
++webpack:/src/shared/lib/image-loader.ts
++generateImgAttrs/<.srcSet<
++webpack:/src/shared/lib/get-img-props.ts
++map
++webpack:/src/shared/lib/get-img-props.ts
++getImgProps
++webpack:/src/shared/lib/get-img-props.ts
++props
++webpack:/src/client/image-component.tsx
+
+# 2024-12-19 22:04:33.813337
++y
+
+# 2024-12-19 22:06:35.162007
++n
+
+# 2024-12-19 22:07:02.710922
++this is our next.config.mjs
+
+# 2024-12-19 22:07:05.636973
++y
+
+# 2024-12-19 22:07:19.522628
++/run npm run dev
+
+# 2024-12-19 22:07:19.524090
++/run npm run dev

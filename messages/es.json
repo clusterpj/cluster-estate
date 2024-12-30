@@ -1,0 +1,387 @@
+{
+  "Hero": {
+    "title": "Encuentra tu hogar soñado",
+    "subtitle": "Descubre propiedades de lujo en ubicaciones privilegiadas",
+    "searchPlaceholder": "Introduce ubicación, tipo de propiedad o palabras clave...",
+    "searchButton": "Buscar propiedades",
+    "backgroundAlt": "Casa de lujo",
+    "description": "Descubre propiedades excepcionales que se adapten a tu estilo de vida en los destinos más codiciados del Caribe.",
+    "stats": {
+      "properties": "Propiedades",
+      "clients": "Clientes Felices",
+      "locations": "Ubicaciones"
+    }
+  },
+  "ParadiseLiving": {
+    "title": "Vive la experiencia del Paraíso",
+    "subtitle": "Descubre un estilo de vida donde el lujo se encuentra con el paraíso tropical.",
+    "features": {
+      "beachfront": {
+        "title": "Vida en la playa",
+        "description": "Despierta al sonido de las olas y a las impresionantes vistas del océano."
+      },
+      "climate": {
+        "title": "Clima perfecto",
+        "description": "Disfrute del sol todo el año y de las brisas tropicales."
+      },
+      "culture": {
+        "title": "Cultura insular",
+        "description": "Sumérgete en el vibrante estilo de vida caribeño."
+      },
+      "activities": {
+        "title": "Actividades acuáticas",
+        "description": "Acceso a navegación, buceo y deportes acuáticos de primera clase"
+      }
+    },
+    "cta": {
+      "title": "Su hogar soñado te espera",
+      "description": "Déjanos ayudarte a encontrar tu pedazo de paraíso perfecto en el Caribe.",
+      "button": "Comienza tu Viaje"
+    }
+  },
+  "FeaturedProperties": {
+    "title": "Propiedades destacadas",
+    "description": "Explora nuestra selección cuidadosamente elegida de propiedades premium en los lugares más codiciados del Caribe.",
+    "viewDetails": "Ver Detalles",
+    "viewAllProperties": "Ver todas las propiedades",
+    "propertyDetails": {
+      "beds": "Camas",
+      "baths": "Baños",
+      "sqft": "m²"
+    },
+    "properties": [
+      {
+        "title": "Villa frente al océano",
+        "location": "Palm Beach"
+      },
+      {
+        "title": "Apartamento Frente al Mar",
+        "location": "Playa de Siete Millas"
+      },
+      {
+        "title": "Lujoso Penthouse",
+        "location": "Nassau"
+      }
+    ]
+  },
+  "WhyChooseUs": {
+    "title": "Por Qué Elegimos Nosotros",
+    "description": "Experimente la excelencia en bienes raíces del Caribe con nuestro equipo dedicado y servicios integrales.",
+    "features": [
+      {
+        "title": "Especialidad",
+        "description": "Más de 20 años de experiencia en bienes raíces del Caribe"
+      },
+      {
+        "title": "Confianza",
+        "description": "Con licencia y regulado con un historial comprobado"
+      },
+      {
+        "title": "Dedicación",
+        "description": "Servicio personalizado adaptado a sus necesidades"
+      },
+      {
+        "title": "Apoyo",
+        "description": "Asistencia 24/7 durante todo tu viaje"
+      }
+    ]
+  },
+  "FeaturedLocations": {
+    "title": "Ubicaciones destacadas",
+    "description": "Explore nuestros destinos del Caribe seleccionados con cuidado",
+    "propertyCount": "{count} Propiedades",
+    "exploreLocation": "Explora ubicación",
+    "locations": [
+      {
+        "description": "Descubre el paraíso con increíbles playas y montañas exuberantes."
+      },
+      {
+        "description": "Experimente el lujo de vivir en este paraíso tropical."
+      },
+      {
+        "description": "Encuentra tu hogar soñado en esta vibrante cultura caribeña."
+      },
+      {
+        "description": "Paraíso encontrado en aguas cristalinas"
+      }
+    ]
+  },
+  "LifestylePreview": {
+    "title": "Estilo de vida caribeño",
+    "description": "Experimenta la mezcla perfecta de lujo y vida isleña."
+  },
+  "AboutUs": {
+    "title": "Sobre las Villas de Cabarete",
+    "subtitle": "Su hogar paraíso en la capital de la aventura del Caribe.",
+    "intro": {
+      "title": "Nuestra Historia",
+      "content": "Mi marido Chuck y yo somos de Erie, Pensilvania, EE. UU. y hemos recorrido el mundo en busca de una segunda casa. En 2000, viajamos a Cabarete y supimos que este era el lugar perfecto para nosotros. Compramos nuestra casa en el acto."
+    },
+    "location": {
+      "title": "Cabarete: La capital de la aventura",
+      "content": "Cabarete es un vibrante pueblo de playa conocido como \"La capital de la aventura del Caribe\". Con condiciones perfectas para el windsurf, el kitesurf y el surf, Cabarete es uno de los principales destinos del mundo para los deportes acuáticos. ¿No eres entusiasta de los deportes acuáticos? Hay algo para todos en Cabarete. Puedes ir en bicicleta, hacer equitación, kayak, practicar barranquismo, participar en tantas otras aventuras o simplemente disfrutar de la hermosa playa."
+    },
+    "community": {
+      "title": "Una Comunidad Única",
+      "content": "Lo que hace que Cabarete sea tan único y maravilloso es el encanto local combinado con un excelente lugar para vacacionar. Solo en Cabarete encontrarás a los lugareños y a personas de todo el mundo y de todos los ámbitos de la vida que se unen para vivir, trabajar y jugar."
+    },
+    "service": {
+      "title": "Nuestro Compromiso",
+      "content": "En Cabarete Villas puedes dejar atrás todas tus preocupaciones mientras nos encargamos de todas tus necesidades. Nuestro personal de administración es de primera. Nuestras empleadas domésticas y jardineros se esfuerzan al máximo para mantener nuestras villas luciendo increíbles."
+    },
+    "signature": {
+      "names": "Chuck y Ronda Janicki",
+      "title": "Propietarios, Cabarete Villas"
+    }
+  },
+  "Activities": {
+    "hero": {
+      "title": "Descubre las Aventuras Dominicanas",
+      "description": "Descubre la República Dominicana con su naturaleza radiante, hermosas playas, cascadas de aguas cristalinas y el puro estilo de vida del Caribe. Aprende sobre el pasado y la cultura de los indios taínos y la herencia de los conquistadores españoles.",
+      "subtitle": "Le ofrecemos una variedad de actividades divertidas y recorridos guiados profesionalmente. ¡Se aplican descuentos para familias y grupos!"
+    },
+    "activities": [
+      {
+        "title": "Parque de Aventuras Mundo Oceánico",
+        "description": "¡Hay tanto que hacer! Nada con los delfines, ten un encuentro con leones marinos, tiburones y rayas. Puedes nadar en la misma piscina que los tigres, separados solo por cristal. Hay un acuario de arrecife de coral para entusiastas del snorkel y una selva tropical donde puedes ver rinocerontes, iguanas y un santuario de aves. ¡Es una experiencia única en la vida!",
+        "website": "www.oceanworld.net",
+        "image": "/images/activities/mundo-oceánico.jpg"
+      },
+      {
+        "title": "Selva de Monos",
+        "description": "Experimenta la emoción de deslizarte por la tirolesa a través del dosel de la selva mientras interactúas con amigables monos ardilla. Esta singular ecoaventura combina adrenalina con encuentros con animales en un entorno seguro y controlado.",
+        "website": "www.monkeyjungledr.com",
+        "image": "/images/activities/monkey-jungle.jpg"
+      },
+      {
+        "title": "Montar a caballo",
+        "description": "Explora el hermoso campo dominicano a caballo. Cabalga a través de frondosos bosques, a lo largo de playas prístinas y descubre cascadas ocultas en visitas guiadas adecuadas para todos los niveles de experiencia.",
+        "image": "La imagen muestra a una persona montando a caballo en un campo.",
+        "contact": "+1 809-555-0123"
+      },
+      {
+        "title": "Kite Surf",
+        "description": "Cabarete es mundialmente conocida por sus condiciones perfectas para el kitesurfing. Ya seas principiante o experto, nuestros instructores certificados te ayudarán a coger el viento perfecto.",
+        "image": "/images/activities/kite-surfing.jpg",
+        "contact": "+1 809-555-0124"
+      },
+      {
+        "title": "Isla del Paraíso",
+        "description": "Visita una de las islas más hermosas del Caribe. Snorkelea en aguas cristalinas, relájate en playas prístinas y disfruta de mariscos frescos en este paraíso tropical.",
+        "image": "/images/activities/isla-paraiso.jpg",
+        "details": "Excursiones diarias disponibles con almuerzo incluido"
+      },
+      {
+        "title": "27 Cascadas de Damajagua",
+        "description": "Aventura a través de las famosas 27 cascadas, saltando, deslizándose y nadando a través de formaciones de agua natural. Una experiencia única que combina senderismo con aventuras acuáticas.",
+        "image": "/images/activities/cascadas.jpg",
+        "website": "www.27charcos.com"
+      },
+      {
+        "title": "Observación de ballenas con Kim Baddall",
+        "description": "Ballenas jorobadas aquí en la bahía de Samaná, RD. Una oportunidad única para observar ballenas jorobadas en sus terrenos naturales de cría y apareamiento. Escucha la solitaria canción de cortejo del macho jorobado y presencia impresionantes exhibiciones de volteretas, azote de la cola y saltos por la especie más activa de ballenas en el Atlántico.",
+        "details": "A bordo de una embarcación dedicada a la especialización de mamíferos marinos respondiendo preguntas.... es una experiencia única que no se debe perder. Fechas: 15 de enero - 25 de marzo desde el muelle principal de la ciudad de Samaná en el barco de observación de ballenas \"Pina Mia\".",
+        "contact": "809-538-2494",
+        "email": "reservaciones@whalesamana.com",
+        "image": "Observación de ballenas"
+      },
+      {
+        "title": "Andari Spa",
+        "description": "¡Este es nuestro favorito! Masaje, fisioterapia, masaje de piedras calientes, exfoliantes corporales, envolturas corporales, faciales, manicuras y pedicuras y depilación. Está en el Millennium Resort & Spa, Cabarete.",
+        "website": "www.andarispa.com",
+        "image": "/images/activities/spa.jpg"
+      }
+    ]
+  },
+  "auth": {
+    "loginTitle": "Iniciar sesión",
+    "loginDescription": "¡Bienvenido de vuelta! Por favor, inicia sesión en tu cuenta.",
+    "registerTitle": "Crear cuenta",
+    "registerDescription": "Crea una nueva cuenta para comenzar.",
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión",
+    "userMenu": "Menú de usuario",
+    "dashboard": "Tablero",
+    "profile": "Perfil",
+    "adminDashboard": "Panel de administración",
+    "adminSection": {
+      "title": "Panel de administración",
+      "description": "Administra tus propiedades y usuarios",
+      "stats": {
+        "totalProperties": "Propiedades Totales",
+        "available": "Disponible",
+        "sold": "Vendido",
+        "pending": "Pendiente"
+      },
+      "tabs": {
+        "properties": "Propiedades",
+        "users": "Usuarios"
+      },
+      "properties": {
+        "title": "Gestión Inmobiliaria",
+        "loading": "Cargando propiedades...",
+        "error": "Error",
+        "success": "Éxito",
+        "filters": {
+          "all": "Todas las propiedades",
+          "selectListingType": "Filtrar por tipo"
+        },
+        "listingType": {
+          "sale": "En venta",
+          "rent": "En Alquiler",
+          "both": "Venta y alquiler"
+        },
+        "rentalFrequency": {
+          "daily": "por día",
+          "weekly": "por semana",
+          "monthly": "por mes",
+          "yearly": "por año"
+        },
+        "status": {
+          "available": "Disponible",
+          "pending": "Pendiente",
+          "sold": "Vendido",
+          "rented": "Alquilado",
+          "featured": "Destacado",
+          "notFeatured": "No destacado"
+        },
+        "table": {
+          "title": "Título",
+          "listingType": "Tipo",
+          "price": "Precio",
+          "rentalPrice": "Precio de Alquiler",
+          "location": "Ubicación",
+          "status": "Estado",
+          "featured": "Destacado",
+          "actions": "Acciones"
+        },
+        "form": {
+          "createProperty": "Crear Nueva Propiedad",
+          "editProperty": "Editar Propiedad",
+          "createPropertyDescription": "Rellena los detalles a continuación para crear una nueva publicación de propiedad.",
+          "editPropertyDescription": "Actualice los detalles de la propiedad a continuación.",
+          "title": "Título",
+          "description": "La descripción.",
+          "price": "Precio",
+          "location": "Ubicación",
+          "bedrooms": "Dormitorios",
+          "bathrooms": "Baños",
+          "squareFeet": "Pies cuadrados",
+          "status": "Estado",
+          "listingType": "Tipo de listado",
+          "selectListingType": "Selecciona el tipo de listado",
+          "features": "Características",
+          "featuresDescription": "Presiona Enter para agregar una nueva función.",
+          "featuresPlaceholder": "Escriba una característica y presione Enter",
+          "images": "Imágenes",
+          "imagesDescription": "Cargar imágenes de la propiedad (JPG, PNG)",
+          "rentalPrice": "Precio de Alquiler",
+          "rentalFrequency": "Frecuencia del alquiler",
+          "selectRentalFrequency": "Seleccione la frecuencia",
+          "minimumRentalPeriod": "El período de alquiler mínimo",
+          "depositAmount": "Depósito de garantía",
+          "availableFrom": "Disponible desde",
+          "availableTo": "Disponible a"
+        },
+        "actions": {
+          "createProperty": "Crear propiedad",
+          "manage": "Administrar la propiedad",
+          "markFeatured": "Marcar como destacado",
+          "unmarkFeatured": "Eliminar destacado",
+          "markAvailable": "Disponible",
+          "markPending": "Pendiente",
+          "markSold": "Vendida",
+          "markRented": "Marcar como Alquilado",
+          "edit": "Editar",
+          "delete": "Borrar",
+          "status": "Cambiar estado"
+        },
+        "deleteConfirmation": {
+          "title": "Eliminar propiedad",
+          "description": "¿Está seguro de que desea eliminar esta propiedad? Esta acción no se puede deshacer.",
+          "cancel": "Cancelar",
+          "confirm": "Borrar"
+        },
+        "fetchError": "Error cargando propiedades",
+        "updateError": "Error actualizando la propiedad",
+        "createError": "Error al crear la propiedad",
+        "deleteError": "No se pudo eliminar la propiedad",
+        "updateSuccess": "Propiedad actualizada exitosamente",
+        "createSuccess": "Propiedad creada con éxito",
+        "deleteSuccess": "Propiedad eliminada exitosamente"
+      }
+    },
+    "users": {
+      "title": "Administración de usuarios",
+      "description": "Administrar cuentas y roles de usuario",
+      "loading": "Cargando usuarios...",
+      "error": "Error",
+      "success": "Éxito",
+      "fetchError": "No se pudo obtener a los usuarios",
+      "updateError": "No se pudo actualizar el rol de usuario",
+      "updateSuccess": "El rol de usuario se actualizó correctamente.",
+      "table": {
+        "user": "Usuario",
+        "email": "Correo electrónico",
+        "role": "Rol",
+        "joined": "Unido",
+        "actions": "Acciones"
+      },
+      "roles": {
+        "user": "Usuario",
+        "agent": "Agente",
+        "admin": "Administrador"
+      }
+    },
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "forgotPassword": "¿Olvidaste la contraseña?",
+    "rememberMe": "Recuérdame",
+    "dontHaveAccount": "¿No tienes una cuenta?",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "createAccount": "Crear cuenta",
+    "signInNow": "Iniciar sesión ahora",
+    "emailPlaceholder": "Ingrese su dirección de correo electrónico",
+    "passwordPlaceholder": "Ingresa tu contraseña",
+    "confirmPasswordPlaceholder": "Confirma tu contraseña",
+    "login": "Iniciar sesión",
+    "register": "Regístrese",
+    "loggingIn": "Iniciando sesión...",
+    "registering": "Creando cuenta...",
+    "noAccount": "¿No tienes una cuenta?",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "loginSuccess": "¡Inicio de sesión exitoso!",
+    "loginError": "No se pudo iniciar sesión. Compruebe sus credenciales.",
+    "registrationSuccess": "Cuenta creada exitosamente. Por favor, inicia sesión.",
+    "registrationError": "No se pudo crear la cuenta. Inténtalo de nuevo.",
+    "passwordMismatch": "Contraseñas no coinciden."
+  },
+  "nav": {
+    "properties": "Propiedades",
+    "buyProperties": "Comprar Propiedades",
+    "buyPropertiesDesc": "Encuentra tu hogar soñado entre nuestras amplias listas.",
+    "rentProperties": "Alquiler de propiedades",
+    "rentPropertiesDesc": "Descubre propiedades de alquiler que se ajusten a tu estilo de vida.",
+    "newDevelopments": "Nuevos desarrollos",
+    "newDevelopmentsDesc": "Explora las propiedades próximas y recién construidas",
+    "agents": "Agentes",
+    "findAgent": "Encuentra un agente",
+    "findAgentDesc": "Conéctate con profesionales inmobiliarios experimentados",
+    "joinTeam": "Únete a Nuestro Equipo",
+    "joinTeamDesc": "Inicia tu carrera en bienes raíces con nosotros.",
+    "activities": "Actividades",
+    "about": "Sobre",
+    "contact": "Contacto",
+    "featuredProperties": "Propiedades destacadas",
+    "featuredPropertiesDesc": "Descubre nuestra selección cuidadosamente elegida de propiedades premium."
+  },
+  "search": {
+    "placeholder": "Buscar propiedades...",
+    "filters": "Filtros de búsqueda",
+    "filtersDesc": "Personaliza tu búsqueda de propiedades",
+    "open": "Búsqueda abierta",
+    "close": "Cerrar búsqueda",
+    "title": "Buscar propiedades"
+  }
+}
