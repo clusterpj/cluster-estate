@@ -5,7 +5,17 @@ import type { NextRequest } from 'next/server';
 import { defaultLocale, locales } from './config/i18n';
 
 // Define route access levels
-const publicPages = ['/', '/properties', '/about', '/contact', '/auth/login', '/auth/register'];
+const publicPages = [
+    '/', 
+    '/properties', 
+    '/about', 
+    '/contact', 
+    '/auth/login', 
+    '/auth/register',
+    '/properties/', // Add this to allow access to individual property pages
+    '/blog',       // If you have a blog
+    '/locations'   // If you have a locations page
+];
 const protectedPages = ['/profile', '/favorites'];
 const adminPages = ['/admin'];
 
@@ -66,14 +76,13 @@ export default async function middleware(req: NextRequest) {
     // Allow access to public pages without session
     if (publicPages.some(route => pathWithoutLocale.startsWith(route))) return true;
     
-    if (!session) return false;
-    
-    // Admin pages require admin role
-    if (isAdminPage && userRole !== 'admin') return false;
-    
-    // Protected pages require authenticated user
+    // Check protected pages - require authentication
     if (isProtectedPage && !session) return false;
     
+    // Check admin pages - require admin role
+    if (isAdminPage && userRole !== 'admin') return false;
+    
+    // Default behavior: allow access
     return true;
   }
 
