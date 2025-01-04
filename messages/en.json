@@ -450,5 +450,19 @@
     "open": "Open Search",
     "close": "Close Search",
     "title": "Search Properties"
+  },
+  "PropertyDetails": {
+    "beds": "Beds",
+    "baths": "Baths",
+    "sqft": "Sq Ft",
+    "description": "Description",
+    "forRent": "For Rent",
+    "forSale": "For Sale",
+    "rentalFrequency": {
+      "daily": "day",
+      "weekly": "week",
+      "monthly": "month",
+      "yearly": "year"
+    }
   }
 }
