@@ -4,6 +4,7 @@ import React from "react"
 import { PropertyCard } from "./PropertyCard"
 import { useQuery } from "@supabase-cache-helpers/postgrest-react-query"
 import { getSupabaseClient } from "@/lib/supabase"
+import { Database } from '@/types/supabase';
 import { Skeleton } from "@/components/ui/skeleton"
 import { useSearchParams } from "next/navigation"
 
@@ -15,7 +16,7 @@ export function PropertyList() {
   const sort = searchParams.get("sort") || "created_at.desc"
 
   const query = React.useMemo(() => {
-    return supabase
+    return getSupabaseClient()
       .from("properties")
       .select("*")
       .ilike("title", `%${search}%`)
