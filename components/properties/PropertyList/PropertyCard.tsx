@@ -40,14 +40,24 @@ export function PropertyCard({ property }: PropertyCardProps) {
           <span>•</span>
           <span>{property.square_feet} sqft</span>
         </div>
-        <div className="mt-4 flex items-center justify-between">
-          <span className="text-lg font-bold">
-            ${property.price?.toLocaleString()}
-            {property.listing_type === 'rent' && (
-              <span className="text-sm font-normal">/mo</span>
-            )}
-          </span>
-          <div className="flex gap-2">
+        <div className="mt-4 flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col">
+              {property.sale_price && (
+                <div className="text-lg font-bold">
+                  ${property.sale_price.toLocaleString()}
+                </div>
+              )}
+              {property.rental_price && (
+                <div className="text-sm text-muted-foreground">
+                  ${property.rental_price.toLocaleString()}
+                  {property.rental_frequency && (
+                    <span>/{property.rental_frequency}</span>
+                  )}
+                </div>
+              )}
+            </div>
+            <div className="flex gap-2">
             <Button variant="ghost" size="icon">
               <HeartIcon className="h-4 w-4" />
             </Button>
