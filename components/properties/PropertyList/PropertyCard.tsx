@@ -58,14 +58,15 @@ export function PropertyCard({ property }: PropertyCardProps) {
               )}
             </div>
             <div className="flex gap-2">
-            <Button variant="ghost" size="icon">
-              <HeartIcon className="h-4 w-4" />
-            </Button>
-            <Button asChild variant="ghost" size="icon">
-              <Link href={`/properties/${property.id}`}>
-                <EyeIcon className="h-4 w-4" />
-              </Link>
-            </Button>
+              <Button variant="ghost" size="icon">
+                <HeartIcon className="h-4 w-4" />
+              </Button>
+              <Button asChild variant="ghost" size="icon">
+                <Link href={`/properties/${property.id}`}>
+                  <EyeIcon className="h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </CardContent>
