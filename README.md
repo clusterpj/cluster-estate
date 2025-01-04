@@ -1,36 +1,136 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cluster Estate Platform
+
+A high-end real estate platform connecting international buyers with luxury properties on the North Coast of the Dominican Republic. Built with Next.js and focused on delivering an exceptional user experience for property browsing and inquiry management.
+
+## Project Overview
+
+Cluster Estate is a Progressive Web App (PWA) designed to showcase luxury properties in:
+- Sosua
+- Cabarete (Puerto Plata)
+- Las Terrenas (Samana)
+
+### Key Features
+
+- 🌐 Multi-language support (English, French, German, Spanish)
+- 💱 Multi-currency conversion
+- 🏠 Advanced property search and filtering
+- 👤 User accounts with favorites and notifications
+- 📱 Mobile-first, responsive design
+- ⚡ PWA capabilities with offline support
+- 📝 Integrated blog system
+- 🔍 Robust SEO optimization
+- 📊 Analytics dashboard for admins
+
+## Tech Stack
+
+- **Frontend**: Next.js with TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: Supabase
+- **Authentication**: Supabase Auth
+- **File Storage**: Supabase Storage
+- **Internationalization**: Built-in i18n
+- **Package Manager**: pnpm
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18.17 or later
+- pnpm
+- Supabase account and project
+
+### Environment Setup
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/clusterpj/cluster-estate.git
+cd cluster-estate
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Copy the environment variables:
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Update the .env.local with your Supabase credentials and other required variables.
 
-## Learn More
+### Development
 
-To learn more about Next.js, take a look at the following resources:
+Run the development server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-## Deploy on Vercel
+### Building for Production
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Running Tests
+
+```bash
+pnpm test
+```
+
+## Project Structure
+
+```
+cluster-estate/
+├── app/                  # Next.js app router pages and layouts
+├── components/          # Reusable UI components
+├── config/             # Configuration files
+├── hooks/              # Custom React hooks
+├── lib/                # Utility libraries and functions
+├── messages/           # Internationalization messages
+├── public/             # Static assets
+├── scripts/            # Build and utility scripts
+├── supabase/          # Supabase related configurations
+├── types/             # TypeScript type definitions
+└── utils/             # Helper functions
+```
+
+## Features in Detail
+
+### For Users
+- Advanced property search with filters
+- Property favoriting and saving
+- Multi-currency price display
+- Inquiry system for properties
+- User notification preferences
+- Mobile-responsive interface
+
+### For Administrators
+- Comprehensive listing management
+- Customer inquiry tracking
+- Analytics dashboard
+- Content management system
+- SEO optimization tools
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is private and proprietary. All rights reserved.
+
+## Contact
+
+Project Link: [https://github.com/clusterpj/cluster-estate](https://github.com/clusterpj/cluster-estate)
+
+---
+
+This project was bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app) and uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) for font optimization.
