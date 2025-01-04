@@ -5,7 +5,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { Database } from "@/types/database"
 
-type Property = Database["public"]["Tables"]["properties"]["Row"]
+type Property = Database["public"]["Tables"]["properties"]["Row"] & {
+  price: number
+}
 
 interface PropertyCardProps {
   property: Property
@@ -31,7 +33,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
         </p>
         <div className="mt-4 flex items-center justify-between">
           <span className="text-lg font-bold">
-            ${property.price.toLocaleString()}
+            ${(property.price || 0).toLocaleString()}
           </span>
           <div className="flex gap-2">
             <Button variant="ghost" size="icon">
