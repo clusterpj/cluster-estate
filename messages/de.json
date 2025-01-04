@@ -52,30 +52,10 @@
     "forSale": "[object Object]",
     "forRent": "[object Object]",
     "rentalFrequency": {
-      "daily": [
-        {
-          "type": "text",
-          "text": "Tag"
-        }
-      ],
-      "weekly": [
-        {
-          "type": "text",
-          "text": "Woche"
-        }
-      ],
-      "monthly": [
-        {
-          "type": "text",
-          "text": "Monat"
-        }
-      ],
-      "yearly": [
-        {
-          "type": "text",
-          "text": "Jahr"
-        }
-      ]
+      "daily": "Tag",
+      "weekly": "Woche",
+      "monthly": "Monat",
+      "yearly": "Jahr"
     },
     "properties": [
       {
