@@ -7,11 +7,14 @@ import { Database } from "@/types/database"
 
 type Property = Database["public"]["Tables"]["properties"]["Row"]
 
+import { useParams } from 'next/navigation'
+
 interface PropertyCardProps {
   property: Property
 }
 
 export function PropertyCard({ property }: PropertyCardProps) {
+  const params = useParams()
   const mainImage = property.images?.[0] || "/placeholder.jpg"
   
   return (
@@ -62,7 +65,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
                 <HeartIcon className="h-4 w-4" />
               </Button>
               <Button asChild variant="ghost" size="icon">
-                <Link href={`/properties/${property.id}`}>
+                <Link href={`/${params.locale}/properties/${property.id}`}>
                   <EyeIcon className="h-4 w-4" />
                 </Link>
               </Button>
@@ -72,7 +75,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
       </CardContent>
       <CardFooter className="p-4 pt-0">
         <Button asChild className="w-full">
-          <Link href={`/properties/${property.id}`}>View Details</Link>
+          <Link href={`/${params.locale}/properties/${property.id}`}>View Details</Link>
         </Button>
       </CardFooter>
     </Card>
