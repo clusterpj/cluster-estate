@@ -41,15 +41,14 @@ export default async function middleware(req: NextRequest) {
   // Get the pathname of the request
   const { pathname } = req.nextUrl;
 
-  // Validate locale from path
-  const pathLocale = pathname.split('/')[1];
-  if (pathLocale && !locales.includes(pathLocale as Locale)) {
-    return NextResponse.redirect(new URL(`/${defaultLocale}${pathname}`, req.url));
-  }
-
-  // Get path without locale
+  // Get and validate locale from path
   const pathLocale = pathname.split('/')[1];
   const pathnameHasLocale = locales.includes(pathLocale as Locale);
+  
+  // Redirect if invalid locale
+  if (pathLocale && !pathnameHasLocale) {
+    return NextResponse.redirect(new URL(`/${defaultLocale}${pathname}`, req.url));
+  }
   const pathWithoutLocale = pathnameHasLocale
     ? `/${pathname.split('/').slice(2).join('/')}`
     : pathname;
