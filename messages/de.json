@@ -49,17 +49,45 @@
       "baths": "Bäder",
       "sqft": "qm"
     },
+    "forSale": "[object Object]",
+    "forRent": "[object Object]",
+    "rentalFrequency": {
+      "daily": [
+        {
+          "type": "text",
+          "text": "Tag"
+        }
+      ],
+      "weekly": [
+        {
+          "type": "text",
+          "text": "Woche"
+        }
+      ],
+      "monthly": [
+        {
+          "type": "text",
+          "text": "Monat"
+        }
+      ],
+      "yearly": [
+        {
+          "type": "text",
+          "text": "Jahr"
+        }
+      ]
+    },
     "properties": [
       {
-        "title": "Meerfront-Villa",
+        "title": "Oceanfront Villa",
         "location": "Palm Beach"
       },
       {
-        "title": "Strandwohnung",
-        "location": "Seven Mile Strand"
+        "title": "Beachside Condo",
+        "location": "Seven Mile Beach"
       },
       {
-        "title": "Luxuriöses Penthaus",
+        "title": "Luxury Penthouse",
         "location": "Nassau"
       }
     ]
@@ -69,20 +97,20 @@
     "description": "Erfahren Sie Exzellenz in der karibischen Immobilienbranche mit unserem engagierten Team und unseren umfassenden Dienstleistungen.",
     "features": [
       {
-        "title": "Fachkompetenz",
-        "description": "Über 20 Jahre Erfahrung in der Karibischen Immobilienbranche"
+        "title": "Expertise",
+        "description": "Over 20 years of Caribbean real estate experience"
       },
       {
-        "title": "Vertrauen",
-        "description": "Lizenziert und reguliert mit einem nachgewiesenen Leistungsnachweis"
+        "title": "Trust",
+        "description": "Licensed and regulated with a proven track record"
       },
       {
-        "title": "Widmung",
-        "description": "Individueller Service, der auf Ihre Bedürfnisse zugeschnitten ist."
+        "title": "Dedication",
+        "description": "Personalized service tailored to your needs"
       },
       {
-        "title": "Unterstützung",
-        "description": "24/7-Unterstützung während Ihrer gesamten Reise"
+        "title": "Support",
+        "description": "24/7 support throughout your journey"
       }
     ]
   },
@@ -93,16 +121,16 @@
     "exploreLocation": "Erkunden Sie den Ort",
     "locations": [
       {
-        "description": "Entdecken Sie das Paradies mit atemberaubenden Stränden und üppigen Bergen."
+        "description": "Discover paradise with stunning beaches and lush mountains"
       },
       {
-        "description": "Erleben Sie luxuriöses Wohnen in diesem tropischen Paradies."
+        "description": "Experience luxury living in this tropical haven"
       },
       {
-        "description": "Finden Sie Ihr Traumhaus in dieser lebendigen karibischen Kultur."
+        "description": "Find your dream home in this vibrant Caribbean culture"
       },
       {
-        "description": "Paradies in kristallklarem Wasser gefunden."
+        "description": "Paradise found in crystal clear waters"
       }
     ]
   },
@@ -142,54 +170,54 @@
     },
     "activities": [
       {
-        "title": "Ozean Welt Abenteuerpark",
-        "description": "Es gibt so viel zu tun! Schwimmen Sie mit Delfinen, haben Sie eine Begegnung mit Seelöwen, Haien und Rochen. Sie können im selben Pool wie die Tiger schwimmen, nur durch Glas getrennt. Es gibt ein Korallenwasser-Aquarium für Schnorchelbegeisterte und einen Regenwald, in dem Sie Nashörner, Leguane und ein Vogelschutzgebiet sehen können. Das ist ein einmaliges Erlebnis!",
-        "website": "www.ozeanwelt.net",
-        "image": "Ozeanwelt"
+        "title": "Ocean World Adventure Park",
+        "description": "There is so much to do! Swim with the dolphins, have an encounter with sea lions, sharks and stingrays. You can swim in the same pool as the tigers only separated by glass. There is a coral reef aquarium for snorkeler enthusiasts and a rain forest where you can see rhinoceroses, iguanas and a bird sanctuary. It's a once in a lifetime experience!",
+        "website": "www.oceanworld.net",
+        "image": "/images/activities/ocean-world.jpg"
       },
       {
-        "title": "Der Affendschungel",
-        "description": "Erleben Sie den Nervenkitzel des Seilrutschens durch das Dschungelblätterdach, während Sie mit freundlichen Eichhörnchenaffen interagieren. Dieses einzigartige Ökoabenteuer verbindet Adrenalin mit Tierbegegnungen in einer sicheren, kontrollierten Umgebung.",
-        "website": "www.affenjungleddr.com",
-        "image": "/Bilder/Aktivitäten/Affenjungel.jpg"
+        "title": "Monkey Jungle",
+        "description": "Experience the thrill of zip lining through the jungle canopy while interacting with friendly squirrel monkeys. This unique eco-adventure combines adrenaline with animal encounters in a safe, controlled environment.",
+        "website": "www.monkeyjungledr.com",
+        "image": "/images/activities/monkey-jungle.jpg"
       },
       {
-        "title": "Reiten",
-        "description": "Erkunden Sie die schöne Landschaft der Dominikanischen Republik auf dem Rücken eines Pferdes. Reiten Sie durch üppige Wälder, entlang unberührter Strände und entdecken Sie auf geführten Touren für alle Erfahrungsstufen versteckte Wasserfälle.",
-        "image": "/images/activities/reiten.jpg",
+        "title": "Horseback Riding",
+        "description": "Explore the beautiful Dominican countryside on horseback. Ride through lush forests, along pristine beaches, and discover hidden waterfalls on guided tours suitable for all experience levels.",
+        "image": "/images/activities/horseback.jpg",
         "contact": "+1 809-555-0123"
       },
       {
-        "title": "Kitesurfen",
-        "description": "Cabarete ist weltweit für seine perfekten Kitesurfbedingungen bekannt. Egal ob Anfänger oder Experte, unsere zertifizierten Instruktoren werden Ihnen helfen, den perfekten Wind zu erwischen.",
-        "image": "Bildergalerie: Kitesurfen",
+        "title": "Kite Surfing",
+        "description": "Cabarete is world-renowned for its perfect kitesurfing conditions. Whether you're a beginner or an expert, our certified instructors will help you catch the perfect wind.",
+        "image": "/images/activities/kite-surfing.jpg",
         "contact": "+1 809-555-0124"
       },
       {
-        "title": "Paradies-Insel",
-        "description": "Besuchen Sie eine der schönsten Inseln in der Karibik. Schnorcheln Sie in kristallklaren Gewässern, entspannen Sie auf unberührten Stränden und genießen Sie frische Meeresfrüchte in diesem tropischen Paradies.",
-        "image": "Paradies-Insel",
-        "details": "Tägliche Touren mit Mittagessen inklusive verfügbar"
+        "title": "Paradise Island",
+        "description": "Visit one of the most beautiful islands in the Caribbean. Snorkel in crystal clear waters, relax on pristine beaches, and enjoy fresh seafood in this tropical paradise.",
+        "image": "/images/activities/paradise-island.jpg",
+        "details": "Daily tours available with lunch included"
       },
       {
-        "title": "27 Wasserfälle von Damajagua",
-        "description": "Abenteuer durch die berühmten 27 Wasserfälle, mit Springen, Rutschen und Schwimmen durch natürliche Wasserformationen. Ein einzigartiges Erlebnis, das Wandern mit Wasserabenteuern verbindet.",
-        "image": "Wasserfälle",
+        "title": "27 Waterfalls of Damajagua",
+        "description": "Adventure through the famous 27 waterfalls, jumping, sliding, and swimming through natural water formations. A unique experience that combines hiking with water adventures.",
+        "image": "/images/activities/waterfalls.jpg",
         "website": "www.27charcos.com"
       },
       {
-        "title": "Walbeobachten mit Kim Baddall",
-        "description": "Buckelwale hier in der Samana-Bucht, DR. Eine einzigartige Gelegenheit, Buckelwale in ihren natürlichen Kalb- und Paarungsgebieten zu beobachten. Hören Sie den einsamen Balzgesang des männlichen Buckelwals und erleben Sie unglaubliche Vorführungen von Überschlägen, Schwanz-Lobbing und Herausspringen durch die aktivste Walart im Atlantik.",
-        "details": "An Bord eines Schiffes, auf dem ein Spezialist für marine Säugetiere Fragen beantwortet... es ist ein einmaliges Erlebnis, das man nicht verpassen sollte. Termine: 15. Januar – 25. März vom Hauptstadthafen in Samana aus auf dem Walbeobachtungsschiff \"Pina Mia\".",
+        "title": "Whale Watching with Kim Baddall",
+        "description": "Humpback Whales here in Samana Bay, DR. A unique opportunity to observe humpback whales in their natural calving and mating grounds. Listen to the male humpback's solitary courting song and witness incredible displays of flipping, tail lobbing and breaching by the most active species of whales in the Atlantic.",
+        "details": "On board a marine mammal specialist narrating vessel answering questions….it's an experience of a lifetime not to be missed. Dates: January 15 – March 25 from the main town dock in Samana on the Whale Watch vessel \"Pina Mia\"",
         "contact": "809-538-2494",
-        "email": "reservationen@whalesamana.com",
-        "image": "Das Bild zeigt eine Szene beim Walbeobachten."
+        "email": "reservations@whalesamana.com",
+        "image": "/images/activities/whale-watching.jpg"
       },
       {
         "title": "Andari Spa",
-        "description": "Das ist unser Favorit! Massage, Physiotherapie, Heißsteinmassage, Körperpeeling, Körperwickel, Gesichtsbehandlungen, Maniküre & Pediküre und Haarentfernung. Es befindet sich im Millennium Resort & Spa, Cabarete.",
+        "description": "This is our favorite! Massage, physiotherapy, hot stone massage, body scrubs, body wraps, facials, manicures & pedicures and hair removal. It's in the Millennium Resort & Spa, Cabarete.",
         "website": "www.andarispa.com",
-        "image": "/bilder/aktivitäten/spa.jpg"
+        "image": "/images/activities/spa.jpg"
       }
     ]
   },
@@ -199,6 +227,7 @@
     "registerTitle": "Konto erstellen",
     "registerDescription": "Erstellen Sie ein neues Konto, um loszulegen.",
     "signIn": "Anmelden",
+    "signUp": "Anmelden",
     "signOut": "Abmelden",
     "userMenu": "Benutzermenu",
     "dashboard": "Armaturenbrett",
@@ -211,11 +240,8 @@
         "totalProperties": "Gesamtliegenschaften",
         "available": "Verfügbar",
         "sold": "Verkauft",
-        "pending": "Ausstehend"
-      },
-      "tabs": {
-        "properties": "Eigenschaften",
-        "users": "Nutzer"
+        "pending": "Ausstehend",
+        "rented": "[object Object]"
       },
       "properties": {
         "title": "Immobilienverwaltung",
@@ -229,7 +255,13 @@
         "listingType": {
           "sale": "Zu verkaufen",
           "rent": "Zu vermieten",
-          "both": "Verkauf & Vermietung"
+          "both": "Verkauf & Vermietung",
+          "undefined": [
+            {
+              "type": "text",
+              "text": "Nicht angegeben"
+            }
+          ]
         },
         "rentalFrequency": {
           "daily": "pro Tag",
@@ -263,11 +295,41 @@
           "title": "Titel",
           "description": "Beschreibung",
           "price": "Preis",
+          "salePrice": [
+            {
+              "type": "text",
+              "text": "Verkaufspreis"
+            }
+          ],
+          "saleInformation": [
+            {
+              "type": "text",
+              "text": "Verkaufsinformation"
+            }
+          ],
+          "rentalInformation": [
+            {
+              "type": "text",
+              "text": "Mietinformationen"
+            }
+          ],
+          "additionalInformation": [
+            {
+              "type": "text",
+              "text": "Zusätzliche Informationen"
+            }
+          ],
           "location": "Standort",
           "bedrooms": "Schlafzimmer",
           "bathrooms": "Badezimmer",
           "squareFeet": "Quadratfuß",
           "status": "Status",
+          "selectStatus": [
+            {
+              "type": "text",
+              "text": "Auswählen Grundstücksstatus"
+            }
+          ],
           "listingType": "Angebotstyp",
           "selectListingType": "Wählen Sie den Listungstyp aus",
           "features": "Funktionen",
@@ -281,7 +343,13 @@
           "minimumRentalPeriod": "Mindestmietdauer",
           "depositAmount": "Kaution",
           "availableFrom": "Verfügbar von",
-          "availableTo": "Verfügbar für"
+          "availableTo": "Verfügbar für",
+          "submit": [
+            {
+              "type": "text",
+              "text": "Immobilie sichern"
+            }
+          ]
         },
         "actions": {
           "createProperty": "Erstellen Sie eine Immobilie",
@@ -309,28 +377,67 @@
         "updateSuccess": "Eigenschaft erfolgreich aktualisiert",
         "createSuccess": "Eigentum erfolgreich erstellt",
         "deleteSuccess": "Eigentum erfolgreich gelöscht"
-      }
-    },
-    "users": {
-      "title": "Benutzerverwaltung",
-      "description": "Benutzerkonten und Rollen verwalten",
-      "loading": "Benutzer werden geladen...",
-      "error": "Fehler",
-      "success": "Erfolg",
-      "fetchError": "Nutzer konnten nicht abgerufen werden",
-      "updateError": "Nutzer-Rolle konnte nicht aktualisiert werden",
-      "updateSuccess": "Benutzerrolle erfolgreich aktualisiert",
-      "table": {
-        "user": "Benutzer",
-        "email": "E-Mail",
-        "role": "Rolle",
-        "joined": "Beigetreten",
-        "actions": "Handlungen"
       },
-      "roles": {
-        "user": "Benutzer",
-        "agent": "Agent",
-        "admin": "Admin"
+      "tabs": {
+        "properties": "Eigenschaften",
+        "users": "Nutzer"
+      },
+      "users": {
+        "title": "Benutzerverwaltung",
+        "description": "Benutzerkonten und Rollen verwalten",
+        "loading": "Benutzer werden geladen...",
+        "error": [
+          {
+            "type": "text",
+            "text": "Fehler beim Laden der Benutzer"
+          }
+        ],
+        "success": "Erfolg",
+        "fetchError": "Nutzer konnten nicht abgerufen werden",
+        "updateError": [
+          {
+            "type": "text",
+            "text": "Benutzer konnte nicht aktualisiert werden"
+          }
+        ],
+        "updateSuccess": [
+          {
+            "type": "text",
+            "text": "Benutzer erfolgreich aktualisiert"
+          }
+        ],
+        "table": {
+          "user": "Benutzer",
+          "email": "E-Mail",
+          "role": "Rolle",
+          "joined": "Beigetreten",
+          "actions": "Handlungen"
+        },
+        "roles": {
+          "user": "Benutzer",
+          "agent": "Agent",
+          "admin": "Admin"
+        },
+        "actions": {
+          "edit": [
+            {
+              "type": "text",
+              "text": "Benutzer bearbeiten"
+            }
+          ],
+          "delete": [
+            {
+              "type": "text",
+              "text": "Benutzer löschen"
+            }
+          ],
+          "changeRole": [
+            {
+              "type": "text",
+              "text": "Rollenwechsel"
+            }
+          ]
+        }
       }
     },
     "email": "E-Mail",
@@ -383,5 +490,24 @@
     "open": "Offene Suche",
     "close": "Suche schließen",
     "title": "Immobilien suchen"
+  },
+  "PropertyDetails": {
+    "beds": "Betten",
+    "baths": "Bäder",
+    "sqft": [
+      {
+        "type": "text",
+        "text": "Quadratmeter"
+      }
+    ],
+    "description": "Beschreibung",
+    "forRent": "[object Object]",
+    "forSale": "[object Object]",
+    "rentalFrequency": {
+      "daily": "[object Object]",
+      "weekly": "[object Object]",
+      "monthly": "[object Object]",
+      "yearly": "[object Object]"
+    }
   }
 }

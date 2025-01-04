@@ -49,17 +49,45 @@
       "baths": "Bains",
       "sqft": "pied carré"
     },
+    "forSale": "[object Object]",
+    "forRent": "[object Object]",
+    "rentalFrequency": {
+      "daily": [
+        {
+          "type": "text",
+          "text": "jour"
+        }
+      ],
+      "weekly": [
+        {
+          "type": "text",
+          "text": "semaine"
+        }
+      ],
+      "monthly": [
+        {
+          "type": "text",
+          "text": "mois"
+        }
+      ],
+      "yearly": [
+        {
+          "type": "text",
+          "text": "année"
+        }
+      ]
+    },
     "properties": [
       {
-        "title": "Villa sur front de mer",
+        "title": "Oceanfront Villa",
         "location": "Palm Beach"
       },
       {
-        "title": "Appartement de bord de mer",
-        "location": "La plage des sept milles"
+        "title": "Beachside Condo",
+        "location": "Seven Mile Beach"
       },
       {
-        "title": "Penthouse de luxe",
+        "title": "Luxury Penthouse",
         "location": "Nassau"
       }
     ]
@@ -70,19 +98,19 @@
     "features": [
       {
         "title": "Expertise",
-        "description": "Plus de 20 ans d'expérience dans l'immobilier des Caraïbes."
+        "description": "Over 20 years of Caribbean real estate experience"
       },
       {
-        "title": "Confiance",
-        "description": "Agréée et réglementée avec un historique éprouvé"
+        "title": "Trust",
+        "description": "Licensed and regulated with a proven track record"
       },
       {
-        "title": "Dédicace",
-        "description": "Service personnalisé adapté à vos besoins."
+        "title": "Dedication",
+        "description": "Personalized service tailored to your needs"
       },
       {
-        "title": "Soutien",
-        "description": "Assistance 24/7 tout au long de votre parcours"
+        "title": "Support",
+        "description": "24/7 support throughout your journey"
       }
     ]
   },
@@ -93,16 +121,16 @@
     "exploreLocation": "Explorez l'emplacement",
     "locations": [
       {
-        "description": "Découvrez le paradis avec des plages époustouflantes et des montagnes luxuriantes."
+        "description": "Discover paradise with stunning beaches and lush mountains"
       },
       {
-        "description": "Découvrez le luxe de la vie dans ce havre tropical."
+        "description": "Experience luxury living in this tropical haven"
       },
       {
-        "description": "Trouvez votre maison de rêve dans cette culture caribéenne dynamique."
+        "description": "Find your dream home in this vibrant Caribbean culture"
       },
       {
-        "description": "Paradis trouvé dans des eaux d'une limpidité cristalline"
+        "description": "Paradise found in crystal clear waters"
       }
     ]
   },
@@ -119,7 +147,7 @@
     },
     "location": {
       "title": "Notre emplacement",
-      "description": "Cabarete est une ville balnéaire animée sur la côte nord de la République dominicaine, réputée pour ses sports nautiques et son ambiance décontractée."
+      "content": "Cabarete est une ville balnéaire dynamique connue sous le nom de \"La capitale de l'aventure des Caraïbes\". Avec des conditions idéales pour le windsurf, le kitesurf et le surf, Cabarete est l'une des principales destinations au monde pour les sports nautiques. Vous n'êtes pas passionné de sports nautiques ? Il y a quelque chose pour tout le monde à Cabarete. Vous pouvez faire du vélo, de l'équitation, du kayak, de la descente de canyons, participer à de nombreuses autres aventures, ou simplement profiter de vous détendre sur la belle plage."
     },
     "community": {
       "title": "Une Communauté Unique",
@@ -142,52 +170,52 @@
     },
     "activities": [
       {
-        "title": "Parc d'aventures du monde océanique",
-        "description": "Il y a tant à faire ! Nagez avec les dauphins, ayez une rencontre avec les lions de mer, les requins et les raies. Vous pouvez nager dans le même bassin que les tigres, séparés seulement par du verre. Il y a un aquarium de récif corallien pour les amateurs de snorkeling et une forêt tropicale où vous pouvez voir des rhinocéros, des iguanes et un sanctuaire d'oiseaux. C'est une expérience unique dans une vie !",
+        "title": "Ocean World Adventure Park",
+        "description": "There is so much to do! Swim with the dolphins, have an encounter with sea lions, sharks and stingrays. You can swim in the same pool as the tigers only separated by glass. There is a coral reef aquarium for snorkeler enthusiasts and a rain forest where you can see rhinoceroses, iguanas and a bird sanctuary. It's a once in a lifetime experience!",
         "website": "www.oceanworld.net",
-        "image": "/images/activites/monde-ocean.jpg"
+        "image": "/images/activities/ocean-world.jpg"
       },
       {
-        "title": "Jungle des singes",
-        "description": "Vivez l'excitation du téléphérique à travers la canopée de la jungle tout en interagissant avec des singes écureuils amicaux. Cette aventure éco-unique combine adrénaline et rencontres animalières dans un environnement sûr et contrôlé.",
+        "title": "Monkey Jungle",
+        "description": "Experience the thrill of zip lining through the jungle canopy while interacting with friendly squirrel monkeys. This unique eco-adventure combines adrenaline with animal encounters in a safe, controlled environment.",
         "website": "www.monkeyjungledr.com",
-        "image": "/images/activités/jungle-de-singes.jpg"
+        "image": "/images/activities/monkey-jungle.jpg"
       },
       {
-        "title": "Equitation",
-        "description": "Explorez les magnifiques campagnes dominicaines à cheval. Chevauchez à travers de luxuriantes forêts, le long de plages préservées et découvrez des cascades cachées lors de visites guidées adaptées à tous les niveaux d'expérience.",
-        "image": "À cheval",
+        "title": "Horseback Riding",
+        "description": "Explore the beautiful Dominican countryside on horseback. Ride through lush forests, along pristine beaches, and discover hidden waterfalls on guided tours suitable for all experience levels.",
+        "image": "/images/activities/horseback.jpg",
         "contact": "+1 809-555-0123"
       },
       {
-        "title": "Kite surf",
-        "description": "Cabarete est mondialement connu pour ses conditions parfaites pour le kitesurf. Que vous soyez débutant ou expert, nos instructeurs certifiés vous aideront à attraper le vent parfait.",
+        "title": "Kite Surfing",
+        "description": "Cabarete is world-renowned for its perfect kitesurfing conditions. Whether you're a beginner or an expert, our certified instructors will help you catch the perfect wind.",
         "image": "/images/activities/kite-surfing.jpg",
         "contact": "+1 809-555-0124"
       },
       {
-        "title": "Île paradisiaque",
-        "description": "Visitez l'une des plus belles îles des Caraïbes. Faites de la randonnée sous-marine dans des eaux d'une clarté cristalline, détendez-vous sur des plages préservées et savourez des fruits de mer frais dans ce paradis tropical.",
-        "image": "Une île paradisiaque",
-        "details": "Des visites quotidiennes disponibles avec le déjeuner inclus."
+        "title": "Paradise Island",
+        "description": "Visit one of the most beautiful islands in the Caribbean. Snorkel in crystal clear waters, relax on pristine beaches, and enjoy fresh seafood in this tropical paradise.",
+        "image": "/images/activities/paradise-island.jpg",
+        "details": "Daily tours available with lunch included"
       },
       {
-        "title": "27 cascades de Damajagua",
-        "description": "Partez à l'aventure à travers les célèbres 27 cascades, en sautant, en glissant et en nageant à travers les formations naturelles d'eau. Une expérience unique qui allie randonnée et aventures aquatiques.",
-        "image": "/images/activities/chutes_deau.jpg",
+        "title": "27 Waterfalls of Damajagua",
+        "description": "Adventure through the famous 27 waterfalls, jumping, sliding, and swimming through natural water formations. A unique experience that combines hiking with water adventures.",
+        "image": "/images/activities/waterfalls.jpg",
         "website": "www.27charcos.com"
       },
       {
-        "title": "Observation des baleines avec Kim Baddall",
-        "description": "Baleines à bosse ici dans la baie de Samana, en République dominicaine. Une opportunité unique d'observer les baleines à bosse dans leurs zones de vêlage et d'accouplement naturelles. Écoutez le chant de cour solitaire du mâle de la baleine à bosse et soyez témoins d'incroyables démonstrations de retournement, de coups de queue et de bonds du plus actif des espèces de baleines dans l'Atlantique.",
-        "details": "À bord d'un navire spécialisé dans les mammifères marins répondant aux questions... c'est une expérience d'une durée de vie à ne pas manquer. Dates : du 15 janvier au 25 mars depuis le quai principal de la ville de Samana sur le navire d'observation des baleines \"Pina Mia\".",
+        "title": "Whale Watching with Kim Baddall",
+        "description": "Humpback Whales here in Samana Bay, DR. A unique opportunity to observe humpback whales in their natural calving and mating grounds. Listen to the male humpback's solitary courting song and witness incredible displays of flipping, tail lobbing and breaching by the most active species of whales in the Atlantic.",
+        "details": "On board a marine mammal specialist narrating vessel answering questions….it's an experience of a lifetime not to be missed. Dates: January 15 – March 25 from the main town dock in Samana on the Whale Watch vessel \"Pina Mia\"",
         "contact": "809-538-2494",
-        "email": "reservations@baleinedamana.com",
-        "image": "L'observation des baleines"
+        "email": "reservations@whalesamana.com",
+        "image": "/images/activities/whale-watching.jpg"
       },
       {
-        "title": "Spa Andari",
-        "description": "Voici notre préféré ! Massage, physiothérapie, massage aux pierres chaudes, gommages corporels, enveloppements corporels, soins du visage, manucures et pédicures et épilation. Il se trouve dans le Millennium Resort & Spa, Cabarete.",
+        "title": "Andari Spa",
+        "description": "This is our favorite! Massage, physiotherapy, hot stone massage, body scrubs, body wraps, facials, manicures & pedicures and hair removal. It's in the Millennium Resort & Spa, Cabarete.",
         "website": "www.andarispa.com",
         "image": "/images/activities/spa.jpg"
       }
@@ -199,6 +227,7 @@
     "registerTitle": "Créer un compte",
     "registerDescription": "Créez un nouveau compte pour commencer.",
     "signIn": "Se connecter",
+    "signUp": "Inscription",
     "signOut": "Se déconnecter",
     "userMenu": "Menus d'utilisateur",
     "dashboard": "Tableau de bord",
@@ -211,11 +240,8 @@
         "totalProperties": "Propriétés totales",
         "available": "Disponible",
         "sold": "Vendu",
-        "pending": "En attente"
-      },
-      "tabs": {
-        "properties": "Propriétés",
-        "users": "Utilisateurs"
+        "pending": "En attente",
+        "rented": "[object Object]"
       },
       "properties": {
         "title": "Gestion immobilière",
@@ -229,7 +255,13 @@
         "listingType": {
           "sale": "À vendre",
           "rent": "À Louer",
-          "both": "Vente et location"
+          "both": "Vente et location",
+          "undefined": [
+            {
+              "type": "text",
+              "text": "Pas spécifié"
+            }
+          ]
         },
         "rentalFrequency": {
           "daily": "par jour",
@@ -245,31 +277,59 @@
           "featured": "Vedette",
           "notFeatured": "Non vedette"
         },
-        "actions": {
-          "createProperty": "Créer une propriété",
-          "manage": "Gérer la propriété",
-          "markFeatured": "Marquer comme en vedette",
-          "unmarkFeatured": "Retirer des vedettes",
-          "markAvailable": "Marquer comme disponible",
-          "markPending": "Marquer comme en attente",
-          "markSold": "Marquer comme vendu",
-          "markRented": "Marquer comme loué",
-          "edit": "Modifier",
-          "delete": "Supprimer",
-          "status": "Changer le statut"
+        "table": {
+          "title": "Titre",
+          "listingType": "Type",
+          "price": "Prix",
+          "rentalPrice": "Prix de location",
+          "location": "Emplacement",
+          "status": "Statut",
+          "featured": "En vedette",
+          "actions": "Actions"
         },
         "form": {
           "createProperty": "Créer une propriété",
+          "editProperty": "Modifier la propriété",
           "createPropertyDescription": "Remplissez les détails ci-dessous pour créer une nouvelle annonce de propriété.",
           "editPropertyDescription": "Mettez à jour les détails de la propriété ci-dessous.",
           "title": "Titre",
           "description": "Description",
           "price": "Prix",
+          "salePrice": [
+            {
+              "type": "text",
+              "text": "Prix Soldé"
+            }
+          ],
+          "saleInformation": [
+            {
+              "type": "text",
+              "text": "Voici la traduction en français :\n\nInformations sur la vente"
+            }
+          ],
+          "rentalInformation": [
+            {
+              "type": "text",
+              "text": "Voici la traduction en français :\n\nInformations de location"
+            }
+          ],
+          "additionalInformation": [
+            {
+              "type": "text",
+              "text": "Informations complémentaires"
+            }
+          ],
           "location": "Emplacement",
           "bedrooms": "Chambres",
           "bathrooms": "Salles de bain",
           "squareFeet": "Pieds carrés",
           "status": "Statut",
+          "selectStatus": [
+            {
+              "type": "text",
+              "text": "Sélectionner le statut de la propriété"
+            }
+          ],
           "listingType": "Type de liste",
           "selectListingType": "Sélectionnez le type de liste",
           "features": "Caractéristiques",
@@ -283,40 +343,111 @@
           "minimumRentalPeriod": "Période de location minimale",
           "depositAmount": "Dépôt de garantie",
           "availableFrom": "Disponible à partir de",
-          "availableTo": "Disponible jusqu'à"
+          "availableTo": "Disponible jusqu'à",
+          "submit": "Sauver la propriété"
         },
-        "table": {
-          "title": "Titre",
-          "listingType": "Type",
-          "price": "Prix",
-          "rentalPrice": "Prix de location",
-          "location": "Emplacement",
-          "status": "Statut",
-          "featured": "En vedette",
-          "actions": "Actions"
-        }
-      }
-    },
-    "users": {
-      "title": "Gestion des utilisateurs",
-      "description": "Gérer les comptes et les rôles des utilisateurs",
-      "loading": "Chargement des utilisateurs...",
-      "error": "Erreur",
-      "success": "Succès",
-      "fetchError": "Échec de la récupération des utilisateurs",
-      "updateError": "Échec de la mise à jour du rôle de l'utilisateur",
-      "updateSuccess": "Rôle d'utilisateur mis à jour avec succès",
-      "table": {
-        "user": "Utilisateur",
-        "email": "Courriel",
-        "role": "Rôle",
-        "joined": "Rejointe",
-        "actions": "Actions"
+        "actions": {
+          "createProperty": "Créer une propriété",
+          "manage": "Gérer la propriété",
+          "markFeatured": "Marquer comme en vedette",
+          "unmarkFeatured": "Retirer des vedettes",
+          "markAvailable": "Marquer comme disponible",
+          "markPending": "Marquer comme en attente",
+          "markSold": "Marquer comme vendu",
+          "markRented": "Marquer comme loué",
+          "edit": "Modifier",
+          "delete": "Supprimer",
+          "status": "Changer le statut"
+        },
+        "deleteConfirmation": {
+          "title": "Supprimer la propriété",
+          "description": "Êtes-vous sûr de vouloir supprimer cette propriété ? Cette action ne peut pas être annulée.",
+          "cancel": "Annuler",
+          "confirm": "Supprimer"
+        },
+        "fetchError": [
+          {
+            "type": "text",
+            "text": "Échec de la récupération des propriétés"
+          }
+        ],
+        "updateError": [
+          {
+            "type": "text",
+            "text": "Échec de la mise à jour de la propriété"
+          }
+        ],
+        "createError": [
+          {
+            "type": "text",
+            "text": "Échec de la création de la propriété"
+          }
+        ],
+        "deleteError": "Échec de la suppression de la propriété",
+        "updateSuccess": "La propriété a été mise à jour avec succès.",
+        "createSuccess": "Propriété créée avec succès",
+        "deleteSuccess": "Propriété supprimée avec succès."
       },
-      "roles": {
-        "user": "Utilisateur",
-        "agent": "Agent",
-        "admin": "Administrateur"
+      "tabs": {
+        "properties": "Propriétés",
+        "users": "Utilisateurs"
+      },
+      "users": {
+        "title": "Gestion des utilisateurs",
+        "description": "Gérer les comptes et les rôles des utilisateurs",
+        "loading": "Chargement des utilisateurs...",
+        "error": [
+          {
+            "type": "text",
+            "text": "Erreur de chargement des utilisateurs"
+          }
+        ],
+        "success": "Succès",
+        "fetchError": "Échec de la récupération des utilisateurs",
+        "updateError": [
+          {
+            "type": "text",
+            "text": "Échec de la mise à jour de l'utilisateur"
+          }
+        ],
+        "updateSuccess": [
+          {
+            "type": "text",
+            "text": "Utilisateur mis à jour avec succès"
+          }
+        ],
+        "table": {
+          "user": "Utilisateur",
+          "email": "Courriel",
+          "role": "Rôle",
+          "joined": "Rejointe",
+          "actions": "Actions"
+        },
+        "roles": {
+          "user": "Utilisateur",
+          "agent": "Agent",
+          "admin": "Administrateur"
+        },
+        "actions": {
+          "edit": [
+            {
+              "type": "text",
+              "text": "Modifier l'utilisateur"
+            }
+          ],
+          "delete": [
+            {
+              "type": "text",
+              "text": "Supprimer l'utilisateur"
+            }
+          ],
+          "changeRole": [
+            {
+              "type": "text",
+              "text": "Changer de rôle"
+            }
+          ]
+        }
       }
     },
     "email": "Courriel",
@@ -369,5 +500,24 @@
     "open": "Rechercher",
     "close": "Fermer la recherche",
     "title": "Rechercher des propriétés"
+  },
+  "PropertyDetails": {
+    "beds": "Lits",
+    "baths": "Voici la traduction en français :\n\nBains",
+    "sqft": [
+      {
+        "type": "text",
+        "text": "Pieds carrés"
+      }
+    ],
+    "description": "Voici la traduction en français du texte donné :\n\nDescription",
+    "forRent": "[object Object]",
+    "forSale": "[object Object]",
+    "rentalFrequency": {
+      "daily": "[object Object]",
+      "weekly": "[object Object]",
+      "monthly": "[object Object]",
+      "yearly": "[object Object]"
+    }
   }
 }
