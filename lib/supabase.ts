@@ -7,8 +7,17 @@ const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 if (!supabaseUrl) throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL')
 
-// Create regular client for public access
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey || '')
+// Create single instance of Supabase client
+let supabaseInstance: SupabaseClient<Database> | null = null
+
+export const getSupabaseClient = () => {
+  if (!supabaseInstance) {
+    supabaseInstance = createClient<Database>(supabaseUrl, supabaseAnonKey || '')
+  }
+  return supabaseInstance
+}
+
+export const supabase = getSupabaseClient()
 
 // Create admin client only if service role key is available
 export const supabaseAdmin = supabaseServiceRoleKey 

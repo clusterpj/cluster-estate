@@ -3,7 +3,7 @@
 import React from "react"
 import { PropertyCard } from "./PropertyCard"
 import { useQuery } from "@supabase-cache-helpers/postgrest-react-query"
-import { supabase } from "@/lib/supabase"
+import { getSupabaseClient } from "@/lib/supabase"
 import { Database } from "@/types/database"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useSearchParams } from "next/navigation"
@@ -13,16 +13,17 @@ export function PropertyList() {
   const search = searchParams.get("search") || ""
   const sort = searchParams.get("sort") || "created_at.desc"
 
-  const query = React.useMemo(() => 
-    supabase
+  const query = React.useMemo(() => {
+    return supabase
       .from("properties")
       .select("*")
       .ilike("title", `%${search}%`)
-      .order(sort.split(".")[0], { ascending: sort.split(".")[1] === "asc" }),
-    [search, sort]
-  )
+      .order(sort.split(".")[0], { ascending: sort.split(".")[1] === "asc" })
+  }, [search, sort])
 
-  const { data: properties, isLoading } = useQuery(query)
+  const { data: properties, isLoading } = useQuery(query, {
+    staleTime: 1000 * 60 * 5 // 5 minutes
+  })
 
   if (isLoading) {
     return (
