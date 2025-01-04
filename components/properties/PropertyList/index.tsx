@@ -4,9 +4,10 @@ import React from "react"
 import { PropertyCard } from "./PropertyCard"
 import { useQuery } from "@supabase-cache-helpers/postgrest-react-query"
 import { getSupabaseClient } from "@/lib/supabase"
-import { Database } from "@/types/database"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useSearchParams } from "next/navigation"
+
+import type { Database } from '@/types/supabase';
 
 export function PropertyList() {
   const searchParams = useSearchParams()
