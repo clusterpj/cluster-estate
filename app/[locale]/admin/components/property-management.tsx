@@ -316,8 +316,8 @@ export function PropertyManagement() {
                 </Badge>
               </TableCell>
               <TableCell>
-                {(property.listing_type === 'sale' || property.listing_type === 'both') && property.sale_price && (
-                  <>${property.sale_price.toLocaleString()}</>
+                {(property.listing_type === 'sale' || property.listing_type === 'both') && property.price && (
+                  <>${property.price.toLocaleString()}</>
                 )}
               </TableCell>
               <TableCell>
