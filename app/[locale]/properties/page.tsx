@@ -47,7 +47,7 @@ export default async function PropertiesPage() {
           </div>
         </div>
       </div>
-      </Container>
-    </QueryClientProvider>
+      </QueryClientProviderWrapper>
+    </Container>
   )
 }
