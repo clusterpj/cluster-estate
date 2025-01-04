@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import type { Property } from '@/types/property'
+import { Property, isValidPropertyStatus } from '@/types/property'
 import {
   Table,
   TableBody,
@@ -53,14 +53,14 @@ export function PropertyManagement() {
         .order('created_at', { ascending: false })
 
       if (error) throw error
-      
-      // Ensure the status is properly typed
-      const typedData = (data || []).map(property => ({
-        ...property,
-        status: property.status as 'available' | 'sold' | 'pending' | 'rented'
-      }))
-      
-      setProperties(typedData)
+
+      if (data) {
+        const typedData = data.map(property => ({
+          ...property,
+          status: isValidPropertyStatus(property.status) ? property.status : 'available'
+        }))
+        setProperties(typedData)
+      }
     } catch (err) {
       console.error('Error fetching properties:', err)
       setToastMessage({
@@ -229,10 +229,7 @@ export function PropertyManagement() {
               propertyId={selectedProperty.id}
               initialData={{
                 ...selectedProperty,
-                // Ensure the status is one of the valid values
-                status: ['available', 'sold', 'pending', 'rented'].includes(selectedProperty.status)
-                  ? selectedProperty.status
-                  : 'available'
+                status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available'
               }}
               onSuccess={() => {
                 setIsEditDialogOpen(false)
