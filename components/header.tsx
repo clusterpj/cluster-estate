@@ -249,6 +249,13 @@ export function Header() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
+                  <Link href={localizedHref('/properties')} legacyBehavior passHref>
+                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                      {t('nav.properties')}
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
                   <Link href={localizedHref('/activities')} legacyBehavior passHref>
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                       {t('nav.activities')}
