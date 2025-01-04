@@ -1,11 +1,9 @@
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { locales, type Locale } from '../../config/i18n';
-import { ThemeProvider } from '../../components/theme-provider';
-import { AuthProvider } from '../../components/providers/auth-provider';
-import { Footer } from '../../components/footer';
-import { Header } from '../../components/header';
-import { Toaster } from '@/components/ui/toaster';
+import { Providers } from '@/components/providers/providers';
+import { Footer } from '@/components/footer';
+import { Header } from '@/components/header';
 
 async function getMessages(locale: Locale) {
   try {
@@ -35,23 +33,13 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <AuthProvider>
-          <div className="min-h-screen flex flex-col antialiased">
-            <Header />
-            <main className="flex-1 w-full">
-              {children}
-            </main>
-            <Footer />
-            <Toaster />
-          </div>
-        </AuthProvider>
-      </ThemeProvider>
+      <Providers>
+        <Header />
+        <main className="flex-1 w-full">
+          {children}
+        </main>
+        <Footer />
+      </Providers>
     </NextIntlClientProvider>
   );
 }
