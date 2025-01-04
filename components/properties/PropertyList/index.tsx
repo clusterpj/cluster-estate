@@ -12,13 +12,16 @@ export function PropertyList() {
   const search = searchParams.get("search") || ""
   const sort = searchParams.get("sort") || "created_at.desc"
 
-  const { data: properties, isLoading } = useQuery(
+  const query = React.useMemo(() => 
     supabase
       .from("properties")
       .select("*")
       .ilike("title", `%${search}%`)
-      .order(sort.split(".")[0], { ascending: sort.split(".")[1] === "asc" })
+      .order(sort.split(".")[0], { ascending: sort.split(".")[1] === "asc" }),
+    [search, sort]
   )
+
+  const { data: properties, isLoading } = useQuery(query)
 
   if (isLoading) {
     return (

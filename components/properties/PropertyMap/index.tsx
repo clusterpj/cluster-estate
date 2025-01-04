@@ -22,13 +22,16 @@ export function PropertyMap() {
   const search = searchParams.get("search") || ""
   const sort = searchParams.get("sort") || "created_at.desc"
 
-  const { data: properties, isLoading } = useQuery(
+  const query = React.useMemo(() => 
     supabase
       .from("properties")
       .select("*")
       .ilike("title", `%${search}%`)
-      .order(sort.split(".")[0], { ascending: sort.split(".")[1] === "asc" })
+      .order(sort.split(".")[0], { ascending: sort.split(".")[1] === "asc" }),
+    [search, sort]
   )
+
+  const { data: properties, isLoading } = useQuery(query)
 
   if (isLoading) {
     return <Skeleton className="h-[600px] w-full rounded-lg" />
@@ -55,12 +58,14 @@ export function PropertyMap() {
 
   return (
     <div className="h-[600px] w-full rounded-lg overflow-hidden">
-      <MapContainer
-        center={[centerLat || 0, centerLng || 0]}
-        zoom={13}
-        scrollWheelZoom={false}
-        className="h-full w-full"
-      >
+      {typeof window !== 'undefined' && (
+        <MapContainer
+          center={[centerLat || 0, centerLng || 0]}
+          zoom={13}
+          scrollWheelZoom={false}
+          className="h-full w-full"
+        >
+      )}
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
