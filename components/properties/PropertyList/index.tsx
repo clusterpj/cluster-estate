@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { PropertyCard } from "./PropertyCard"
 import { useQuery } from "@supabase-cache-helpers/postgrest-react-query"
 import { supabase } from "@/lib/supabase"
