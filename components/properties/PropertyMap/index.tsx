@@ -57,11 +57,16 @@ export function PropertyMap() {
     validProperties.reduce((sum, p) => sum + (p.longitude || 0), 0) /
     validProperties.length
 
-  if (typeof window === 'undefined') {
+  const [isClient, setIsClient] = React.useState(false)
+  const [mapReady, setMapReady] = React.useState(false)
+
+  React.useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  if (!isClient) {
     return <Skeleton className="h-[600px] w-full rounded-lg" />
   }
-
-  const [mapReady, setMapReady] = React.useState(false)
 
   return (
     <div className="h-[600px] w-full rounded-lg overflow-hidden">
