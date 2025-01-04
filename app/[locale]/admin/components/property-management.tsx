@@ -228,8 +228,23 @@ export function PropertyManagement() {
               mode="edit"
               propertyId={selectedProperty.id}
               initialData={{
-                ...selectedProperty,
-                status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available'
+                title: selectedProperty.title,
+                description: selectedProperty.description,
+                status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
+                price: selectedProperty.sale_price ?? 0,
+                location: selectedProperty.location,
+                bedrooms: selectedProperty.bedrooms,
+                bathrooms: selectedProperty.bathrooms,
+                square_feet: selectedProperty.square_feet,
+                listing_type: selectedProperty.listing_type,
+                rental_price: selectedProperty.rental_price ?? undefined,
+                rental_frequency: selectedProperty.rental_frequency ?? undefined,
+                minimum_rental_period: selectedProperty.minimum_rental_period ?? undefined,
+                deposit_amount: selectedProperty.deposit_amount ?? undefined,
+                available_from: selectedProperty.available_from ?? undefined,
+                available_to: selectedProperty.available_to ?? undefined,
+                features: selectedProperty.features ?? [],
+                images: selectedProperty.images ?? []
               }}
               onSuccess={() => {
                 setIsEditDialogOpen(false)
