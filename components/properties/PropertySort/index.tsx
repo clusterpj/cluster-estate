@@ -13,8 +13,8 @@ import { useRouter, useSearchParams } from "next/navigation"
 const SORT_OPTIONS = [
   { label: "Newest", value: "created_at.desc" },
   { label: "Oldest", value: "created_at.asc" },
-  { label: "Price: High to Low", value: "price.desc" },
-  { label: "Price: Low to High", value: "price.asc" },
+  { label: "Price: High to Low", value: "sale_price.desc,rental_price.desc" },
+  { label: "Price: Low to High", value: "sale_price.asc,rental_price.asc" },
   { label: "Title: A-Z", value: "title.asc" },
   { label: "Title: Z-A", value: "title.desc" },
 ]

@@ -16,11 +16,19 @@ export function PropertyList() {
   const sort = searchParams.get("sort") || "created_at.desc"
 
   const query = React.useMemo(() => {
-    return getSupabaseClient()
+    const queryBuilder = getSupabaseClient()
       .from("properties")
       .select("*")
       .ilike("title", `%${search}%`)
-      .order(sort.split(".")[0], { ascending: sort.split(".")[1] === "asc" })
+
+    // Handle multiple sort fields
+    const sortFields = sort.split(",")
+    sortFields.forEach((field) => {
+      const [fieldName, direction] = field.split(".")
+      queryBuilder.order(fieldName, { ascending: direction === "asc", nullsFirst: true })
+    })
+
+    return queryBuilder
   }, [search, sort])
 
   const { data: properties, isLoading } = useQuery(query, {
