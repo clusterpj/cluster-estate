@@ -57,43 +57,49 @@ export function PropertyMap() {
     validProperties.reduce((sum, p) => sum + (p.longitude || 0), 0) /
     validProperties.length
 
+  if (typeof window === 'undefined') {
+    return <Skeleton className="h-[600px] w-full rounded-lg" />
+  }
+
   return (
     <div className="h-[600px] w-full rounded-lg overflow-hidden">
-      {typeof window !== 'undefined' && (
-        <MapContainer
-          center={[centerLat || 0, centerLng || 0]}
-          zoom={13}
-          scrollWheelZoom={false}
-          className="h-full w-full"
-        >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {validProperties.map((property) => (
-          <Marker
-            key={property.id}
-            position={[property.latitude || 0, property.longitude || 0]}
-            icon={customIcon}
-          >
-            <Popup>
-              <div className="space-y-2">
-                <h3 className="font-semibold">{property.title}</h3>
-                <p className="text-sm text-muted-foreground">
-                  ${property.price.toLocaleString()}
-                </p>
-                <a
-                  href={`/properties/${property.id}`}
-                  className="text-sm text-primary hover:underline"
-                >
-                  View Details
-                </a>
-              </div>
-            </Popup>
-          </Marker>
-        ))}
-        </MapContainer>
-      )}
+      <MapContainer
+        center={[centerLat || 0, centerLng || 0]}
+        zoom={13}
+        scrollWheelZoom={false}
+        className="h-full w-full"
+      >
+        {() => (
+          <>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {validProperties.map((property) => (
+              <Marker
+                key={property.id}
+                position={[property.latitude || 0, property.longitude || 0]}
+                icon={customIcon}
+              >
+                <Popup>
+                  <div className="space-y-2">
+                    <h3 className="font-semibold">{property.title}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      ${property.price.toLocaleString()}
+                    </p>
+                    <a
+                      href={`/properties/${property.id}`}
+                      className="text-sm text-primary hover:underline"
+                    >
+                      View Details
+                    </a>
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
+          </>
+        )}
+      </MapContainer>
     </div>
   )
 }
