@@ -61,6 +61,8 @@ export function PropertyMap() {
     return <Skeleton className="h-[600px] w-full rounded-lg" />
   }
 
+  const [mapReady, setMapReady] = React.useState(false)
+
   return (
     <div className="h-[600px] w-full rounded-lg overflow-hidden">
       <MapContainer
@@ -68,37 +70,34 @@ export function PropertyMap() {
         zoom={13}
         scrollWheelZoom={false}
         className="h-full w-full"
+        whenReady={() => setMapReady(true)}
       >
-        {() => (
-          <>
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {validProperties.map((property) => (
-              <Marker
-                key={property.id}
-                position={[property.latitude || 0, property.longitude || 0]}
-                icon={customIcon}
-              >
-                <Popup>
-                  <div className="space-y-2">
-                    <h3 className="font-semibold">{property.title}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      ${property.price.toLocaleString()}
-                    </p>
-                    <a
-                      href={`/properties/${property.id}`}
-                      className="text-sm text-primary hover:underline"
-                    >
-                      View Details
-                    </a>
-                  </div>
-                </Popup>
-              </Marker>
-            ))}
-          </>
-        )}
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {mapReady && validProperties.map((property) => (
+          <Marker
+            key={property.id}
+            position={[property.latitude || 0, property.longitude || 0]}
+            icon={customIcon}
+          >
+            <Popup>
+              <div className="space-y-2">
+                <h3 className="font-semibold">{property.title}</h3>
+                <p className="text-sm text-muted-foreground">
+                  ${property.price.toLocaleString()}
+                </p>
+                <a
+                  href={`/properties/${property.id}`}
+                  className="text-sm text-primary hover:underline"
+                >
+                  View Details
+                </a>
+              </div>
+            </Popup>
+          </Marker>
+        ))}
       </MapContainer>
     </div>
   )
