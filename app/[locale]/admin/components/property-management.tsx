@@ -231,7 +231,7 @@ export function PropertyManagement() {
                 title: selectedProperty.title,
                 description: selectedProperty.description,
                 status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
-                price: selectedProperty.price ?? 0, // Changed from sale_price to price
+                sale_price: selectedProperty.sale_price ?? 0,
                 location: selectedProperty.location,
                 bedrooms: selectedProperty.bedrooms,
                 bathrooms: selectedProperty.bathrooms,
@@ -316,8 +316,8 @@ export function PropertyManagement() {
                 </Badge>
               </TableCell>
               <TableCell>
-                {(property.listing_type === 'sale' || property.listing_type === 'both') && property.price && (
-                  <>${property.price.toLocaleString()}</>
+                {(property.listing_type === 'sale' || property.listing_type === 'both') && property.sale_price && (
+                  <>${property.sale_price.toLocaleString()}</>
                 )}
               </TableCell>
               <TableCell>

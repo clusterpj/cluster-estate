@@ -35,7 +35,7 @@ type PropertyInsert = Database['public']['Tables']['properties']['Insert']
 const propertyFormSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   description: z.string().min(1, 'Description is required'),
-  price: z.number().min(0, 'Price must be positive'),
+  sale_price: z.number().min(0, 'Sale price must be positive'),
   location: z.string().min(1, 'Location is required'),
   bedrooms: z.number().min(0, 'Number of bedrooms must be positive'),
   bathrooms: z.number().min(0, 'Number of bathrooms must be positive'),
@@ -84,7 +84,7 @@ export function PropertyForm({
     defaultValues: {
       title: initialData?.title || '',
       description: initialData?.description || '',
-      price: initialData?.price || 0, // Changed from sale_price to price
+      sale_price: initialData?.sale_price || 0,
       location: initialData?.location || '',
       bedrooms: initialData?.bedrooms || 0,
       bathrooms: initialData?.bathrooms || 0,
@@ -110,7 +110,7 @@ export function PropertyForm({
 
     const processedData = {
       ...formData,
-      price: formData.price || null,
+      sale_price: formData.sale_price || null,
       rental_price: formData.rental_price || null,
       features: Array.isArray(formData.features) ? formData.features : [],
       images: uploadedImages,
@@ -396,7 +396,7 @@ export function PropertyForm({
                 </div>
                 <FormField
                   control={form.control}
-                  name="price"
+                  name="sale_price"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t('form.salePrice')}</FormLabel>
