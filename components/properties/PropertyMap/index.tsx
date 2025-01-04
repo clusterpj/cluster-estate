@@ -19,6 +19,9 @@ const customIcon = new Icon({
 })
 
 export function PropertyMap() {
+  const [isClient, setIsClient] = React.useState(false)
+  const [mapReady, setMapReady] = React.useState(false)
+
   const searchParams = useSearchParams()
   const search = searchParams.get("search") || ""
   const sort = searchParams.get("sort") || "created_at.desc"
@@ -34,7 +37,11 @@ export function PropertyMap() {
 
   const { data: properties, isLoading } = useQuery(query)
 
-  if (isLoading) {
+  React.useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  if (!isClient || isLoading) {
     return <Skeleton className="h-[600px] w-full rounded-lg" />
   }
 
@@ -56,17 +63,6 @@ export function PropertyMap() {
   const centerLng =
     validProperties.reduce((sum, p) => sum + (p.longitude || 0), 0) /
     validProperties.length
-
-  const [isClient, setIsClient] = React.useState(false)
-  const [mapReady, setMapReady] = React.useState(false)
-
-  React.useEffect(() => {
-    setIsClient(true)
-  }, [])
-
-  if (!isClient) {
-    return <Skeleton className="h-[600px] w-full rounded-lg" />
-  }
 
   return (
     <div className="h-[600px] w-full rounded-lg overflow-hidden">
