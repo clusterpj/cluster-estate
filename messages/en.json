@@ -49,6 +49,14 @@
       "baths": "Baths",
       "sqft": "sqft"
     },
+    "forSale": "For Sale",
+    "forRent": "For Rent",
+    "rentalFrequency": {
+      "daily": "day",
+      "weekly": "week",
+      "monthly": "month",
+      "yearly": "year"
+    },
     "properties": [
       {
         "title": "Oceanfront Villa",
