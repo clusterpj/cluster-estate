@@ -47,7 +47,7 @@ function PriceDisplay({ property }: { property: Property }) {
   };
 
   return (
-    <div className="space-y-1 text-2xl font-bold text-caribbean-700 dark:text-caribbean-200">
+    <div className="flex flex-wrap gap-4 text-2xl font-bold text-caribbean-700 dark:text-caribbean-200">
       {renderSalePrice()}
       {renderRentalPrice()}
     </div>
