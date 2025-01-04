@@ -4,7 +4,6 @@ import { PropertyFilters } from "@/components/properties/PropertyFilters"
 import { PropertyList } from "@/components/properties/PropertyList"
 import { PropertySearch } from "@/components/properties/PropertySearch"
 import { PropertySort } from "@/components/properties/PropertySort"
-import { PropertyMap } from "@/components/properties/PropertyMap"
 import { QueryClientProviderWrapper } from "@/components/providers/query-client-provider"
 
 export default async function PropertiesPage() {
@@ -37,14 +36,9 @@ export default async function PropertiesPage() {
 
         <Separator className="my-6" />
 
-        {/* Property Grid */}
-        <div className="grid gap-6 md:grid-cols-[300px_1fr]">
-          <div className="hidden md:block">
-            <PropertyMap />
-          </div>
-          <div>
-            <PropertyList />
-          </div>
+        {/* Property List */}
+        <div>
+          <PropertyList />
         </div>
       </div>
       </QueryClientProviderWrapper>
