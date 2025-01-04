@@ -7,7 +7,7 @@ import Image from "next/image"
 import { FadeInView } from "@/components/animations/fade-in-view"
 import { useTranslations } from 'next-intl'
 import { Property } from "@/types/supabase"
-import { PriceDisplay } from "./PriceDisplay"
+import { PriceDisplay } from "@/components/properties/PriceDisplay"
 
 export function PropertyDetails({ property }: { property: Property }) {
   const t = useTranslations('PropertyDetails')
