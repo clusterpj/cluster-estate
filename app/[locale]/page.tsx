@@ -1,5 +1,7 @@
 import Image from "next/image";
-import { setRequestLocale } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { locales } from '@/config/i18n';
 import { Button } from "@/components/ui/button";
 import { HeroSection } from "@/components/hero-section";
 import { FeaturedProperties } from "@/components/featured-properties";
@@ -12,6 +14,11 @@ type Props = {
 }
 
 export default function Home({ params: { locale } }: Props) {
+  // Validate the locale
+  if (!locales.includes(locale as any)) {
+    notFound();
+  }
+  
   setRequestLocale(locale);
   
   return (
