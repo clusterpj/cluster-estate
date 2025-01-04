@@ -37,11 +37,11 @@ function PriceDisplay({ property }: { property: Property }) {
   };
 
   const renderSalePrice = () => {
-    if (property.listing_type === 'rent') return null;
+    if (property.listing_type === 'rent' || !property.sale_price) return null;
     return (
       <div>
         <span className="text-sm text-muted-foreground">{t('forSale')}: </span>
-        <span>${formatPrice(property.price)}</span>
+        <span>${formatPrice(property.sale_price)}</span>
       </div>
     );
   };
@@ -108,7 +108,7 @@ export function FeaturedProperties() {
         .select('*')
         .eq('featured', true)
         .order('created_at', { ascending: false })
-        .order('price', { ascending: true })
+        .order('sale_price', { ascending: true })
         .order('rental_price', { ascending: true });
 
       if (error) {
@@ -123,7 +123,7 @@ export function FeaturedProperties() {
     fetchFeaturedProperties();
   }, []);
   return (
-    <section className="relative py-16 bg-background">
+    <section className="relative py-16 bg-background" style={{ position: 'relative' }}>
       <div className="container mx-auto px-4">
         <FadeInView>
           <h2 className="text-3xl md:text-4xl font-bold text-caribbean-900 dark:text-caribbean-100 mb-4 text-center">
