@@ -6,11 +6,7 @@ import { PropertySearch } from "@/components/properties/PropertySearch"
 import { PropertySort } from "@/components/properties/PropertySort"
 import { PropertyMap } from "@/components/properties/PropertyMap"
 
-export default async function PropertiesPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) {
+export default async function PropertiesPage() {
   return (
     <Container>
       <div className="space-y-6 pb-16 pt-6 md:pb-24 md:pt-10">
