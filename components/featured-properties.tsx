@@ -11,18 +11,47 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useAuth } from './providers/auth-provider';
 
-interface Property {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  location: string;
-  bedrooms: number;
-  bathrooms: number;
-  square_feet: number;
-  type: string;
-  featured: boolean;
-  images: string[];
+import type { Database } from '@/types/supabase';
+type Property = Database['public']['Tables']['properties']['Row'];
+
+function formatPrice(price: number) {
+  return new Intl.NumberFormat('en-US', {
+    notation: 'compact',
+    maximumFractionDigits: 1
+  }).format(price);
+}
+
+function PriceDisplay({ property }: { property: Property }) {
+  const t = useTranslations('FeaturedProperties');
+  
+  const renderRentalPrice = () => {
+    if (!property.rental_price) return null;
+    const frequency = property.rental_frequency ? t(`rentalFrequency.${property.rental_frequency}`) : '';
+    return (
+      <div>
+        <span className="text-sm text-muted-foreground">{t('forRent')}: </span>
+        <span>${formatPrice(property.rental_price)}</span>
+        {frequency && <span className="text-sm text-muted-foreground">/{frequency}</span>}
+      </div>
+    );
+  };
+
+  const renderSalePrice = () => {
+    if (property.listing_type === 'rent') return null;
+    return (
+      <div>
+        <span className="text-sm text-muted-foreground">{t('forSale')}: </span>
+        <span>${formatPrice(property.price)}</span>
+      </div>
+    );
+  };
+
+  return (
+    <div className="space-y-1 text-2xl font-bold text-caribbean-700 dark:text-caribbean-200">
+      {renderSalePrice()}
+      {renderRentalPrice()}
+    </div>
+  );
 }
 
 const dummyProperties = [
@@ -78,7 +107,9 @@ export function FeaturedProperties() {
         .from('properties')
         .select('*')
         .eq('featured', true)
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .order('price', { ascending: true })
+        .order('rental_price', { ascending: true });
 
       if (error) {
         console.error('Error fetching featured properties:', error);
@@ -129,9 +160,16 @@ export function FeaturedProperties() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <Badge className="absolute top-4 right-4 bg-caribbean-600 hover:bg-caribbean-700">
-                    {property.type}
-                  </Badge>
+                  <div className="absolute top-4 right-4 flex gap-2">
+                    <Badge className="bg-caribbean-600 hover:bg-caribbean-700">
+                      {property.listing_type}
+                    </Badge>
+                    {property.status !== 'available' && (
+                      <Badge variant="secondary">
+                        {property.status}
+                      </Badge>
+                    )}
+                  </div>
                 </CardHeader>
                 <CardContent className="p-6">
                   <CardTitle className="text-xl mb-2 text-caribbean-900 dark:text-caribbean-100">
@@ -155,12 +193,7 @@ export function FeaturedProperties() {
                       <span>{property.square_feet} {t('propertyDetails.sqft')}</span>
                     </div>
                   </div>
-                  <div className="text-2xl font-bold text-caribbean-700 dark:text-caribbean-200">
-                    ${new Intl.NumberFormat('en-US', {
-                      notation: 'compact',
-                      maximumFractionDigits: 1
-                    }).format(property.price)}
-                  </div>
+                  <PriceDisplay property={property} />
                 </CardContent>
                 <CardFooter className="p-6 pt-0">
                   <Button className="w-full bg-sand-400 hover:bg-sand-500 text-caribbean-900 dark:bg-caribbean-600 dark:hover:bg-caribbean-700 dark:text-white">
