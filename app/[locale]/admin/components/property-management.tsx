@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import type { Property } from '@/types/property'
+import { Property, isValidPropertyStatus } from '@/types/property'
 import {
   Table,
   TableBody,
@@ -53,14 +53,14 @@ export function PropertyManagement() {
         .order('created_at', { ascending: false })
 
       if (error) throw error
-      
-      // Ensure the status is properly typed
-      const typedData = (data || []).map(property => ({
-        ...property,
-        status: property.status as 'available' | 'sold' | 'pending' | 'rented'
-      }))
-      
-      setProperties(typedData)
+
+      if (data) {
+        const typedData = data.map(property => ({
+          ...property,
+          status: isValidPropertyStatus(property.status) ? property.status : 'available'
+        }))
+        setProperties(typedData)
+      }
     } catch (err) {
       console.error('Error fetching properties:', err)
       setToastMessage({
@@ -89,6 +89,7 @@ export function PropertyManagement() {
         type: 'success'
       })
     } catch (err) {
+      console.error('Error updating property:', err)
       setToastMessage({
         title: t('error'),
         description: t('updateError'),
@@ -226,7 +227,25 @@ export function PropertyManagement() {
             <PropertyForm
               mode="edit"
               propertyId={selectedProperty.id}
-              initialData={selectedProperty}
+              initialData={{
+                title: selectedProperty.title,
+                description: selectedProperty.description,
+                status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
+                price: selectedProperty.sale_price ?? 0,
+                location: selectedProperty.location,
+                bedrooms: selectedProperty.bedrooms,
+                bathrooms: selectedProperty.bathrooms,
+                square_feet: selectedProperty.square_feet,
+                listing_type: selectedProperty.listing_type,
+                rental_price: selectedProperty.rental_price ?? undefined,
+                rental_frequency: selectedProperty.rental_frequency ?? undefined,
+                minimum_rental_period: selectedProperty.minimum_rental_period ?? undefined,
+                deposit_amount: selectedProperty.deposit_amount ?? undefined,
+                available_from: selectedProperty.available_from ?? undefined,
+                available_to: selectedProperty.available_to ?? undefined,
+                features: selectedProperty.features ?? [],
+                images: selectedProperty.images ?? []
+              }}
               onSuccess={() => {
                 setIsEditDialogOpen(false)
                 fetchProperties()
