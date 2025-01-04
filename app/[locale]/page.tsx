@@ -15,8 +15,8 @@ type Props = {
 
 export default function Home({ params: { locale } }: Props) {
   // Validate the locale
-  if (!locales.includes(locale as any)) {
-    notFound();
+  if (!locales.includes(locale as Locale)) {
+    return notFound();
   }
   
   setRequestLocale(locale);

@@ -19,11 +19,12 @@ const publicPages = [
 const protectedPages = ['/profile', '/favorites'];
 const adminPages = ['/admin'];
 
-// Create next-intl middleware
+// Create next-intl middleware with proper locale handling
 const intlMiddleware = createMiddleware({
   locales,
   defaultLocale,
-  localePrefix: 'always'
+  localePrefix: 'as-needed',
+  localeDetection: true
 });
 
 export default async function middleware(req: NextRequest) {
@@ -40,12 +41,17 @@ export default async function middleware(req: NextRequest) {
   // Get the pathname of the request
   const { pathname } = req.nextUrl;
 
+  // Validate locale from path
+  const pathLocale = pathname.split('/')[1];
+  if (pathLocale && !locales.includes(pathLocale as Locale)) {
+    return NextResponse.redirect(new URL(`/${defaultLocale}${pathname}`, req.url));
+  }
+
   // Get path without locale
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
+  const pathLocale = pathname.split('/')[1];
+  const pathnameHasLocale = locales.includes(pathLocale as Locale);
   const pathWithoutLocale = pathnameHasLocale
-    ? pathname.slice(pathname.indexOf('/', 1))
+    ? `/${pathname.split('/').slice(2).join('/')}`
     : pathname;
 
   // Check if current page is auth related
