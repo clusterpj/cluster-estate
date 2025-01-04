@@ -399,7 +399,7 @@ export function PropertyForm({
                   name="sale_price"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('form.salePrice')}</FormLabel>
+                      <FormLabel>{t('form.price')}</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
