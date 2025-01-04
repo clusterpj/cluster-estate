@@ -249,3 +249,2026 @@
 
 # 2024-12-19 22:07:19.524090
 +/run npm run dev
+
+# 2025-01-04 13:30:21.049354
++/drop
+
+# 2025-01-04 13:30:31.811420
++/add middleware.ts
+
+# 2025-01-04 13:31:04.973970
++# Task: Fix Authentication Middleware in Next.js Real Estate Platform
++
++## Context
++The real estate platform currently forces users to log in to view public pages. This is caused by a logic error in the middleware.ts file. We need to update the authentication logic to allow public access to non-protected pages while maintaining security for protected and admin routes.
++
++## Current Issue
++The current middleware implementation has an early session check that blocks access to any route not explicitly listed in publicPages, even if the route should be publicly accessible.
++
++## Required Changes
++
++1. Update the hasAccess function in middleware.ts with the following logic structure:
++```typescript
++const hasAccess = async () => {
++    // Allow access to auth pages without session
++    if (isAuthPage) return true;
++    
++    // Allow access to public pages without session
++    if (publicPages.some(route => pathWithoutLocale.startsWith(route))) return true;
++    
++    // Check protected pages - require authentication
++    if (isProtectedPage && !session) return false;
++    
++    // Check admin pages - require admin role
++    if (isAdminPage && userRole !== 'admin') return false;
++    
++    // Default behavior: allow access
++    return true;
++}
++```
++
++2. Ensure the publicPages array includes all necessary public routes:
++```typescript
++const publicPages = [
++    '/', 
++    '/properties', 
++    '/about', 
++    '/contact', 
++    '/auth/login', 
++    '/auth/register',
++    '/properties/', // Add this to allow access to individual property pages
++    '/blog',       // If you have a blog
++    '/locations'   // If you have a locations page
++];
++```
++
++3. Keep the existing route definitions for protected and admin pages:
++```typescript
++const protectedPages = ['/profile', '/favorites'];
++const adminPages = ['/admin'];
++```
++
++## Expected Behavior After Changes
++- Public pages should be accessible without authentication
++- Protected pages (/profile, /favorites) should require login
++- Admin pages should require admin role
++- Auth pages (login/register) should redirect to home if user is already logged in
++
++## Testing Criteria
++The solution should be tested for:
++1. Anonymous users can access public pages
++2. Protected pages redirect to login
++3. Admin pages require admin role
++4. Auth pages redirect logged-in users to home
++5. Callback URL functionality works for redirects after login
++
++## File to Modify
++middleware.ts at the root of the project
++
++## Additional Notes
++- Maintain existing i18n middleware integration
++- Keep the session refresh logic
++- Preserve the existing redirect logic for auth pages
++- Maintain TypeScript type safety
++
++The update should not affect any other authentication or authorization features in the application.
+
+# 2025-01-04 13:38:55.049688
++# Task: Fix Toast Provider Integration in Next.js Real Estate Platform
++
++## Context
++The application currently throws a runtime error: "Toast must be used within ToastProvider" when trying to show toast notifications during login. This needs to be fixed by properly implementing the provider hierarchy.
++
++## Required Changes
++
++### 1. Create New Providers Component
++Create a new file at `components/providers/providers.tsx`:
++```typescript
++'use client';
++
++import { ThemeProvider } from '../theme-provider';
++import { AuthProvider } from './auth-provider';
++import { Toaster } from '@/components/ui/toaster';
++import { ToastProvider } from '@/components/ui/toast';
++
++interface ProvidersProps {
++  children: React.ReactNode;
++}
++
++export function Providers({ children }: ProvidersProps) {
++  return (
++    <ThemeProvider
++      attribute="class"
++      defaultTheme="system"
++      enableSystem
++      disableTransitionOnChange
++    >
++      <ToastProvider>
++        <AuthProvider>
++          <div className="min-h-screen flex flex-col antialiased">
++            {children}
++            <Toaster />
++          </div>
++        </AuthProvider>
++      </ToastProvider>
++    </ThemeProvider>
++  );
++}
++```
++
++### 2. Update Locale Layout
++Modify `app/[locale]/layout.tsx`:
++```typescript
++import { notFound } from 'next/navigation';
++import { NextIntlClientProvider } from 'next-intl';
++import { locales, type Locale } from '../../config/i18n';
++import { Providers } from '@/components/providers/providers';
++import { Footer } from '@/components/footer';
++import { Header } from '@/components/header';
++
++// ... keep existing getMessages and generateStaticParams functions ...
++
++export default async function LocaleLayout({
++  children,
++  params: { locale },
++}: {
++  children: React.ReactNode;
++  params: { locale: Locale };
++}) {
++  if (!locales.includes(locale)) {
++    notFound();
++  }
++
++  const messages = await getMessages(locale);
++
++  return (
++    <NextIntlClientProvider locale={locale} messages={messages}>
++      <Providers>
++        <Header />
++        <main className="flex-1 w-full">
++          {children}
++        </main>
++        <Footer />
++      </Providers>
++    </NextIntlClientProvider>
++  );
++}
++
++export const dynamic = 'force-dynamic';
++```
++
++## Provider Hierarchy
++The providers should be nested in this order:
++1. NextIntlClientProvider (outermost)
++2. ThemeProvider
++3. ToastProvider
++4. AuthProvider
++5. Layout Components (Header, Main, Footer)
++6. Toaster Component
++
++## Expected Behavior After Changes
++- Toast notifications should work properly throughout the application
++- No runtime errors about missing ToastProvider
++- Existing functionality (theme, auth, i18n) should continue working
++- Toast notifications should be properly styled and positioned
++
++## Testing Criteria
++1. Login flow should show success/error toasts
++2. Theme switching should work
++3. Authentication should work
++4. Internationalization should work
++5. Layout should maintain proper structure
++
++## Files to Modify
++1. Create new: `components/providers/providers.tsx`
++2. Modify: `app/[locale]/layout.tsx`
++
++## Dependencies Check
++Ensure these dependencies are in package.json:
++```json
++{
++  "dependencies": {
++    "@radix-ui/react-toast": "latest",
++    // existing dependencies...
++  }
++}
++```
++
++## Implementation Steps
++1. Create the new providers component
++2. Update the locale layout
++3. Run `pnpm install` if needed
++4. Clear browser cache
++5. Restart development server
++6. Test all functionality
++
++## Additional Notes
++- Keep any existing TypeScript types and interfaces
++- Maintain existing styling classes
++- Ensure client-side directive ('use client') is present where needed
++- Preserve any existing comments or documentation
++
++The update should maintain all existing functionality while properly integrating the toast system.
+
+# 2025-01-04 13:38:57.751951
++y
+
+# 2025-01-04 13:39:24.678845
++/run pnpm dev
+
+# 2025-01-04 13:39:24.678845
++/run pnpm dev
+
+# 2025-01-04 13:46:53.025112
++/drop
+
+# 2025-01-04 13:46:56.941997
++# Task: Update Featured Properties Component to Handle Multiple Price Types
++
++## Context
++The real estate platform needs to properly display both sale and rental prices for properties. Currently, the component only shows a single price, but properties can have both sale and rental prices with different configurations (daily, weekly, monthly, yearly rentals).
++
++## Database Schema Reference
++```typescript
++type Property = {
++  listing_type: 'sale' | 'rent' | 'both'
++  price: number           // Sale price
++  rental_price?: number   // Optional rental price
++  rental_frequency?: 'daily' | 'weekly' | 'monthly' | 'yearly'
++  status: 'available' | 'sold' | 'pending' | 'rented'
++  // ... other fields
++}
++```
++
++## Required Changes
++
++### 1. Create Price Display Component
++Add a new PriceDisplay component within featured-properties.tsx:
++```typescript
++function PriceDisplay({ property }: { property: Property }) {
++  const t = useTranslations('FeaturedProperties');
++  
++  const renderRentalPrice = () => {
++    if (!property.rental_price) return null;
++    const frequency = property.rental_frequency ? t(`rentalFrequency.${property.rental_frequency}`) : '';
++    return (
++      <div>
++        <span className="text-sm text-muted-foreground">{t('forRent')}: </span>
++        <span>${formatPrice(property.rental_price)}</span>
++        {frequency && <span className="text-sm text-muted-foreground">/{frequency}</span>}
++      </div>
++    );
++  };
++
++  const renderSalePrice = () => {
++    if (property.listing_type === 'rent') return null;
++    return (
++      <div>
++        <span className="text-sm text-muted-foreground">{t('forSale')}: </span>
++        <span>${formatPrice(property.price)}</span>
++      </div>
++    );
++  };
++
++  return (
++    <div className="space-y-1 text-2xl font-bold text-caribbean-700 dark:text-caribbean-200">
++      {renderSalePrice()}
++      {renderRentalPrice()}
++    </div>
++  );
++}
++```
++
++### 2. Update Property Card Badges
++Replace the current badge with:
++```typescript
++<div className="absolute top-4 right-4 flex gap-2">
++  <Badge className="bg-caribbean-600 hover:bg-caribbean-700">
++    {property.listing_type}
++  </Badge>
++  {property.status !== 'available' && (
++    <Badge variant="secondary">
++      {property.status}
++    </Badge>
++  )}
++</div>
++```
++
++### 3. Add Price Formatting Utility
++Add this function at the component level:
++```typescript
++function formatPrice(price: number) {
++  return new Intl.NumberFormat('en-US', {
++    notation: 'compact',
++    maximumFractionDigits: 1
++  }).format(price);
++}
++```
++
++### 4. Update Component Types
++Replace the current Property interface with:
++```typescript
++import type { Database } from '@/types/supabase';
++type Property = Database['public']['Tables']['properties']['Row'];
++```
++
++### 5. Update Translation Files
++Add these translations to messages/[locale]/index.json:
++```json
++{
++  "FeaturedProperties": {
++    "forSale": "For Sale",
++    "forRent": "For Rent",
++    "rentalFrequency": {
++      "daily": "day",
++      "weekly": "week",
++      "monthly": "month",
++      "yearly": "year"
++    }
++  }
++}
++```
++
++### 6. Update Price Display in Card
++Replace the current price display in CardContent with:
++```typescript
++<PriceDisplay property={property} />
++```
++
++## Expected Behavior
++- Properties with only sale price show "For Sale: $X"
++- Properties with only rental price show "For Rent: $X/frequency"
++- Properties with both prices show both lines
++- Status badge shows when property is not available
++- Listing type badge always shows (sale/rent/both)
++- Prices are properly formatted using compact notation
++
++## Testing Criteria
++Test the component with properties that have:
++1. Only sale price
++2. Only rental price
++3. Both prices
++4. Different rental frequencies
++5. Different status values
++6. Different listing types
++
++## Files to Modify
++1. `components/featured-properties.tsx`
++2. Translation files in `messages/` directory
++
++## Additional Notes
++- Maintain existing animation and styling
++- Keep all existing functionality (featured property filtering, image display, etc.)
++- Ensure proper TypeScript types
++- Maintain dark mode support
++- Keep existing responsive design
++
++The update should improve price display while maintaining all existing functionality and user experience.
++
++## Implementation Steps
++1. Back up current component
++2. Update component with new code
++3. Add new translations
++4. Test with different property configurations
++5. Verify styling in both light and dark modes
++6. Test responsive behavior
++7. Verify price formatting
++
++## Important Considerations
++- Handle missing or undefined values gracefully
++- Maintain consistent spacing and layout
++- Ensure proper type checking
++- Keep existing loading states
++- Maintain internationalization support
+
+# 2025-01-04 13:46:59.493491
++y
+
+# 2025-01-04 13:49:18.625809
++n
+
+# 2025-01-04 13:49:20.958300
++Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. <anonymous code>:1:145535
++Error fetching featured properties: 
++Object { code: "42703", details: null, hint: null, message: "column properties.price does not exist" }
++
++code: "42703"
++
++details: null
++
++hint: null
++
++message: "column properties.price does not exist"
++
++<prototype>: Object {  }
++<anonymous code>:1:145535
++    overrideMethod <anonymous code>:1
++    error app-index.tsx:25
++    error hydration-error-info.ts:72
++    fetchFeaturedProperties featured-properties.tsx:115
++Error fetching featured properties: 
++Object { code: "42703", details: null, hint: null, message: "column properties.price does not exist" }
++
++code: "42703"
++
++details: null
++
++hint: null
++
++message: "column properties.price does not exist"
++
++<prototype>: Object {  }
++<anonymous code>:1:145535
++    overrideMethod <anonymous code>:1
++    error app-index.tsx:25
++    error hydration-error-info.ts:72
++    fetchFeaturedProperties featured-properties.tsx:115
++Source map error: Error: request failed with status 404
++Stack in the worker:networkRequest@resource://devtools/client/shared/source-map-loader/utils/network-request.js:43:9
++
++Resource URL: http://localhost:3000/%3Canonymous%20code%3E
++Source Map URL: installHook.js.map
++
++
+
+# 2025-01-04 13:49:22.903204
++n
+
+# 2025-01-04 13:53:01.417888
++/paste
+
+# 2025-01-04 13:53:46.893382
++I see the prices but we need to update the translation because if you notice the keys are now added correctly. Make sure you add these to  tne english messages only, i'll translate it after 
+
+# 2025-01-04 13:53:56.959097
++y
+
+# 2025-01-04 13:55:36.805807
++I see the prices now. I see they are on top of each other let's instead have them inline 
+
+# 2025-01-04 13:58:00.969918
++/token
+
+# 2025-01-04 14:08:23.979073
++# Task: Fix Property Update Form Field Population in Admin Dashboard
++
++## Context
++In the admin dashboard's property management section, when editing a property, some fields (notably the sale price and other related fields) are not being populated in the edit form despite the data being present in the database. The form submission functionality works correctly, but initial field population is incomplete.
++
++## Current Behavior
++- Property edit form opens but certain fields are empty
++- Affected fields include:
++  - Sale price
++  - Other fields that need identification
++- Form submission works correctly
++- Data is visible in the property list view
++
++## Database Schema Reference
++```typescript
++type Property = {
++  id: string
++  title: string
++  price: number             // Sale price
++  rental_price?: number     // Optional rental price
++  rental_frequency?: 'daily' | 'weekly' | 'monthly' | 'yearly'
++  listing_type: 'sale' | 'rent' | 'both'
++  location: string
++  status: 'available' | 'sold' | 'pending' | 'rented'
++  featured: boolean
++  // ... other fields
++}
++```
++
++## Required Changes
++
++### 1. Form Data Population
++- Add console logging to debug current property data being received
++- Check data mapping between API response and form fields
++- Ensure form initialValues include all necessary fields
++- Verify default values are properly set
++
++### 2. Property Update Hook/Function
++Check and update the property fetching logic:
++```typescript
++// Example structure to verify
++async function fetchPropertyForEdit(id: string) {
++  const { data, error } = await supabase
++    .from('properties')
++    .select('*')
++    .eq('id', id)
++    .single();
++    
++  if (error) {
++    throw new Error('Error fetching property');
++  }
++
++  // Ensure all fields are mapped correctly
++  return {
++    ...data,
++    price: data.price || '',
++    rental_price: data.rental_price || '',
++    listing_type: data.listing_type || 'sale',
++    // ... map other fields with proper defaults
++  };
++}
++```
++
++### 3. Form Component Updates
++```typescript
++interface PropertyFormProps {
++  initialData?: Property;
++  onSubmit: (data: PropertyFormData) => Promise<void>;
++  isEditing?: boolean;
++}
++
++// Ensure form initialization handles all fields
++const defaultValues: PropertyFormData = {
++  title: initialData?.title || '',
++  price: initialData?.price || '',
++  rental_price: initialData?.rental_price || '',
++  listing_type: initialData?.listing_type || 'sale',
++  // ... other fields with proper defaults
++};
++```
++
++### 4. Form Field Components
++Verify field components receive and handle values correctly:
++```typescript
++<FormField
++  name="price"
++  label="Sale Price"
++  defaultValue={initialData?.price}
++  // Add any necessary type conversion
++  transform={{
++    input: (value) => value ? Number(value) : '',
++    output: (value) => value ? String(value) : ''
++  }}
++/>
++```
++
++## Testing Criteria
++1. Test form population with different property types:
++   - Properties for sale only
++   - Properties for rent only
++   - Properties with both sale and rental prices
++   - Properties with different listing types
++2. Verify all fields are populated correctly:
++   - Numeric fields (prices)
++   - Select fields (listing type, status)
++   - Text fields
++   - Optional fields
++3. Test form submission retains all values
++4. Verify data consistency between list view and edit form
++
++## Implementation Steps
++1. Add debug logging to track data flow
++2. Update property fetching function
++3. Review and update form initialization
++4. Test with various property types
++5. Verify data persistence
++6. Update field components if needed
++7. Add proper type checking
++8. Test edge cases
++
++## Important Considerations
++- Handle type conversions properly (string  number)
++- Set appropriate default values
++- Consider form validation requirements
++- Maintain proper TypeScript types
++- Handle loading states
++- Provide feedback for data fetching errors
++- Consider optimistic updates
++- Maintain existing styling and layout
++
++## Files to Check/Modify
++1. Property form component
++2. Property data fetching hooks/functions
++3. Form field components
++4. Type definitions
++5. API routes (if any)
++6. Utility functions
++
++## Edge Cases to Handle
++- Missing or null values
++- Different property types
++- Numeric value formatting
++- Optional fields
++- Loading states
++- Error states
++- Validation rules
++
++The update should ensure all fields are properly populated while maintaining existing functionality and user experience.
++
++## Additional Notes
++- Check browser console for any errors
++- Verify network requests
++- Consider adding form state debugging tools
++- Document any changes made
++- Update tests if necessary
+
+# 2025-01-04 14:09:03.544853
++/undo
+
+# 2025-01-04 14:09:36.669009
++/drop ..\..\..\..\..\AppData\Local\Temp\tmp_zsgha2u\clipboard_image.png
+
+# 2025-01-04 14:09:52.484750
++/drop components\featured-properties.tsx
+
+# 2025-01-04 14:10:18.367831
++# Task: Fix Property Update Form Field Population in Admin Dashboard
++
++## Context
++In the admin dashboard's property management section, when editing a property, some fields (notably the sale price and other related fields) are not being populated in the edit form despite the data being present in the database. The form submission functionality works correctly, but initial field population is incomplete.
++
++## Current Behavior
++- Property edit form opens but certain fields are empty
++- Affected fields include:
++  - Sale price
++  - Other fields that need identification
++- Form submission works correctly
++- Data is visible in the property list view
++
++## Database Schema Reference
++```typescript
++type Property = {
++  id: string
++  title: string
++  price: number             // Sale price
++  rental_price?: number     // Optional rental price
++  rental_frequency?: 'daily' | 'weekly' | 'monthly' | 'yearly'
++  listing_type: 'sale' | 'rent' | 'both'
++  location: string
++  status: 'available' | 'sold' | 'pending' | 'rented'
++  featured: boolean
++  // ... other fields
++}
++```
++
++## Required Changes
++
++### 1. Form Data Population
++- Add console logging to debug current property data being received
++- Check data mapping between API response and form fields
++- Ensure form initialValues include all necessary fields
++- Verify default values are properly set
++
++### 2. Property Update Hook/Function
++Check and update the property fetching logic:
++```typescript
++// Example structure to verify
++async function fetchPropertyForEdit(id: string) {
++  const { data, error } = await supabase
++    .from('properties')
++    .select('*')
++    .eq('id', id)
++    .single();
++    
++  if (error) {
++    throw new Error('Error fetching property');
++  }
++
++  // Ensure all fields are mapped correctly
++  return {
++    ...data,
++    price: data.price || '',
++    rental_price: data.rental_price || '',
++    listing_type: data.listing_type || 'sale',
++    // ... map other fields with proper defaults
++  };
++}
++```
++
++### 3. Form Component Updates
++```typescript
++interface PropertyFormProps {
++  initialData?: Property;
++  onSubmit: (data: PropertyFormData) => Promise<void>;
++  isEditing?: boolean;
++}
++
++// Ensure form initialization handles all fields
++const defaultValues: PropertyFormData = {
++  title: initialData?.title || '',
++  price: initialData?.price || '',
++  rental_price: initialData?.rental_price || '',
++  listing_type: initialData?.listing_type || 'sale',
++  // ... other fields with proper defaults
++};
++```
++
++### 4. Form Field Components
++Verify field components receive and handle values correctly:
++```typescript
++<FormField
++  name="price"
++  label="Sale Price"
++  defaultValue={initialData?.price}
++  // Add any necessary type conversion
++  transform={{
++    input: (value) => value ? Number(value) : '',
++    output: (value) => value ? String(value) : ''
++  }}
++/>
++```
++
++## Testing Criteria
++1. Test form population with different property types:
++   - Properties for sale only
++   - Properties for rent only
++   - Properties with both sale and rental prices
++   - Properties with different listing types
++2. Verify all fields are populated correctly:
++   - Numeric fields (prices)
++   - Select fields (listing type, status)
++   - Text fields
++   - Optional fields
++3. Test form submission retains all values
++4. Verify data consistency between list view and edit form
++
++## Implementation Steps
++1. Add debug logging to track data flow
++2. Update property fetching function
++3. Review and update form initialization
++4. Test with various property types
++5. Verify data persistence
++6. Update field components if needed
++7. Add proper type checking
++8. Test edge cases
++
++## Important Considerations
++- Handle type conversions properly (string  number)
++- Set appropriate default values
++- Consider form validation requirements
++- Maintain proper TypeScript types
++- Handle loading states
++- Provide feedback for data fetching errors
++- Consider optimistic updates
++- Maintain existing styling and layout
++
++## Files to Check/Modify
++1. Property form component
++2. Property data fetching hooks/functions
++3. Form field components
++4. Type definitions
++5. API routes (if any)
++6. Utility functions
++
++## Edge Cases to Handle
++- Missing or null values
++- Different property types
++- Numeric value formatting
++- Optional fields
++- Loading states
++- Error states
++- Validation rules
++
++The update should ensure all fields are properly populated while maintaining existing functionality and user experience.
++
++## Additional Notes
++- Check browser console for any errors
++- Verify network requests
++- Consider adding form state debugging tools
++- Document any changes made
++- Update tests if necessary
+
+# 2025-01-04 14:11:09.413044
++/add app\[locale]\admin\components\property-form.tsx app\[locale]\admin\components\property-management.tsx
+
+# 2025-01-04 14:11:16.323984
++I have shared the related files
+
+# 2025-01-04 14:14:03.073644
++i still have the issue when i click on Action > Edit Property the price that is show on the Property management table is not showing on the Edit Property Form /paste
+
+# 2025-01-04 14:16:20.478620
++You made the wrong chnage please fix it, these is how prices are set. check this response [{"id":"93857160-c224-4b26-a98b-b692598c1e7c","created_at":"2024-12-21T17:21:39.060025+00:00","title":"LuxHouses 258","description":"Testing","legacy_price":250000,"location":"Sosua","bedrooms":4,"bathrooms":3,"square_feet":123,"images":["https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/f3598317-24c0-48e9-afcf-c0bc847d5d3c.jpg","https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/76436a40-1083-4ee4-911b-c749932b3cd1.jpg"],"features":["pool"],"status":"available","user_id":"120dab94-5049-4e85-a38d-fc0cd29e9cbe","featured":false,"listing_type":"both","sale_price":250000,"rental_price":150,"rental_frequency":"daily","minimum_rental_period":2,"deposit_amount":100,"available_from":"2024-12-21T00:00:00+00:00","available_to":"2025-01-31T00:00:00+00:00"}, 
++
+
+# 2025-01-04 14:16:23.451651
++n
+
+# 2025-01-04 14:44:55.226486
++/drop
+
+# 2025-01-04 14:44:58.948790
++# Properties Page Implementation Guide
++
++## Context
++We need to create a centralized properties listing page for our luxury real estate platform. This page should follow our established design patterns using shadcn/ui components and maintain consistency with our existing codebase.
++
++## Technical Requirements
++
++### Tech Stack
++- Next.js 14 with App Router
++- TypeScript
++- Tailwind CSS
++- shadcn/ui components
++- Supabase for data
++- React Server Components where applicable
++
++### File Structure
++```
++app/
++  [locale]/
++    properties/
++      page.tsx           # Main listing page (Server Component)
++      loading.tsx        # Loading state
++      error.tsx          # Error handling
++      [id]/
++        page.tsx         # Individual property view
++        loading.tsx
++        error.tsx
++
++components/
++  properties/
++    PropertyList/
++      index.tsx
++      PropertyCard.tsx
++      PropertyCardSkeleton.tsx
++    PropertyFilters/
++      index.tsx
++      FilterSection.tsx
++      PriceRangeFilter.tsx
++      LocationFilter.tsx
++      TypeFilter.tsx
++      AmenitiesFilter.tsx
++    PropertySearch/
++      index.tsx
++      SearchBar.tsx
++      Suggestions.tsx
++    PropertySort/
++      index.tsx
++    PropertyMap/
++      index.tsx
++```
++
++### Component Implementation Guidelines
++
++#### 1. Main Properties Page (app/[locale]/properties/page.tsx)
++- Implement as a Server Component
++- Use shadcn/ui layout components (Card, Container)
++- Implement responsive grid layout
++- Example structure:
++
++```tsx
++import { Container } from "@/components/ui/container"
++import { Separator } from "@/components/ui/separator"
++
++export default async function PropertiesPage() {
++  return (
++    <Container>
++      <div className="space-y-6 pb-16 pt-6 md:pb-24 md:pt-10">
++        {/* Header Section */}
++        {/* Filters and Search */}
++        {/* Property Grid */}
++      </div>
++    </Container>
++  )
++}
++```
++
++#### 2. Property Filters Component
++Use these shadcn/ui components:
++- Accordion for filter sections
++- Slider for price range
++- Checkbox for amenities
++- Select for location/type
++- Sheet for mobile filters
++
++Example structure:
++```tsx
++import {
++  Accordion,
++  AccordionContent,
++  AccordionItem,
++  AccordionTrigger,
++} from "@/components/ui/accordion"
++import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
++import { Button } from "@/components/ui/button"
++
++export function PropertyFilters() {
++  return (
++    // Implementation
++  )
++}
++```
++
++#### 3. Property Card Component
++Use these shadcn/ui components:
++- Card
++- AspectRatio for images
++- Badge for status/tags
++- HoverCard for quick preview
++
++Styling guidelines:
++- Maintain consistent spacing (use Tailwind's space utilities)
++- Use project color scheme
++- Implement hover states
++- Ensure responsive behavior
++
++#### 4. Property Search Component
++Use these shadcn/ui components:
++- Command for search interface
++- Popover for suggestions
++- Input for search field
++
++Include:
++- Autocomplete functionality
++- Recent searches
++- Search suggestions
++
++### State Management Guidelines
++
++1. **URL State**
++- Use URL search params for:
++  - Filters
++  - Sorting
++  - Page number
++  - View type (grid/map)
++
++2. **Server State**
++- Implement React Query for:
++  - Property listings
++  - Search results
++  - Filter options
++
++### API Integration
++
++1. **Supabase Queries**
++```typescript
++const getProperties = async (filters: FilterParams) => {
++  const { data, error } = await supabase
++    .from('properties')
++    .select('*')
++    .match(filters)
++    
++  if (error) throw error
++  return data
++}
++```
++
++2. **API Routes**
++```typescript
++// app/api/properties/route.ts
++export async function GET(request: Request) {
++  // Implementation
++}
++```
++
++### Internationalization
++
++- Use project's i18n setup
++- Include translations for:
++  - Filter labels
++  - Amenity names
++  - Property types
++  - Error messages
++
++### Important Features to Implement
++
++1. **Search & Filters**
++- Location selection (Sosua, Cabarete, Las Terrenas)
++- Price range with min/max
++- Property type selection
++- Bedrooms/Bathrooms
++- Amenities
++- Save filter preferences
++
++2. **Property Display**
++- Grid/List view toggle
++- Map view integration
++- Sort options
++- Pagination/Infinite scroll
++- Quick view
++- Favorite functionality
++
++3. **Performance Considerations**
++- Implement image optimization
++- Use React Suspense
++- Add proper loading states
++- Enable filtering without page reload
++
++### Component Props Interface Examples
++
++```typescript
++interface PropertyCardProps {
++  id: string
++  title: string
++  location: string
++  price: number
++  currency: string
++  bedrooms: number
++  bathrooms: number
++  area: number
++  images: string[]
++  featured?: boolean
++  status: 'available' | 'pending' | 'sold'
++}
++
++interface PropertyFiltersProps {
++  onFilterChange: (filters: FilterParams) => void
++  initialFilters?: FilterParams
++  locations: Location[]
++  propertyTypes: PropertyType[]
++}
++```
++
++### Error Handling
++
++- Implement proper error boundaries
++- Add fallback UI components
++- Include retry mechanisms
++- Display user-friendly error messages
++
++### Testing Requirements
++
++1. **Unit Tests**
++- Test filter logic
++- Test search functionality
++- Test sorting mechanisms
++
++2. **Integration Tests**
++- Test filter-search combinations
++- Test pagination
++- Test map integration
++
++3. **E2E Tests**
++- Test complete user flows
++- Test mobile responsiveness
++- Test internationalization
++
++### Performance Metrics to Monitor
++
++- Time to First Byte (TTFB)
++- First Contentful Paint (FCP)
++- Largest Contentful Paint (LCP)
++- Cumulative Layout Shift (CLS)
++- First Input Delay (FID)
++
++### Documentation
++
++Maintain documentation for:
++- Component usage
++- Filter configurations
++- State management
++- API integration
++- Testing procedures
++
++## Design Elements
++
++### Color Scheme
++Use the project's existing color tokens:
++```typescript
++// From existing theme
++primary: "hsl(var(--primary))"
++secondary: "hsl(var(--secondary))"
++accent: "hsl(var(--accent))"
++```
++
++### Typography
++Follow the established type scale:
++```tsx
++text-xs: 0.75rem
++text-sm: 0.875rem
++text-base: 1rem
++text-lg: 1.125rem
++text-xl: 1.25rem
++```
++
++### Spacing
++Use consistent spacing scale:
++```tsx
++space-2: 0.5rem
++space-4: 1rem
++space-6: 1.5rem
++space-8: 2rem
++```
++
++## Next Steps
++
++1. Start with basic layout implementation
++2. Add core filter components
++3. Implement property card design
++4. Add search functionality
++5. Integrate with Supabase
++6. Add additional features incrementally
++7. Implement tests
++8. Optimize performance
++9. Add documentation
++
++Remember to:
++- Follow TypeScript best practices
++- Keep components modular and reusable
++- Maintain consistent error handling
++- Write comprehensive tests
++- Document all major components and functions
+
+# 2025-01-04 14:49:10.621054
++None of these files exist we need to create them
+
+# 2025-01-04 14:49:24.387076
++y
+
+# 2025-01-04 14:50:37.617302
++Let's now create the missing containers [{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/properties/page.tsx",
++"owner": "typescript",
++"code": "2307",
++"severity": 8,
++"message": "Cannot find module '@/components/ui/container' or its corresponding type declarations.",
++"source": "ts",
++"startLineNumber": 1,
++"startColumn": 27,
++"endLineNumber": 1,
++"endColumn": 54
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/properties/page.tsx",
++"owner": "typescript",
++"code": "2307",
++"severity": 8,
++"message": "Cannot find module '@/components/properties/PropertyFilters' or its corresponding type declarations.",
++"source": "ts",
++"startLineNumber": 3,
++"startColumn": 33,
++"endLineNumber": 3,
++"endColumn": 74
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/properties/page.tsx",
++"owner": "typescript",
++"code": "2307",
++"severity": 8,
++"message": "Cannot find module '@/components/properties/PropertyList' or its corresponding type declarations.",
++"source": "ts",
++"startLineNumber": 4,
++"startColumn": 30,
++"endLineNumber": 4,
++"endColumn": 68
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/properties/page.tsx",
++"owner": "typescript",
++"code": "2307",
++"severity": 8,
++"message": "Cannot find module '@/components/properties/PropertySearch' or its corresponding type declarations.",
++"source": "ts",
++"startLineNumber": 5,
++"startColumn": 32,
++"endLineNumber": 5,
++"endColumn": 72
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/properties/page.tsx",
++"owner": "typescript",
++"code": "2307",
++"severity": 8,
++"message": "Cannot find module '@/components/properties/PropertySort' or its corresponding type declarations.",
++"source": "ts",
++"startLineNumber": 6,
++"startColumn": 30,
++"endLineNumber": 6,
++"endColumn": 68
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/properties/page.tsx",
++"owner": "typescript",
++"code": "2307",
++"severity": 8,
++"message": "Cannot find module '@/components/properties/PropertyMap' or its corresponding type declarations.",
++"source": "ts",
++"startLineNumber": 7,
++"startColumn": 29,
++"endLineNumber": 7,
++"endColumn": 66
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/properties/page.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-unused-vars",
++"target": {
++"$mid": 1,
++"path": "/rules/no-unused-vars",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "'searchParams' is defined but never used.",
++"source": "eslint",
++"startLineNumber": 10,
++"startColumn": 3,
++"endLineNumber": 10,
++"endColumn": 15
++}]
+
+# 2025-01-04 14:50:50.745536
++y
+
+# 2025-01-04 14:51:01.496481
++/run npm install lucide-react
+
+# 2025-01-04 14:51:01.496481
++/run npm install lucide-react
+
+# 2025-01-04 14:51:50.089879
++Now create the PropertyList Component
+
+# 2025-01-04 14:52:12.429891
++y
+
+# 2025-01-04 14:52:24.861057
++/run npm install @supabase-cache-helpers/postgrest-react-query
+
+# 2025-01-04 14:52:24.861057
++/run npm install @supabase-cache-helpers/postgrest-react-query
+
+# 2025-01-04 14:54:39.593895
++Now please create the PropertySearch Component
+
+# 2025-01-04 14:54:55.104967
++y
+
+# 2025-01-04 14:55:09.516406
++n
+
+# 2025-01-04 14:55:45.641568
++Now please create the PropertySort Component
+
+# 2025-01-04 14:56:04.394949
++y
+
+# 2025-01-04 14:56:21.224194
++Now lastly create the PropertyMap Component
+
+# 2025-01-04 14:56:41.623465
++y
+
+# 2025-01-04 14:57:47.214689
++n
+
+# 2025-01-04 14:58:31.654568
++please help me solve this issue 'searchParams' is declared but its value is never read.ts(6133)
++'searchParams' is defined but never used.eslint@typescript-eslint/no-unused-vars
++(parameter) searchParams: {
++    [key: string]: string | string[] | undefined;
++}
+
+# 2025-01-04 14:58:52.566775
++/add components\header.tsx
+
+# 2025-01-04 14:59:21.801011
++Now we need to configure this route and add the link to the menu on the header 
+
+# 2025-01-04 15:00:17.820458
++We have this issue when navigating to the page Unhandled Runtime Error
++
++Error: Missing SUPABASE_SERVICE_ROLE_KEY
++Source
++
++lib\supabase.ts (9:36) @ <unknown>
++
++   7 |
++   8 | if (!supabaseUrl) throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL')
++>  9 | if (!supabaseServiceRoleKey) throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY')
++     |                                    ^
++  10 |
++  11 | // Admin client with service role (for backend operations)
++  12 | export const supabaseAdmin = createClient<Database>(
+
+# 2025-01-04 15:00:21.315425
++y
+
+# 2025-01-04 15:00:47.717753
++Unhandled Runtime Error
++
++Error: No QueryClient set, use QueryClientProvider to set one
++Source
++
++components\properties\PropertyMap\index.tsx (26:5) @ supabase
++
++  24 |
++  25 |   const { data: properties, isLoading } = useQuery(
++> 26 |     supabase
++     |     ^
++  27 |       .from("properties")
++  28 |       .select("*")
++  29 |       .ilike("title", `%${search}%`)
+
+# 2025-01-04 15:01:31.968584
++n
+
+# 2025-01-04 15:01:46.719456
++This does not work PS C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate> pnpm install @tanstack/react-que
++WARN deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
++ERR_PNPM_FETCH_404 GET https://registry.npmjs.org/@tanstack%2Freact-que: Not Found - 404
++
++This error happened while installing a direct dependency of C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate
++
++@tanstack/react-que is not in the npm registry, or you have no permission to fetch it.
++
++No authorization header was set for the request.
++Progress: resolved 71, reused 71, downloaded 0, added 0
++PS C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate>
+
+# 2025-01-04 15:01:51.973751
++y
+
+# 2025-01-04 15:02:43.952051
++n
+
+# 2025-01-04 15:04:07.307094
++we are having this issue now Uncaught Error: Only plain objects, and a few built-ins, can be passed to Client Components from Server Components. Classes or null prototypes are not supported.
++     at C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\node_modules\.pnpm\next 14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35
++react-server-dom-webpack-client.browser.development.js:1849
++    resolveErrorDev react-server-dom-webpack-client.browser.development.js:1849
++    processFullRow react-server-dom-webpack-client.browser.development.js:1922
++    processBinaryChunk react-server-dom-webpack-client.browser.development.js:2072
++    progress react-server-dom-webpack-client.browser.development.js:2153
++    (Async: promise callback)
++    progress react-server-dom-webpack-client.browser.development.js:2154
++    (Async: promise callback)
++    progress react-server-dom-webpack-client.browser.development.js:2154
++    (Async: promise callback)
++    progress react-server-dom-webpack-client.browser.development.js:2154
++    (Async: promise callback)
++    progress react-server-dom-webpack-client.browser.development.js:2154
++    (Async: promise callback)
++    startReadingFromStream react-server-dom-webpack-client.browser.development.js:2161
++    createFromReadableStream react-server-dom-webpack-client.browser.development.js:2166
++    <anonymous> app-index.tsx:121
++    NextJS 4
++    <anonymous> app-next-dev.js:9
++    appBootstrap app-bootstrap.ts:61
++    loadScriptsInSequence app-bootstrap.ts:20
++    appBootstrap app-bootstrap.ts:60
++    <anonymous> app-next-dev.js:8
++    NextJS 7
++The above error occurred in the <NotFoundErrorBoundary> component:
++
++InnerLayoutRouter@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:244:18
++RedirectErrorBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:74:9
++RedirectBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:82:24
++NotFoundBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:84:62
++LoadingBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:349:76
++ErrorBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/error-boundary.js:160:67
++InnerScrollAndFocusHandler@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:153:9
++ScrollAndFocusHandler@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:228:37
++RenderFromTemplateContext@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/render-from-template-context.js:16:44
++OuterLayoutRouter@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:370:149
++InnerLayoutRouter@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:244:18
++RedirectErrorBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:74:9
++RedirectBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:82:24
++NotFoundBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:84:62
++LoadingBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:349:76
++ErrorBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/error-boundary.js:160:67
++InnerScrollAndFocusHandler@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:153:9
++ScrollAndFocusHandler@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:228:37
++RenderFromTemplateContext@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/render-from-template-context.js:16:44
++OuterLayoutRouter@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:370:149
++main
++div
++AuthProvider@webpack-internal:///(app-pages-browser)/./components/providers/auth-provider.tsx:19:24
++Provider@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-context@1.1.1_@types+react@18.3.17_react@18.3.1/node_modules/@radix-ui/react-context/dist/index.mjs:34:47
++Provider@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-context@1.1.1_@types+react@18.3.17_react@18.3.1/node_modules/@radix-ui/react-context/dist/index.mjs:34:47
++CollectionProvider@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-collection@1.1.1_@types+react-dom@18.3.5_@types+react@18.3.17__@types+react@1_xswdi3y5wrzozf2mwwwdkxzsii/node_modules/@radix-ui/react-collection/dist/index.mjs:28:37
++ToastProvider@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-toast@1.2.3_@types+react-dom@18.3.5_@types+react@18.3.17__@types+react@18.3.1_gryt6enydjjccqonwa467envoa/node_modules/@radix-ui/react-toast/dist/index.mjs:59:127
++_@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next-themes@0.4.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next-themes/dist/index.mjs:54:274
++J@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next-themes@0.4.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next-themes/dist/index.mjs:47:47
++ThemeProvider@webpack-internal:///(app-pages-browser)/./components/theme-provider.tsx:13:34
++Providers@webpack-internal:///(app-pages-browser)/./components/providers/providers.tsx:16:24
++IntlProvider@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.1_react@18.3.1/node_modules/use-intl/dist/development/_IntlProvider.js:25:7
++r@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next-intl@3.26.1_next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1__react@18.3.1/node_modules/next-intl/dist/esm/shared/NextIntlClientProvider.js:13:31
++i (Server)
++LocaleLayout (Server)
++InnerLayoutRouter@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:244:18
++RedirectErrorBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:74:9
++RedirectBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:82:24
++NotFoundErrorBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:76:9
++NotFoundBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:84:62
++LoadingBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:349:76
++ErrorBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/error-boundary.js:160:67
++InnerScrollAndFocusHandler@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:153:9
++ScrollAndFocusHandler@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:228:37
++RenderFromTemplateContext@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/render-from-template-context.js:16:44
++OuterLayoutRouter@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:370:149
++body
++html
++RootLayout (Server)
++RedirectErrorBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:74:9
++RedirectBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:82:24
++NotFoundErrorBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:76:9
++NotFoundBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:84:62
++DevRootNotFoundBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/dev-root-not-found-boundary.js:33:24
++ReactDevOverlay@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/react-dev-overlay/app/ReactDevOverlay.js:87:9
++HotReload@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:321:37
++Router@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/app-router.js:207:123
++ErrorBoundaryHandler@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/error-boundary.js:113:9
++ErrorBoundary@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/error-boundary.js:160:67
++AppRouter@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/app-router.js:585:47
++ServerRoot@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-index.js:112:27
++Root@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-index.js:117:24
++ReactDevOverlay@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/react-dev-overlay/app/ReactDevOverlay.js:87:9
++
++React will try to recreate this component tree from scratch using the error boundary you provided, ReactDevOverlay.
++<anonymous code>:1:145535
++    overrideMethod <anonymous code>:1
++    error app-index.tsx:25
++    logCapturedError react-dom.development.js:15295
++    callback react-dom.development.js:15357
++    callCallback react-dom.development.js:8696
++    commitCallbacks react-dom.development.js:8743
++    commitClassCallbacks react-dom.development.js:21323
++    commitLayoutEffectOnFiber react-dom.development.js:21425
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21407
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21577
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21577
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21577
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21577
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21577
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21577
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21407
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21418
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21407
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21407
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21407
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21407
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21577
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21577
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21577
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21418
++    recursivelyTraverseLayoutEffects react-dom.development.js:22926
++    commitLayoutEffectOnFiber react-dom.development.js:21437
++    commitLayoutEffects react-dom.development.js:22912
++    commitRootImpl react-dom.development.js:26226
++    commitRoot react-dom.development.js:26077
++    commitRootWhenReady react-dom.development.js:24749
++    finishConcurrentRender react-dom.development.js:24714
++    performConcurrentWorkOnRoot react-dom.development.js:24559
++    workLoop scheduler.development.js:256
++    flushWork scheduler.development.js:225
++    performWorkUntilDeadline scheduler.development.js:534
++    (Async: EventHandlerNonNull)
++    <anonymous> scheduler.development.js:569
++    <anonymous> scheduler.development.js:630
++    NextJS 4
++    <anonymous> index.js:4
++    NextJS 4
++    <anonymous> react-dom.development.js:27
++    <anonymous> react-dom.development.js:38595
++    NextJS 4
++    <anonymous> index.js:32
++    NextJS 4
++    <anonymous> client.js:3
++    NextJS 4
++    <anonymous> app-index.js:15
++    NextJS 4
++    <anonymous> app-next-dev.js:9
++    appBootstrap app-bootstrap.ts:61
++    loadScriptsInSequence app-bootstrap.ts:20
++    appBootstrap app-bootstrap.ts:60
++    <anonymous> app-next-dev.js:8
+
+# 2025-01-04 15:04:25.288578
++y
+
+# 2025-01-04 15:05:07.121423
++We now have this issue. Unhandled Runtime Error
++
++TypeError: property.price is undefined
++Source
++
++components\properties\PropertyList\PropertyCard.tsx (34:15) @ property
++
++  32 |         <div className="mt-4 flex items-center justify-between">
++  33 |           <span className="text-lg font-bold">
++> 34 |             ${property.price.toLocaleString()}
++     |               ^
++  35 |           </span>
++  36 |           <div className="flex gap-2">
++  37 |             <Button variant="ghost" size="icon">
+
+# 2025-01-04 15:06:22.548454
++we now have this issue Unhandled Runtime Error
++
++TypeError: render is not a function
++Call Stack
++React
++batchCalls/</<
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\notifyManager.js (54:1)
++notifyFn
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\notifyManager.js (6:1)
++flush/</</<
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\notifyManager.js (28:1)
++flush/</<
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\notifyManager.js (27:1)
++batchNotifyFn
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\notifyManager.js (9:1)
++flush/<
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\notifyManager.js (26:1)
++setTimeout handler*scheduleFn
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\notifyManager.js (11:1)
++flush
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\notifyManager.js (25:1)
++batch
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\notifyManager.js (43:1)
++#dispatch
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\query.js (341:18)
++setData
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\query.js (50:1)
++onSuccess
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\query.js (243:1)
++resolve
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\retryer.js (45:1)
++promise callback*run
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\retryer.js (84:1)
++start
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\retryer.js (121:1)
++fetch
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\query.js (271:1)
++#executeFetch
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\queryObserver.js (179:1)
++onSubscribe
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\queryObserver.js (56:1)
++subscribe
++node_modules\.pnpm\@tanstack+query-core@5.62.15\node_modules\@tanstack\query-core\build\modern\subscribable.js (9:1)
++subscribe
++..\src\useBaseQuery.ts (92:22)
++
+
+# 2025-01-04 15:06:48.479193
++y
+
+# 2025-01-04 15:07:01.671774
++/run pnpm install
+
+# 2025-01-04 15:07:01.673294
++/run pnpm install
+
+# 2025-01-04 15:07:05.052104
++y
+
+# 2025-01-04 15:08:18.441667
++We are still having a bunch of issue GET
++http://localhost:3000/en/properties
++[HTTP/1.1 500 Internal Server Error 281ms]
++
++Multiple GoTrueClient instances detected in the same browser context. It is not an error, but this should be avoided as it may produce undefined behavior when used concurrently under the same storage key. <anonymous code>:1:145535
++Source map error: Error: request failed with status 404
++Stack in the worker:networkRequest@resource://devtools/client/shared/source-map-loader/utils/network-request.js:43:9
++
++Resource URL: http://localhost:3000/en/%3Canonymous%20code%3E
++Source Map URL: installHook.js.map
++
++Warning: A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it. Component Stack: 
++    div unknown:0
++    MapContainerComponent webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-leaflet@5.0.0_leaflet@1.9.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-leaflet/lib/MapContainer.js:11
++    div unknown:0
++    PropertyMap webpack-internal:///(app-pages-browser)/./components/properties/PropertyMap/index.tsx:44
++    div unknown:0
++    div unknown:0
++    div unknown:0
++    QueryClientProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.15_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27
++    QueryClientProviderWrapper webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:15
++    div unknown:0
++    Container [Server] unknown:0
++    PropertiesPage [Server] unknown:0
++<anonymous code>:1:145535
++Warning: A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it. Component Stack: 
++    div unknown:0
++    MapContainerComponent webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-leaflet@5.0.0_leaflet@1.9.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-leaflet/lib/MapContainer.js:11
++    div unknown:0
++    PropertyMap webpack-internal:///(app-pages-browser)/./components/properties/PropertyMap/index.tsx:44
++    div unknown:0
++    div unknown:0
++    div unknown:0
++    QueryClientProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.15_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27
++    QueryClientProviderWrapper webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:15
++    div unknown:0
++    Container [Server] unknown:0
++    PropertiesPage [Server] unknown:0
++<anonymous code>:1:145535
++Warning: Cannot update a component (`HotReload`) while rendering a different component (`Context.Consumer`). To locate the bad setState() call inside `Context.Consumer`, follow the stack trace as described in https://reactjs.org/link/setstate-in-render Component Stack: 
++    div unknown:0
++    MapContainerComponent webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-leaflet@5.0.0_leaflet@1.9.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-leaflet/lib/MapContainer.js:11
++    div unknown:0
++    PropertyMap webpack-internal:///(app-pages-browser)/./components/properties/PropertyMap/index.tsx:44
++    div unknown:0
++    div unknown:0
++    div unknown:0
++    QueryClientProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.15_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27
++    QueryClientProviderWrapper webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:15
++    div unknown:0
++    Container [Server] unknown:0
++    PropertiesPage [Server] unknown:0
++<anonymous code>:1:145535
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Warning: A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it. Component Stack: 
++    div unknown:0
++    MapContainerComponent webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-leaflet@5.0.0_leaflet@1.9.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-leaflet/lib/MapContainer.js:11
++    div unknown:0
++    PropertyMap webpack-internal:///(app-pages-browser)/./components/properties/PropertyMap/index.tsx:44
++    div unknown:0
++    div unknown:0
++    div unknown:0
++    QueryClientProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.15_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27
++    QueryClientProviderWrapper webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:15
++    div unknown:0
++    Container [Server] unknown:0
++    PropertiesPage [Server] unknown:0
++<anonymous code>:1:145535
++Warning: A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it. Component Stack: 
++    div unknown:0
++    MapContainerComponent webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-leaflet@5.0.0_leaflet@1.9.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-leaflet/lib/MapContainer.js:11
++    div unknown:0
++    PropertyMap webpack-internal:///(app-pages-browser)/./components/properties/PropertyMap/index.tsx:44
++    div unknown:0
++    div unknown:0
++    div unknown:0
++    QueryClientProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.15_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27
++    QueryClientProviderWrapper webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:15
++    div unknown:0
++    Container [Server] unknown:0
++    PropertiesPage [Server] unknown:0
++<anonymous code>:1:145535
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++The above error occurred in the <NotFoundErrorBoundary> component:
++
++div
++MapContainerComponent@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-leaflet@5.0.0_leaflet@1.9.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-leaflet/lib/MapContainer.js:11:31
++div
++PropertyMap@webpack-internal:///(app-pages-browser)/./components/properties/PropertyMap/index.tsx:44:90
++div
++div
++div
++QueryClientProvider@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.15_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27:32
++QueryClientProviderWrapper@webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:15:24
++div
++Container (Server)
++PropertiesPage (Server)
++InnerLayoutRouter@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:244:18
++RedirectErrorBoundary@w
+
+# 2025-01-04 15:08:20.805547
++n
+
+# 2025-01-04 15:08:27.248147
++y
+
+# 2025-01-04 15:09:28.701841
++/run pnpm dev
+
+# 2025-01-04 15:09:28.701841
++/run pnpm dev
+
+# 2025-01-04 15:10:23.332429
++Running pnpm dev
++
++> cluster-estate@0.1.0 dev C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate
++> next dev
++
++   Next.js 14.2.16
++  - Local:        http://localhost:3000
++  - Environments: .env.local
++
++  Starting...
++
++[next-intl] Reading request configuration from ./i18n.ts is deprecated, please see https://next-intl.dev/blog/next-intl-3-22#i18n-request  you can either move your configuration to ./i18n/request.ts or provide a custom path in your Next.js config:
++
++const withNextIntl = createNextIntlPlugin(
++  './path/to/i18n/request.tsx'
++);
++
++  Ready in 2.3s
++  Compiling /middleware ...
++  Compiled /middleware in 690ms (242 modules)
++(node:17456) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
++(Use `node --trace-deprecation ...` to show where the warning was created)
++  Compiling /[locale]/properties ...
++  ./components/properties/PropertyMap/index.tsx
++Error:
++  x Unexpected token `div`. Expected jsx identifier
++    ,-[C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\components\properties\PropertyMap\index.tsx:57:1]
++ 57 |     validProperties.length
++ 58 |
++ 59 |   return (
++ 60 |     <div className="h-[600px] w-full rounded-lg overflow-hidden">
++    :      ^^^
++ 61 |       {typeof window !== 'undefined' && (
++ 62 |         <MapContainer
++ 62 |           center={[centerLat || 0, centerLng || 0]}
++    `----
++
++Caused by:
++    Syntax Error
++
++Import trace for requested module:
++./components/properties/PropertyMap/index.tsx
++./app/[locale]/properties/page.tsx
++  ./components/properties/PropertyMap/index.tsx
++Error:
++  x Unexpected token `div`. Expected jsx identifier
++    ,-[C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\components\properties\PropertyMap\index.tsx:57:1]
++ 57 |     validProperties.length
++ 58 |
++ 59 |   return (
++ 60 |     <div className="h-[600px] w-full rounded-lg overflow-hidden">
++    :      ^^^
++ 61 |       {typeof window !== 'undefined' && (
++ 62 |         <MapContainer
++ 62 |           center={[centerLat || 0, centerLng || 0]}
++    `----
++
++Caused by:
++    Syntax Error
++
++Import trace for requested module:
++./components/properties/PropertyMap/index.tsx
++./app/[locale]/properties/page.tsx
++  ./components/properties/PropertyMap/index.tsx
++Error:
++  x Unexpected token `div`. Expected jsx identifier
++    ,-[C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\components\properties\PropertyMap\index.tsx:57:1]
++ 57 |     validProperties.length
++ 58 |
++ 59 |   return (
++ 60 |     <div className="h-[600px] w-full rounded-lg overflow-hidden">
++    :      ^^^
++ 61 |       {typeof window !== 'undefined' && (
++ 62 |         <MapContainer
++ 62 |           center={[centerLat || 0, centerLng || 0]}
++    `----
++
++Caused by:
++    Syntax Error
++
++Import trace for requested module:
++./components/properties/PropertyMap/index.tsx
++./app/[locale]/properties/page.tsx
++  ./components/properties/PropertyMap/index.tsx
++Error:
++  x Unexpected token `div`. Expected jsx identifier
++    ,-[C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\components\properties\PropertyMap\index.tsx:57:1]
++ 57 |     validProperties.length
++ 58 |
++ 59 |   return (
++ 60 |     <div className="h-[600px] w-full rounded-lg overflow-hidden">
++    :      ^^^
++ 61 |       {typeof window !== 'undefined' && (
++ 62 |         <MapContainer
++ 62 |           center={[centerLat || 0, centerLng || 0]}
++    `----
++
++Caused by:
++    Syntax Error
++
++Import trace for requested module:
++./components/properties/PropertyMap/index.tsx
++./app/[locale]/properties/page.tsx
++ GET /en/properties 500 in 405ms
++ GET /en/installHook.js.map 500 in 9ms
++<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\.next\cache\webpack\client-development-fallback\0.pack.gz_' -> 'C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\.next\cache\webpack\client-development-fallback\0.pack.gz'
+
+# 2025-01-04 15:10:25.561629
++n
+
+# 2025-01-04 15:10:28.553499
++y
+
+# 2025-01-04 15:11:18.769061
++/run mkdir -p i18n messages
+
+# 2025-01-04 15:11:18.769061
++/run mkdir -p i18n messages
+
+# 2025-01-04 15:11:21.236839
++y
+
+# 2025-01-04 15:12:12.951603
++Unhandled Runtime Error
++
++ReferenceError: React is not defined
++Source
++
++components\properties\PropertyMap\index.tsx (25:17) @ React
++
++  23 |   const sort = searchParams.get("sort") || "created_at.desc"
++  24 |
++> 25 |   const query = React.useMemo(() => 
++     |                 ^
++  26 |     supabase
++  27 |       .from("properties")
++  28 |       .select("*")
+
+# 2025-01-04 15:12:32.496322
++Unhandled Runtime Error
++
++ReferenceError: React is not defined
++Source
++
++components\properties\PropertyList\index.tsx (15:17) @ React
++
++  13 |   const sort = searchParams.get("sort") || "created_at.desc"
++  14 |
++> 15 |   const query = React.useMemo(() => 
++     |                 ^
++  16 |     supabase
++  17 |       .from("properties")
++  18 |       .select("*")
+
+# 2025-01-04 15:13:22.669276
++We are still getting these issues.I can see the page briefly but then i get all these errors GET
++http://localhost:3000/en/properties
++[HTTP/1.1 500 Internal Server Error 130ms]
++
++Multiple GoTrueClient instances detected in the same browser context. It is not an error, but this should be avoided as it may produce undefined behavior when used concurrently under the same storage key. <anonymous code>:1:145535
++Source map error: Error: request failed with status 404
++Stack in the worker:networkRequest@resource://devtools/client/shared/source-map-loader/utils/network-request.js:43:9
++
++Resource URL: http://localhost:3000/en/%3Canonymous%20code%3E
++Source Map URL: installHook.js.map
++
++Warning: A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it. Component Stack: 
++    div unknown:0
++    MapContainerComponent webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-leaflet@5.0.0_leaflet@1.9.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-leaflet/lib/MapContainer.js:11
++    div unknown:0
++    PropertyMap webpack-internal:///(app-pages-browser)/./components/properties/PropertyMap/index.tsx:47
++    div unknown:0
++    div unknown:0
++    div unknown:0
++    QueryClientProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.15_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27
++    QueryClientProviderWrapper webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:12
++    div unknown:0
++    Container [Server] unknown:0
++    PropertiesPage [Server] unknown:0
++<anonymous code>:1:145535
++Warning: A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it. Component Stack: 
++    div unknown:0
++    MapContainerComponent webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-leaflet@5.0.0_leaflet@1.9.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-leaflet/lib/MapContainer.js:11
++    div unknown:0
++    PropertyMap webpack-internal:///(app-pages-browser)/./components/properties/PropertyMap/index.tsx:47
++    div unknown:0
++    div unknown:0
++    div unknown:0
++    QueryClientProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.15_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27
++    QueryClientProviderWrapper webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:12
++    div unknown:0
++    Container [Server] unknown:0
++    PropertiesPage [Server] unknown:0
++<anonymous code>:1:145535
++Warning: Cannot update a component (`HotReload`) while rendering a different component (`Context.Consumer`). To locate the bad setState() call inside `Context.Consumer`, follow the stack trace as described in https://reactjs.org/link/setstate-in-render Component Stack: 
++    div unknown:0
++    MapContainerComponent webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-leaflet@5.0.0_leaflet@1.9.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-leaflet/lib/MapContainer.js:11
++    div unknown:0
++    PropertyMap webpack-internal:///(app-pages-browser)/./components/properties/PropertyMap/index.tsx:47
++    div unknown:0
++    div unknown:0
++    div unknown:0
++    QueryClientProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.15_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27
++    QueryClientProviderWrapper webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:12
++    div unknown:0
++    Container [Server] unknown:0
++    PropertiesPage [Server] unknown:0
++<anonymous code>:1:145535
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Warning: A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it. Component Stack: 
++    div unknown:0
++    MapContainerComponent webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-leaflet@5.0.0_leaflet@1.9.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-leaflet/lib/MapContainer.js:11
++    div unknown:0
++    PropertyMap webpack-internal:///(app-pages-browser)/./components/properties/PropertyMap/index.tsx:47
++    div unknown:0
++    div unknown:0
++    div unknown:0
++    QueryClientProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.15_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27
++    QueryClientProviderWrapper webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:12
++    div unknown:0
++    Container [Server] unknown:0
++    PropertiesPage [Server] unknown:0
++<anonymous code>:1:145535
++Warning: A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it. Component Stack: 
++    div unknown:0
++    MapContainerComponent webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-leaflet@5.0.0_leaflet@1.9.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-leaflet/lib/MapContainer.js:11
++    div unknown:0
++    PropertyMap webpack-internal:///(app-pages-browser)/./components/properties/PropertyMap/index.tsx:47
++    div unknown:0
++    div unknown:0
++    div unknown:0
++    QueryClientProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.15_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27
++    QueryClientProviderWrapper webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:12
++    div unknown:0
++    Container [Server] unknown:0
++    PropertiesPage [Server] unknown:0
++<anonymous code>:1:145535
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++Uncaught TypeError: render is not a function
++    React 4
++react-dom.development.js:18048
++The above error occurred in the <NotFoundErrorBoundary> component:
++
++div
++MapContainerComponent@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-leaflet@5.0.0_leaflet@1.9.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-leaflet/lib/MapContainer.js:11:31
++div
++PropertyMap@webpack-internal:///(app-pages-browser)/./components/properties/PropertyMap/index.tsx:47:90
++div
++div
++div
++QueryClientProvider@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.15_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27:32
++QueryClientProviderWrapper@webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:12:24
++div
++Container (Server)
++PropertiesPage (Server)
++InnerLayoutRouter@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:244:18
++RedirectErrorBoundary@w
+
+# 2025-01-04 15:13:26.687539
++y
