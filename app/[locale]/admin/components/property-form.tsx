@@ -84,19 +84,19 @@ export function PropertyForm({
     defaultValues: {
       title: initialData?.title || '',
       description: initialData?.description || '',
-      price: initialData?.sale_price || 0,
+      price: initialData?.price || 0, // Changed from sale_price to price
       location: initialData?.location || '',
       bedrooms: initialData?.bedrooms || 0,
       bathrooms: initialData?.bathrooms || 0,
       square_feet: initialData?.square_feet || 0,
       status: initialData?.status || 'available',
       listing_type: initialData?.listing_type || 'sale',
-      rental_price: initialData?.rental_price || 0,
+      rental_price: initialData?.rental_price || undefined,
       rental_frequency: initialData?.rental_frequency || undefined,
-      minimum_rental_period: initialData?.minimum_rental_period || 0,
-      deposit_amount: initialData?.deposit_amount || 0,
-      available_from: initialData?.available_from || '',
-      available_to: initialData?.available_to || '',
+      minimum_rental_period: initialData?.minimum_rental_period || undefined,
+      deposit_amount: initialData?.deposit_amount || undefined,
+      available_from: initialData?.available_from || undefined,
+      available_to: initialData?.available_to || undefined,
       features: Array.isArray(initialData?.features) ? initialData.features : [],
       images: uploadedImages,
     },
@@ -104,11 +104,14 @@ export function PropertyForm({
 
   const processPropertyData = async () => {
     const formData = form.getValues();
+    console.log('Form data before processing:', formData);
+    
     const { data: { user } } = await supabase.auth.getUser();
 
     const processedData = {
       ...formData,
-      sale_price: formData.price,
+      price: formData.price || null,
+      rental_price: formData.rental_price || null,
       features: Array.isArray(formData.features) ? formData.features : [],
       images: uploadedImages,
       user_id: user?.id,
@@ -116,9 +119,7 @@ export function PropertyForm({
       available_to: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.available_to : null,
     };
 
-    // Remove the old price field since we're using sale_price
-    delete processedData.price;
-    
+    console.log('Processed data for database:', processedData);
     return processedData;
   };
 

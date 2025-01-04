@@ -231,7 +231,7 @@ export function PropertyManagement() {
                 title: selectedProperty.title,
                 description: selectedProperty.description,
                 status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
-                price: selectedProperty.sale_price ?? 0,
+                price: selectedProperty.price ?? 0, // Changed from sale_price to price
                 location: selectedProperty.location,
                 bedrooms: selectedProperty.bedrooms,
                 bathrooms: selectedProperty.bathrooms,
