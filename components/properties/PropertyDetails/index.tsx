@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Bath, Bed, MapPin, Maximize } from "lucide-react"
 import Image from "next/image"
-import { FadeInView } from "../animations/fade-in-view"
+import { FadeInView } from "@/components/animations/fade-in-view"
 import { useTranslations } from 'next-intl'
 import { Property } from "@/types/supabase"
 import { PriceDisplay } from "../PriceDisplay"
