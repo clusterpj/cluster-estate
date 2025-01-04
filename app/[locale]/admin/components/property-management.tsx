@@ -89,6 +89,7 @@ export function PropertyManagement() {
         type: 'success'
       })
     } catch (err) {
+      console.error('Error updating property:', err)
       setToastMessage({
         title: t('error'),
         description: t('updateError'),
@@ -226,7 +227,13 @@ export function PropertyManagement() {
             <PropertyForm
               mode="edit"
               propertyId={selectedProperty.id}
-              initialData={selectedProperty}
+              initialData={{
+                ...selectedProperty,
+                // Ensure the status is one of the valid values
+                status: ['available', 'sold', 'pending', 'rented'].includes(selectedProperty.status)
+                  ? selectedProperty.status
+                  : 'available'
+              }}
               onSuccess={() => {
                 setIsEditDialogOpen(false)
                 fetchProperties()
