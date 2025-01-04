@@ -5,10 +5,14 @@ import { PropertyList } from "@/components/properties/PropertyList"
 import { PropertySearch } from "@/components/properties/PropertySearch"
 import { PropertySort } from "@/components/properties/PropertySort"
 import { PropertyMap } from "@/components/properties/PropertyMap"
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 export default async function PropertiesPage() {
   return (
-    <Container>
+    <QueryClientProvider client={queryClient}>
+      <Container>
       <div className="space-y-6 pb-16 pt-6 md:pb-24 md:pt-10">
         {/* Header Section */}
         <div className="space-y-2">
@@ -45,6 +49,7 @@ export default async function PropertiesPage() {
           </div>
         </div>
       </div>
-    </Container>
+      </Container>
+    </QueryClientProvider>
   )
 }
