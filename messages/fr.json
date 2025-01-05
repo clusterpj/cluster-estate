@@ -9,7 +9,7 @@
     "stats": {
       "properties": "Propriétés",
       "clients": "Clients Satisfaits",
-      "locations": "Lieux"
+      "locations": "Emplacements"
     }
   },
   "ParadiseLiving": {
@@ -31,6 +31,7 @@
       "activities": {
         "title": "Activités aquatiques",
         "description": "Accès à des activités nautiques de classe mondiale : voile, plongée et sports nautiques"
+        "description": "Accès à des activités nautiques de classe mondiale : voile, plongée et sports nautiques"
       }
     },
     "cta": {
@@ -42,8 +43,9 @@
   "FeaturedProperties": {
     "title": "Propriétés en vedette",
     "description": "Découvrez notre sélection exclusive de propriétés haut de gamme dans les destinations les plus prisées des Caraïbes.",
-    "viewDetails": "Voir les détails",
-    "viewAllProperties": "Voir toutes les propriétés",
+    "description": "Explora nuestra selección exclusiva de propiedades premium en los destinos más codiciados del Caribe.",
+    "viewDetails": "Voir Détails",
+    "viewAllProperties": "Voir Toutes les Propriétés",
     "propertyDetails": {
       "beds": "Lits",
       "baths": "Bains",
@@ -51,13 +53,13 @@
       "bedsCount": [
         {
           "type": "text",
-          "text": "{count} lits"
+          "text": "{count} Lits"
         }
       ],
       "bathsCount": [
         {
           "type": "text",
-          "text": "{count} Salles de bain"
+          "text": "{count} Salles de Bain"
         }
       ],
       "squareFeet": [
@@ -76,10 +78,10 @@
     "forSale": "[object Object]",
     "forRent": "[object Object]",
     "rentalFrequency": {
-      "daily": "par jour",
-      "weekly": "par semaine", 
-      "monthly": "par mois",
-      "yearly": "par année"
+      "daily": "jour",
+      "weekly": "semaine",
+      "monthly": "mois",
+      "yearly": "année"
     },
     "status": {
       "available": "Disponible",
@@ -91,19 +93,19 @@
       "rent": [
         {
           "type": "text",
-          "text": "Location"
+          "text": "À Louer"
         }
       ],
       "sale": [
         {
           "type": "text",
-          "text": "Vente"
+          "text": "À Vendre"
         }
       ],
       "both": [
         {
           "type": "text",
-          "text": "Vente et location"
+          "text": "Vente et Location"
         }
       ]
     },
@@ -111,13 +113,13 @@
       "from": [
         {
           "type": "text",
-          "text": "Désolé, mais sans plus de contexte ou d'explication, je ne peux pas traduire le texte que vous avez demandé. Veuillez me fournir le texte à traduire en anglais afin que je puisse vous donner la traduction en français."
+          "text": "À partir de"
         }
       ],
       "startingAt": [
         {
           "type": "text",
-          "text": "Commençant à"
+          "text": "À partir de"
         }
       ],
       "priceOnRequest": [
@@ -131,13 +133,13 @@
       "usd": [
         {
           "type": "text",
-          "text": "USD"
+          "text": "$US"
         }
       ],
       "eur": [
         {
           "type": "text",
-          "text": "EUR"
+          "text": "€"
         }
       ]
     }
@@ -148,19 +150,19 @@
     "features": [
       {
         "title": "Expertise",
-        "description": "Plus de 20 ans d'expérience dans l'immobilier caribéen"
+        "description": "Plus de 20 ans d'expérience dans l'immobilier des Caraïbes"
       },
       {
         "title": "Trust",
-        "description": "Agréé et réglementé avec un historique éprouvé"
+        "description": "Agréé et réglementé avec un historique vérifié"
       },
       {
         "title": "Dedication",
-        "description": "Service personnalisé adapté à vos besoins"
+        "description": "Service personnalisé adapté à vos besoins spécifiques"
       },
       {
         "title": "Support",
-        "description": "Assistance 24/7 tout au long de votre parcours"
+        "description": "Assistance 24/7 pendant tout votre processus"
       }
     ]
   },
@@ -171,16 +173,16 @@
     "exploreLocation": "Explorez l'emplacement",
     "locations": [
       {
-        "description": "Discover paradise with stunning beaches and lush mountains"
+        "description": "Découvrez le paradis avec des plages magnifiques et des montagnes luxuriantes"
       },
       {
-        "description": "Experience luxury living in this tropical haven"
+        "description": "Vivez le luxe dans ce havre tropical"
       },
       {
-        "description": "Find your dream home in this vibrant Caribbean culture"
+        "description": "Trouvez votre maison de rêve dans cette culture caribéenne vibrante"
       },
       {
-        "description": "Paradise found in crystal clear waters"
+        "description": "Le paradis retrouvé dans des eaux cristallines"
       }
     ]
   },
@@ -193,35 +195,35 @@
     "subtitle": "Votre maison de vacances dans la capitale de l'aventure des Caraïbes",
     "intro": {
       "title": "Notre histoire",
-      "content": "Mon mari Chuck et moi sommes originaires d'Erie, en Pennsylvanie, aux États-Unis, et avons parcouru le monde pour trouver une seconde maison. En 2000, nous nous sommes rendus à Cabarete et savions que c'était l'endroit parfait pour nous. Nous avons acheté notre maison sur-le-champ."
+      "content": "Mon mari Chuck et moi venons d'Erie, en Pennsylvanie, aux États-Unis, et avons parcouru le monde pour trouver une deuxième maison. En 2000, nous avons voyagé à Cabarete et avons su que c'était l'endroit parfait pour nous. Nous avons acheté notre maison sur place."
     },
     "location": {
       "title": "Notre emplacement",
-      "content": "Cabarete est une ville balnéaire dynamique connue sous le nom de \"La capitale de l'aventure des Caraïbes\". Avec des conditions idéales pour le windsurf, le kitesurf et le surf, Cabarete est l'une des principales destinations au monde pour les sports nautiques. Vous n'êtes pas passionné de sports nautiques ? Il y a quelque chose pour tout le monde à Cabarete. Vous pouvez faire du vélo, de l'équitation, du kayak, de la descente de canyons, participer à de nombreuses autres aventures, ou simplement profiter de vous détendre sur la belle plage."
+      "content": "Cabarete est une ville balnéaire dynamique connue comme \"La capitale de l'aventure des Caraïbes\". Avec des conditions parfaites pour le windsurf, le kitesurf et le surf, Cabarete est l'une des principales destinations mondiales pour les sports nautiques. Vous n'êtes pas amateur de sports nautiques ? Il y a quelque chose pour tout le monde à Cabarete. Vous pouvez faire du vélo, de l'équitation, du kayak, du canyoning, participer à de nombreuses autres aventures ou simplement vous détendre sur la magnifique plage."
     },
     "community": {
       "title": "Une Communauté Unique",
-      "content": "Ce qui rend Cabarete si unique et merveilleux, c'est le charme local combiné à un endroit formidable pour des vacances. Seulement à Cabarete, vous trouverez des habitants et des gens du monde entier et de tous les milieux qui se réunissent pour vivre, travailler et s'amuser."
+      "content": "Ce qui rend Cabarete si unique et merveilleux, c'est le charme local combiné à un endroit formidable pour des vacances. Seulement à Cabarete, vous trouverez des habitants et des gens du monde entier et de tous horizons qui se réunissent pour vivre, travailler et s'amuser."
     },
     "service": {
       "title": "Notre engagement",
-      "content": "Aux Cabarete Villas, vous pouvez laisser tous vos soucis derrière vous pendant que nous prenons soin de tous vos besoins. Notre personnel de gestion est de premier ordre. Nos femmes de chambre et nos jardiniers vont au-delà pour maintenir nos villas dans un état exceptionnel."
+      "content": "Aux Villas de Cabarete, vous pouvez laisser tous vos soucis derrière vous pendant que nous prenons soin de tous vos besoins. Notre personnel de gestion est de premier ordre. Nos femmes de ménage et jardiniers vont au-delà pour garder nos villas magnifiques."
     },
     "signature": {
       "names": "Chuck et Ronda Janicki",
-      "title": "Propriétaires, Cabarete Villas"
+      "title": "Propriétaires, Villas de Cabarete"
     }
   },
   "Activities": {
     "hero": {
       "title": "Découvrez les aventures dominicaines",
-      "description": "Découvrez la République dominicaine avec sa nature radieuse, ses belles plages, ses cascades d'eau cristalline et son pur style de vie des Caraïbes. Apprenez sur le passé et la culture des Indiens Taïnos et l'héritage des conquistadores espagnols.",
-      "subtitle": "Nous vous proposons une variété d'activités amusantes et des visites guidées professionnelles. Des remises pour les familles et les groupes s'appliquent !"
+      "description": "Découvrez la République dominicaine avec sa nature radieuse, ses belles plages, ses cascades cristallines et son pur style de vie caribéen. Apprenez-en plus sur le passé et la culture des Indiens Taïnos et l'héritage des conquistadors espagnols.",
+      "subtitle": "Nous vous proposons une variété d'activités amusantes et des visites guidées professionnelles. Des réductions pour les familles et les groupes sont disponibles !"
     },
     "activities": [
       {
         "title": "Ocean World Adventure Park",
-        "description": "Il y a tellement à faire ! Nagez avec les dauphins, rencontrez des lions de mer, des requins et des raies. Vous pouvez nager dans le même bassin que les tigres, séparés seulement par une vitre. Il y a un aquarium de récif corallien pour les amateurs de snorkeling et une forêt tropicale où vous pouvez voir des rhinocéros, des iguanes et un sanctuaire d'oiseaux. Une expérience unique !",
+        "description": "Il y a tellement à faire ! Nagez avec les dauphins, rencontrez des lions de mer, des requins et des raies. Vous pouvez nager dans le même bassin que les tigres, séparés seulement par une vitre. Il y a un aquarium de récif corallien pour les amateurs de snorkeling et une forêt tropicale où vous pouvez voir des rhinocéros, des iguanes et un sanctuaire d'oiseaux. Une expérience unique en son genre !",
         "website": "www.oceanworld.net",
         "image": "/images/activities/ocean-world.jpg"
       },
@@ -247,7 +249,7 @@
         "title": "Paradise Island",
         "description": "Visitez l'une des plus belles îles des Caraïbes. Faites du snorkeling dans des eaux cristallines, détendez-vous sur des plages immaculées et dégustez des fruits de mer frais dans ce paradis tropical.",
         "image": "/images/activities/paradise-island.jpg",
-        "details": "Daily tours available with lunch included"
+        "details": "Visites quotidiennes disponibles avec déjeuner inclus"
       },
       {
         "title": "27 Waterfalls of Damajagua",
@@ -257,15 +259,15 @@
       },
       {
         "title": "Whale Watching with Kim Baddall",
-        "description": "Baleines à bosse ici dans la baie de Samana, en République dominicaine. Une opportunité unique d'observer les baleines à bosse dans leurs zones de reproduction et de mise bas naturelles. Écoutez le chant de cour solitaire du mâle baleine à bosse et assistez à des démonstrations incroyables de sauts, de coups de queue et de brèches par l'espèce de baleine la plus active de l'Atlantique.",
-        "details": "On board a marine mammal specialist narrating vessel answering questions….it's an experience of a lifetime not to be missed. Dates: January 15 – March 25 from the main town dock in Samana on the Whale Watch vessel \"Pina Mia\"",
+        "description": "Baleines à bosse ici dans la baie de Samana, en République dominicaine. Une opportunité unique d'observer les baleines à bosse dans leurs zones naturelles de reproduction et de mise bas. Écoutez le chant de cour solitaire du mâle baleine à bosse et assistez à des démonstrations incroyables de sauts, de coups de queue et de brèches par l'espèce de baleine la plus active de l'Atlantique.",
+        "details": "À bord d'un navire avec un spécialiste des mammifères marins qui raconte et répond aux questions... c'est une expérience unique à ne pas manquer. Dates : du 15 janvier au 25 mars depuis le quai principal de Samana sur le navire d'observation des baleines \"Pina Mia\"",
         "contact": "809-538-2494",
         "email": "reservations@whalesamana.com",
         "image": "/images/activities/whale-watching.jpg"
       },
       {
         "title": "Andari Spa",
-        "description": "C'est notre préféré ! Massages, physiothérapie, massage aux pierres chaudes, gommages corporels, enveloppements corporels, soins du visage, manucures et pédicures, et épilation. C'est au Millennium Resort & Spa, Cabarete.",
+        "description": "C'est notre préféré ! Massages, physiothérapie, massage aux pierres chaudes, gommages corporels, enveloppements corporels, soins du visage, manucures et pédicures, et épilation. Situé au Millennium Resort & Spa, Cabarete.",
         "website": "www.andarispa.com",
         "image": "/images/activities/spa.jpg"
       }
@@ -273,15 +275,12 @@
   },
   "auth": {
     "loginTitle": "Se connecter",
-    "loginTitle": "Connexion",
     "loginDescription": "Bienvenue ! Veuillez vous connecter à votre compte.",
     "registerTitle": "Créer un compte",
     "registerDescription": "Créez un nouveau compte pour commencer.",
     "signIn": "Se connecter",
-    "signUp": "Inscription",
-    "signOut": "Se déconnecter",
     "signUp": "S'inscrire",
-    "signOut": "Déconnexion",
+    "signOut": "Se déconnecter",
     "userMenu": "Menu utilisateur",
     "dashboard": "Tableau de bord",
     "profile": "Profil",
