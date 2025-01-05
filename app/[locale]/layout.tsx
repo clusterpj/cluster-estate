@@ -1,14 +1,19 @@
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
-import { locales, type Locale } from '../../config/i18n';
+import { locales, type Locale, isValidLocale } from '../../config/i18n';
 import { Providers } from '@/components/providers/providers';
 import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
 
 async function getMessages(locale: Locale) {
   try {
-    return (await import(`../../messages/${locale}.json`)).default;
-  } catch {
+    const messages = (await import(`../../messages/${locale}.json`)).default;
+    if (!messages) {
+      throw new Error(`No messages found for locale: ${locale}`);
+    }
+    return messages;
+  } catch (error) {
+    console.error('Failed to load messages:', error);
     notFound();
   }
 }
@@ -24,8 +29,7 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: Locale };
 }) {
-  // Validate locale
-  if (!locales.includes(locale)) {
+  if (!isValidLocale(locale)) {
     notFound();
   }
 

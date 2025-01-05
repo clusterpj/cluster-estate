@@ -2,7 +2,8 @@
 
 import { NextIntlClientProvider as Provider, AbstractIntlMessages } from 'next-intl'
 import { useLocale } from 'next-intl'
-import { locales } from '@/config/i18n'
+import { locales, isValidLocale } from '@/config/i18n'
+import { cn } from '@/lib/utils'
 
 type Props = {
   children: React.ReactNode
@@ -13,9 +14,16 @@ type Props = {
 export function NextIntlClientProvider({ children, messages, locale: propLocale }: Props) {
   const locale = useLocale()
   
-  // Validate the locale
-  if (!locales.includes(propLocale as any)) {
-    return null
+
+  if (!isValidLocale(propLocale)) {
+    return (
+      <div className={cn(
+        "p-4 bg-red-50 text-red-900 border border-red-200 rounded-lg",
+        "text-center text-sm"
+      )}>
+        Invalid locale: {propLocale}
+      </div>
+    )
   }
 
   return (

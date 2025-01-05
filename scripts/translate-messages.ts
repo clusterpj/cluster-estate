@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import dotenv from 'dotenv';
 import { translateText } from '../lib/translation';
+import { locales, defaultLocale } from '../config/i18n';
 
 // Load environment variables at the start of the script
 dotenv.config({ path: path.join(process.cwd(), '.env.local') });
@@ -17,6 +18,7 @@ interface TranslationStats {
   reused: number;
   translated: number;
   missing: string[];
+  errors: string[];
 }
 
 async function loadExistingTranslations(lang: string): Promise<any> {
@@ -38,6 +40,7 @@ function normalizeTranslation(value: any): any {
   if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object' && 'text' in value[0]) {
     return value[0].text;
   }
+
   
   // If it's [object Object], convert to empty string to be translated
   if (value === '[object Object]') {
@@ -53,12 +56,13 @@ async function translateObjectWithCache(
   existingTranslations: any,
   context: string[] = [],
   cache: TranslationCache = {},
-  stats: TranslationStats = { reused: 0, translated: 0, missing: [] }
+  stats: TranslationStats = { reused: 0, translated: 0, missing: [], errors: [] }
 ): Promise<any> {
   if (typeof obj === 'string') {
     const cacheKey = generateCacheKey(obj, context);
     const contextPath = context.join('.');
     
+
     // Check if we have this exact string in the existing translations
     let existingValue = existingTranslations;
     for (const key of context) {
@@ -89,12 +93,19 @@ async function translateObjectWithCache(
     stats.translated++;
     stats.missing.push(contextPath);
     
-    const translated = await translateText(obj, targetLang);
-    cache[cacheKey] = {
-      original: obj,
-      translated
-    };
-    return translated;
+
+    try {
+      const translated = await translateText(obj, targetLang);
+      cache[cacheKey] = {
+        original: obj,
+        translated
+      };
+      return translated;
+    } catch (error) {
+      console.error(`Failed to translate [${contextPath}]:`, error);
+      stats.errors.push(contextPath);
+      return obj; // Return original text if translation fails
+    }
   }
 
   if (Array.isArray(obj)) {
@@ -126,7 +137,7 @@ async function ensureStructuralParity(
   targetLang: string,
   context: string[] = [],
   cache: TranslationCache = {},
-  stats: TranslationStats = { reused: 0, translated: 0, missing: [] }
+  stats: TranslationStats = { reused: 0, translated: 0, missing: [], errors: [] }
 ): Promise<any> {
   if (typeof sourceObj === 'string') {
     const targetValue = normalizeTranslation(targetObj);
@@ -135,18 +146,30 @@ async function ensureStructuralParity(
       return targetValue;
     }
     
+
+    if (typeof targetValue === 'string' && targetValue) {
+      return targetValue;
+    }
+
     // If target is missing or of wrong type, translate the source
     const cacheKey = generateCacheKey(sourceObj, context);
     console.log(`Missing translation [${context.join('.')}]: "${sourceObj}"`);
     stats.translated++;
     stats.missing.push(context.join('.'));
     
-    const translated = await translateText(sourceObj, targetLang);
-    cache[cacheKey] = {
-      original: sourceObj,
-      translated
-    };
-    return translated;
+
+    try {
+      const translated = await translateText(sourceObj, targetLang);
+      cache[cacheKey] = {
+        original: sourceObj,
+        translated
+      };
+      return translated;
+    } catch (error) {
+      console.error(`Failed to translate [${context.join('.')}]:`, error);
+      stats.errors.push(context.join('.'));
+      return sourceObj; // Return original text if translation fails
+    }
   }
 
   if (Array.isArray(sourceObj)) {
@@ -182,12 +205,16 @@ async function translateMessages() {
       )
     );
 
-    // Target languages to translate to
-    const targetLanguages = ['es', 'fr', 'de'];
+    // Target languages to translate to (all except default locale)
+    const targetLanguages = locales.filter(l => l !== defaultLocale);
 
     // Translate to each target language
     for (const lang of targetLanguages) {
       console.log(`\nProcessing translations for ${lang}...`);
+
+      // Load existing translations if they exist
+      const existingTranslations = await loadExistingTranslations(lang);
+
       
       // Load existing translations if they exist
       const existingTranslations = await loadExistingTranslations(lang);
@@ -195,7 +222,8 @@ async function translateMessages() {
       const stats: TranslationStats = {
         reused: 0,
         translated: 0,
-        missing: []
+        missing: [],
+        errors: []
       };
 
       if (existingTranslations) {
@@ -213,6 +241,7 @@ async function translateMessages() {
         {},
         stats
       );
+
       
       // Write the translated messages to a file
       await fs.writeFile(
@@ -220,13 +249,19 @@ async function translateMessages() {
         JSON.stringify(translatedMessages, null, 2),
         'utf-8'
       );
+
       
       console.log(`\n✓ Translation to ${lang} completed:`);
       console.log(`  - Reused translations: ${stats.reused}`);
       console.log(`  - New translations: ${stats.translated}`);
+      console.log(`  - Errors: ${stats.errors.length}`);
       if (stats.missing.length > 0) {
         console.log('\nMissing translations added for:');
         stats.missing.forEach(path => console.log(`  - ${path}`));
+      }
+      if (stats.errors.length > 0) {
+        console.log('\nTranslation errors occurred for:');
+        stats.errors.forEach(path => console.log(`  - ${path}`));
       }
     }
 
