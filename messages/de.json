@@ -76,10 +76,10 @@
     "forSale": "[object Object]",
     "forRent": "[object Object]",
     "rentalFrequency": {
-      "daily": "Tag",
-      "weekly": "Woche",
-      "monthly": "Monat",
-      "yearly": "Jahr"
+      "daily": "pro Tag",
+      "weekly": "pro Woche",
+      "monthly": "pro Monat",
+      "yearly": "pro Jahr"
     },
     "status": {
       "available": "Verfügbar",
@@ -91,16 +91,21 @@
       "rent": [
         {
           "type": "text",
-          "text": "Miete"
+          "text": "Vermietung"
         }
       ],
       "sale": [
         {
           "type": "text",
-          "text": "Ausverkauf"
+          "text": "Verkauf"
         }
       ],
-      "both": "[object Object]"
+      "both": [
+        {
+          "type": "text",
+          "text": "Verkauf & Vermietung"
+        }
+      ]
     },
     "price": {
       "from": [
