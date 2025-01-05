@@ -1,7 +1,7 @@
 {
   "Hero": {
     "title": "Trouvez votre maison de rêve",
-    "subtitle": "Découvrez des propriétés de luxe dans des emplacements de choix",
+    "subtitle": "Découvrez des propriétés de luxe dans des emplacements privilégiés",
     "searchPlaceholder": "Entrez l'emplacement, le type de propriété ou des mots-clés...",
     "searchButton": "Rechercher des propriétés",
     "backgroundAlt": "Maison de luxe",
@@ -30,7 +30,7 @@
       },
       "activities": {
         "title": "Activités aquatiques",
-        "description": "Accès à la navigation de classe mondiale, la plongée et les sports nautiques"
+        "description": "Accès à des activités nautiques de classe mondiale : voile, plongée et sports nautiques"
       }
     },
     "cta": {
@@ -41,7 +41,7 @@
   },
   "FeaturedProperties": {
     "title": "Propriétés en vedette",
-    "description": "Explorez notre sélection de propriétés haut de gamme soigneusement choisies dans les endroits les plus prisés des Caraïbes.",
+    "description": "Découvrez notre sélection exclusive de propriétés haut de gamme dans les destinations les plus prisées des Caraïbes.",
     "viewDetails": "Voir les détails",
     "viewAllProperties": "Voir toutes les propriétés",
     "propertyDetails": {
@@ -143,19 +143,19 @@
     "features": [
       {
         "title": "Expertise",
-        "description": "Over 20 years of Caribbean real estate experience"
+        "description": "Plus de 20 ans d'expérience dans l'immobilier caribéen"
       },
       {
         "title": "Trust",
-        "description": "Licensed and regulated with a proven track record"
+        "description": "Agréé et réglementé avec un historique éprouvé"
       },
       {
         "title": "Dedication",
-        "description": "Personalized service tailored to your needs"
+        "description": "Service personnalisé adapté à vos besoins"
       },
       {
         "title": "Support",
-        "description": "24/7 support throughout your journey"
+        "description": "Assistance 24/7 tout au long de votre parcours"
       }
     ]
   },
@@ -216,43 +216,43 @@
     "activities": [
       {
         "title": "Ocean World Adventure Park",
-        "description": "There is so much to do! Swim with the dolphins, have an encounter with sea lions, sharks and stingrays. You can swim in the same pool as the tigers only separated by glass. There is a coral reef aquarium for snorkeler enthusiasts and a rain forest where you can see rhinoceroses, iguanas and a bird sanctuary. It's a once in a lifetime experience!",
+        "description": "Il y a tellement à faire ! Nagez avec les dauphins, rencontrez des lions de mer, des requins et des raies. Vous pouvez nager dans le même bassin que les tigres, séparés seulement par une vitre. Il y a un aquarium de récif corallien pour les amateurs de snorkeling et une forêt tropicale où vous pouvez voir des rhinocéros, des iguanes et un sanctuaire d'oiseaux. Une expérience unique !",
         "website": "www.oceanworld.net",
         "image": "/images/activities/ocean-world.jpg"
       },
       {
         "title": "Monkey Jungle",
-        "description": "Experience the thrill of zip lining through the jungle canopy while interacting with friendly squirrel monkeys. This unique eco-adventure combines adrenaline with animal encounters in a safe, controlled environment.",
+        "description": "Vivez l'excitation de la tyrolienne à travers la canopée de la jungle tout en interagissant avec des singes écureuils amicaux. Cette aventure éco-touristique unique combine l'adrénaline avec des rencontres animales dans un environnement sûr et contrôlé.",
         "website": "www.monkeyjungledr.com",
         "image": "/images/activities/monkey-jungle.jpg"
       },
       {
         "title": "Horseback Riding",
-        "description": "Explore the beautiful Dominican countryside on horseback. Ride through lush forests, along pristine beaches, and discover hidden waterfalls on guided tours suitable for all experience levels.",
+        "description": "Explorez la magnifique campagne dominicaine à cheval. Parcourez des forêts luxuriantes, le long de plages immaculées et découvrez des cascades cachées lors de visites guidées adaptées à tous les niveaux d'expérience.",
         "image": "/images/activities/horseback.jpg",
         "contact": "+1 809-555-0123"
       },
       {
         "title": "Kite Surfing",
-        "description": "Cabarete is world-renowned for its perfect kitesurfing conditions. Whether you're a beginner or an expert, our certified instructors will help you catch the perfect wind.",
+        "description": "Cabarete est mondialement connue pour ses conditions de kitesurf parfaites. Que vous soyez débutant ou expert, nos instructeurs certifiés vous aideront à attraper le vent parfait.",
         "image": "/images/activities/kite-surfing.jpg",
         "contact": "+1 809-555-0124"
       },
       {
         "title": "Paradise Island",
-        "description": "Visit one of the most beautiful islands in the Caribbean. Snorkel in crystal clear waters, relax on pristine beaches, and enjoy fresh seafood in this tropical paradise.",
+        "description": "Visitez l'une des plus belles îles des Caraïbes. Faites du snorkeling dans des eaux cristallines, détendez-vous sur des plages immaculées et dégustez des fruits de mer frais dans ce paradis tropical.",
         "image": "/images/activities/paradise-island.jpg",
         "details": "Daily tours available with lunch included"
       },
       {
         "title": "27 Waterfalls of Damajagua",
-        "description": "Adventure through the famous 27 waterfalls, jumping, sliding, and swimming through natural water formations. A unique experience that combines hiking with water adventures.",
+        "description": "Aventurez-vous à travers les célèbres 27 cascades, sautez, glissez et nagez à travers des formations naturelles d'eau. Une expérience unique qui combine la randonnée avec des aventures aquatiques.",
         "image": "/images/activities/waterfalls.jpg",
         "website": "www.27charcos.com"
       },
       {
         "title": "Whale Watching with Kim Baddall",
-        "description": "Humpback Whales here in Samana Bay, DR. A unique opportunity to observe humpback whales in their natural calving and mating grounds. Listen to the male humpback's solitary courting song and witness incredible displays of flipping, tail lobbing and breaching by the most active species of whales in the Atlantic.",
+        "description": "Baleines à bosse ici dans la baie de Samana, en République dominicaine. Une opportunité unique d'observer les baleines à bosse dans leurs zones de reproduction et de mise bas naturelles. Écoutez le chant de cour solitaire du mâle baleine à bosse et assistez à des démonstrations incroyables de sauts, de coups de queue et de brèches par l'espèce de baleine la plus active de l'Atlantique.",
         "details": "On board a marine mammal specialist narrating vessel answering questions….it's an experience of a lifetime not to be missed. Dates: January 15 – March 25 from the main town dock in Samana on the Whale Watch vessel \"Pina Mia\"",
         "contact": "809-538-2494",
         "email": "reservations@whalesamana.com",
@@ -260,7 +260,7 @@
       },
       {
         "title": "Andari Spa",
-        "description": "This is our favorite! Massage, physiotherapy, hot stone massage, body scrubs, body wraps, facials, manicures & pedicures and hair removal. It's in the Millennium Resort & Spa, Cabarete.",
+        "description": "C'est notre préféré ! Massages, physiothérapie, massage aux pierres chaudes, gommages corporels, enveloppements corporels, soins du visage, manucures et pédicures, et épilation. C'est au Millennium Resort & Spa, Cabarete.",
         "website": "www.andarispa.com",
         "image": "/images/activities/spa.jpg"
       }
@@ -268,13 +268,16 @@
   },
   "auth": {
     "loginTitle": "Se connecter",
-    "loginDescription": "Bienvenue de retour ! Veuillez vous connecter à votre compte.",
+    "loginTitle": "Connexion",
+    "loginDescription": "Bienvenue ! Veuillez vous connecter à votre compte.",
     "registerTitle": "Créer un compte",
     "registerDescription": "Créez un nouveau compte pour commencer.",
     "signIn": "Se connecter",
     "signUp": "Inscription",
     "signOut": "Se déconnecter",
-    "userMenu": "Menus d'utilisateur",
+    "signUp": "S'inscrire",
+    "signOut": "Déconnexion",
+    "userMenu": "Menu utilisateur",
     "dashboard": "Tableau de bord",
     "profile": "Profil",
     "adminDashboard": "Tableau de bord d'administration",

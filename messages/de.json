@@ -1,7 +1,7 @@
 {
   "Hero": {
     "title": "Finden Sie Ihr Traumhaus",
-    "subtitle": "Entdecken Sie luxuriöse Immobilien an erstklassigen Standorten.",
+    "subtitle": "Entdecken Sie Luxusimmobilien an exklusiven Standorten",
     "searchPlaceholder": "Geben Sie den Standort, den Immobilientyp oder Schlüsselwörter ein...",
     "searchButton": "Immobilien suchen",
     "backgroundAlt": "Luxushaus",
@@ -30,7 +30,7 @@
       },
       "activities": {
         "title": "Wassersportarten",
-        "description": "Zugang zu erstklassigem Segeln, Tauchen und Wassersport"
+        "description": "Zugang zu erstklassigen Wassersportaktivitäten: Segeln, Tauchen und mehr"
       }
     },
     "cta": {
@@ -41,7 +41,7 @@
   },
   "FeaturedProperties": {
     "title": "Ausgewählte Immobilien",
-    "description": "Entdecken Sie unsere handverlesene Auswahl an exklusiven Immobilien in den begehrtesten Lagen der Karibik.",
+    "description": "Entdecken Sie unsere exklusive Auswahl an Premium-Immobilien in den begehrtesten Lagen der Karibik",
     "viewDetails": "Einzelheiten anzeigen",
     "viewAllProperties": "Alle Objekte ansehen",
     "propertyDetails": {
@@ -143,19 +143,19 @@
     "features": [
       {
         "title": "Expertise",
-        "description": "Over 20 years of Caribbean real estate experience"
+        "description": "Über 20 Jahre Erfahrung im karibischen Immobilienmarkt"
       },
       {
         "title": "Trust",
-        "description": "Licensed and regulated with a proven track record"
+        "description": "Lizenziert und reguliert mit nachgewiesener Erfolgsbilanz"
       },
       {
         "title": "Dedication",
-        "description": "Personalized service tailored to your needs"
+        "description": "Persönlicher Service, der auf Ihre Bedürfnisse zugeschnitten ist"
       },
       {
         "title": "Support",
-        "description": "24/7 support throughout your journey"
+        "description": "24/7 Unterstützung während Ihres gesamten Prozesses"
       }
     ]
   },
@@ -216,43 +216,43 @@
     "activities": [
       {
         "title": "Ocean World Adventure Park",
-        "description": "There is so much to do! Swim with the dolphins, have an encounter with sea lions, sharks and stingrays. You can swim in the same pool as the tigers only separated by glass. There is a coral reef aquarium for snorkeler enthusiasts and a rain forest where you can see rhinoceroses, iguanas and a bird sanctuary. It's a once in a lifetime experience!",
+        "description": "Es gibt so viel zu tun! Schwimmen Sie mit Delfinen, begegnen Sie Seelöwen, Haien und Stachelrochen. Sie können im selben Becken wie die Tiger schwimmen, nur durch Glas getrennt. Es gibt ein Korallenriff-Aquarium für Schnorchel-Enthusiasten und einen Regenwald, in dem Sie Nashörner, Leguane und ein Vogelschutzgebiet sehen können. Ein einmaliges Erlebnis!",
         "website": "www.oceanworld.net",
         "image": "/images/activities/ocean-world.jpg"
       },
       {
         "title": "Monkey Jungle",
-        "description": "Experience the thrill of zip lining through the jungle canopy while interacting with friendly squirrel monkeys. This unique eco-adventure combines adrenaline with animal encounters in a safe, controlled environment.",
+        "description": "Erleben Sie den Nervenkitzel von Ziplining durch das Dschungeldach, während Sie mit freundlichen Totenkopfäffchen interagieren. Dieses einzigartige Öko-Abenteuer verbindet Adrenalin mit Tierbegegnungen in einer sicheren, kontrollierten Umgebung.",
         "website": "www.monkeyjungledr.com",
         "image": "/images/activities/monkey-jungle.jpg"
       },
       {
         "title": "Horseback Riding",
-        "description": "Explore the beautiful Dominican countryside on horseback. Ride through lush forests, along pristine beaches, and discover hidden waterfalls on guided tours suitable for all experience levels.",
+        "description": "Erkunden Sie die wunderschöne dominikanische Landschaft zu Pferd. Reiten Sie durch üppige Wälder, entlang unberührter Strände und entdecken Sie versteckte Wasserfälle auf geführten Touren, die für alle Erfahrungsstufen geeignet sind.",
         "image": "/images/activities/horseback.jpg",
         "contact": "+1 809-555-0123"
       },
       {
         "title": "Kite Surfing",
-        "description": "Cabarete is world-renowned for its perfect kitesurfing conditions. Whether you're a beginner or an expert, our certified instructors will help you catch the perfect wind.",
+        "description": "Cabarete ist weltweit bekannt für seine perfekten Kitesurf-Bedingungen. Egal, ob Sie Anfänger oder Experte sind, unsere zertifizierten Instruktoren helfen Ihnen, den perfekten Wind zu erwischen.",
         "image": "/images/activities/kite-surfing.jpg",
         "contact": "+1 809-555-0124"
       },
       {
         "title": "Paradise Island",
-        "description": "Visit one of the most beautiful islands in the Caribbean. Snorkel in crystal clear waters, relax on pristine beaches, and enjoy fresh seafood in this tropical paradise.",
+        "description": "Besuchen Sie eine der schönsten Inseln der Karibik. Schnorcheln Sie in kristallklarem Wasser, entspannen Sie sich an unberührten Stränden und genießen Sie frische Meeresfrüchte in diesem tropischen Paradies.",
         "image": "/images/activities/paradise-island.jpg",
         "details": "Daily tours available with lunch included"
       },
       {
         "title": "27 Waterfalls of Damajagua",
-        "description": "Adventure through the famous 27 waterfalls, jumping, sliding, and swimming through natural water formations. A unique experience that combines hiking with water adventures.",
+        "description": "Erleben Sie ein Abenteuer durch die berühmten 27 Wasserfälle, springen, rutschen und schwimmen Sie durch natürliche Wasserformationen. Ein einzigartiges Erlebnis, das Wandern mit Wasserabenteuern verbindet.",
         "image": "/images/activities/waterfalls.jpg",
         "website": "www.27charcos.com"
       },
       {
         "title": "Whale Watching with Kim Baddall",
-        "description": "Humpback Whales here in Samana Bay, DR. A unique opportunity to observe humpback whales in their natural calving and mating grounds. Listen to the male humpback's solitary courting song and witness incredible displays of flipping, tail lobbing and breaching by the most active species of whales in the Atlantic.",
+        "description": "Buckelwale hier in der Samana-Bucht, Dominikanische Republik. Eine einzigartige Gelegenheit, Buckelwale in ihren natürlichen Kalbungs- und Paarungsgebieten zu beobachten. Hören Sie den einsamen Werbegesang der männlichen Buckelwale und erleben Sie unglaubliche Sprünge, Schwanzschläge und Breaching der aktivsten Walart im Atlantik.",
         "details": "On board a marine mammal specialist narrating vessel answering questions….it's an experience of a lifetime not to be missed. Dates: January 15 – March 25 from the main town dock in Samana on the Whale Watch vessel \"Pina Mia\"",
         "contact": "809-538-2494",
         "email": "reservations@whalesamana.com",
@@ -260,7 +260,7 @@
       },
       {
         "title": "Andari Spa",
-        "description": "This is our favorite! Massage, physiotherapy, hot stone massage, body scrubs, body wraps, facials, manicures & pedicures and hair removal. It's in the Millennium Resort & Spa, Cabarete.",
+        "description": "Das ist unser Favorit! Massagen, Physiotherapie, Hot Stone Massage, Körperpeelings, Körperwickel, Gesichtsbehandlungen, Maniküre & Pediküre und Haarentfernung. Es befindet sich im Millennium Resort & Spa, Cabarete.",
         "website": "www.andarispa.com",
         "image": "/images/activities/spa.jpg"
       }
@@ -268,7 +268,7 @@
   },
   "auth": {
     "loginTitle": "Anmelden",
-    "loginDescription": "Willkommen zurück! Bitte melden Sie sich bei Ihrem Konto an.",
+    "loginDescription": "Willkommen! Bitte melden Sie sich bei Ihrem Konto an.",
     "registerTitle": "Konto erstellen",
     "registerDescription": "Erstellen Sie ein neues Konto, um loszulegen.",
     "signIn": "Anmelden",
