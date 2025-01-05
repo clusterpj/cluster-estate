@@ -74,15 +74,6 @@
         "rent": "Rent",
         "sale": "Sale",
         "both": "Sale & Rent"
-      },
-      "price": {
-        "from": "From",
-        "startingAt": "Starting at",
-        "priceOnRequest": "Price on Request"
-      },
-      "currency": {
-        "usd": "USD",
-        "eur": "EUR"
       }
     },
 
