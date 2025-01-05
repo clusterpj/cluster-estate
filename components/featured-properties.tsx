@@ -25,32 +25,52 @@ function PriceDisplay({ property }: { property: Property }) {
   const t = useTranslations('FeaturedProperties');
 
   
-  const renderRentalPrice = () => {
-    if (!property.rental_price) return null;
-    const frequency = property.rental_frequency ? t(`price.rentalFrequency.${property.rental_frequency}`) : '';
-    return (
-      <div>
-        <span className="text-sm text-muted-foreground">{t('price.forRent')}: </span>
-        <span>${formatPrice(property.rental_price)}</span>
-        {frequency && <span className="text-sm text-muted-foreground">/{frequency}</span>}
-      </div>
-    );
-  };
+  const renderPrice = () => {
+    if (property.listing_type === 'sale' && property.sale_price) {
+      return (
+        <div>
+          <span className="text-sm text-muted-foreground">{t('price.forSale')}: </span>
+          <span>${formatPrice(property.sale_price)}</span>
+        </div>
+      );
+    }
 
-  const renderSalePrice = () => {
-    if (property.listing_type === 'rent' || !property.sale_price) return null;
-    return (
-      <div>
-        <span className="text-sm text-muted-foreground">{t('price.forSale')}: </span>
-        <span>${formatPrice(property.sale_price)}</span>
-      </div>
-    );
+    if (property.listing_type === 'rent' && property.rental_price) {
+      const frequency = property.rental_frequency ? 
+        t(`price.rentalFrequency.${property.rental_frequency}`) : '';
+      return (
+        <div>
+          <span className="text-sm text-muted-foreground">{t('price.forRent')}: </span>
+          <span>${formatPrice(property.rental_price)}</span>
+          {frequency && <span className="text-sm text-muted-foreground">/{frequency}</span>}
+        </div>
+      );
+    }
+
+    if (property.listing_type === 'both' && property.sale_price && property.rental_price) {
+      const frequency = property.rental_frequency ? 
+        t(`price.rentalFrequency.${property.rental_frequency}`) : '';
+      return (
+        <div className="space-y-1">
+          <div>
+            <span className="text-sm text-muted-foreground">{t('price.forSale')}: </span>
+            <span>${formatPrice(property.sale_price)}</span>
+          </div>
+          <div>
+            <span className="text-sm text-muted-foreground">{t('price.forRent')}: </span>
+            <span>${formatPrice(property.rental_price)}</span>
+            {frequency && <span className="text-sm text-muted-foreground">/{frequency}</span>}
+          </div>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   return (
     <div className="flex flex-wrap gap-4 text-2xl font-bold text-caribbean-700 dark:text-caribbean-200">
-      {renderSalePrice()}
-      {renderRentalPrice()}
+      {renderPrice()}
     </div>
   );
 }
