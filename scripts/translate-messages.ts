@@ -220,6 +220,9 @@ async function translateMessages() {
 
       
       
+      // Load existing translations if they exist
+      const existingTranslations = await loadExistingTranslations(lang);
+
       const stats: TranslationStats = {
         reused: 0,
         translated: 0,
