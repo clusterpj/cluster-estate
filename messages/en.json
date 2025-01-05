@@ -39,39 +39,51 @@
       "button": "Start Your Journey"
     }
   },
-  "FeaturedProperties": {
-    "title": "Featured Properties",
-    "description": "Explore our handpicked selection of premium properties across the Caribbean's most desirable locations.",
-    "viewDetails": "View Details",
-    "viewAllProperties": "View All Properties",
-    "propertyDetails": {
-      "beds": "Beds",
-      "baths": "Baths",
-      "sqft": "sqft"
-    },
-    "forSale": "For Sale",
-    "forRent": "For Rent",
-    "rentalFrequency": {
-      "daily": "day",
-      "weekly": "week",
-      "monthly": "month",
-      "yearly": "year"
-    },
-    "properties": [
-      {
-        "title": "Oceanfront Villa",
-        "location": "Palm Beach"
+
+    "FeaturedProperties": {
+      "title": "Featured Properties",
+      "description": "Explore our handpicked selection of premium properties across the Caribbean's most desirable locations.",
+      "viewDetails": "View Details",
+      "viewAllProperties": "View All Properties",
+      "propertyDetails": {
+        "beds": "Beds",
+        "baths": "Baths",
+        "sqft": "sqft",
+        "bedsCount": "{count} Beds",
+        "bathsCount": "{count} Baths",
+        "squareFeet": "{value} sqft",
+        "area": "{value} m²"
       },
-      {
-        "title": "Beachside Condo",
-        "location": "Seven Mile Beach"
+      "forSale": "For Sale",
+      "forRent": "For Rent",
+      "rentalFrequency": {
+        "daily": "day",
+        "weekly": "week",
+        "monthly": "month",
+        "yearly": "year"
       },
-      {
-        "title": "Luxury Penthouse",
-        "location": "Nassau"
+      "status": {
+        "available": "Available",
+        "pending": "Pending",
+        "sold": "Sold",
+        "rented": "Rented"
+      },
+      "listingType": {
+        "rent": "Rent",
+        "sale": "Sale",
+        "both": "Sale & Rent"
+      },
+      "price": {
+        "from": "From",
+        "startingAt": "Starting at",
+        "priceOnRequest": "Price on Request"
+      },
+      "currency": {
+        "usd": "USD",
+        "eur": "EUR"
       }
-    ]
-  },
+    },
+
   "WhyChooseUs": {
     "title": "Why Choose Us",
     "description": "Experience excellence in Caribbean real estate with our dedicated team and comprehensive services.",

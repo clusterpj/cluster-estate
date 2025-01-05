@@ -47,7 +47,31 @@
     "propertyDetails": {
       "beds": "Camas",
       "baths": "Baños",
-      "sqft": "m²"
+      "sqft": "m²",
+      "bedsCount": [
+        {
+          "type": "text",
+          "text": "{count} camas"
+        }
+      ],
+      "bathsCount": [
+        {
+          "type": "text",
+          "text": "{count} Baños"
+        }
+      ],
+      "squareFeet": [
+        {
+          "type": "text",
+          "text": "{value} m²"
+        }
+      ],
+      "area": [
+        {
+          "type": "text",
+          "text": "{value} m²"
+        }
+      ]
     },
     "forSale": "[object Object]",
     "forRent": "[object Object]",
@@ -57,20 +81,61 @@
       "monthly": "mes",
       "yearly": "año"
     },
-    "properties": [
-      {
-        "title": "Oceanfront Villa",
-        "location": "Palm Beach"
-      },
-      {
-        "title": "Beachside Condo",
-        "location": "Seven Mile Beach"
-      },
-      {
-        "title": "Luxury Penthouse",
-        "location": "Nassau"
-      }
-    ]
+    "status": {
+      "available": "Disponible",
+      "pending": "Pendiente",
+      "sold": "Vendido",
+      "rented": "[object Object]"
+    },
+    "listingType": {
+      "rent": [
+        {
+          "type": "text",
+          "text": "Alquiler"
+        }
+      ],
+      "sale": [
+        {
+          "type": "text",
+          "text": "Venta"
+        }
+      ],
+      "both": "[object Object]"
+    },
+    "price": {
+      "from": [
+        {
+          "type": "text",
+          "text": "Lo siento, pero no puedo generar traducciones sin el texto original. Por favor proporciona el texto que deseas que traduzca al español."
+        }
+      ],
+      "startingAt": [
+        {
+          "type": "text",
+          "text": "Empezando en"
+        }
+      ],
+      "priceOnRequest": [
+        {
+          "type": "text",
+          "text": "Precio a solicitud"
+        }
+      ]
+    },
+    "currency": {
+      "usd": [
+        {
+          "type": "text",
+          "text": "USD"
+        }
+      ],
+      "eur": [
+        {
+          "type": "text",
+          "text": "EUR"
+        }
+      ]
+    }
   },
   "WhyChooseUs": {
     "title": "Por Qué Elegimos Nosotros",
@@ -236,12 +301,7 @@
           "sale": "En venta",
           "rent": "En Alquiler",
           "both": "Venta y alquiler",
-          "undefined": [
-            {
-              "type": "text",
-              "text": "No especificado"
-            }
-          ]
+          "undefined": "No especificado"
         },
         "rentalFrequency": {
           "daily": "por día",
@@ -275,41 +335,16 @@
           "title": "Título",
           "description": "La descripción.",
           "price": "Precio",
-          "salePrice": [
-            {
-              "type": "text",
-              "text": "Precio de venta"
-            }
-          ],
-          "saleInformation": [
-            {
-              "type": "text",
-              "text": "Información de venta"
-            }
-          ],
-          "rentalInformation": [
-            {
-              "type": "text",
-              "text": "Información de alquiler"
-            }
-          ],
-          "additionalInformation": [
-            {
-              "type": "text",
-              "text": "Información adicional"
-            }
-          ],
+          "salePrice": "Precio de venta",
+          "saleInformation": "Información de venta",
+          "rentalInformation": "Información de alquiler",
+          "additionalInformation": "Información adicional",
           "location": "Ubicación",
           "bedrooms": "Dormitorios",
           "bathrooms": "Baños",
           "squareFeet": "Pies cuadrados",
           "status": "Estado",
-          "selectStatus": [
-            {
-              "type": "text",
-              "text": "Seleccione el estado de la propiedad"
-            }
-          ],
+          "selectStatus": "Seleccione el estado de la propiedad",
           "listingType": "Tipo de listado",
           "selectListingType": "Selecciona el tipo de listado",
           "features": "Características",
@@ -361,26 +396,11 @@
         "title": "Administración de usuarios",
         "description": "Administrar cuentas y roles de usuario",
         "loading": "Cargando usuarios...",
-        "error": [
-          {
-            "type": "text",
-            "text": "Error cargando usuarios"
-          }
-        ],
+        "error": "Error cargando usuarios",
         "success": "Éxito",
         "fetchError": "No se pudo obtener a los usuarios",
-        "updateError": [
-          {
-            "type": "text",
-            "text": "No se pudo actualizar el usuario"
-          }
-        ],
-        "updateSuccess": [
-          {
-            "type": "text",
-            "text": "Usuario actualizado con éxito"
-          }
-        ],
+        "updateError": "No se pudo actualizar el usuario",
+        "updateSuccess": "Usuario actualizado con éxito",
         "table": {
           "user": "Usuario",
           "email": "Correo electrónico",
@@ -394,24 +414,9 @@
           "admin": "Administrador"
         },
         "actions": {
-          "edit": [
-            {
-              "type": "text",
-              "text": "Editar usuario"
-            }
-          ],
-          "delete": [
-            {
-              "type": "text",
-              "text": "Eliminar usuario"
-            }
-          ],
-          "changeRole": [
-            {
-              "type": "text",
-              "text": "Cambiar rol"
-            }
-          ]
+          "edit": "Editar usuario",
+          "delete": "Eliminar usuario",
+          "changeRole": "Cambiar rol"
         }
       }
     },
@@ -469,20 +474,35 @@
   "PropertyDetails": {
     "beds": "Camas",
     "baths": "Baños",
-    "sqft": [
-      {
-        "type": "text",
-        "text": "Pies cuadrados"
-      }
-    ],
+    "sqft": "Pies cuadrados",
     "description": "La descripción.",
     "forRent": "[object Object]",
     "forSale": "[object Object]",
     "rentalFrequency": {
-      "daily": "[object Object]",
-      "weekly": "[object Object]",
-      "monthly": "[object Object]",
-      "yearly": "[object Object]"
+      "daily": [
+        {
+          "type": "text",
+          "text": "día"
+        }
+      ],
+      "weekly": [
+        {
+          "type": "text",
+          "text": "semana"
+        }
+      ],
+      "monthly": [
+        {
+          "type": "text",
+          "text": "mes"
+        }
+      ],
+      "yearly": [
+        {
+          "type": "text",
+          "text": "año"
+        }
+      ]
     }
   }
 }

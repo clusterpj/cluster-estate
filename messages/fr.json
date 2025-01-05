@@ -47,7 +47,31 @@
     "propertyDetails": {
       "beds": "Lits",
       "baths": "Bains",
-      "sqft": "pied carré"
+      "sqft": "pied carré",
+      "bedsCount": [
+        {
+          "type": "text",
+          "text": "{count} lits"
+        }
+      ],
+      "bathsCount": [
+        {
+          "type": "text",
+          "text": "{count} Salles de bain"
+        }
+      ],
+      "squareFeet": [
+        {
+          "type": "text",
+          "text": "{value} m²"
+        }
+      ],
+      "area": [
+        {
+          "type": "text",
+          "text": "{value} m²"
+        }
+      ]
     },
     "forSale": "[object Object]",
     "forRent": "[object Object]",
@@ -57,20 +81,61 @@
       "monthly": "mois",
       "yearly": "année"
     },
-    "properties": [
-      {
-        "title": "Oceanfront Villa",
-        "location": "Palm Beach"
-      },
-      {
-        "title": "Beachside Condo",
-        "location": "Seven Mile Beach"
-      },
-      {
-        "title": "Luxury Penthouse",
-        "location": "Nassau"
-      }
-    ]
+    "status": {
+      "available": "Disponible",
+      "pending": "En attente",
+      "sold": "Vendu",
+      "rented": "[object Object]"
+    },
+    "listingType": {
+      "rent": [
+        {
+          "type": "text",
+          "text": "Louer"
+        }
+      ],
+      "sale": [
+        {
+          "type": "text",
+          "text": "Vente"
+        }
+      ],
+      "both": "[object Object]"
+    },
+    "price": {
+      "from": [
+        {
+          "type": "text",
+          "text": "Désolé, mais sans plus de contexte ou d'explication, je ne peux pas traduire le texte que vous avez demandé. Veuillez me fournir le texte à traduire en anglais afin que je puisse vous donner la traduction en français."
+        }
+      ],
+      "startingAt": [
+        {
+          "type": "text",
+          "text": "Commençant à"
+        }
+      ],
+      "priceOnRequest": [
+        {
+          "type": "text",
+          "text": "Prix sur demande"
+        }
+      ]
+    },
+    "currency": {
+      "usd": [
+        {
+          "type": "text",
+          "text": "USD"
+        }
+      ],
+      "eur": [
+        {
+          "type": "text",
+          "text": "EUR"
+        }
+      ]
+    }
   },
   "WhyChooseUs": {
     "title": "Pourquoi nous choisir",
@@ -236,12 +301,7 @@
           "sale": "À vendre",
           "rent": "À Louer",
           "both": "Vente et location",
-          "undefined": [
-            {
-              "type": "text",
-              "text": "Pas spécifié"
-            }
-          ]
+          "undefined": "Pas spécifié"
         },
         "rentalFrequency": {
           "daily": "par jour",
@@ -275,41 +335,16 @@
           "title": "Titre",
           "description": "Description",
           "price": "Prix",
-          "salePrice": [
-            {
-              "type": "text",
-              "text": "Prix Soldé"
-            }
-          ],
-          "saleInformation": [
-            {
-              "type": "text",
-              "text": "Voici la traduction en français :\n\nInformations sur la vente"
-            }
-          ],
-          "rentalInformation": [
-            {
-              "type": "text",
-              "text": "Voici la traduction en français :\n\nInformations de location"
-            }
-          ],
-          "additionalInformation": [
-            {
-              "type": "text",
-              "text": "Informations complémentaires"
-            }
-          ],
+          "salePrice": "Prix Soldé",
+          "saleInformation": "Voici la traduction en français :\n\nInformations sur la vente",
+          "rentalInformation": "Voici la traduction en français :\n\nInformations de location",
+          "additionalInformation": "Informations complémentaires",
           "location": "Emplacement",
           "bedrooms": "Chambres",
           "bathrooms": "Salles de bain",
           "squareFeet": "Pieds carrés",
           "status": "Statut",
-          "selectStatus": [
-            {
-              "type": "text",
-              "text": "Sélectionner le statut de la propriété"
-            }
-          ],
+          "selectStatus": "Sélectionner le statut de la propriété",
           "listingType": "Type de liste",
           "selectListingType": "Sélectionnez le type de liste",
           "features": "Caractéristiques",
@@ -345,24 +380,9 @@
           "cancel": "Annuler",
           "confirm": "Supprimer"
         },
-        "fetchError": [
-          {
-            "type": "text",
-            "text": "Échec de la récupération des propriétés"
-          }
-        ],
-        "updateError": [
-          {
-            "type": "text",
-            "text": "Échec de la mise à jour de la propriété"
-          }
-        ],
-        "createError": [
-          {
-            "type": "text",
-            "text": "Échec de la création de la propriété"
-          }
-        ],
+        "fetchError": "Échec de la récupération des propriétés",
+        "updateError": "Échec de la mise à jour de la propriété",
+        "createError": "Échec de la création de la propriété",
         "deleteError": "Échec de la suppression de la propriété",
         "updateSuccess": "La propriété a été mise à jour avec succès.",
         "createSuccess": "Propriété créée avec succès",
@@ -376,26 +396,11 @@
         "title": "Gestion des utilisateurs",
         "description": "Gérer les comptes et les rôles des utilisateurs",
         "loading": "Chargement des utilisateurs...",
-        "error": [
-          {
-            "type": "text",
-            "text": "Erreur de chargement des utilisateurs"
-          }
-        ],
+        "error": "Erreur de chargement des utilisateurs",
         "success": "Succès",
         "fetchError": "Échec de la récupération des utilisateurs",
-        "updateError": [
-          {
-            "type": "text",
-            "text": "Échec de la mise à jour de l'utilisateur"
-          }
-        ],
-        "updateSuccess": [
-          {
-            "type": "text",
-            "text": "Utilisateur mis à jour avec succès"
-          }
-        ],
+        "updateError": "Échec de la mise à jour de l'utilisateur",
+        "updateSuccess": "Utilisateur mis à jour avec succès",
         "table": {
           "user": "Utilisateur",
           "email": "Courriel",
@@ -409,24 +414,9 @@
           "admin": "Administrateur"
         },
         "actions": {
-          "edit": [
-            {
-              "type": "text",
-              "text": "Modifier l'utilisateur"
-            }
-          ],
-          "delete": [
-            {
-              "type": "text",
-              "text": "Supprimer l'utilisateur"
-            }
-          ],
-          "changeRole": [
-            {
-              "type": "text",
-              "text": "Changer de rôle"
-            }
-          ]
+          "edit": "Modifier l'utilisateur",
+          "delete": "Supprimer l'utilisateur",
+          "changeRole": "Changer de rôle"
         }
       }
     },
@@ -484,20 +474,35 @@
   "PropertyDetails": {
     "beds": "Lits",
     "baths": "Voici la traduction en français :\n\nBains",
-    "sqft": [
-      {
-        "type": "text",
-        "text": "Pieds carrés"
-      }
-    ],
+    "sqft": "Pieds carrés",
     "description": "Voici la traduction en français du texte donné :\n\nDescription",
     "forRent": "[object Object]",
     "forSale": "[object Object]",
     "rentalFrequency": {
-      "daily": "[object Object]",
-      "weekly": "[object Object]",
-      "monthly": "[object Object]",
-      "yearly": "[object Object]"
+      "daily": [
+        {
+          "type": "text",
+          "text": "jour"
+        }
+      ],
+      "weekly": [
+        {
+          "type": "text",
+          "text": "semaine"
+        }
+      ],
+      "monthly": [
+        {
+          "type": "text",
+          "text": "mois"
+        }
+      ],
+      "yearly": [
+        {
+          "type": "text",
+          "text": "année"
+        }
+      ]
     }
   }
 }
