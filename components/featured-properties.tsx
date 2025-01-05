@@ -25,41 +25,22 @@ function PriceDisplay({ property }: { property: Property }) {
   const t = useTranslations('FeaturedProperties');
 
   
-  // Helper function to safely get translations
-  const safeTranslate = (key: string, params?: Record<string, any>) => {
-    try {
-      return t(key, params);
-    } catch (error) {
-      console.warn(`Missing translation for key: ${key}`);
-      // Return a default value based on the key
-      const defaults: Record<string, string> = {
-        'price.forSale': 'For Sale',
-        'price.forRent': 'For Rent',
-        'price.rentalFrequency.daily': 'day',
-        'price.rentalFrequency.weekly': 'week',
-        'price.rentalFrequency.monthly': 'month',
-        'price.rentalFrequency.yearly': 'year'
-      };
-      return defaults[key] || key;
-    }
-  };
-
   const renderPrice = () => {
     if (property.listing_type === 'sale' && property.sale_price) {
       return (
         <div>
-          <span className="text-sm text-muted-foreground">{safeTranslate('price.forSale')}: </span>
+          <span className="text-sm text-muted-foreground">{t('price.forSale')}: </span>
           <span>${formatPrice(property.sale_price)}</span>
         </div>
       );
     }
 
     if (property.listing_type === 'rent' && property.rental_price) {
-      const frequency = property.rental_frequency ? 
-        safeTranslate(`price.rentalFrequency.${property.rental_frequency}`) : '';
+      const frequency = property.rental_frequency ?  
+        t(`price.rentalFrequency.${property.rental_frequency}`) : '';
       return (
         <div>
-          <span className="text-sm text-muted-foreground">{safeTranslate('price.forRent')}: </span>
+          <span className="text-sm text-muted-foreground">{t('price.forRent')}: </span>
           <span>${formatPrice(property.rental_price)}</span>
           {frequency && <span className="text-sm text-muted-foreground">/{frequency}</span>}
         </div>
@@ -67,16 +48,16 @@ function PriceDisplay({ property }: { property: Property }) {
     }
 
     if (property.listing_type === 'both' && property.sale_price && property.rental_price) {
-      const frequency = property.rental_frequency ? 
-        safeTranslate(`price.rentalFrequency.${property.rental_frequency}`) : '';
+      const frequency = property.rental_frequency ?
+        t(`price.rentalFrequency.${property.rental_frequency}`) : '';
       return (
         <div className="space-y-1">
           <div>
-            <span className="text-sm text-muted-foreground">{safeTranslate('price.forSale')}: </span>
+            <span className="text-sm text-muted-foreground">{t('price.forSale')}: </span>
             <span>${formatPrice(property.sale_price)}</span>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">{safeTranslate('price.forRent')}: </span>
+            <span className="text-sm text-muted-foreground">{t('price.forRent')}: </span>
             <span>${formatPrice(property.rental_price)}</span>
             {frequency && <span className="text-sm text-muted-foreground">/{frequency}</span>}
           </div>
@@ -137,16 +118,6 @@ const container = {
 export function FeaturedProperties() {
   const t = useTranslations('FeaturedProperties');
 
-  // Helper function to safely get translations
-  const safeTranslate = (key: string, params?: Record<string, any>) => {
-    try {
-      return t(key, params);
-    } catch (error) {
-      console.warn(`Missing translation for key: ${key}`);
-      return key;
-    }
-  };
-
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -178,14 +149,15 @@ export function FeaturedProperties() {
       <div className="container mx-auto px-4">
         <FadeInView>
           <h2 className="text-3xl md:text-4xl font-bold text-caribbean-900 dark:text-caribbean-100 mb-4 text-center">
-            {safeTranslate('title')}
+            {t('title')}
           </h2>
         </FadeInView>
+
 
         
         <FadeInView delay={0.2}>
           <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            {safeTranslate('description')}
+            {t('description')}
           </p>
         </FadeInView>
 
@@ -234,22 +206,22 @@ export function FeaturedProperties() {
                   <div className="flex justify-between items-center text-sm text-muted-foreground dark:text-caribbean-300 mb-4">
                     <div className="flex items-center">
                       <Bed className="h-4 w-4 mr-1" />
-                      <span>{property.bedrooms} {safeTranslate('propertyDetails.beds')}</span>
+                      <span>{property.bedrooms} {t('propertyDetails.beds')}</span>
                     </div>
                     <div className="flex items-center">
                       <Bath className="h-4 w-4 mr-1" />
-                      <span>{property.bathrooms} {safeTranslate('propertyDetails.baths')}</span>
+                      <span>{property.bathrooms} {t('propertyDetails.baths')}</span>
                     </div>
                     <div className="flex items-center">
                       <Maximize className="h-4 w-4 mr-1" />
-                      <span>{property.square_feet} {safeTranslate('propertyDetails.sqft')}</span>
+                      <span>{property.square_feet} {t('propertyDetails.sqft')}</span>
                     </div>
                   </div>
                   <PriceDisplay property={property} />
                 </CardContent>
                 <CardFooter className="p-6 pt-0">
                   <Button className="w-full bg-sand-400 hover:bg-sand-500 text-caribbean-900 dark:bg-caribbean-600 dark:hover:bg-caribbean-700 dark:text-white">
-                    {safeTranslate('viewDetails')}
+                    {t('viewDetails')}
                   </Button>
                 </CardFooter>
               </Card>
@@ -262,7 +234,7 @@ export function FeaturedProperties() {
             variant="outline" 
             className="border-caribbean-600 text-caribbean-600 hover:bg-caribbean-50 dark:border-caribbean-400 dark:text-caribbean-200 dark:hover:bg-caribbean-900/50"
           >
-            {safeTranslate('viewAllProperties')}
+            {t('viewAllProperties')}
           </Button>
         </div>
       </div>
