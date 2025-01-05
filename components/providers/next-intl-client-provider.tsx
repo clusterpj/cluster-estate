@@ -4,7 +4,6 @@ import { NextIntlClientProvider as Provider, AbstractIntlMessages } from 'next-i
 import { useLocale } from 'next-intl'
 import { locales, isValidLocale } from '@/config/i18n'
 import { cn } from '@/lib/utils'
-import { getTranslationFallback } from '@/lib/utils'
 
 type Props = {
   children: React.ReactNode
@@ -38,7 +37,7 @@ export function NextIntlClientProvider({ children, messages, locale: propLocale 
           console.error(error);
         }
       }}
-      getMessageFallback={({ key, namespace }) => getTranslationFallback(key, namespace)}
+      getMessageFallback={({ key }) => key}
     >
       {children}
     </Provider>

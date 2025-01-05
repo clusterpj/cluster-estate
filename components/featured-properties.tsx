@@ -10,7 +10,6 @@ import { FadeInView } from "./animations/fade-in-view";
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useAuth } from './providers/auth-provider';
-import { getTranslationFallback } from '@/lib/utils';
 
 import type { Database } from '@/types/supabase';
 type Property = Database['public']['Tables']['properties']['Row'];
@@ -31,7 +30,7 @@ function PriceDisplay({ property }: { property: Property }) {
       return t(key, params);
     } catch (error) {
       console.warn(`Missing translation for key: ${key}`);
-      return getTranslationFallback(key, 'FeaturedProperties');
+      return key;
     }
   };
 
@@ -115,7 +114,7 @@ export function FeaturedProperties() {
       return t(key, params);
     } catch (error) {
       console.warn(`Missing translation for key: ${key}`);
-      return getTranslationFallback(key, 'FeaturedProperties');
+      return key;
     }
   };
 
