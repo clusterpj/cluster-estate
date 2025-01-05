@@ -7,7 +7,15 @@ import { Header } from '@/components/header';
 
 async function getMessages(locale: Locale) {
   try {
-    const messages = (await import(`../../messages/${locale}.json`)).default;
+    // First try to load the requested locale
+    let messages;
+    try {
+      messages = (await import(`../../messages/${locale}.json`)).default;
+    } catch (error) {
+      // If the locale file doesn't exist, fall back to English
+      messages = (await import(`../../messages/en.json`)).default;
+    }
+
     if (!messages) {
       throw new Error(`No messages found for locale: ${locale}`);
     }

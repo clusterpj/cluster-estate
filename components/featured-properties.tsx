@@ -24,13 +24,26 @@ function formatPrice(price: number) {
 function PriceDisplay({ property }: { property: Property }) {
   const t = useTranslations('FeaturedProperties');
 
+  // Helper function to safely get translations
+  const safeTranslate = (key: string, params?: Record<string, any>) => {
+    try {
+      return t(key, params);
+    } catch (error) {
+      console.warn(`Missing translation for key: ${key}`);
+      // Try to get the English fallback
+      const englishMessages = require('../../messages/en.json');
+      const namespaceMessages = englishMessages['FeaturedProperties'];
+      return namespaceMessages?.[key] || key;
+    }
+  };
+
   
   const renderRentalPrice = () => {
     if (!property.rental_price) return null;
-    const frequency = property.rental_frequency ? t(`rentalFrequency.${property.rental_frequency}`) : '';
+    const frequency = property.rental_frequency ? safeTranslate(`rentalFrequency.${property.rental_frequency}`) : '';
     return (
       <div>
-        <span className="text-sm text-muted-foreground">{t('forRent')}: </span>
+        <span className="text-sm text-muted-foreground">{safeTranslate('forRent')}: </span>
         <span>${formatPrice(property.rental_price)}</span>
         {frequency && <span className="text-sm text-muted-foreground">/{frequency}</span>}
       </div>
@@ -41,7 +54,7 @@ function PriceDisplay({ property }: { property: Property }) {
     if (property.listing_type === 'rent' || !property.sale_price) return null;
     return (
       <div>
-        <span className="text-sm text-muted-foreground">{t('forSale')}: </span>
+        <span className="text-sm text-muted-foreground">{safeTranslate('forSale')}: </span>
         <span>${formatPrice(property.sale_price)}</span>
       </div>
     );
@@ -98,6 +111,19 @@ const container = {
 export function FeaturedProperties() {
   const t = useTranslations('FeaturedProperties');
 
+  // Helper function to safely get translations
+  const safeTranslate = (key: string, params?: Record<string, any>) => {
+    try {
+      return t(key, params);
+    } catch (error) {
+      console.warn(`Missing translation for key: ${key}`);
+      // Try to get the English fallback
+      const englishMessages = require('../../messages/en.json');
+      const namespaceMessages = englishMessages['FeaturedProperties'];
+      return namespaceMessages?.[key] || key;
+    }
+  };
+
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -129,14 +155,14 @@ export function FeaturedProperties() {
       <div className="container mx-auto px-4">
         <FadeInView>
           <h2 className="text-3xl md:text-4xl font-bold text-caribbean-900 dark:text-caribbean-100 mb-4 text-center">
-            {t('title')}
+            {safeTranslate('title')}
           </h2>
         </FadeInView>
 
         
         <FadeInView delay={0.2}>
           <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            {t('description')}
+            {safeTranslate('description')}
           </p>
         </FadeInView>
 
@@ -185,22 +211,22 @@ export function FeaturedProperties() {
                   <div className="flex justify-between items-center text-sm text-muted-foreground dark:text-caribbean-300 mb-4">
                     <div className="flex items-center">
                       <Bed className="h-4 w-4 mr-1" />
-                      <span>{property.bedrooms} {t('propertyDetails.beds')}</span>
+                      <span>{property.bedrooms} {safeTranslate('propertyDetails.beds')}</span>
                     </div>
                     <div className="flex items-center">
                       <Bath className="h-4 w-4 mr-1" />
-                      <span>{property.bathrooms} {t('propertyDetails.baths')}</span>
+                      <span>{property.bathrooms} {safeTranslate('propertyDetails.baths')}</span>
                     </div>
                     <div className="flex items-center">
                       <Maximize className="h-4 w-4 mr-1" />
-                      <span>{property.square_feet} {t('propertyDetails.sqft')}</span>
+                      <span>{property.square_feet} {safeTranslate('propertyDetails.sqft')}</span>
                     </div>
                   </div>
                   <PriceDisplay property={property} />
                 </CardContent>
                 <CardFooter className="p-6 pt-0">
                   <Button className="w-full bg-sand-400 hover:bg-sand-500 text-caribbean-900 dark:bg-caribbean-600 dark:hover:bg-caribbean-700 dark:text-white">
-                    {t('viewDetails')}
+                    {safeTranslate('viewDetails')}
                   </Button>
                 </CardFooter>
               </Card>
@@ -213,7 +239,7 @@ export function FeaturedProperties() {
             variant="outline" 
             className="border-caribbean-600 text-caribbean-600 hover:bg-caribbean-50 dark:border-caribbean-400 dark:text-caribbean-200 dark:hover:bg-caribbean-900/50"
           >
-            {t('viewAllProperties')}
+            {safeTranslate('viewAllProperties')}
           </Button>
         </div>
       </div>

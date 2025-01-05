@@ -38,7 +38,17 @@ export function NextIntlClientProvider({ children, messages, locale: propLocale 
         }
       }}
       getMessageFallback={({ key, namespace }) => {
-        return `[${namespace}.${key}]`;
+        // Try to get the English fallback
+        try {
+          const englishMessages = require('../../messages/en.json');
+          const namespaceMessages = englishMessages[namespace];
+          if (namespaceMessages && namespaceMessages[key]) {
+            return namespaceMessages[key];
+          }
+          return key;
+        } catch (error) {
+          return key;
+        }
       }}
     >
       {children}
