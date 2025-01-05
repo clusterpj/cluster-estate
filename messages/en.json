@@ -43,6 +43,16 @@
     "FeaturedProperties": {
       "title": "Featured Properties",
       "description": "Explore our handpicked selection of premium properties across the Caribbean's most desirable locations.",
+      "price": {
+        "forSale": "For Sale",
+        "forRent": "For Rent",
+        "rentalFrequency": {
+          "daily": "day",
+          "weekly": "week",
+          "monthly": "month",
+          "yearly": "year"
+        }
+      },
       "viewDetails": "View Details",
       "viewAllProperties": "View All Properties",
       "propertyDetails": {
@@ -53,14 +63,6 @@
         "bathsCount": "{count} Baths",
         "squareFeet": "{value} sqft",
         "area": "{value} m²"
-      },
-      "forSale": "For Sale",
-      "forRent": "For Rent",
-      "rentalFrequency": {
-        "daily": "day",
-        "weekly": "week",
-        "monthly": "month",
-        "yearly": "year"
       },
       "status": {
         "available": "Available",
