@@ -48,33 +48,21 @@
       "beds": "Camas",
       "baths": "Baños",
       "sqft": "m²",
-      "bedsCount": [
-        {
-          "type": "text",
-          "text": "{count} camas"
-        }
-      ],
-      "bathsCount": [
-        {
-          "type": "text",
-          "text": "{count} Baños"
-        }
-      ],
-      "squareFeet": [
-        {
-          "type": "text",
-          "text": "{value} m²"
-        }
-      ],
-      "area": [
-        {
-          "type": "text",
-          "text": "{value} m²"
-        }
-      ]
+      "bedsCount": "{count} camas",
+      "bathsCount": "{count} baños",
+      "squareFeet": "{value} m²",
+      "area": "{value} m²"
     },
-    "forSale": "[object Object]",
-    "forRent": "[object Object]",
+    "price": {
+      "forSale": "En Venta",
+      "forRent": "En Alquiler",
+      "rentalFrequency": {
+        "daily": "día",
+        "weekly": "semana",
+        "monthly": "mes",
+        "yearly": "año"
+      }
+    },
     "rentalFrequency": {
       "daily": "día",
       "weekly": "semana",
@@ -85,56 +73,12 @@
       "available": "Disponible",
       "pending": "Pendiente",
       "sold": "Vendido",
-      "rented": "[object Object]"
+      "rented": "Alquilado"
     },
     "listingType": {
-      "rent": [
-        {
-          "type": "text",
-          "text": "Alquiler"
-        }
-      ],
-      "sale": [
-        {
-          "type": "text",
-          "text": "Venta"
-        }
-      ],
-      "both": "[object Object]"
-    },
-    "price": {
-      "from": [
-        {
-          "type": "text",
-          "text": "Lo siento, pero no puedo generar traducciones sin el texto original. Por favor proporciona el texto que deseas que traduzca al español."
-        }
-      ],
-      "startingAt": [
-        {
-          "type": "text",
-          "text": "Empezando en"
-        }
-      ],
-      "priceOnRequest": [
-        {
-          "type": "text",
-          "text": "Precio a solicitud"
-        }
-      ]
-    },
-    "currency": {
-      "usd": [
-        {
-          "type": "text",
-          "text": "USD"
-        }
-      ],
-      "eur": [
-        {
-          "type": "text",
-          "text": "EUR"
-        }
-      ]
+      "rent": "Alquiler",
+      "sale": "Venta",
+      "both": "Venta y Alquiler"
     }
   },
   "WhyChooseUs": {
