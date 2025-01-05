@@ -2,7 +2,7 @@ import createMiddleware from 'next-intl/middleware';
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { defaultLocale, locales } from './config/i18n';
+import { defaultLocale, locales, type Locale } from './config/i18n'; // Added Locale type import
 
 // Define route access levels
 const publicPages = [
