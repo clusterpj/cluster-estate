@@ -212,12 +212,8 @@ async function translateMessages() {
     for (const lang of targetLanguages) {
       console.log(`\nProcessing translations for ${lang}...`);
 
-      // Load existing translations if they exist
-      const existingTranslations = await loadExistingTranslations(lang);
 
       
-      // Load existing translations if they exist
-      const existingTranslations = await loadExistingTranslations(lang);
       
       const stats: TranslationStats = {
         reused: 0,
