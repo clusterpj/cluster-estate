@@ -40,60 +40,60 @@
     }
   },
   "FeaturedProperties": {
-  "title": "Ausgewählte Immobilien",
-  "description": "Entdecken Sie unsere handverlesene Auswahl an Premium-Immobilien in den begehrtesten Lagen der Karibik.",
-  "viewDetails": "Details Anzeigen",
-  "viewAllProperties": "Alle Immobilien Anzeigen",
-  "propertyDetails": {
-    "beds": "Schlafzimmer",
-    "baths": "Badezimmer",
-    "sqft": "ft²",
-    "bedsCount": "{count} Schlafzimmer",
-    "bathsCount": "{count} Badezimmer",
-    "squareFeet": "{value} ft²",
-    "area": "{value} m²"
-  },
-  "price": {
-    "forSale": "Zum Verkauf",
-    "forRent": "Zu Vermieten",
-    "rentalFrequency": {
-      "daily": "Tag",
-      "weekly": "Woche",
-      "monthly": "Monat",
-      "yearly": "Jahr"
+    "title": "Ausgewählte Immobilien",
+    "description": "Entdecken Sie unsere handverlesene Auswahl an Premium-Immobilien in den begehrtesten Lagen der Karibik.",
+    "viewDetails": "Details Anzeigen",
+    "viewAllProperties": "Alle Immobilien Anzeigen",
+    "propertyDetails": {
+      "beds": "Schlafzimmer",
+      "baths": "Badezimmer",
+      "sqft": "ft²",
+      "bedsCount": "{count} Schlafzimmer",
+      "bathsCount": "{count} Badezimmer",
+      "squareFeet": "{value} ft²",
+      "area": "{value} m²"
+    },
+    "price": {
+      "forSale": "Zum Verkauf",
+      "forRent": "Zu Vermieten",
+      "rentalFrequency": {
+        "daily": "Tag",
+        "weekly": "Woche",
+        "monthly": "Monat",
+        "yearly": "Jahr"
+      }
+    },
+    "status": {
+      "available": "Verfügbar",
+      "pending": "In Bearbeitung",
+      "sold": "Verkauft",
+      "rented": "Vermietet"
+    },
+    "listingType": {
+      "rent": "Mieten",
+      "sale": "Verkauf",
+      "both": "Verkauf & Vermietung"
     }
   },
-  "status": {
-    "available": "Verfügbar",
-    "pending": "In Bearbeitung",
-    "sold": "Verkauft",
-    "rented": "Vermietet"
-  },
-  "listingType": {
-    "rent": "Mieten",
-    "sale": "Verkauf",
-    "both": "Verkauf & Vermietung"
-  }
-},
   "WhyChooseUs": {
     "title": "Warum uns wählen",
     "description": "Erfahren Sie Exzellenz in der karibischen Immobilienbranche mit unserem engagierten Team und unseren umfassenden Dienstleistungen.",
     "features": [
       {
         "title": "Expertise",
-        "description": "Über 20 Jahre Erfahrung im karibischen Immobilienmarkt"
+        "description": "Over 20 years of Caribbean real estate experience"
       },
       {
         "title": "Trust",
-        "description": "Lizenziert und reguliert mit nachgewiesener Erfolgsbilanz"
+        "description": "Licensed and regulated with a proven track record"
       },
       {
         "title": "Dedication",
-        "description": "Persönlicher Service, der auf Ihre Bedürfnisse zugeschnitten ist"
+        "description": "Personalized service tailored to your needs"
       },
       {
         "title": "Support",
-        "description": "24/7 Unterstützung während Ihres gesamten Prozesses"
+        "description": "24/7 support throughout your journey"
       }
     ]
   },
@@ -154,43 +154,43 @@
     "activities": [
       {
         "title": "Ocean World Adventure Park",
-        "description": "Es gibt so viel zu tun! Schwimmen Sie mit Delfinen, begegnen Sie Seelöwen, Haien und Stachelrochen. Sie können im selben Becken wie die Tiger schwimmen, nur durch Glas getrennt. Es gibt ein Korallenriff-Aquarium für Schnorchel-Enthusiasten und einen Regenwald, in dem Sie Nashörner, Leguane und ein Vogelschutzgebiet sehen können. Ein einmaliges Erlebnis!",
+        "description": "There is so much to do! Swim with the dolphins, have an encounter with sea lions, sharks and stingrays. You can swim in the same pool as the tigers only separated by glass. There is a coral reef aquarium for snorkeler enthusiasts and a rain forest where you can see rhinoceroses, iguanas and a bird sanctuary. It's a once in a lifetime experience!",
         "website": "www.oceanworld.net",
         "image": "/images/activities/ocean-world.jpg"
       },
       {
         "title": "Monkey Jungle",
-        "description": "Erleben Sie den Nervenkitzel von Ziplining durch das Dschungeldach, während Sie mit freundlichen Totenkopfäffchen interagieren. Dieses einzigartige Öko-Abenteuer verbindet Adrenalin mit Tierbegegnungen in einer sicheren, kontrollierten Umgebung.",
+        "description": "Experience the thrill of zip lining through the jungle canopy while interacting with friendly squirrel monkeys. This unique eco-adventure combines adrenaline with animal encounters in a safe, controlled environment.",
         "website": "www.monkeyjungledr.com",
         "image": "/images/activities/monkey-jungle.jpg"
       },
       {
         "title": "Horseback Riding",
-        "description": "Erkunden Sie die wunderschöne dominikanische Landschaft zu Pferd. Reiten Sie durch üppige Wälder, entlang unberührter Strände und entdecken Sie versteckte Wasserfälle auf geführten Touren, die für alle Erfahrungsstufen geeignet sind.",
+        "description": "Explore the beautiful Dominican countryside on horseback. Ride through lush forests, along pristine beaches, and discover hidden waterfalls on guided tours suitable for all experience levels.",
         "image": "/images/activities/horseback.jpg",
         "contact": "+1 809-555-0123"
       },
       {
         "title": "Kite Surfing",
-        "description": "Cabarete ist weltweit bekannt für seine perfekten Kitesurf-Bedingungen. Egal, ob Sie Anfänger oder Experte sind, unsere zertifizierten Instruktoren helfen Ihnen, den perfekten Wind zu erwischen.",
+        "description": "Cabarete is world-renowned for its perfect kitesurfing conditions. Whether you're a beginner or an expert, our certified instructors will help you catch the perfect wind.",
         "image": "/images/activities/kite-surfing.jpg",
         "contact": "+1 809-555-0124"
       },
       {
         "title": "Paradise Island",
-        "description": "Besuchen Sie eine der schönsten Inseln der Karibik. Schnorcheln Sie in kristallklarem Wasser, entspannen Sie sich an unberührten Stränden und genießen Sie frische Meeresfrüchte in diesem tropischen Paradies.",
+        "description": "Visit one of the most beautiful islands in the Caribbean. Snorkel in crystal clear waters, relax on pristine beaches, and enjoy fresh seafood in this tropical paradise.",
         "image": "/images/activities/paradise-island.jpg",
         "details": "Daily tours available with lunch included"
       },
       {
         "title": "27 Waterfalls of Damajagua",
-        "description": "Erleben Sie ein Abenteuer durch die berühmten 27 Wasserfälle, springen, rutschen und schwimmen Sie durch natürliche Wasserformationen. Ein einzigartiges Erlebnis, das Wandern mit Wasserabenteuern verbindet.",
+        "description": "Adventure through the famous 27 waterfalls, jumping, sliding, and swimming through natural water formations. A unique experience that combines hiking with water adventures.",
         "image": "/images/activities/waterfalls.jpg",
         "website": "www.27charcos.com"
       },
       {
         "title": "Whale Watching with Kim Baddall",
-        "description": "Buckelwale hier in der Samana-Bucht, Dominikanische Republik. Eine einzigartige Gelegenheit, Buckelwale in ihren natürlichen Kalbungs- und Paarungsgebieten zu beobachten. Hören Sie den einsamen Werbegesang der männlichen Buckelwale und erleben Sie unglaubliche Sprünge, Schwanzschläge und Breaching der aktivsten Walart im Atlantik.",
+        "description": "Humpback Whales here in Samana Bay, DR. A unique opportunity to observe humpback whales in their natural calving and mating grounds. Listen to the male humpback's solitary courting song and witness incredible displays of flipping, tail lobbing and breaching by the most active species of whales in the Atlantic.",
         "details": "On board a marine mammal specialist narrating vessel answering questions….it's an experience of a lifetime not to be missed. Dates: January 15 – March 25 from the main town dock in Samana on the Whale Watch vessel \"Pina Mia\"",
         "contact": "809-538-2494",
         "email": "reservations@whalesamana.com",
@@ -198,7 +198,7 @@
       },
       {
         "title": "Andari Spa",
-        "description": "Das ist unser Favorit! Massagen, Physiotherapie, Hot Stone Massage, Körperpeelings, Körperwickel, Gesichtsbehandlungen, Maniküre & Pediküre und Haarentfernung. Es befindet sich im Millennium Resort & Spa, Cabarete.",
+        "description": "This is our favorite! Massage, physiotherapy, hot stone massage, body scrubs, body wraps, facials, manicures & pedicures and hair removal. It's in the Millennium Resort & Spa, Cabarete.",
         "website": "www.andarispa.com",
         "image": "/images/activities/spa.jpg"
       }
@@ -246,6 +246,16 @@
           "weekly": "pro Woche",
           "monthly": "pro Monat",
           "yearly": "pro Jahr"
+        },
+        "price": {
+          "forSale": "[object Object]",
+          "forRent": "[object Object]",
+          "rentalFrequency": {
+            "daily": "[object Object]",
+            "weekly": "[object Object]",
+            "monthly": "[object Object]",
+            "yearly": "[object Object]"
+          }
         },
         "status": {
           "available": "Verfügbar",
@@ -417,30 +427,10 @@
     "forRent": "[object Object]",
     "forSale": "[object Object]",
     "rentalFrequency": {
-      "daily": [
-        {
-          "type": "text",
-          "text": "Tag"
-        }
-      ],
-      "weekly": [
-        {
-          "type": "text",
-          "text": "Woche"
-        }
-      ],
-      "monthly": [
-        {
-          "type": "text",
-          "text": "Monat"
-        }
-      ],
-      "yearly": [
-        {
-          "type": "text",
-          "text": "Jahr"
-        }
-      ]
+      "daily": "[object Object]",
+      "weekly": "[object Object]",
+      "monthly": "[object Object]",
+      "yearly": "[object Object]"
     }
   }
 }

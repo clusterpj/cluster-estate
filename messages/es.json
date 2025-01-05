@@ -63,12 +63,6 @@
         "yearly": "año"
       }
     },
-    "rentalFrequency": {
-      "daily": "día",
-      "weekly": "semana",
-      "monthly": "mes",
-      "yearly": "año"
-    },
     "status": {
       "available": "Disponible",
       "pending": "Pendiente",
@@ -253,6 +247,16 @@
           "monthly": "por mes",
           "yearly": "por año"
         },
+        "price": {
+          "forSale": "[object Object]",
+          "forRent": "[object Object]",
+          "rentalFrequency": {
+            "daily": "[object Object]",
+            "weekly": "[object Object]",
+            "monthly": "[object Object]",
+            "yearly": "[object Object]"
+          }
+        },
         "status": {
           "available": "Disponible",
           "pending": "Pendiente",
@@ -423,30 +427,10 @@
     "forRent": "[object Object]",
     "forSale": "[object Object]",
     "rentalFrequency": {
-      "daily": [
-        {
-          "type": "text",
-          "text": "día"
-        }
-      ],
-      "weekly": [
-        {
-          "type": "text",
-          "text": "semana"
-        }
-      ],
-      "monthly": [
-        {
-          "type": "text",
-          "text": "mes"
-        }
-      ],
-      "yearly": [
-        {
-          "type": "text",
-          "text": "año"
-        }
-      ]
+      "daily": "[object Object]",
+      "weekly": "[object Object]",
+      "monthly": "[object Object]",
+      "yearly": "[object Object]"
     }
   }
 }

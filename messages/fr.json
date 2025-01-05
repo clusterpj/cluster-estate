@@ -40,60 +40,60 @@
     }
   },
   "FeaturedProperties": {
-  "title": "Propriétés en Vedette",
-  "description": "Explorez notre sélection exclusive de propriétés de prestige dans les endroits les plus recherchés des Caraïbes.",
-  "viewDetails": "Voir les Détails",
-  "viewAllProperties": "Voir Toutes les Propriétés",
-  "propertyDetails": {
-    "beds": "Chambres",
-    "baths": "Salles de Bain",
-    "sqft": "pi²",
-    "bedsCount": "{count} Chambres",
-    "bathsCount": "{count} Salles de Bain",
-    "squareFeet": "{value} pi²",
-    "area": "{value} m²"
-  },
-  "price": {
-    "forSale": "À Vendre",
-    "forRent": "À Louer",
-    "rentalFrequency": {
-      "daily": "jour",
-      "weekly": "semaine",
-      "monthly": "mois",
-      "yearly": "année"
+    "title": "Propriétés en Vedette",
+    "description": "Explorez notre sélection exclusive de propriétés de prestige dans les endroits les plus recherchés des Caraïbes.",
+    "viewDetails": "Voir les Détails",
+    "viewAllProperties": "Voir Toutes les Propriétés",
+    "propertyDetails": {
+      "beds": "Chambres",
+      "baths": "Salles de Bain",
+      "sqft": "pi²",
+      "bedsCount": "{count} Chambres",
+      "bathsCount": "{count} Salles de Bain",
+      "squareFeet": "{value} pi²",
+      "area": "{value} m²"
+    },
+    "price": {
+      "forSale": "À Vendre",
+      "forRent": "À Louer",
+      "rentalFrequency": {
+        "daily": "jour",
+        "weekly": "semaine",
+        "monthly": "mois",
+        "yearly": "année"
+      }
+    },
+    "status": {
+      "available": "Disponible",
+      "pending": "En Attente",
+      "sold": "Vendu",
+      "rented": "Loué"
+    },
+    "listingType": {
+      "rent": "Location",
+      "sale": "Vente",
+      "both": "Vente & Location"
     }
   },
-  "status": {
-    "available": "Disponible",
-    "pending": "En Attente",
-    "sold": "Vendu",
-    "rented": "Loué"
-  },
-  "listingType": {
-    "rent": "Location",
-    "sale": "Vente",
-    "both": "Vente & Location"
-  }
-},
   "WhyChooseUs": {
     "title": "Pourquoi nous choisir",
     "description": "Vivez l'excellence de l'immobilier des Caraïbes avec notre équipe dévouée et nos services complets.",
     "features": [
       {
         "title": "Expertise",
-        "description": "Plus de 20 ans d'expérience dans l'immobilier des Caraïbes"
+        "description": "Over 20 years of Caribbean real estate experience"
       },
       {
         "title": "Trust",
-        "description": "Agréé et réglementé avec un historique vérifié"
+        "description": "Licensed and regulated with a proven track record"
       },
       {
         "title": "Dedication",
-        "description": "Service personnalisé adapté à vos besoins spécifiques"
+        "description": "Personalized service tailored to your needs"
       },
       {
         "title": "Support",
-        "description": "Assistance 24/7 pendant tout votre processus"
+        "description": "24/7 support throughout your journey"
       }
     ]
   },
@@ -104,16 +104,16 @@
     "exploreLocation": "Explorez l'emplacement",
     "locations": [
       {
-        "description": "Découvrez le paradis avec des plages magnifiques et des montagnes luxuriantes"
+        "description": "Discover paradise with stunning beaches and lush mountains"
       },
       {
-        "description": "Vivez le luxe dans ce havre tropical"
+        "description": "Experience luxury living in this tropical haven"
       },
       {
-        "description": "Trouvez votre maison de rêve dans cette culture caribéenne vibrante"
+        "description": "Find your dream home in this vibrant Caribbean culture"
       },
       {
-        "description": "Le paradis retrouvé dans des eaux cristallines"
+        "description": "Paradise found in crystal clear waters"
       }
     ]
   },
@@ -154,51 +154,51 @@
     "activities": [
       {
         "title": "Ocean World Adventure Park",
-        "description": "Il y a tellement à faire ! Nagez avec les dauphins, rencontrez des lions de mer, des requins et des raies. Vous pouvez nager dans le même bassin que les tigres, séparés seulement par une vitre. Il y a un aquarium de récif corallien pour les amateurs de snorkeling et une forêt tropicale où vous pouvez voir des rhinocéros, des iguanes et un sanctuaire d'oiseaux. Une expérience unique en son genre !",
+        "description": "There is so much to do! Swim with the dolphins, have an encounter with sea lions, sharks and stingrays. You can swim in the same pool as the tigers only separated by glass. There is a coral reef aquarium for snorkeler enthusiasts and a rain forest where you can see rhinoceroses, iguanas and a bird sanctuary. It's a once in a lifetime experience!",
         "website": "www.oceanworld.net",
         "image": "/images/activities/ocean-world.jpg"
       },
       {
         "title": "Monkey Jungle",
-        "description": "Vivez l'excitation de la tyrolienne à travers la canopée de la jungle tout en interagissant avec des singes écureuils amicaux. Cette aventure éco-touristique unique combine l'adrénaline avec des rencontres animales dans un environnement sûr et contrôlé.",
+        "description": "Experience the thrill of zip lining through the jungle canopy while interacting with friendly squirrel monkeys. This unique eco-adventure combines adrenaline with animal encounters in a safe, controlled environment.",
         "website": "www.monkeyjungledr.com",
         "image": "/images/activities/monkey-jungle.jpg"
       },
       {
         "title": "Horseback Riding",
-        "description": "Explorez la magnifique campagne dominicaine à cheval. Parcourez des forêts luxuriantes, le long de plages immaculées et découvrez des cascades cachées lors de visites guidées adaptées à tous les niveaux d'expérience.",
+        "description": "Explore the beautiful Dominican countryside on horseback. Ride through lush forests, along pristine beaches, and discover hidden waterfalls on guided tours suitable for all experience levels.",
         "image": "/images/activities/horseback.jpg",
         "contact": "+1 809-555-0123"
       },
       {
         "title": "Kite Surfing",
-        "description": "Cabarete est mondialement connue pour ses conditions de kitesurf parfaites. Que vous soyez débutant ou expert, nos instructeurs certifiés vous aideront à attraper le vent parfait.",
+        "description": "Cabarete is world-renowned for its perfect kitesurfing conditions. Whether you're a beginner or an expert, our certified instructors will help you catch the perfect wind.",
         "image": "/images/activities/kite-surfing.jpg",
         "contact": "+1 809-555-0124"
       },
       {
         "title": "Paradise Island",
-        "description": "Visitez l'une des plus belles îles des Caraïbes. Faites du snorkeling dans des eaux cristallines, détendez-vous sur des plages immaculées et dégustez des fruits de mer frais dans ce paradis tropical.",
+        "description": "Visit one of the most beautiful islands in the Caribbean. Snorkel in crystal clear waters, relax on pristine beaches, and enjoy fresh seafood in this tropical paradise.",
         "image": "/images/activities/paradise-island.jpg",
-        "details": "Visites quotidiennes disponibles avec déjeuner inclus"
+        "details": "Daily tours available with lunch included"
       },
       {
         "title": "27 Waterfalls of Damajagua",
-        "description": "Aventurez-vous à travers les célèbres 27 cascades, sautez, glissez et nagez à travers des formations naturelles d'eau. Une expérience unique qui combine la randonnée avec des aventures aquatiques.",
+        "description": "Adventure through the famous 27 waterfalls, jumping, sliding, and swimming through natural water formations. A unique experience that combines hiking with water adventures.",
         "image": "/images/activities/waterfalls.jpg",
         "website": "www.27charcos.com"
       },
       {
         "title": "Whale Watching with Kim Baddall",
-        "description": "Baleines à bosse ici dans la baie de Samana, en République dominicaine. Une opportunité unique d'observer les baleines à bosse dans leurs zones naturelles de reproduction et de mise bas. Écoutez le chant de cour solitaire du mâle baleine à bosse et assistez à des démonstrations incroyables de sauts, de coups de queue et de brèches par l'espèce de baleine la plus active de l'Atlantique.",
-        "details": "À bord d'un navire avec un spécialiste des mammifères marins qui raconte et répond aux questions... c'est une expérience unique à ne pas manquer. Dates : du 15 janvier au 25 mars depuis le quai principal de Samana sur le navire d'observation des baleines \"Pina Mia\"",
+        "description": "Humpback Whales here in Samana Bay, DR. A unique opportunity to observe humpback whales in their natural calving and mating grounds. Listen to the male humpback's solitary courting song and witness incredible displays of flipping, tail lobbing and breaching by the most active species of whales in the Atlantic.",
+        "details": "On board a marine mammal specialist narrating vessel answering questions….it's an experience of a lifetime not to be missed. Dates: January 15 – March 25 from the main town dock in Samana on the Whale Watch vessel \"Pina Mia\"",
         "contact": "809-538-2494",
         "email": "reservations@whalesamana.com",
         "image": "/images/activities/whale-watching.jpg"
       },
       {
         "title": "Andari Spa",
-        "description": "C'est notre préféré ! Massages, physiothérapie, massage aux pierres chaudes, gommages corporels, enveloppements corporels, soins du visage, manucures et pédicures, et épilation. Situé au Millennium Resort & Spa, Cabarete.",
+        "description": "This is our favorite! Massage, physiotherapy, hot stone massage, body scrubs, body wraps, facials, manicures & pedicures and hair removal. It's in the Millennium Resort & Spa, Cabarete.",
         "website": "www.andarispa.com",
         "image": "/images/activities/spa.jpg"
       }
@@ -246,6 +246,16 @@
           "weekly": "par semaine",
           "monthly": "par mois",
           "yearly": "par année"
+        },
+        "price": {
+          "forSale": "[object Object]",
+          "forRent": "[object Object]",
+          "rentalFrequency": {
+            "daily": "[object Object]",
+            "weekly": "[object Object]",
+            "monthly": "[object Object]",
+            "yearly": "[object Object]"
+          }
         },
         "status": {
           "available": "Disponible",
@@ -417,30 +427,10 @@
     "forRent": "[object Object]",
     "forSale": "[object Object]",
     "rentalFrequency": {
-      "daily": [
-        {
-          "type": "text",
-          "text": "jour"
-        }
-      ],
-      "weekly": [
-        {
-          "type": "text",
-          "text": "semaine"
-        }
-      ],
-      "monthly": [
-        {
-          "type": "text",
-          "text": "mois"
-        }
-      ],
-      "yearly": [
-        {
-          "type": "text",
-          "text": "année"
-        }
-      ]
+      "daily": "[object Object]",
+      "weekly": "[object Object]",
+      "monthly": "[object Object]",
+      "yearly": "[object Object]"
     }
   }
 }
