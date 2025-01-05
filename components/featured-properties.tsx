@@ -25,11 +25,30 @@ function PriceDisplay({ property }: { property: Property }) {
   const t = useTranslations('FeaturedProperties');
 
   
+  // Helper function to safely get translations
+  const safeTranslate = (key: string, params?: Record<string, any>) => {
+    try {
+      return t(key, params);
+    } catch (error) {
+      console.warn(`Missing translation for key: ${key}`);
+      // Return a default value based on the key
+      const defaults: Record<string, string> = {
+        'price.forSale': 'For Sale',
+        'price.forRent': 'For Rent',
+        'price.rentalFrequency.daily': 'day',
+        'price.rentalFrequency.weekly': 'week',
+        'price.rentalFrequency.monthly': 'month',
+        'price.rentalFrequency.yearly': 'year'
+      };
+      return defaults[key] || key;
+    }
+  };
+
   const renderPrice = () => {
     if (property.listing_type === 'sale' && property.sale_price) {
       return (
         <div>
-          <span className="text-sm text-muted-foreground">{t('price.forSale')}: </span>
+          <span className="text-sm text-muted-foreground">{safeTranslate('price.forSale')}: </span>
           <span>${formatPrice(property.sale_price)}</span>
         </div>
       );
@@ -37,10 +56,10 @@ function PriceDisplay({ property }: { property: Property }) {
 
     if (property.listing_type === 'rent' && property.rental_price) {
       const frequency = property.rental_frequency ? 
-        t(`price.rentalFrequency.${property.rental_frequency}`) : '';
+        safeTranslate(`price.rentalFrequency.${property.rental_frequency}`) : '';
       return (
         <div>
-          <span className="text-sm text-muted-foreground">{t('price.forRent')}: </span>
+          <span className="text-sm text-muted-foreground">{safeTranslate('price.forRent')}: </span>
           <span>${formatPrice(property.rental_price)}</span>
           {frequency && <span className="text-sm text-muted-foreground">/{frequency}</span>}
         </div>
@@ -49,15 +68,15 @@ function PriceDisplay({ property }: { property: Property }) {
 
     if (property.listing_type === 'both' && property.sale_price && property.rental_price) {
       const frequency = property.rental_frequency ? 
-        t(`price.rentalFrequency.${property.rental_frequency}`) : '';
+        safeTranslate(`price.rentalFrequency.${property.rental_frequency}`) : '';
       return (
         <div className="space-y-1">
           <div>
-            <span className="text-sm text-muted-foreground">{t('price.forSale')}: </span>
+            <span className="text-sm text-muted-foreground">{safeTranslate('price.forSale')}: </span>
             <span>${formatPrice(property.sale_price)}</span>
           </div>
           <div>
-            <span className="text-sm text-muted-foreground">{t('price.forRent')}: </span>
+            <span className="text-sm text-muted-foreground">{safeTranslate('price.forRent')}: </span>
             <span>${formatPrice(property.rental_price)}</span>
             {frequency && <span className="text-sm text-muted-foreground">/{frequency}</span>}
           </div>
