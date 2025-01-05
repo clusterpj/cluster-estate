@@ -2272,3 +2272,326 @@
 
 # 2025-01-04 15:13:26.687539
 +y
+
+# 2025-01-05 15:25:48.638356
++I want to revise the multilingual configuration on the project can you help me 
+
+# 2025-01-05 15:26:05.214262
++a
+
+# 2025-01-05 15:28:16.735492
++/token
+
+# 2025-01-05 15:29:15.839510
++/add components\featured-properties.tsx
+
+# 2025-01-05 15:30:31.009834
++I am having some issue with the featured properties component, the translations are not beign applied correctly when i change languagesall i see is the [obejct object] whe there translation should be, i am not sure how to fix it 
+
+# 2025-01-05 15:32:30.248713
++
++Please help me fic this issue on the translation script  All required environment variables are set
++
++node:internal/modules/run_main:122
++    triggerUncaughtException(
++    ^
++Error: Transform failed with 1 error:
++C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\scripts\translate-messages.ts:220:12: ERROR: The symbol "existingTranslations" has already been declared
++    at failureErrorWithLog (C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\node_modules\.pnpm\esbuild@0.23.1\node_modules\esbuild\lib\main.js:1476:15)
++    at C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\node_modules\.pnpm\esbuild@0.23.1\node_modules\esbuild\lib\main.js:755:50
++    at responseCallbacks.<computed> (C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\node_modules\.pnpm\esbuild@0.23.1\node_modules\esbuild\lib\main.js:622:9)
++    at handleIncomingPacket (C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\node_modules\.pnpm\esbuild@0.23.1\node_modules\esbuild\lib\main.js:677:12)
++    at Socket.readFromStdout (C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\node_modules\.pnpm\esbuild@0.23.1\node_modules\esbuild\lib\main.js:600:7)
++    at Socket.emit (node:events:524:28)
++    at addChunk (node:internal/streams/readable:561:12)
++    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
++    at Readable.push (node:internal/streams/readable:392:5)
++    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
++  name: 'TransformError'
++}
++
++Node.js v22.12.0
++ELIFECYCLE Command failed with exit code 1.
+
+# 2025-01-05 15:33:08.404045
++/add messages\en.json
+
+# 2025-01-05 15:33:55.245872
++Please revise the current configuration of the en.json file to make sure the translation keys for the fatured properties are added correclty and are ready for translation with the translate script 
+
+# 2025-01-05 15:34:46.834547
++So if i run the translate script it will add these translation correclty formatted on the other languages?
+
+# 2025-01-05 15:35:32.733731
++i still have issues with the translation scrip PS C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate> pnpm run translate
++
++> cluster-estate@0.1.0 translate C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate
++> npm run verify-env && tsx scripts/translate-messages.ts
++
++
++> cluster-estate@0.1.0 verify-env
++> tsx scripts/verify-env.ts
++
++ All required environment variables are set
++(node:14856) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
++(Use `node --trace-deprecation ...` to show where the warning was created)
++
++Processing translations for es...
++Translation error: ReferenceError: existingTranslations is not defined
++    at translateMessages (C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\scripts\translate-messages.ts:230:7)
++ELIFECYCLE Command failed with exit code 1.
++PS C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate>
+
+# 2025-01-05 15:35:39.258242
++y
+
+# 2025-01-05 15:39:35.558894
++/paste
+
+# 2025-01-05 15:40:11.069349
++SOmething is not right because when i change languages i don't see the translation ont eh featured properties section please see the image i shared so you can understand the issue 
+
+# 2025-01-05 15:43:17.509473
++The issue still persists nothisn changed
+
+# 2025-01-05 15:44:10.094255
++Build Error
++
++Failed to compile
++Next.js (14.2.16) is outdated (learn more)
++./components/featured-properties.tsx:34:31
++
++Module not found: Can't resolve '../../messages/en.json'
++  32 |       console.warn(`Missing translation for key: ${key}`);
++  33 |       // Try to get the English fallback
++> 34 |       const englishMessages = require('../../messages/en.json');
++     |                               ^
++  35 |       const namespaceMessages = englishMessages['FeaturedProperties'];
++  36 |       return namespaceMessages?.[key] || key;
++  37 |     }
++
++https://nextjs.org/docs/messages/module-not-found
+
+# 2025-01-05 15:44:12.896207
++n
+
+# 2025-01-05 15:45:06.721431
++Build Error
++
++Failed to compile
++Next.js (14.2.16) is outdated (learn more)
++./lib/utils.ts:3:1
++
++Module not found: Can't resolve 'fs'
++  1 | import { clsx, type ClassValue } from "clsx"
++  2 | import { twMerge } from "tailwind-merge"
++> 3 | import { readFileSync } from 'fs';
++    | ^
++  4 | import path from 'path';
++  5 |
++  6 | export function cn(...inputs: ClassValue[]) {
++
++https://nextjs.org/docs/messages/module-not-found
++
++Import trace for requested module:
++./components/header.tsx
+
+# 2025-01-05 15:47:12.346091
++
++
+
+# 2025-01-05 15:49:46.159911
++I still see the pricing section as [object Object]: $250K
++[object Object]: $150/día in spanish and other languages we must be missing the key for these 
+
+# 2025-01-05 15:51:40.619694
++on english i am not seeing this FeaturedProperties.price.forSale: $250K
++FeaturedProperties.price.forRent: $150/FeaturedProperties.price.rentalFrequency.daily
+
+# 2025-01-05 15:52:29.082435
++Error: MISSING_MESSAGE: Could not resolve `FeaturedProperties.price.rentalFrequency.daily` in messages for locale `en`.
++    IntlError webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.1_react@18.3.1/node_modules/use-intl/dist/development/initializeConfig-BhfMSHP7.js:44
++    getFallbackFromErrorAndNotify webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.1_react@18.3.1/node_modules/use-intl/dist/development/createFormatter-QqAaZwGD.js:159
++    translateBaseFn webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.1_react@18.3.1/node_modules/use-intl/dist/development/createFormatter-QqAaZwGD.js:184
++    translateFn webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.1_react@18.3.1/node_modules/use-intl/dist/development/createFormatter-QqAaZwGD.js:258
++    renderPrice webpack-internal:///(app-pages-browser)/./components/featured-properties.tsx:119
++    PriceDisplay webpack-internal:///(app-pages-browser)/./components/featured-properties.tsx:203
++    React 8
++    workLoop webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/scheduler/cjs/scheduler.development.js:256
++    flushWork webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/scheduler/cjs/scheduler.development.js:225
++    performWorkUntilDeadline webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/scheduler/cjs/scheduler.development.js:534
++    EventHandlerNonNull* webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/scheduler/cjs/scheduler.development.js:569
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/scheduler/cjs/scheduler.development.js:630
++    NextJS 4
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/scheduler/index.js:4
++    NextJS 4
++    React 2
++    NextJS 4
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/react-dom/index.js:32
++    NextJS 4
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/react-dom/client.js:3
++    NextJS 4
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-index.js:15
++    NextJS 4
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-next-dev.js:9
++    appBootstrap webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-bootstrap.js:57
++    loadScriptsInSequence webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-bootstrap.js:23
++    appBootstrap webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-bootstrap.js:56
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-next-dev.js:8
++    NextJS 7
++ Component Stack: 
++    PriceDisplay webpack-internal:///(app-pages-browser)/./components/featured-properties.tsx:40
++    div unknown:0
++    _c8 webpack-internal:///(app-pages-browser)/./components/ui/card.tsx:74
++    div unknown:0
++    _c webpack-internal:///(app-pages-browser)/./components/ui/card.tsx:18
++    div unknown:0
++    MotionComponent webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/framer-motion@11.15.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/framer-motion/dist/es/motion/index.mjs:53
++    div unknown:0
++    MotionComponent webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/framer-motion@11.15.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/framer-motion/dist/es/motion/index.mjs:53
++    div unknown:0
++    section unknown:0
++    FeaturedProperties webpack-internal:///(app-pages-browser)/./components/featured-properties.tsx:258
++    main unknown:0
++    Home [Server] unknown:0
++    InnerLayoutRouter webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:244
++    RedirectErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:74
++    RedirectBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:82
++    NotFoundBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:84
++    LoadingBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:349
++    ErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/error-boundary.js:160
++    InnerScrollAndFocusHandler webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:153
++    ScrollAndFocusHandler webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:228
++    RenderFromTemplateContext webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/render-from-template-context.js:16
++    OuterLayoutRouter webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:370
++    main unknown:0
++    div unknown:0
++    AuthProvider webpack-internal:///(app-pages-browser)/./components/providers/auth-provider.tsx:19
++    Provider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-context@1.1.1_@types+react@18.3.17_react@18.3.1/node_modules/@radix-ui/react-context/dist/index.mjs:34
++    Provider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-context@1.1.1_@types+react@18.3.17_react@18.3.1/node_modules/@radix-ui/react-context/dist/index.mjs:34
++    CollectionProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-collection@1.1.1_@types+react-dom@18.3.5_@types+react@18.3.17__@types+react@1_xswdi3y5wrzozf2mwwwdkxzsii/node_modules/@radix-ui/react-collection/dist/index.mjs:28
++    ToastProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-toast@1.2.3_@types+react-dom@18.3.5_@types+react@18.3.17__@types+react@18.3.1_gryt6enydjjccqonwa467envoa/node_modules/@radix-ui/react-toast/dist/index.mjs:59
++    _ webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next-themes@0.4.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next-themes/dist/index.mjs:54
++    J webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next-themes@0.4.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next-themes/dist/index.mjs:47
++    ThemeProvider webpack-internal:///(app-pages-browser)/./components/theme-provider.tsx:13
++    Providers webpack-internal:///(app-pages-browser)/./components/providers/providers.tsx:16
++    IntlProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.1_react@18.3.1/node_modules/use-intl/dist/development/_IntlProvider.js:25
++    r NextJS
++    i [Server] unknown:0
++    LocaleLayout [Server] unknown:0
++    InnerLayoutRouter webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:244
++    RedirectErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:74
++    RedirectBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:82
++    NotFoundErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:76
++    NotFoundBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:84
++    LoadingBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:349
++    ErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/error-boundary.js:160
++    InnerScrollAndFocusHandler webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:153
++    ScrollAndFocusHandler webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:228
++    RenderFromTemplateContext webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/render-from-template-context.js:16
++    OuterLayoutRouter webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:370
++    body unknown:0
++    html unknown:0
++    RootLayout [Server] unknown:0
++    RedirectErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:74
++    RedirectBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:82
++    NotFoundErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:76
++    NotFoundBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:84
++    DevRootNotFoundBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/dev-root-not-found-boundary.js:33
++    ReactDevOverlay webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/react-dev-overlay/app/ReactDevOverlay.js:87
++    HotReload webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:321
++    Router webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/app-router.js:207
++    ErrorBoundaryHandler webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/error-boundary.js:113
++    ErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/error-boundary.js:160
++    AppRouter webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/app-router.js:585
++    ServerRoot webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-index.js:112
++    Root webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-index.js:117
++<anonymous code>:1:145535
++    overrideMethod <anonymous code>:1
++    error app-index.tsx:25
++    error hydration-error-info.ts:72
++    defaultOnError initializeConfig-BhfMSHP7.js:70
++    getFallbackFromErrorAndNotify createFormatter-QqAaZwGD.js:160
++    translateBaseFn createFormatter-QqAaZwGD.js:184
++    translateFn createFormatter-QqAaZwGD.js:258
++    renderPrice featured-properties.tsx:52
++    PriceDisplay featured-properties.tsx:73
++    renderWithHooks react-dom.development.js:11121
++    mountIndeterminateComponent react-dom.development.js:16869
++    beginWork$1 react-dom.development.js:18458
++    beginWork react-dom.development.js:26927
++    performUnitOfWork react-dom.development.js:25748
++    workLoopSync react-dom.development.js:25464
++    renderRootSync react-dom.development.js:25419
++    performConcurrentWorkOnRoot react-dom.development.js:24504
++    workLoop scheduler.development.js:256
++    flushWork scheduler.development.js:225
++    performWorkUntilDeadline scheduler.development.js:534
++    (Async: EventHandlerNonNull)
++    <anonymous> scheduler.development.js:569
++    <anonymous> scheduler.development.js:630
++    NextJS 4
++    <anonymous> index.js:4
++    NextJS 4
++    <anonymous> react-dom.development.js:27
++    <anonymous> react-dom.development.js:38595
++    NextJS 4
++    <anonymous> index.js:32
++    NextJS 4
++    <anonymous> client.js:3
++    NextJS 4
++    <anonymous> app-index.js:15
++    NextJS 4
++    <anonymous> app-next-dev.js:9
++    appBootstrap app-bootstrap.ts:61
++    loadScriptsInSequence app-bootstrap.ts:20
++    appBootstrap app-bootstrap.ts:60
++    <anonymous> app-next-dev.js:8
++    NextJS 7
+
+# 2025-01-05 15:55:15.765397
++We are still having the issue why i see on english is the actual key and not the word on englisj Error: MISSING_MESSAGE: Could not resolve `FeaturedProperties.price.rentalFrequency.daily` in messages for locale `en`.
+
+# 2025-01-05 15:59:43.118099
++Please make sure that they keys are added correclty on english because i still see this on the pricing informationFeaturedProperties.price.forSale: $250K
++FeaturedProperties.price.forRent: $150/FeaturedProperties.price.rentalFrequency.daily
+
+# 2025-01-05 16:03:23.442564
++/add messages\es.json
+
+# 2025-01-05 16:03:40.318290
++Now please properly edit the es messages for the featured section 
+
+# 2025-01-05 16:05:08.599640
++Now please doe the same for the fr and de languages
+
+# 2025-01-05 16:06:29.993110
++/add messages\fr.json messages\de.json
+
+# 2025-01-05 16:06:58.143026
++Now please update the fr and de messages with the correct trabnslations
+
+# 2025-01-05 16:21:35.381047
++
++
++
++n
+
+# 2025-01-05 16:21:40.818276
++n
+
+# 2025-01-05 16:29:59.763027
++Now please update the french messages with all translations properly. Add what is missing from the english messages to the french messages 
+
+# 2025-01-05 16:34:59.690799
++n
+
+# 2025-01-05 16:39:41.463922
++I am still having an issue with the french translations when i switch to french the features properties section on the homepgae gives me these FeaturedProperties.price.forSale: $250K
++FeaturedProperties.price.forRent: $150/FeaturedProperties.price.rentalFrequency.daily i have added the translations to the fr.json messages so something else must be going on 
+
+# 2025-01-05 16:51:44.798958
++/drop
+
+# 2025-01-05 16:51:50.671096
++/clear

@@ -31,7 +31,6 @@
       "activities": {
         "title": "Activités aquatiques",
         "description": "Accès à des activités nautiques de classe mondiale : voile, plongée et sports nautiques"
-        "description": "Accès à des activités nautiques de classe mondiale : voile, plongée et sports nautiques"
       }
     },
     "cta": {
@@ -41,109 +40,41 @@
     }
   },
   "FeaturedProperties": {
-    "title": "Propriétés en vedette",
-    "description": "Découvrez notre sélection exclusive de propriétés haut de gamme dans les destinations les plus prisées des Caraïbes.",
-    "description": "Explora nuestra selección exclusiva de propiedades premium en los destinos más codiciados del Caribe.",
-    "viewDetails": "Voir Détails",
-    "viewAllProperties": "Voir Toutes les Propriétés",
-    "propertyDetails": {
-      "beds": "Lits",
-      "baths": "Bains",
-      "sqft": "pied carré",
-      "bedsCount": [
-        {
-          "type": "text",
-          "text": "{count} Lits"
-        }
-      ],
-      "bathsCount": [
-        {
-          "type": "text",
-          "text": "{count} Salles de Bain"
-        }
-      ],
-      "squareFeet": [
-        {
-          "type": "text",
-          "text": "{value} m²"
-        }
-      ],
-      "area": [
-        {
-          "type": "text",
-          "text": "{value} m²"
-        }
-      ]
-    },
-    "forSale": "[object Object]",
-    "forRent": "[object Object]",
+  "title": "Propriétés en Vedette",
+  "description": "Explorez notre sélection exclusive de propriétés de prestige dans les endroits les plus recherchés des Caraïbes.",
+  "viewDetails": "Voir les Détails",
+  "viewAllProperties": "Voir Toutes les Propriétés",
+  "propertyDetails": {
+    "beds": "Chambres",
+    "baths": "Salles de Bain",
+    "sqft": "pi²",
+    "bedsCount": "{count} Chambres",
+    "bathsCount": "{count} Salles de Bain",
+    "squareFeet": "{value} pi²",
+    "area": "{value} m²"
+  },
+  "price": {
+    "forSale": "À Vendre",
+    "forRent": "À Louer",
     "rentalFrequency": {
       "daily": "jour",
       "weekly": "semaine",
       "monthly": "mois",
       "yearly": "année"
-    },
-    "status": {
-      "available": "Disponible",
-      "pending": "En attente",
-      "sold": "Vendu",
-      "rented": "[object Object]"
-    },
-    "listingType": {
-      "rent": [
-        {
-          "type": "text",
-          "text": "À Louer"
-        }
-      ],
-      "sale": [
-        {
-          "type": "text",
-          "text": "À Vendre"
-        }
-      ],
-      "both": [
-        {
-          "type": "text",
-          "text": "Vente et Location"
-        }
-      ]
-    },
-    "price": {
-      "from": [
-        {
-          "type": "text",
-          "text": "À partir de"
-        }
-      ],
-      "startingAt": [
-        {
-          "type": "text",
-          "text": "À partir de"
-        }
-      ],
-      "priceOnRequest": [
-        {
-          "type": "text",
-          "text": "Prix sur demande"
-        }
-      ]
-    },
-    "currency": {
-      "usd": [
-        {
-          "type": "text",
-          "text": "$US"
-        }
-      ],
-      "eur": [
-        {
-          "type": "text",
-          "text": "€"
-        }
-      ]
     }
   },
+  "status": {
+    "available": "Disponible",
+    "pending": "En Attente",
+    "sold": "Vendu",
+    "rented": "Loué"
+  },
+  "listingType": {
+    "rent": "Location",
+    "sale": "Vente",
+    "both": "Vente & Location"
+  }
+},
   "WhyChooseUs": {
     "title": "Pourquoi nous choisir",
     "description": "Vivez l'excellence de l'immobilier des Caraïbes avec notre équipe dévouée et nos services complets.",
