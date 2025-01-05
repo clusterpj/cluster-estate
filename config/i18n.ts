@@ -17,4 +17,3 @@ export function isValidLocale(locale: string): locale is Locale {
 export function getLocaleDisplayName(locale: Locale): string {
   return SUPPORTED_LOCALES[locale];
 }
-export type Locale = (typeof locales)[number];
