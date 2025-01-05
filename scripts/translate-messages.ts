@@ -47,6 +47,11 @@ function normalizeTranslation(value: any): any {
     return '';
   }
 
+  // Preserve objects with placeholders
+  if (typeof value === 'string' && (value.includes('{count}') || value.includes('{value}'))) {
+    return value;
+  }
+
   return value;
 }
 
