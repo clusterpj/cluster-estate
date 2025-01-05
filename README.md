@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cluster Estate Platform 🏢
 
-## Getting Started
+A high-end real estate platform connecting international buyers with luxury properties on the North Coast of the Dominican Republic. Built with Next.js and focused on delivering an exceptional user experience for property browsing and inquiry management.
 
-First, run the development server:
+## 🌟 Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Cluster Estate is a Progressive Web App (PWA) designed to showcase luxury properties in premier locations along the Dominican Republic's North Coast:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* **Sosua** - Known for its beautiful beaches and vibrant expat community
+* **Cabarete (Puerto Plata)** - World-famous for water sports and coastal living
+* **Las Terrenas (Samana)** - Offering pristine beaches and European charm
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### For Buyers
 
-## Learn More
+* **Multilingual Interface**
+  - Support for English, French, German, and Spanish
+  - Seamless language switching
+  - Localized content and descriptions
 
-To learn more about Next.js, take a look at the following resources:
+* **Property Search & Discovery**
+  - Advanced filtering options
+  - Interactive map view
+  - Saved searches with notifications
+  - Virtual tours and high-quality media
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* **User Experience**
+  - Mobile-first responsive design
+  - Offline capability via PWA
+  - Property comparison tools
+  - Favorite properties list
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### For Administrators
 
-## Deploy on Vercel
+* **Listing Management**
+  - Bulk property uploads
+  - Media optimization
+  - SEO tools and analytics
+  - Inquiry tracking system
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* **Analytics & Reporting**
+  - User behavior tracking
+  - Lead conversion metrics
+  - Performance dashboards
+  - Market trend analysis
