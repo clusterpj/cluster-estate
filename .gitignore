@@ -39,3 +39,6 @@ next-env.d.ts
 .aider.input.history
 .aider.conf.yml
 .aider.chat.history.md
+.aider.tags.cache.v3/cache.db
+.aider.tags.cache.v3/cache.db-shm
+.aider.tags.cache.v3/cache.db-wal
