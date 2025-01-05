@@ -2,7 +2,7 @@ import createMiddleware from 'next-intl/middleware';
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { defaultLocale, locales, type Locale } from './config/i18n'; // Added Locale type import
+import { defaultLocale, locales, type Locale } from './config/i18n';
 
 // Define route access levels
 const publicPages = [
@@ -12,9 +12,9 @@ const publicPages = [
     '/contact', 
     '/auth/login', 
     '/auth/register',
-    '/properties/', // Add this to allow access to individual property pages
-    '/blog',       // If you have a blog
-    '/locations'   // If you have a locations page
+    '/properties/[id]', // Add this to allow access to individual property pages
+    '/blog',       
+    '/locations'   
 ];
 const protectedPages = ['/profile', '/favorites'];
 const adminPages = ['/admin'];
@@ -23,7 +23,7 @@ const adminPages = ['/admin'];
 const intlMiddleware = createMiddleware({
   locales,
   defaultLocale,
-  localePrefix: 'as-needed',
+  localePrefix: 'always', // Changed from 'as-needed' to 'always'
   localeDetection: true
 });
 
@@ -49,6 +49,12 @@ export default async function middleware(req: NextRequest) {
   if (pathLocale && !pathnameHasLocale) {
     return NextResponse.redirect(new URL(`/${defaultLocale}${pathname}`, req.url));
   }
+
+  // Ensure locale is always present in the URL
+  if (!pathnameHasLocale) {
+    return NextResponse.redirect(new URL(`/${defaultLocale}${pathname}`, req.url));
+  }
+
   const pathWithoutLocale = pathnameHasLocale
     ? `/${pathname.split('/').slice(2).join('/')}`
     : pathname;
