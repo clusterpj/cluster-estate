@@ -31,6 +31,29 @@ The booking system requires the following tables:
 - `properties` (with rental-specific fields)
 - `bookings` (for storing booking information)
 
+### Bookings Table Schema
+
+```sql
+CREATE TABLE bookings (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  property_id UUID REFERENCES properties(id) ON DELETE CASCADE,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  check_in DATE NOT NULL,
+  check_out DATE NOT NULL,
+  guests INT NOT NULL CHECK (guests > 0),
+  total_price NUMERIC(10, 2) NOT NULL,
+  payment_status TEXT NOT NULL DEFAULT 'pending',
+  payment_id TEXT, -- PayPal payment ID
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Indexes for faster queries
+CREATE INDEX idx_bookings_property_id ON bookings(property_id);
+CREATE INDEX idx_bookings_user_id ON bookings(user_id);
+CREATE INDEX idx_bookings_dates ON bookings(check_in, check_out);
+```
+
 Apply the migrations:
 
 ```bash
@@ -46,6 +69,34 @@ pnpm supabase migration up
 - Email notifications (coming soon)
 
 ## Usage
+
+### Booking Types
+
+```typescript
+export type BookingStatus = 'pending' | 'confirmed' | 'cancelled' | 'completed';
+
+export interface Booking {
+  id: string;
+  property_id: string;
+  user_id: string;
+  check_in: Date;
+  check_out: Date;
+  guests: number;
+  total_price: number;
+  payment_status: BookingStatus;
+  payment_id?: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface CreateBookingPayload {
+  property_id: string;
+  check_in: Date;
+  check_out: Date;
+  guests: number;
+  total_price: number;
+}
+```
 
 ### Creating a Booking
 
