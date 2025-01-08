@@ -6,11 +6,14 @@ import { Bath, Bed, MapPin, Maximize } from "lucide-react"
 import Image from "next/image"
 import { FadeInView } from "@/components/animations/fade-in-view"
 import { useTranslations } from 'next-intl'
-import { Property } from "@/types/supabase"
+import { Property } from "@/types/property"
 import { PriceDisplay } from "@/components/properties/PriceDisplay"
+import { PropertyBooking } from "@/components/properties/PropertyBooking/PropertyBooking"
+import { isPropertyAvailableForBooking } from "@/types/property"
 
 export function PropertyDetails({ property }: { property: Property }) {
   const t = useTranslations('PropertyDetails')
+  const propertyWithAvailability = isPropertyAvailableForBooking(property)
 
   return (
     <div className="py-8">
@@ -68,6 +71,18 @@ export function PropertyDetails({ property }: { property: Property }) {
                 {property.description}
               </p>
             </div>
+
+            {(property.listing_type === 'rent' || property.listing_type === 'both') && (
+              <div className="mt-8">
+                {propertyWithAvailability.isAvailable ? (
+                  <PropertyBooking property={property} />
+                ) : (
+                  <div className="text-muted-foreground">
+                    {propertyWithAvailability.availabilityMessage}
+                  </div>
+                )}
+              </div>
+            )}
           </CardContent>
         </Card>
       </FadeInView>

@@ -1,12 +1,14 @@
 'use client';
 
+import { type ReactNode } from 'react';
 import { ThemeProvider } from '../theme-provider';
 import { AuthProvider } from './auth-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { ToastProvider } from '@/components/ui/toast';
+import { PayPalProvider } from './paypal-provider';
 
 interface ProvidersProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function Providers({ children }: ProvidersProps) {
@@ -19,10 +21,12 @@ export function Providers({ children }: ProvidersProps) {
     >
       <ToastProvider>
         <AuthProvider>
-          <div className="min-h-screen flex flex-col antialiased">
-            {children}
-            <Toaster />
-          </div>
+          <PayPalProvider>
+            <div className="min-h-screen flex flex-col antialiased">
+              {children}
+              <Toaster />
+            </div>
+          </PayPalProvider>
         </AuthProvider>
       </ToastProvider>
     </ThemeProvider>
