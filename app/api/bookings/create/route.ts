@@ -7,11 +7,6 @@ import { PayPalBookingData } from '@/types/booking'
 export async function POST(request: Request) {
   try {
     const bookingData: PayPalBookingData = await request.json()
-
-    // Get authenticated user
-    const supabase = createRouteHandlerClient({ cookies })
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-
     
     // Get authenticated user
     const supabase = createRouteHandlerClient({ cookies })
@@ -51,5 +46,4 @@ export async function POST(request: Request) {
       { status: 500 }
     )
   }
-}
 }
