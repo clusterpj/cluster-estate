@@ -64,7 +64,7 @@ export async function POST(request: Request) {
         user_id: user.id,
         property_id: bookingData.propertyId,
         total_price: bookingData.totalPrice,
-        payment_status: 'pending'
+        payment_status: 'pending_payment'
       })
       .select('*')
       .single()
@@ -126,7 +126,7 @@ export async function POST(request: Request) {
         .from('bookings')
         .update({ 
           payment_id: order.id,
-          payment_status: 'created'
+          payment_status: 'payment_created'
         })
         .eq('id', booking.id)
 
