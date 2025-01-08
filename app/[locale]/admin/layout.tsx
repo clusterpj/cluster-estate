@@ -40,7 +40,7 @@ export default async function AdminLayout({
 
   return (
     <div className="flex">
-      <Sidebar locale={params.locale} />
+      <Sidebar locale={locale} />
       <div className="flex-1 p-6">
         <Suspense fallback={
           <div className="flex min-h-screen items-center justify-center">
