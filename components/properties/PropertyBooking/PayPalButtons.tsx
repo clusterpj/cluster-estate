@@ -23,7 +23,27 @@ export function PayPalButtonsWrapper({
     const script = document.createElement('script')
     script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=${currency}`
     script.async = true
-    script.onload = () => setIsPayPalReady(true)
+    script.onload = () => {
+      // Add error handling for PayPal SDK
+      window.paypal = window.paypal || {}
+      window.paypal.Buttons = window.paypal.Buttons || {}
+      window.paypal.Buttons.driver = window.paypal.Buttons.driver || {}
+      window.paypal.Buttons.driver.logger = {
+        error: console.error,
+        warn: console.warn,
+        info: console.info,
+        debug: console.debug
+      }
+      setIsPayPalReady(true)
+    }
+    script.onerror = () => {
+      console.error('Failed to load PayPal SDK')
+      toast({
+        variant: 'destructive',
+        title: 'Payment Error',
+        description: 'Failed to load payment system'
+      })
+    }
     document.body.appendChild(script)
 
     return () => {
