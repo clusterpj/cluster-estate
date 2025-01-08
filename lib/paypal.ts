@@ -28,6 +28,22 @@ interface PayPalOrderData {
 
 export async function createPayPalOrder(orderData: PayPalOrderData) {
   try {
+    // Ensure we have a valid access token
+    if (!process.env.PAYPAL_ACCESS_TOKEN) {
+      throw new Error('PayPal access token is missing')
+    }
+
+    // Validate order data
+    if (!orderData || !orderData.purchase_units || orderData.purchase_units.length === 0) {
+      throw new Error('Invalid order data')
+    }
+
+    // Ensure amount value is properly formatted
+    const purchaseUnit = orderData.purchase_units[0]
+    if (!purchaseUnit.amount || typeof purchaseUnit.amount.value !== 'string') {
+      throw new Error('Invalid amount format')
+    }
+
     const response = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders', {
       method: 'POST',
       headers: {
