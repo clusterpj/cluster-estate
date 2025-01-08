@@ -113,7 +113,24 @@ export async function POST(request: Request) {
 
       console.log('PayPal order data:', paypalOrderData)
       
-      const order = await createPayPalOrder(paypalOrderData)
+      const order = await createPayPalOrder({
+        intent: 'CAPTURE',
+        purchase_units: [{
+          amount: {
+            currency_code: 'USD',
+            value: bookingData.totalPrice?.toString() || '0.00',
+          },
+          description: `Booking for property ${bookingData.propertyId}`,
+          custom_id: booking.id,
+          invoice_id: `BOOKING-${booking.id}`,
+        }],
+        application_context: {
+          brand_name: 'Cluster Estate',
+          user_action: 'PAY_NOW',
+          return_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/bookings/${booking.id}/success`,
+          cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/bookings/${booking.id}/cancel`,
+        }
+      })
       console.log('PayPal order created:', order)
 
       if (!order || !order.id) {

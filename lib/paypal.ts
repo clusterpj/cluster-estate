@@ -7,7 +7,26 @@ const supabase = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-export async function createPayPalOrder(bookingData: PayPalBookingData) {
+interface PayPalOrderData {
+  intent: string
+  purchase_units: {
+    amount: {
+      currency_code: string
+      value: string
+    }
+    description: string
+    custom_id: string
+    invoice_id: string
+  }[]
+  application_context: {
+    brand_name: string
+    user_action: string
+    return_url: string
+    cancel_url: string
+  }
+}
+
+export async function createPayPalOrder(orderData: PayPalOrderData) {
   try {
     const response = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders', {
       method: 'POST',
@@ -15,18 +34,7 @@ export async function createPayPalOrder(bookingData: PayPalBookingData) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${process.env.PAYPAL_ACCESS_TOKEN}`,
       },
-      body: JSON.stringify({
-        intent: 'CAPTURE',
-        purchase_units: [
-          {
-            amount: {
-              currency_code: 'USD',
-              value: bookingData.totalPrice.toString(),
-            },
-            description: `Booking for property ${bookingData.propertyId}`,
-          },
-        ],
-      }),
+      body: JSON.stringify(orderData),
     })
 
     if (!response.ok) {
