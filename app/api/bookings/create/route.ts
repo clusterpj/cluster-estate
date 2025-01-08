@@ -1,12 +1,11 @@
 import { config } from '@/lib/config'
-import { createPayPalOrder, createBooking } from '@/lib/paypal'
+import { createPayPalOrder } from '@/lib/paypal'
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { PayPalBookingData } from '@/types/booking'
 import { 
   BookingPaymentStatus, 
-  BookingStatus,
   getBookingStatusForPaymentStatus,
   canTransitionPaymentStatus,
   isValidPaymentStatus,
@@ -80,7 +79,7 @@ export async function POST(request: Request) {
         check_in: bookingData.checkIn,
         check_out: bookingData.checkOut,
         guests: bookingData.guests,
-        special_requests: bookingData.special_requests,
+        special_requests: bookingData.specialRequests,
         user_id: user.id,
         property_id: bookingData.propertyId,
         total_price: bookingData.totalPrice,
@@ -193,7 +192,7 @@ export async function POST(request: Request) {
       return NextResponse.json({
         bookingId: booking.id,
         paypalOrderId: order.id,
-        approvalUrl: order.links.find(link => link.rel === 'approve')?.href
+        approvalUrl: order.links.find((link: { rel: string }) => link.rel === 'approve')?.href
       })
     } catch (paypalError) {
       console.error('Error creating PayPal order:', paypalError)

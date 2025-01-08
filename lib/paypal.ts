@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import { Database } from '@/types/database.types'
 import { PayPalBookingData } from '@/types/booking'
-import { BookingPaymentStatus, BookingStatus } from '@/types/booking-status'
+import { BookingPaymentStatus, BookingStatus, canTransitionPaymentStatus, getBookingStatusForPaymentStatus } from '@/types/booking-status'
 
 const supabase = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
