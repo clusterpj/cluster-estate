@@ -7,6 +7,11 @@ import { PayPalBookingData } from '@/types/booking'
 export async function POST(request: Request) {
   try {
     const bookingData: PayPalBookingData = await request.json()
+
+    // Get authenticated user
+    const supabase = createRouteHandlerClient({ cookies })
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+
     
     // Get authenticated user
     const supabase = createRouteHandlerClient({ cookies })
@@ -19,14 +24,24 @@ export async function POST(request: Request) {
       )
     }
 
-    // Create booking in database
-    const booking = await createBooking(bookingData, user.id)
+    // Create booking with RLS check
+    const { data, error } = await supabase
+      .from('bookings')
+      .insert({
+        ...bookingData,
+        user_id: user.id,
+        payment_status: 'pending'
+      })
+      .select()
+      .single()
 
-    // Create PayPal order
+    if (error) throw error
+
+    // Create PayPal order after successful booking creation
     const order = await createPayPalOrder(bookingData)
 
     return NextResponse.json({
-      bookingId: booking.id,
+      bookingId: data.id,
       paypalOrderId: order.id
     })
   } catch (error) {
@@ -36,4 +51,5 @@ export async function POST(request: Request) {
       { status: 500 }
     )
   }
+}
 }
