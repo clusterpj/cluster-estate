@@ -28,6 +28,7 @@ export function PayPalButtonsWrapper({
   const [isCreatingOrder, setIsCreatingOrder] = useState(false)
 
   useEffect(() => {
+    console.log('Initializing PayPal SDK...')
     const script = document.createElement('script')
     script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=${currency}`
     script.async = true
@@ -37,12 +38,14 @@ export function PayPalButtonsWrapper({
     script.setAttribute('data-csp-nonce', 'paypal-nonce')
 
     script.onload = () => {
+      console.log('PayPal SDK loaded successfully')
       setIsPayPalReady(true)
       setIsLoading(false)
       onInit?.()
     }
 
     script.onerror = () => {
+      console.error('Failed to load PayPal SDK')
       setError('Failed to load PayPal SDK')
       setIsLoading(false)
       toast({
@@ -55,6 +58,7 @@ export function PayPalButtonsWrapper({
     document.body.appendChild(script)
 
     return () => {
+      console.log('Cleaning up PayPal SDK')
       document.body.removeChild(script)
     }
   }, [currency, toast, onInit])
@@ -77,10 +81,12 @@ export function PayPalButtonsWrapper({
         <PayPalButtons
           style={{ layout: 'vertical' }}
           createOrder={async (data, actions) => {
+            console.log('Creating PayPal order...')
           createOrder={(data, actions) => {
             try {
               setIsCreatingOrder(true)
               return actions.order.create({
+              const order = await actions.order.create({
                 purchase_units: [{
                   amount: {
                     value: totalPrice.toString(),
@@ -102,7 +108,10 @@ export function PayPalButtonsWrapper({
                   }]
                 }]
               })
+              console.log('PayPal order created successfully:', order)
+              return order
             } catch (err) {
+              console.error('Error creating PayPal order:', err)
               setError('Failed to create payment order')
               setIsCreatingOrder(false)
               throw err
@@ -111,10 +120,15 @@ export function PayPalButtonsWrapper({
             }
           }}
           onApprove={async (data, actions) => {
+            console.log('PayPal payment approved:', data)
             try {
               await actions.order?.capture()
+              console.log('Capturing PayPal payment...')
+              const captureData = await actions.order?.capture()
+              console.log('Payment captured successfully:', captureData)
               await onApprove(data)
             } catch (error) {
+              console.error('Error capturing payment:', error)
               setError('Payment processing failed')
               toast({
                 variant: 'destructive',
@@ -125,6 +139,7 @@ export function PayPalButtonsWrapper({
             }
           }}
           onError={(error) => {
+            console.error('PayPal payment error:', error)
             setError('Payment system error')
             toast({
               variant: 'destructive',
@@ -134,6 +149,7 @@ export function PayPalButtonsWrapper({
             onError(error)
           }}
           onCancel={() => {
+            console.log('PayPal payment cancelled by user')
             setError('Payment cancelled')
             onCancel?.()
           }}
