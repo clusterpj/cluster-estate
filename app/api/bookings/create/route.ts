@@ -64,7 +64,7 @@ export async function POST(request: Request) {
         user_id: user.id,
         property_id: bookingData.propertyId,
         total_price: bookingData.totalPrice,
-        payment_status: 'pending_payment'
+        payment_status: 'payment_pending'
       })
       .select('*')
       .single()
