@@ -146,7 +146,7 @@ export async function POST(request: Request) {
       // If PayPal fails, mark booking as failed
       await supabase
         .from('bookings')
-        .update({ payment_status: 'payment_failed' })
+        .update({ payment_status: 'failed' })
         .eq('id', booking.id)
 
       return NextResponse.json(
