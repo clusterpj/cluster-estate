@@ -4,7 +4,12 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { PayPalBookingData } from '@/types/booking'
-import { BookingPaymentStatus, BookingStatus } from '@/types/booking-status'
+import { 
+  BookingPaymentStatus, 
+  BookingStatus,
+  getBookingStatusForPaymentStatus,
+  canTransitionPaymentStatus
+} from '@/types/booking-status'
 
 export async function POST(request: Request) {
   try {
