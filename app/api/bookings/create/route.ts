@@ -28,7 +28,9 @@ export async function POST(request: Request) {
 
     // Create booking with RLS check
     console.log('Creating booking in database...')
-    const { data, error } = await supabase
+    // Create booking with RLS check
+    console.log('Creating booking in database...')
+    const { data: booking, error: bookingError } = await supabase
       .from('bookings')
       .insert({
         check_in: bookingData.check_in,
@@ -40,17 +42,18 @@ export async function POST(request: Request) {
         total_price: bookingData.totalPrice,
         payment_status: 'pending'
       })
-      .select()
+      .select('*')
       .single()
 
-    if (error) {
-      console.error('Database error:', error)
-      throw error
+    if (bookingError) {
+      console.error('Database error:', bookingError)
+      return NextResponse.json(
+        { error: 'Failed to create booking', details: bookingError },
+        { status: 500 }
+      )
     }
 
-    console.log('Booking created successfully:', data)
-
-    if (error) throw error
+    console.log('Booking created successfully:', booking)
 
     // Create PayPal order after successful booking creation
     console.log('Creating PayPal order...')
