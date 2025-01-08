@@ -12,8 +12,8 @@ export async function POST(request: Request) {
 
     // Validate required fields
     if (!bookingData || 
-        !bookingData.check_in || 
-        !bookingData.check_out || 
+        !bookingData.checkIn || 
+        !bookingData.checkOut || 
         !bookingData.guests || 
         !bookingData.propertyId ||
         !bookingData.totalPrice) {
@@ -56,8 +56,8 @@ export async function POST(request: Request) {
     const { data: booking, error: bookingError } = await supabase
       .from('bookings')
       .insert({
-        check_in: bookingData.check_in,
-        check_out: bookingData.check_out,
+        check_in: bookingData.checkIn,
+        check_out: bookingData.checkOut,
         guests: bookingData.guests,
         special_requests: bookingData.special_requests,
         user_id: user.id,

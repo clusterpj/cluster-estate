@@ -19,8 +19,8 @@ export function PropertyBooking({ property }: PropertyBookingProps) {
   const handleBookingSubmit = (data: BookingFormData) => {
     // Calculate total price based on dates and property price
     const totalPrice = calculateTotalPrice({
-      checkIn: data.check_in,
-      checkOut: data.check_out,
+      checkIn: data.checkIn,
+      checkOut: data.checkOut,
       rentalPrice: property.rental_price!,
       rentalFrequency: property.rental_frequency!,
     })
@@ -62,8 +62,8 @@ export function PropertyBooking({ property }: PropertyBookingProps) {
         ) : bookingData ? (
           <div className="space-y-4">
             <div className="text-sm">
-              <p>Check-in: {bookingData.check_in.toLocaleDateString()}</p>
-              <p>Check-out: {bookingData.check_out.toLocaleDateString()}</p>
+              <p>Check-in: {bookingData.checkIn.toLocaleDateString()}</p>
+              <p>Check-out: {bookingData.checkOut.toLocaleDateString()}</p>
               <p>Guests: {bookingData.guests}</p>
               <p className="font-semibold">
                 Total: ${bookingData.totalPrice.toFixed(2)}

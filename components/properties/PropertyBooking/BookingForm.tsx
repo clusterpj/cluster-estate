@@ -52,11 +52,11 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
 
   const handleSubmit = (data: BookingFormData) => {
     // Check if dates are within property's available range
-    if (property.available_from && new Date(data.checkIn) < new Date(property.available_from)) {
+    if (property.available_from && data.checkIn < new Date(property.available_from)) {
       setDateError('Check-in date is before property availability')
       return
     }
-    if (property.available_to && new Date(data.checkOut) > new Date(property.available_to)) {
+    if (property.available_to && data.checkOut > new Date(property.available_to)) {
       setDateError('Check-out date is after property availability')
       return
     }
