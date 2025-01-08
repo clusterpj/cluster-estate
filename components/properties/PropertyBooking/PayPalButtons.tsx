@@ -24,7 +24,10 @@ export function PayPalButtonsWrapper({
         'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '',
         currency,
         'disable-funding': 'card,venmo',
-        'data-sdk-integration-source': 'integrationbuilder_sc'
+        'data-sdk-integration-source': 'integrationbuilder_sc',
+        'data-namespace': 'paypal_sdk',
+        'data-csp-nonce': 'paypal-nonce',
+        'data-client-token': 'paypal-client-token'
       }}
     >
       <PayPalButtons
@@ -60,6 +63,7 @@ export function PayPalButtonsWrapper({
           })
           onError(error)
         }}
+        forceReRender={[totalPrice, currency]}
       />
     </PayPalScriptProvider>
   )

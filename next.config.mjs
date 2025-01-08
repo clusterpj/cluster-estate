@@ -25,11 +25,14 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src 'self' https://www.paypal.com https://www.paypalobjects.com;
+              script-src 'self' https://www.paypal.com https://www.paypalobjects.com 'unsafe-eval';
               style-src 'self' 'unsafe-inline' https://www.paypal.com https://www.paypalobjects.com;
               img-src 'self' https://www.paypal.com https://www.paypalobjects.com data:;
               connect-src 'self' https://www.paypal.com https://api.sandbox.paypal.com;
               frame-src 'self' https://www.paypal.com;
+              object-src 'none';
+              base-uri 'self';
+              form-action 'self';
             `.replace(/\s+/g, ' ').trim()
           }
         ]
