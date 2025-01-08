@@ -73,7 +73,7 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
         (property.available_from ? date < new Date(property.available_from) : false)
       )
     } else {
-      const checkInDate = form.getValues('checkIn')
+      const checkInDate = form.getValues('check_in')
       return (
         date <= checkInDate ||
         (property.available_to ? date > new Date(property.available_to) : false)
