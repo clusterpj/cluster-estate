@@ -1,10 +1,10 @@
 export const BookingPaymentStatus = {
-  PENDING: 'pending',
-  CREATED: 'created',
-  PROCESSING: 'processing',
-  COMPLETED: 'completed',
-  FAILED: 'failed',
-  CANCELLED: 'cancelled',
+  PENDING: 'PENDING',
+  CREATED: 'CREATED',
+  PROCESSING: 'PROCESSING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED',
 } as const
 
 export type BookingPaymentStatus = typeof BookingPaymentStatus[keyof typeof BookingPaymentStatus]

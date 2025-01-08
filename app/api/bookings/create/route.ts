@@ -138,6 +138,11 @@ export async function POST(request: Request) {
       const newPaymentStatus = BookingPaymentStatus.CREATED
       const newStatus = getBookingStatusForPaymentStatus(newPaymentStatus)
       
+      // Validate status values before update
+      if (!isValidPaymentStatus(newPaymentStatus) || !isValidBookingStatus(newStatus)) {
+        throw new Error('Invalid status values for booking update')
+      }
+
       const { error: updateError } = await supabase
         .from('bookings')
         .update({ 
@@ -146,11 +151,24 @@ export async function POST(request: Request) {
           status: newStatus
         })
         .eq('id', booking.id)
+        .select('*')
+        .single()
 
       if (updateError) {
-        console.error('Error updating booking with PayPal ID:', updateError)
-        throw new Error('Failed to update booking with PayPal ID')
+        console.error('Error updating booking with PayPal ID:', {
+          error: updateError,
+          currentStatus: booking.payment_status,
+          newStatus: newPaymentStatus,
+          bookingId: booking.id
+        })
+        throw new Error(`Failed to update booking with PayPal ID: ${updateError.message}`)
       }
+
+      console.log('Booking successfully updated:', {
+        id: booking.id,
+        paymentStatus: newPaymentStatus,
+        status: newStatus
+      })
 
       console.log('Booking status updated to created')
 
