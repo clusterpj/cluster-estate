@@ -52,6 +52,34 @@ CREATE TABLE bookings (
 CREATE INDEX idx_bookings_property_id ON bookings(property_id);
 CREATE INDEX idx_bookings_user_id ON bookings(user_id);
 CREATE INDEX idx_bookings_dates ON bookings(check_in, check_out);
+
+-- Row Level Security Policies
+ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
+
+-- Policy to allow authenticated users to create their own bookings
+CREATE POLICY "Users can create their own bookings"
+ON bookings FOR INSERT
+TO authenticated
+WITH CHECK (user_id = auth.uid());
+
+-- Policy to allow users to read their own bookings
+CREATE POLICY "Users can read their own bookings"
+ON bookings FOR SELECT
+TO authenticated
+USING (user_id = auth.uid());
+
+-- Policy to allow users to update their own bookings
+CREATE POLICY "Users can update their own bookings"
+ON bookings FOR UPDATE
+TO authenticated
+USING (user_id = auth.uid())
+WITH CHECK (user_id = auth.uid());
+
+-- Policy to allow users to delete their own bookings
+CREATE POLICY "Users can delete their own bookings"
+ON bookings FOR DELETE
+TO authenticated
+USING (user_id = auth.uid());
 ```
 
 Apply the migrations:
