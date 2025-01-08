@@ -177,7 +177,6 @@ export async function POST(request: Request) {
         console.error('Error updating booking with PayPal ID:', {
           error: updateError,
           currentStatus: booking.payment_status,
-          newStatus: newPaymentStatus,
           bookingId: booking.id
         })
         throw new Error(`Failed to update booking with PayPal ID: ${updateError.message}`)
@@ -185,8 +184,8 @@ export async function POST(request: Request) {
 
       console.log('Booking successfully updated:', {
         id: booking.id,
-        paymentStatus: newPaymentStatus,
-        status: newStatus
+        paymentStatus: booking.payment_status,
+        status: booking.status
       })
 
       console.log('Booking status updated to created')
