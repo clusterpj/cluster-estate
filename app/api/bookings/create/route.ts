@@ -16,10 +16,6 @@ export async function POST(request: Request) {
     const { data: { user }, error: authError } = await supabase.auth.getUser()
 
     
-    // Get authenticated user
-    const supabase = createRouteHandlerClient({ cookies })
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-    
     if (authError || !user) {
       console.error('Authentication error:', authError)
       return NextResponse.json(
@@ -67,5 +63,4 @@ export async function POST(request: Request) {
       { status: 500 }
     )
   }
-}
 }
