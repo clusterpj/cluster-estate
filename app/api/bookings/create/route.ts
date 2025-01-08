@@ -36,6 +36,7 @@ export async function POST(request: Request) {
         guests: bookingData.guests,
         special_requests: bookingData.special_requests,
         user_id: user.id,
+        property_id: bookingData.propertyId,
         payment_status: 'pending'
       })
       .select()
