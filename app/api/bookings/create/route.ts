@@ -61,6 +61,17 @@ export async function POST(request: Request) {
     const initialPaymentStatus = BookingPaymentStatus.PENDING
     const initialStatus = getBookingStatusForPaymentStatus(initialPaymentStatus)
     
+    // Validate status values before insert
+    if (!isValidPaymentStatus(initialPaymentStatus) || !isValidBookingStatus(initialStatus)) {
+      console.error('Invalid status values:', { initialPaymentStatus, initialStatus })
+      return NextResponse.json(
+        { error: 'Invalid status values' },
+        { status: 400 }
+      )
+    }
+
+    console.log('Inserting booking with status:', { initialPaymentStatus, initialStatus })
+    
     const { data: booking, error: bookingError } = await supabase
       .from('bookings')
       .insert({
@@ -76,6 +87,20 @@ export async function POST(request: Request) {
       })
       .select('*')
       .single()
+
+    if (bookingError) {
+      console.error('Database error details:', {
+        code: bookingError.code,
+        message: bookingError.message,
+        details: bookingError.details,
+        hint: bookingError.hint,
+        statusValues: { initialPaymentStatus, initialStatus }
+      })
+      return NextResponse.json(
+        { error: 'Failed to create booking', details: bookingError },
+        { status: 500 }
+      )
+    }
 
     if (bookingError) {
       console.error('Database error:', bookingError)
