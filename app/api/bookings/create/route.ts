@@ -157,12 +157,12 @@ export async function POST(request: Request) {
       }
 
       // Validate status transition
-      if (!canTransitionPaymentStatus(booking.payment_status, BookingPaymentStatus.CREATED)) {
-        throw new Error(`Invalid status transition from ${booking.payment_status} to created`)
+      if (!canTransitionPaymentStatus(booking.payment_status, BookingPaymentStatus.PENDING)) {
+        throw new Error(`Invalid status transition from ${booking.payment_status} to pending`)
       }
 
       // Update booking with PayPal order ID and new status
-      const newPaymentStatus = BookingPaymentStatus.CREATED
+      const newPaymentStatus = BookingPaymentStatus.PENDING
       const newStatus = getBookingStatusForPaymentStatus(newPaymentStatus)
       
       // Validate status values before update

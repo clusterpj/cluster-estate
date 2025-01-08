@@ -1,10 +1,8 @@
 export const BookingPaymentStatus = {
   PENDING: 'pending',
-  CREATED: 'created',
-  PROCESSING: 'processing',
   COMPLETED: 'completed',
   FAILED: 'failed',
-  CANCELLED: 'cancelled',
+  REFUNDED: 'refunded',
 } as const
 
 export type BookingPaymentStatus = typeof BookingPaymentStatus[keyof typeof BookingPaymentStatus]
@@ -33,12 +31,10 @@ export function canTransitionPaymentStatus(
   next: BookingPaymentStatus
 ): boolean {
   const validTransitions: Record<BookingPaymentStatus, BookingPaymentStatus[]> = {
-    pending: ['created', 'processing', 'failed', 'cancelled'],
-    created: ['processing', 'completed', 'failed', 'cancelled'],
-    processing: ['completed', 'failed'],
-    completed: [],
+    pending: ['completed', 'failed', 'refunded'],
+    completed: ['refunded'],
     failed: [],
-    cancelled: []
+    refunded: []
   }
 
   return validTransitions[current].includes(next)
@@ -51,7 +47,7 @@ export function getBookingStatusForPaymentStatus(
     case 'completed':
       return 'confirmed'
     case 'failed':
-    case 'cancelled':
+    case 'refunded':
       return 'cancelled'
     default:
       return 'pending'
