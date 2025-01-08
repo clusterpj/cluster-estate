@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import { Database } from '@/types/database.types'
 import { PayPalBookingData } from '@/types/booking'
+import { BookingPaymentStatus, BookingStatus } from '@/types/booking-status'
 
 const supabase = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -182,7 +183,7 @@ export async function createBooking(bookingData: PayPalBookingData, userId: stri
         guests: bookingData.guests,
         total_price: bookingData.totalPrice,
         special_requests: bookingData.specialRequests,
-        status: 'pending',
+        status: BookingStatus.PENDING,
       },
     ])
     .select()
@@ -198,14 +199,14 @@ export async function createBooking(bookingData: PayPalBookingData, userId: stri
 export async function updateBookingPaymentStatus(
   bookingId: string,
   paymentId: string,
-  status: 'completed' | 'failed'
+  status: BookingPaymentStatus.COMPLETED | BookingPaymentStatus.FAILED
 ) {
   const { error } = await supabase
     .from('bookings')
     .update({
       payment_id: paymentId,
       payment_status: status,
-      status: status === 'completed' ? 'payment_completed' : 'payment_cancelled',
+      status: status === BookingPaymentStatus.COMPLETED ? BookingStatus.CONFIRMED : BookingStatus.CANCELLED,
     })
     .eq('id', bookingId)
 

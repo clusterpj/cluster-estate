@@ -4,6 +4,7 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { PayPalBookingData } from '@/types/booking'
+import { BookingPaymentStatus, BookingStatus } from '@/types/booking-status'
 
 export async function POST(request: Request) {
   try {
@@ -64,7 +65,8 @@ export async function POST(request: Request) {
         user_id: user.id,
         property_id: bookingData.propertyId,
         total_price: bookingData.totalPrice,
-        payment_status: 'pending'
+        payment_status: BookingPaymentStatus.PENDING,
+        status: BookingStatus.PENDING
       })
       .select('*')
       .single()
@@ -126,7 +128,7 @@ export async function POST(request: Request) {
         .from('bookings')
         .update({ 
           payment_id: order.id,
-          payment_status: 'created'
+          payment_status: BookingPaymentStatus.CREATED
         })
         .eq('id', booking.id)
 
