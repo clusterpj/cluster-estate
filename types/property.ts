@@ -29,6 +29,10 @@ export interface PropertyWithAvailability extends Property {
   availabilityMessage?: string
 }
 
+export function isValidPropertyStatus(status: string): status is PropertyStatus {
+  return ['available', 'sold', 'pending'].includes(status)
+}
+
 export function isPropertyAvailableForBooking(property: Property): PropertyWithAvailability {
   if (property.listing_type !== 'rent' && property.listing_type !== 'both') {
     return {
