@@ -31,7 +31,10 @@ export async function POST(request: Request) {
     const { data, error } = await supabase
       .from('bookings')
       .insert({
-        ...bookingData,
+        check_in: bookingData.check_in,
+        check_out: bookingData.check_out,
+        guests: bookingData.guests,
+        special_requests: bookingData.special_requests,
         user_id: user.id,
         payment_status: 'pending'
       })

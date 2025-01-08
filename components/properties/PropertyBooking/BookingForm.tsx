@@ -19,19 +19,19 @@ import { BookingFormData } from '@/types/booking'
 import { Property } from '@/types/property'
 
 const bookingSchema = z.object({
-  checkIn: z.date({
+  check_in: z.date({
     required_error: 'Check-in date is required',
   }),
-  checkOut: z.date({
+  check_out: z.date({
     required_error: 'Check-out date is required',
   }),
   guests: z.number({
     required_error: 'Number of guests is required',
   }).min(1, 'At least 1 guest is required'),
-  specialRequests: z.string().optional(),
-}).refine(data => data.checkOut > data.checkIn, {
+  special_requests: z.string().optional(),
+}).refine(data => data.check_out > data.check_in, {
   message: 'Check-out date must be after check-in date',
-  path: ['checkOut'],
+  path: ['check_out'],
 })
 
 interface BookingFormProps {
@@ -47,17 +47,17 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
     resolver: zodResolver(bookingSchema),
     defaultValues: {
       guests: 1,
-      specialRequests: '',
+      special_requests: '',
     },
   })
 
   const handleSubmit = (data: BookingFormData) => {
     // Check if dates are within property's available range
-    if (property.available_from && new Date(data.checkIn) < new Date(property.available_from)) {
+    if (property.available_from && new Date(data.check_in) < new Date(property.available_from)) {
       setDateError('Check-in date is before property availability')
       return
     }
-    if (property.available_to && new Date(data.checkOut) > new Date(property.available_to)) {
+    if (property.available_to && new Date(data.check_out) > new Date(property.available_to)) {
       setDateError('Check-out date is after property availability')
       return
     }
@@ -87,7 +87,7 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="checkIn"
+            name="check_in"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Check-in Date</FormLabel>
@@ -107,7 +107,7 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
 
           <FormField
             control={form.control}
-            name="checkOut"
+            name="check_out"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Check-out Date</FormLabel>
@@ -151,7 +151,7 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
 
         <FormField
           control={form.control}
-          name="specialRequests"
+          name="special_requests"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Special Requests</FormLabel>
