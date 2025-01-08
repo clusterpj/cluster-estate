@@ -58,22 +58,53 @@ export async function POST(request: Request) {
     // Create PayPal order after successful booking creation
     console.log('Creating PayPal order...')
     try {
-      const order = await createPayPalOrder(bookingData)
+      // Prepare PayPal order data
+      const paypalOrderData = {
+        intent: 'CAPTURE',
+        purchase_units: [{
+          amount: {
+            currency_code: 'USD',
+            value: bookingData.totalPrice.toString(),
+          },
+          description: `Booking for property ${bookingData.propertyId}`,
+          custom_id: booking.id,
+          invoice_id: `BOOKING-${booking.id}`,
+        }],
+        application_context: {
+          brand_name: 'Cluster Estate',
+          user_action: 'PAY_NOW',
+          return_url: `${process.env.NEXT_PUBLIC_SITE_URL}/bookings/${booking.id}/success`,
+          cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/bookings/${booking.id}/cancel`,
+        }
+      }
+
+      console.log('PayPal order data:', paypalOrderData)
+      
+      const order = await createPayPalOrder(paypalOrderData)
       console.log('PayPal order created:', order)
+
+      if (!order || !order.id) {
+        throw new Error('Invalid PayPal order response')
+      }
 
       // Update booking with PayPal order ID
       const { error: updateError } = await supabase
         .from('bookings')
-        .update({ payment_id: order.id })
+        .update({ 
+          payment_id: order.id,
+          payment_status: 'created'
+        })
         .eq('id', booking.id)
 
       if (updateError) {
         console.error('Error updating booking with PayPal ID:', updateError)
+        throw new Error('Failed to update booking with PayPal ID')
       }
 
       return NextResponse.json({
         bookingId: booking.id,
-        paypalOrderId: order.id
+        paypalOrderId: order.id,
+        approvalUrl: order.links.find(link => link.rel === 'approve')?.href
       })
     } catch (paypalError) {
       console.error('Error creating PayPal order:', paypalError)
