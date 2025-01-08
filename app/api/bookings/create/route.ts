@@ -170,7 +170,13 @@ export async function POST(request: Request) {
         throw new Error('Invalid status values for booking update')
       }
 
-      const { error: updateError } = await supabase
+      console.log('Attempting to update booking with:', {
+        payment_id: order.id,
+        payment_status: newPaymentStatus,
+        status: newStatus
+      })
+
+      const { data: updatedBooking, error: updateError } = await supabase
         .from('bookings')
         .update({ 
           payment_id: order.id,
@@ -180,6 +186,11 @@ export async function POST(request: Request) {
         .eq('id', booking.id)
         .select('*')
         .single()
+
+      console.log('Update result:', {
+        updatedBooking,
+        updateError
+      })
 
       if (updateError) {
         console.error('Error updating booking with PayPal ID:', {
