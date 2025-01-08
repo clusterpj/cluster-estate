@@ -168,4 +168,125 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
       </form>
     </Form>
   )
+}'use client'
+
+import React from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { Calendar } from '@/components/ui/calendar'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+
+// Define form schema
+const formSchema = z.object({
+  checkIn: z.date(),
+  checkOut: z.date(),
+  guests: z.number().min(1),
+})
+
+type BookingFormValues = z.infer<typeof formSchema>
+
+interface BookingFormProps {
+  propertyId: string
+  onSubmit: (values: BookingFormValues) => void
+}
+
+export function BookingForm({ propertyId, onSubmit }: BookingFormProps) {
+  const form = useForm<BookingFormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      checkIn: new Date(),
+      checkOut: new Date(),
+      guests: 1,
+    },
+  })
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="checkIn"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Check-in Date</FormLabel>
+              <FormControl>
+                <Controller
+                  control={form.control}
+                  name="checkIn"
+                  render={({ field }) => (
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={(date: Date | undefined) => field.onChange(date)}
+                      disabled={(date) => date < new Date()}
+                      initialFocus
+                    />
+                  )}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="checkOut"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Check-out Date</FormLabel>
+              <FormControl>
+                <Controller
+                  control={form.control}
+                  name="checkOut"
+                  render={({ field }) => (
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={(date: Date | undefined) => field.onChange(date)}
+                      disabled={(date) => date < new Date()}
+                      initialFocus
+                    />
+                  )}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="guests"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Number of Guests</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  min={1}
+                  {...field}
+                  onChange={(e) => field.onChange(Number(e.target.value))}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit">Book Now</Button>
+      </form>
+    </Form>
+  )
 }
