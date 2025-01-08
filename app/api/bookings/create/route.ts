@@ -8,7 +8,9 @@ import {
   BookingPaymentStatus, 
   BookingStatus,
   getBookingStatusForPaymentStatus,
-  canTransitionPaymentStatus
+  canTransitionPaymentStatus,
+  isValidPaymentStatus,
+  isValidBookingStatus
 } from '@/types/booking-status'
 
 export async function POST(request: Request) {
