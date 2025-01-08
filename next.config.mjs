@@ -29,7 +29,7 @@ const nextConfig = {
               script-src-elem 'self' https://www.paypal.com https://www.paypalobjects.com 'unsafe-inline';
               style-src 'self' 'unsafe-inline' https://www.paypal.com https://www.paypalobjects.com;
               img-src 'self' https://www.paypal.com https://www.paypalobjects.com data:;
-              connect-src 'self' https://www.paypal.com https://*.paypal.com https://api.sandbox.paypal.com https://*.supabase.co https://www.sandbox.paypal.com;
+              connect-src 'self' https://www.paypal.com https://*.paypal.com https://api.sandbox.paypal.com https://*.supabase.co https://www.sandbox.paypal.com https://www.paypalobjects.com;
               frame-src 'self' https://www.paypal.com https://*.paypal.com;
               object-src 'none';
               base-uri 'self';
