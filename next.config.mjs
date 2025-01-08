@@ -26,6 +26,7 @@ const nextConfig = {
             value: `
               default-src 'self';
               script-src 'self' https://www.paypal.com https://www.paypalobjects.com 'unsafe-eval';
+              script-src-elem 'self' https://www.paypal.com https://www.paypalobjects.com 'unsafe-inline';
               style-src 'self' 'unsafe-inline' https://www.paypal.com https://www.paypalobjects.com;
               img-src 'self' https://www.paypal.com https://www.paypalobjects.com data:;
               connect-src 'self' https://www.paypal.com https://api.sandbox.paypal.com;

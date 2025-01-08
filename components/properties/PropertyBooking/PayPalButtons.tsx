@@ -17,6 +17,19 @@ export function PayPalButtonsWrapper({
   onError
 }: PayPalButtonsProps) {
   const { toast } = useToast()
+  const [isPayPalReady, setIsPayPalReady] = useState(false)
+
+  useEffect(() => {
+    const script = document.createElement('script')
+    script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=${currency}`
+    script.async = true
+    script.onload = () => setIsPayPalReady(true)
+    document.body.appendChild(script)
+
+    return () => {
+      document.body.removeChild(script)
+    }
+  }, [currency])
 
   return (
     <PayPalScriptProvider 
@@ -30,41 +43,45 @@ export function PayPalButtonsWrapper({
         'data-client-token': 'paypal-client-token'
       }}
     >
-      <PayPalButtons
-        style={{ layout: 'vertical' }}
-        createOrder={(data, actions) => {
-          return actions.order.create({
-            purchase_units: [{
-              amount: {
-                value: totalPrice.toString(),
-                currency_code: currency
-              }
-            }]
-          })
-        }}
-        onApprove={async (data, actions) => {
-          try {
-            await actions.order?.capture()
-            await onApprove(data)
-          } catch (error) {
+      {isPayPalReady ? (
+        <PayPalButtons
+          style={{ layout: 'vertical' }}
+          createOrder={(data, actions) => {
+            return actions.order.create({
+              purchase_units: [{
+                amount: {
+                  value: totalPrice.toString(),
+                  currency_code: currency
+                }
+              }]
+            })
+          }}
+          onApprove={async (data, actions) => {
+            try {
+              await actions.order?.capture()
+              await onApprove(data)
+            } catch (error) {
+              toast({
+                variant: 'destructive',
+                title: 'Payment Error',
+                description: 'There was an error processing your payment'
+              })
+              onError(error)
+            }
+          }}
+          onError={(error) => {
             toast({
               variant: 'destructive',
               title: 'Payment Error',
-              description: 'There was an error processing your payment'
+              description: error.message || 'Payment failed'
             })
             onError(error)
-          }
-        }}
-        onError={(error) => {
-          toast({
-            variant: 'destructive',
-            title: 'Payment Error',
-            description: error.message || 'Payment failed'
-          })
-          onError(error)
-        }}
-        forceReRender={[totalPrice, currency]}
-      />
+          }}
+          forceReRender={[totalPrice, currency]}
+        />
+      ) : (
+        <div>Loading PayPal...</div>
+      )}
     </PayPalScriptProvider>
   )
 }
