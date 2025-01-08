@@ -10,6 +10,29 @@ export async function POST(request: Request) {
     const bookingData: PayPalBookingData = await request.json()
     console.log('Booking data:', bookingData)
 
+    // Validate required fields
+    if (!bookingData || 
+        !bookingData.check_in || 
+        !bookingData.check_out || 
+        !bookingData.guests || 
+        !bookingData.propertyId ||
+        !bookingData.totalPrice) {
+      console.error('Missing required booking data:', bookingData)
+      return NextResponse.json(
+        { error: 'Missing required booking data' },
+        { status: 400 }
+      )
+    }
+
+    // Validate totalPrice is a number
+    if (typeof bookingData.totalPrice !== 'number' || isNaN(bookingData.totalPrice)) {
+      console.error('Invalid totalPrice:', bookingData.totalPrice)
+      return NextResponse.json(
+        { error: 'Invalid total price' },
+        { status: 400 }
+      )
+    }
+
     // Get authenticated user
     const supabase = createRouteHandlerClient({ cookies })
     console.log('Creating Supabase client...')
