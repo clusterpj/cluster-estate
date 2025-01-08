@@ -53,8 +53,6 @@ export async function POST(request: Request) {
 
     // Create booking with RLS check
     console.log('Creating booking in database...')
-    // Create booking with RLS check
-    console.log('Creating booking in database...')
     const { data: booking, error: bookingError } = await supabase
       .from('bookings')
       .insert({
@@ -66,7 +64,7 @@ export async function POST(request: Request) {
         property_id: bookingData.propertyId,
         total_price: bookingData.totalPrice,
         payment_status: BookingPaymentStatus.PENDING,
-        status: BookingStatus.PENDING
+        status: getBookingStatusForPaymentStatus(BookingPaymentStatus.PENDING)
       })
       .select('*')
       .single()
@@ -123,12 +121,18 @@ export async function POST(request: Request) {
         throw new Error('Invalid PayPal order response')
       }
 
-      // Update booking with PayPal order ID
+      // Validate status transition
+      if (!canTransitionPaymentStatus(booking.payment_status, BookingPaymentStatus.CREATED)) {
+        throw new Error(`Invalid status transition from ${booking.payment_status} to created`)
+      }
+
+      // Update booking with PayPal order ID and new status
       const { error: updateError } = await supabase
         .from('bookings')
         .update({ 
           payment_id: order.id,
-          payment_status: 'created' // Use string literal matching enum value
+          payment_status: BookingPaymentStatus.CREATED,
+          status: getBookingStatusForPaymentStatus(BookingPaymentStatus.CREATED)
         })
         .eq('id', booking.id)
 
@@ -136,6 +140,8 @@ export async function POST(request: Request) {
         console.error('Error updating booking with PayPal ID:', updateError)
         throw new Error('Failed to update booking with PayPal ID')
       }
+
+      console.log('Booking status updated to created')
 
       return NextResponse.json({
         bookingId: booking.id,
@@ -145,11 +151,18 @@ export async function POST(request: Request) {
     } catch (paypalError) {
       console.error('Error creating PayPal order:', paypalError)
       
-      // If PayPal fails, mark booking as failed
-      await supabase
-        .from('bookings')
-        .update({ payment_status: BookingPaymentStatus.FAILED })
-        .eq('id', booking.id)
+      // If PayPal fails, validate and update status
+      if (canTransitionPaymentStatus(booking.payment_status, BookingPaymentStatus.FAILED)) {
+        await supabase
+          .from('bookings')
+          .update({ 
+            payment_status: BookingPaymentStatus.FAILED,
+            status: getBookingStatusForPaymentStatus(BookingPaymentStatus.FAILED)
+          })
+          .eq('id', booking.id)
+      } else {
+        console.error('Invalid status transition to failed from:', booking.payment_status)
+      }
 
       return NextResponse.json(
         { 

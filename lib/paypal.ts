@@ -199,14 +199,28 @@ export async function createBooking(bookingData: PayPalBookingData, userId: stri
 export async function updateBookingPaymentStatus(
   bookingId: string,
   paymentId: string,
-  status: BookingPaymentStatus.COMPLETED | BookingPaymentStatus.FAILED
+  status: BookingPaymentStatus
 ) {
+  // Get current status first
+  const { data: booking, error: fetchError } = await supabase
+    .from('bookings')
+    .select('payment_status')
+    .eq('id', bookingId)
+    .single()
+
+  if (fetchError) throw fetchError
+
+  // Validate status transition
+  if (!canTransitionPaymentStatus(booking.payment_status, status)) {
+    throw new Error(`Invalid status transition from ${booking.payment_status} to ${status}`)
+  }
+
   const { error } = await supabase
     .from('bookings')
     .update({
       payment_id: paymentId,
       payment_status: status,
-      status: status === 'completed' ? BookingStatus.CONFIRMED : BookingStatus.CANCELLED,
+      status: getBookingStatusForPaymentStatus(status),
     })
     .eq('id', bookingId)
 
