@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -19,19 +18,19 @@ import { BookingFormData } from '@/types/booking'
 import { Property } from '@/types/property'
 
 const bookingSchema = z.object({
-  check_in: z.date({
+  checkIn: z.date({
     required_error: 'Check-in date is required',
   }),
-  check_out: z.date({
+  checkOut: z.date({
     required_error: 'Check-out date is required',
   }),
   guests: z.number({
     required_error: 'Number of guests is required',
   }).min(1, 'At least 1 guest is required'),
-  special_requests: z.string().optional(),
-}).refine(data => data.check_out > data.check_in, {
+  specialRequests: z.string().optional(),
+}).refine(data => data.checkOut > data.checkIn, {
   message: 'Check-out date must be after check-in date',
-  path: ['check_out'],
+  path: ['checkOut'],
 })
 
 interface BookingFormProps {
@@ -47,17 +46,17 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
     resolver: zodResolver(bookingSchema),
     defaultValues: {
       guests: 1,
-      special_requests: '',
+      specialRequests: '',
     },
   })
 
   const handleSubmit = (data: BookingFormData) => {
     // Check if dates are within property's available range
-    if (property.available_from && new Date(data.check_in) < new Date(property.available_from)) {
+    if (property.available_from && new Date(data.checkIn) < new Date(property.available_from)) {
       setDateError('Check-in date is before property availability')
       return
     }
-    if (property.available_to && new Date(data.check_out) > new Date(property.available_to)) {
+    if (property.available_to && new Date(data.checkOut) > new Date(property.available_to)) {
       setDateError('Check-out date is after property availability')
       return
     }
@@ -73,7 +72,7 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
         (property.available_from ? date < new Date(property.available_from) : false)
       )
     } else {
-      const checkInDate = form.getValues('check_in')
+      const checkInDate = form.getValues('checkIn')
       return (
         date <= checkInDate ||
         (property.available_to ? date > new Date(property.available_to) : false)
@@ -87,7 +86,7 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="check_in"
+            name="checkIn"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Check-in Date</FormLabel>
@@ -107,7 +106,7 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
 
           <FormField
             control={form.control}
-            name="check_out"
+            name="checkOut"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Check-out Date</FormLabel>
@@ -151,7 +150,7 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
 
         <FormField
           control={form.control}
-          name="special_requests"
+          name="specialRequests"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Special Requests</FormLabel>
