@@ -26,14 +26,12 @@ interface PayPalOrderData {
   }
 }
 
+import { config } from './config'
+
 async function getPayPalAccessToken() {
   try {
-    if (!process.env.PAYPAL_CLIENT_ID || !process.env.PAYPAL_SECRET) {
-      throw new Error('PayPal credentials are missing from environment variables')
-    }
-
     const auth = Buffer.from(
-      `${process.env.PAYPAL_CLIENT_ID}:${process.env.PAYPAL_SECRET}`
+      `${config.paypal.clientId}:${config.paypal.clientSecret}`
     ).toString('base64')
 
     console.log('Fetching PayPal access token...')

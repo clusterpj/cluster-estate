@@ -1,3 +1,4 @@
+import { config } from '@/lib/config'
 import { createPayPalOrder, createBooking } from '@/lib/paypal'
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
@@ -106,8 +107,8 @@ export async function POST(request: Request) {
         application_context: {
           brand_name: 'Cluster Estate',
           user_action: 'PAY_NOW',
-          return_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/bookings/${booking.id}/success`,
-          cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/bookings/${booking.id}/cancel`,
+          return_url: `${config.siteUrl}/bookings/${booking.id}/success`,
+          cancel_url: `${config.siteUrl}/bookings/${booking.id}/cancel`,
         }
       }
 
