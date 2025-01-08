@@ -206,7 +206,7 @@ export async function updateBookingPaymentStatus(
     .update({
       payment_id: paymentId,
       payment_status: status,
-      status: status === BookingPaymentStatus.COMPLETED ? BookingStatus.CONFIRMED : BookingStatus.CANCELLED,
+      status: status === 'completed' ? BookingStatus.CONFIRMED : BookingStatus.CANCELLED,
     })
     .eq('id', bookingId)
 

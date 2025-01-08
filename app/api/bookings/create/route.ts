@@ -128,7 +128,7 @@ export async function POST(request: Request) {
         .from('bookings')
         .update({ 
           payment_id: order.id,
-          payment_status: BookingPaymentStatus.CREATED
+          payment_status: 'created' // Use string literal matching enum value
         })
         .eq('id', booking.id)
 
@@ -148,7 +148,7 @@ export async function POST(request: Request) {
       // If PayPal fails, mark booking as failed
       await supabase
         .from('bookings')
-        .update({ payment_status: 'failed' })
+        .update({ payment_status: BookingPaymentStatus.FAILED })
         .eq('id', booking.id)
 
       return NextResponse.json(
