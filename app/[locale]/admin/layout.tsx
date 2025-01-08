@@ -4,6 +4,7 @@ import { cookies } from 'next/headers'
 import type { Database } from '../../../types/supabase'
 import { Suspense } from 'react'
 import type { Locale } from '../../../config/i18n'
+import { Sidebar } from './components/sidebar'
 
 interface AdminLayoutProps {
   children: React.ReactNode
@@ -38,17 +39,20 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="flex-1">
-      <Suspense fallback={
-        <div className="flex min-h-screen items-center justify-center">
-          <div className="text-center">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+    <div className="flex">
+      <Sidebar locale={params.locale} />
+      <div className="flex-1 p-6">
+        <Suspense fallback={
+          <div className="flex min-h-screen items-center justify-center">
+            <div className="text-center">
+              <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+            </div>
           </div>
-        </div>
-      }>
-        {children}
-      </Suspense>
-      {parallel}
+        }>
+          {children}
+        </Suspense>
+        {parallel}
+      </div>
     </div>
   )
 }
