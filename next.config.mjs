@@ -16,6 +16,26 @@ const nextConfig = {
       },
     ],
   },
+  headers: async () => {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: `
+              default-src 'self';
+              script-src 'self' https://www.paypal.com https://www.paypalobjects.com;
+              style-src 'self' 'unsafe-inline' https://www.paypal.com https://www.paypalobjects.com;
+              img-src 'self' https://www.paypal.com https://www.paypalobjects.com data:;
+              connect-src 'self' https://www.paypal.com https://api.sandbox.paypal.com;
+              frame-src 'self' https://www.paypal.com;
+            `.replace(/\s+/g, ' ').trim()
+          }
+        ]
+      }
+    ]
+  }
 };
 
 // Apply next-intl plugin
