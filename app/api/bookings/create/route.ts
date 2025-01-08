@@ -80,6 +80,16 @@ export async function POST(request: Request) {
 
     // Create PayPal order after successful booking creation
     console.log('Creating PayPal order...')
+    
+    // Validate total price exists and is a number
+    if (!bookingData.totalPrice || typeof bookingData.totalPrice !== 'number') {
+      console.error('Invalid total price:', bookingData.totalPrice)
+      return NextResponse.json(
+        { error: 'Invalid total price' },
+        { status: 400 }
+      )
+    }
+
     try {
       // Prepare PayPal order data
       const paypalOrderData = {
@@ -87,7 +97,7 @@ export async function POST(request: Request) {
         purchase_units: [{
           amount: {
             currency_code: 'USD',
-            value: bookingData.totalPrice.toString(),
+            value: bookingData.totalPrice?.toString() || '0.00',
           },
           description: `Booking for property ${bookingData.propertyId}`,
           custom_id: booking.id,
@@ -96,8 +106,8 @@ export async function POST(request: Request) {
         application_context: {
           brand_name: 'Cluster Estate',
           user_action: 'PAY_NOW',
-          return_url: `${process.env.NEXT_PUBLIC_SITE_URL}/bookings/${booking.id}/success`,
-          cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/bookings/${booking.id}/cancel`,
+          return_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/bookings/${booking.id}/success`,
+          cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/bookings/${booking.id}/cancel`,
         }
       }
 
