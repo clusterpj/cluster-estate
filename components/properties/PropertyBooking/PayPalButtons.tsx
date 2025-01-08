@@ -25,6 +25,7 @@ export function PayPalButtonsWrapper({
   const [isPayPalReady, setIsPayPalReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isCreatingOrder, setIsCreatingOrder] = useState(false)
 
   useEffect(() => {
     const script = document.createElement('script')
@@ -75,8 +76,10 @@ export function PayPalButtonsWrapper({
       {isPayPalReady && !error && (
         <PayPalButtons
           style={{ layout: 'vertical' }}
+          createOrder={async (data, actions) => {
           createOrder={(data, actions) => {
             try {
+              setIsCreatingOrder(true)
               return actions.order.create({
                 purchase_units: [{
                   amount: {
@@ -101,7 +104,10 @@ export function PayPalButtonsWrapper({
               })
             } catch (err) {
               setError('Failed to create payment order')
+              setIsCreatingOrder(false)
               throw err
+            } finally {
+              setIsCreatingOrder(false)
             }
           }}
           onApprove={async (data, actions) => {
@@ -132,6 +138,7 @@ export function PayPalButtonsWrapper({
             onCancel?.()
           }}
           forceReRender={[totalPrice, currency]}
+          disabled={isCreatingOrder}
         />
       )}
     </PayPalScriptProvider>
