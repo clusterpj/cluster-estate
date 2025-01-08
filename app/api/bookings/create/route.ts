@@ -57,13 +57,42 @@ export async function POST(request: Request) {
 
     // Create PayPal order after successful booking creation
     console.log('Creating PayPal order...')
-    const order = await createPayPalOrder(bookingData)
-    console.log('PayPal order created:', order)
+    try {
+      const order = await createPayPalOrder(bookingData)
+      console.log('PayPal order created:', order)
 
-    return NextResponse.json({
-      bookingId: data.id,
-      paypalOrderId: order.id
-    })
+      // Update booking with PayPal order ID
+      const { error: updateError } = await supabase
+        .from('bookings')
+        .update({ payment_id: order.id })
+        .eq('id', booking.id)
+
+      if (updateError) {
+        console.error('Error updating booking with PayPal ID:', updateError)
+      }
+
+      return NextResponse.json({
+        bookingId: booking.id,
+        paypalOrderId: order.id
+      })
+    } catch (paypalError) {
+      console.error('Error creating PayPal order:', paypalError)
+      
+      // If PayPal fails, mark booking as failed
+      await supabase
+        .from('bookings')
+        .update({ payment_status: 'failed' })
+        .eq('id', booking.id)
+
+      return NextResponse.json(
+        { 
+          error: 'Failed to create PayPal order',
+          bookingId: booking.id, // Return booking ID even if PayPal failed
+          details: paypalError instanceof Error ? paypalError.message : 'Unknown error'
+        },
+        { status: 500 }
+      )
+    }
   } catch (error) {
     console.error('Error creating booking:', error)
     return NextResponse.json(
