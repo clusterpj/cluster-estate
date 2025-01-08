@@ -58,6 +58,9 @@ export async function POST(request: Request) {
 
     // Create booking with RLS check
     console.log('Creating booking in database...')
+    const initialPaymentStatus = BookingPaymentStatus.PENDING
+    const initialStatus = getBookingStatusForPaymentStatus(initialPaymentStatus)
+    
     const { data: booking, error: bookingError } = await supabase
       .from('bookings')
       .insert({
@@ -68,8 +71,8 @@ export async function POST(request: Request) {
         user_id: user.id,
         property_id: bookingData.propertyId,
         total_price: bookingData.totalPrice,
-        payment_status: BookingPaymentStatus.PENDING,
-        status: getBookingStatusForPaymentStatus(BookingPaymentStatus.PENDING)
+        payment_status: initialPaymentStatus,
+        status: initialStatus
       })
       .select('*')
       .single()
@@ -132,12 +135,15 @@ export async function POST(request: Request) {
       }
 
       // Update booking with PayPal order ID and new status
+      const newPaymentStatus = BookingPaymentStatus.CREATED
+      const newStatus = getBookingStatusForPaymentStatus(newPaymentStatus)
+      
       const { error: updateError } = await supabase
         .from('bookings')
         .update({ 
           payment_id: order.id,
-          payment_status: BookingPaymentStatus.CREATED,
-          status: getBookingStatusForPaymentStatus(BookingPaymentStatus.CREATED)
+          payment_status: newPaymentStatus,
+          status: newStatus
         })
         .eq('id', booking.id)
 
@@ -157,12 +163,15 @@ export async function POST(request: Request) {
       console.error('Error creating PayPal order:', paypalError)
       
       // If PayPal fails, validate and update status
-      if (canTransitionPaymentStatus(booking.payment_status, BookingPaymentStatus.FAILED)) {
+      const failedPaymentStatus = BookingPaymentStatus.FAILED
+      const failedStatus = getBookingStatusForPaymentStatus(failedPaymentStatus)
+      
+      if (canTransitionPaymentStatus(booking.payment_status, failedPaymentStatus)) {
         await supabase
           .from('bookings')
           .update({ 
-            payment_status: BookingPaymentStatus.FAILED,
-            status: getBookingStatusForPaymentStatus(BookingPaymentStatus.FAILED)
+            payment_status: failedPaymentStatus,
+            status: failedStatus
           })
           .eq('id', booking.id)
       } else {
