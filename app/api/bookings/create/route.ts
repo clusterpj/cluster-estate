@@ -156,32 +156,13 @@ export async function POST(request: Request) {
         throw new Error('Invalid PayPal order response')
       }
 
-      // Validate status transition
-      if (!canTransitionPaymentStatus(booking.payment_status, BookingPaymentStatus.PENDING)) {
-        throw new Error(`Invalid status transition from ${booking.payment_status} to pending`)
-      }
-
-      // Update booking with PayPal order ID and new status
-      const newPaymentStatus = BookingPaymentStatus.PENDING
-      const newStatus = getBookingStatusForPaymentStatus(newPaymentStatus)
-      
-      // Validate status values before update
-      if (!isValidPaymentStatus(newPaymentStatus) || !isValidBookingStatus(newStatus)) {
-        throw new Error('Invalid status values for booking update')
-      }
-
-      console.log('Attempting to update booking with:', {
-        payment_id: order.id,
-        payment_status: newPaymentStatus,
-        status: newStatus
-      })
+      // Only update the payment_id since status remains pending
+      console.log('Attempting to update booking with PayPal ID:', order.id)
 
       const { data: updatedBooking, error: updateError } = await supabase
         .from('bookings')
         .update({ 
-          payment_id: order.id,
-          payment_status: newPaymentStatus,
-          status: newStatus
+          payment_id: order.id
         })
         .eq('id', booking.id)
         .select('*')
