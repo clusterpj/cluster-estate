@@ -26,12 +26,37 @@ interface PayPalOrderData {
   }
 }
 
+async function getPayPalAccessToken() {
+  try {
+    const auth = Buffer.from(
+      `${process.env.PAYPAL_CLIENT_ID}:${process.env.PAYPAL_SECRET}`
+    ).toString('base64')
+
+    const response = await fetch('https://api-m.sandbox.paypal.com/v1/oauth2/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Basic ${auth}`
+      },
+      body: 'grant_type=client_credentials'
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to get PayPal access token')
+    }
+
+    const data = await response.json()
+    return data.access_token
+  } catch (error) {
+    console.error('Error getting PayPal access token:', error)
+    throw error
+  }
+}
+
 export async function createPayPalOrder(orderData: PayPalOrderData) {
   try {
-    // Ensure we have a valid access token
-    if (!process.env.PAYPAL_ACCESS_TOKEN) {
-      throw new Error('PayPal access token is missing')
-    }
+    // Get PayPal access token
+    const accessToken = await getPayPalAccessToken()
 
     // Validate order data
     if (!orderData || !orderData.purchase_units || orderData.purchase_units.length === 0) {
@@ -48,7 +73,7 @@ export async function createPayPalOrder(orderData: PayPalOrderData) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.PAYPAL_ACCESS_TOKEN}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(orderData),
     })
@@ -67,13 +92,14 @@ export async function createPayPalOrder(orderData: PayPalOrderData) {
 
 export async function capturePayPalOrder(orderId: string) {
   try {
+    const accessToken = await getPayPalAccessToken()
     const response = await fetch(
       `https://api-m.sandbox.paypal.com/v2/checkout/orders/${orderId}/capture`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.PAYPAL_ACCESS_TOKEN}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       }
     )
