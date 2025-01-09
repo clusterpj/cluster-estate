@@ -43,7 +43,7 @@ export const columns: ColumnDef<Booking>[] = [
                   )}
                 </button>
                 <Link 
-                  href={`/properties/${fullId}`}
+                  href={`/properties/${row.getValue('property_id')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-1 hover:bg-accent rounded-md"
