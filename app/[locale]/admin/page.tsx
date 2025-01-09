@@ -54,6 +54,7 @@ export default function AdminDashboard() {
         <TabsList>
           <TabsTrigger value="properties">{t('tabs.properties')}</TabsTrigger>
           <TabsTrigger value="users">{t('tabs.users')}</TabsTrigger>
+          <TabsTrigger value="bookings">{t('tabs.bookings')}</TabsTrigger>
         </TabsList>
         <TabsContent value="properties">
           <Card>
@@ -72,6 +73,17 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <UserManagement />
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="bookings">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t('bookings.title')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {/* We'll need to create a BookingsManagement component */}
+              <div>Bookings management coming soon</div>
             </CardContent>
           </Card>
         </TabsContent>
