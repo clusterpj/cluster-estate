@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/utils/supabase-client'
 import { Booking } from '@/types/booking'
-import { DataTable } from '@/components/ui/data-table'
+import { DataTable } from '../../../../components/ui/data-table'
 import { columns } from './bookings-columns'
 
 export function BookingsManagement() {
