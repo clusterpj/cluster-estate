@@ -27,6 +27,8 @@ export interface PropertySortOption {
 export interface PropertyWithAvailability extends Property {
   isAvailable: boolean
   availabilityMessage?: string
+  nextAvailableDate?: Date
+  bookedDates?: Date[]
 }
 
 export function isValidPropertyStatus(status: string): status is PropertyStatus {
