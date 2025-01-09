@@ -50,7 +50,6 @@ export default async function AdminLayout({
           {children}
         </Suspense>
         {parallel}
-      </div>
     </div>
   )
 }
