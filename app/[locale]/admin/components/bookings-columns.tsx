@@ -3,6 +3,7 @@ import { Booking } from '@/types/booking'
 import { format } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
 import { DataTableColumnHeader } from '../../../../components/ui/data-table-column-header'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 export const columns: ColumnDef<Booking>[] = [
   {
@@ -10,11 +11,35 @@ export const columns: ColumnDef<Booking>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Booking ID" />
     ),
+    cell: ({ row }) => (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <span className="font-mono">#{row.getValue('id').slice(0, 6)}...</span>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{row.getValue('id')}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    ),
   },
   {
     accessorKey: 'property_id',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Property ID" />
+    ),
+    cell: ({ row }) => (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <span className="font-mono">#{row.getValue('property_id').slice(0, 6)}...</span>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{row.getValue('property_id')}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     ),
   },
   {
