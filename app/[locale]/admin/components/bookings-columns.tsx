@@ -5,8 +5,9 @@ import { Badge } from '@/components/ui/badge'
 import { DataTableColumnHeader } from '../../../../components/ui/data-table-column-header'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useState } from 'react'
-import { Check, Copy } from 'lucide-react'
+import { Check, Copy, ExternalLink } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import Link from 'next/link'
 
 export const columns: ColumnDef<Booking>[] = [
   {
@@ -29,17 +30,28 @@ export const columns: ColumnDef<Booking>[] = [
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <button
-                onClick={handleCopy}
-                className="font-mono hover:bg-accent px-2 py-1 rounded-md transition-colors flex items-center gap-2"
-              >
-                <span>{truncatedId}</span>
-                {copied ? (
-                  <Check className="h-4 w-4 text-green-500" />
-                ) : (
-                  <Copy className="h-4 w-4 opacity-50 hover:opacity-100" />
-                )}
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleCopy}
+                  className="font-mono hover:bg-accent px-2 py-1 rounded-md transition-colors flex items-center gap-2"
+                >
+                  <span>{truncatedId}</span>
+                  {copied ? (
+                    <Check className="h-4 w-4 text-green-500" />
+                  ) : (
+                    <Copy className="h-4 w-4 opacity-50 hover:opacity-100" />
+                  )}
+                </button>
+                <Link 
+                  href={`/properties/${fullId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-1 hover:bg-accent rounded-md"
+                  title="View property"
+                >
+                  <ExternalLink className="h-4 w-4 opacity-50 hover:opacity-100" />
+                </Link>
+              </div>
             </TooltipTrigger>
             <TooltipContent>
               <p>Click to copy full ID</p>
