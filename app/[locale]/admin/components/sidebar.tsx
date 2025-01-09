@@ -27,31 +27,11 @@ export function Sidebar({ locale }: SidebarProps) {
       name: 'Properties',
       href: `/${locale}/admin/properties`,
       icon: 'home',
-      subItems: [
-        {
-          name: 'All Properties',
-          href: `/${locale}/admin/properties`,
-        },
-        {
-          name: 'Add Property',
-          href: `/${locale}/admin/properties/new`,
-        },
-      ],
     },
     {
       name: 'Users',
       href: `/${locale}/admin/users`,
       icon: 'users',
-      subItems: [
-        {
-          name: 'All Users',
-          href: `/${locale}/admin/users`,
-        },
-        {
-          name: 'Add User',
-          href: `/${locale}/admin/users/new`,
-        },
-      ],
     },
   ]
 
@@ -72,24 +52,6 @@ export function Sidebar({ locale }: SidebarProps) {
               <span className="truncate">{item.name}</span>
             </Link>
             
-            {item.subItems && (
-              <div className="pl-4 mt-1 space-y-1">
-                {item.subItems.map(subItem => (
-                  <Link
-                    key={subItem.href}
-                    href={subItem.href}
-                    className={cn(
-                      'flex items-center px-3 py-2 text-sm font-medium rounded-md',
-                      pathname === subItem.href
-                        ? 'bg-gray-100 text-gray-900'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                    )}
-                  >
-                    <span className="truncate">- {subItem.name}</span>
-                  </Link>
-                ))}
-              </div>
-            )}
           </div>
         ))}
       </nav>
