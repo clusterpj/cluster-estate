@@ -1,6 +1,5 @@
 'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useTranslations } from 'next-intl'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/utils/supabase-client'
