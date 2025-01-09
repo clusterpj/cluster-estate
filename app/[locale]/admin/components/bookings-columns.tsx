@@ -2,7 +2,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import { Booking } from '@/types/booking'
 import { format } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
-import { DataTableColumnHeader } from '@/components/ui/data-table-column-header'
+import { DataTableColumnHeader } from '../../../../components/ui/data-table-column-header'
 
 export const columns: ColumnDef<Booking>[] = [
   {
