@@ -279,7 +279,22 @@
         "bookings": "Bookings"
       },
       "bookings": {
-        "title": "Manage Bookings"
+        "title": "Manage Bookings",
+        "loading": "Loading bookings...",
+        "noBookings": "No bookings found",
+        "fetchError": "Failed to load bookings",
+        "status": {
+          "pending": "Pending",
+          "confirmed": "Confirmed",
+          "cancelled": "Cancelled",
+          "completed": "Completed"
+        },
+        "paymentStatus": {
+          "pending": "Pending",
+          "completed": "Completed",
+          "failed": "Failed",
+          "refunded": "Refunded"
+        }
       },
       "users": {
         "title": "User Management",

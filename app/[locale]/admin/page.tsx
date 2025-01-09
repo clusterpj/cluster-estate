@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { UserManagement } from './components/user-management'
 import { PropertyManagement } from './components/property-management'
+import { BookingsManagement } from './components/bookings-management'
 import { DashboardHeader } from './components/dashboard-header'
 import { DashboardStats } from './components/dashboard-stats'
 import { useTranslations } from 'next-intl'
@@ -82,8 +83,7 @@ export default function AdminDashboard() {
               <CardTitle>{t('bookings.title')}</CardTitle>
             </CardHeader>
             <CardContent>
-              {/* We'll need to create a BookingsManagement component */}
-              <div>Bookings management coming soon</div>
+              <BookingsManagement />
             </CardContent>
           </Card>
         </TabsContent>
