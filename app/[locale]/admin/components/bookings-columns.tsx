@@ -4,6 +4,9 @@ import { format } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
 import { DataTableColumnHeader } from '../../../../components/ui/data-table-column-header'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { useState } from 'react'
+import { Check, Copy } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 export const columns: ColumnDef<Booking>[] = [
   {
@@ -11,36 +14,82 @@ export const columns: ColumnDef<Booking>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Booking ID" />
     ),
-    cell: ({ row }) => (
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger>
-            <span className="font-mono">#{row.getValue('id').slice(0, 6)}...</span>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{row.getValue('id')}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    ),
+    cell: ({ row }) => {
+      const [copied, setCopied] = useState(false)
+      const fullId = row.getValue('id')
+      const truncatedId = `#${fullId.slice(0, 6)}...`
+
+      const handleCopy = () => {
+        navigator.clipboard.writeText(fullId)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      }
+
+      return (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={handleCopy}
+                className="font-mono hover:bg-accent px-2 py-1 rounded-md transition-colors flex items-center gap-2"
+              >
+                <span>{truncatedId}</span>
+                {copied ? (
+                  <Check className="h-4 w-4 text-green-500" />
+                ) : (
+                  <Copy className="h-4 w-4 opacity-50 hover:opacity-100" />
+                )}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Click to copy full ID</p>
+              <p className="text-xs text-muted-foreground">{fullId}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      )
+    },
   },
   {
     accessorKey: 'property_id',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Property ID" />
     ),
-    cell: ({ row }) => (
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger>
-            <span className="font-mono">#{row.getValue('property_id').slice(0, 6)}...</span>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{row.getValue('property_id')}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    ),
+    cell: ({ row }) => {
+      const [copied, setCopied] = useState(false)
+      const fullId = row.getValue('property_id')
+      const truncatedId = `#${fullId.slice(0, 6)}...`
+
+      const handleCopy = () => {
+        navigator.clipboard.writeText(fullId)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      }
+
+      return (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={handleCopy}
+                className="font-mono hover:bg-accent px-2 py-1 rounded-md transition-colors flex items-center gap-2"
+              >
+                <span>{truncatedId}</span>
+                {copied ? (
+                  <Check className="h-4 w-4 text-green-500" />
+                ) : (
+                  <Copy className="h-4 w-4 opacity-50 hover:opacity-100" />
+                )}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Click to copy full ID</p>
+              <p className="text-xs text-muted-foreground">{fullId}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      )
+    },
   },
   {
     accessorKey: 'check_in',
