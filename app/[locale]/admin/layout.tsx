@@ -4,7 +4,6 @@ import { cookies } from 'next/headers'
 import type { Database } from '../../../types/supabase'
 import { Suspense } from 'react'
 import type { Locale } from '../../../config/i18n'
-import { Sidebar } from './components/sidebar'
 
 interface AdminLayoutProps {
   children: React.ReactNode
