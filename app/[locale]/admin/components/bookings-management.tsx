@@ -40,18 +40,11 @@ export function BookingsManagement() {
   if (error) return <div className="text-red-500">{error}</div>
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t('bookings.title')}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <DataTable
-          columns={columns}
-          data={bookings}
-          searchKey="id"
-          emptyMessage={t('bookings.noBookings')}
-        />
-      </CardContent>
-    </Card>
+    <DataTable
+      columns={columns}
+      data={bookings}
+      searchKey="id"
+      emptyMessage={t('bookings.noBookings')}
+    />
   )
 }
