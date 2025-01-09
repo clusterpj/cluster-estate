@@ -275,7 +275,11 @@
       },
       "tabs": {
         "properties": "Properties",
-        "users": "Users"
+        "users": "Users",
+        "bookings": "Bookings"
+      },
+      "bookings": {
+        "title": "Manage Bookings"
       },
       "users": {
         "title": "User Management",
