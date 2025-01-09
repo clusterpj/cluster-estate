@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowDownIcon, ArrowUpIcon, CaretSortIcon } from '@radix-ui/react-icons'
+import { ArrowDown, ArrowUp, ChevronsUpDown } from 'lucide-react'
 import { Column } from '@tanstack/react-table'
 import { Button } from './button'
 import { cn } from '@/lib/utils'
@@ -30,11 +30,11 @@ export function DataTableColumnHeader<TData, TValue>({
       >
         <span>{title}</span>
         {column.getIsSorted() === 'desc' ? (
-          <ArrowDownIcon className="ml-2 h-4 w-4" />
+          <ArrowDown className="ml-2 h-4 w-4" />
         ) : column.getIsSorted() === 'asc' ? (
-          <ArrowUpIcon className="ml-2 h-4 w-4" />
+          <ArrowUp className="ml-2 h-4 w-4" />
         ) : (
-          <CaretSortIcon className="ml-2 h-4 w-4" />
+          <ChevronsUpDown className="ml-2 h-4 w-4" />
         )}
       </Button>
     </div>
