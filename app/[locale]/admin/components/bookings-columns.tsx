@@ -108,14 +108,14 @@ export const columns: ColumnDef<Booking>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Check-in" />
     ),
-    cell: ({ row }) => format(new Date(row.getValue('check_in')), 'PPP'),
+    cell: ({ row }) => format(new Date(row.getValue('check_in')), 'MMM d, yyyy'),
   },
   {
     accessorKey: 'check_out',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Check-out" />
     ),
-    cell: ({ row }) => format(new Date(row.getValue('check_out')), 'PPP'),
+    cell: ({ row }) => format(new Date(row.getValue('check_out')), 'MMM d, yyyy'),
   },
   {
     accessorKey: 'status',
@@ -154,6 +154,6 @@ export const columns: ColumnDef<Booking>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Created At" />
     ),
-    cell: ({ row }) => format(new Date(row.getValue('created_at')), 'PPPp'),
+    cell: ({ row }) => format(new Date(row.getValue('created_at')), 'MMM d, h:mm a'),
   },
 ]
