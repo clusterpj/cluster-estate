@@ -187,21 +187,19 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
                       // Base hover state
                       'hover:bg-accent/80 hover:text-accent-foreground',
                       
-                      // Available dates
+                      // Available dates - matches legend
                       isAvailable && [
-                        'text-foreground bg-background',
-                        'hover:bg-accent hover:text-accent-foreground',
-                        'border border-transparent hover:border-accent'
+                        'text-foreground bg-background border border-foreground/20',
+                        'hover:bg-accent hover:text-accent-foreground'
                       ],
                       
-                      // Selected dates
+                      // Selected dates - matches legend
                       isSelected && [
                         'bg-primary text-primary-foreground',
-                        'hover:bg-primary/90',
-                        'border-2 border-primary/90'
+                        'hover:bg-primary/90'
                       ],
                       
-                      // Within range
+                      // Within range - matches legend
                       isInRange && [
                         'bg-accent/70 text-accent-foreground',
                         'hover:bg-accent/80'
@@ -213,7 +211,7 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
                         'font-bold'
                       ],
                       
-                      // Booked dates
+                      // Booked dates - matches legend
                       isBooked && [
                         'bg-destructive/20 text-destructive-foreground',
                         'cursor-not-allowed',
@@ -221,7 +219,7 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
                         'hover:bg-destructive/30'
                       ],
                       
-                      // Unavailable dates
+                      // Unavailable dates - matches legend
                       isUnavailable && [
                         'bg-muted/30 text-muted-foreground',
                         'cursor-not-allowed',
