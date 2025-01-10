@@ -299,56 +299,62 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
                   head_cell: 'text-muted-foreground rounded-md w-10 font-normal text-sm',
                   row: 'flex w-full mt-2',
                   cell: 'text-center p-0 relative focus-within:relative focus-within:z-20',
-                  day: (date) => cn(
-                    'h-10 w-10 rounded-full flex items-center justify-center text-sm transition-colors font-medium',
-                    // Base styles for all dates
-                    'hover:bg-accent/80 hover:text-accent-foreground',
-                    
-                    // Available dates
-                    !isDateDisabled(date) && !isDateBooked(date) && [
-                      'text-foreground bg-background',
-                      'hover:bg-accent hover:text-accent-foreground',
-                      'border border-transparent hover:border-accent'
-                    ],
-                    
-                    // Selected dates
-                    (isSameDay(date, selectedDates.start || new Date(0)) || 
-                     isSameDay(date, selectedDates.end || new Date(0))) && [
-                      'bg-primary text-primary-foreground',
-                      'hover:bg-primary/90',
-                      'border-2 border-primary/90'
-                    ],
-                    
-                    // Range selection
-                    selectedDates.start && selectedDates.end && 
-                      isWithinInterval(date, { 
-                        start: selectedDates.start, 
-                        end: selectedDates.end 
-                      }) && [
+                  day: (date) => {
+                    const isAvailable = !isDateDisabled(date) && !isDateBooked(date)
+                    const isSelected = isSameDay(date, selectedDates.start || new Date(0)) || 
+                                     isSameDay(date, selectedDates.end || new Date(0))
+                    const isInRange = selectedDates.start && selectedDates.end && 
+                                    isWithinInterval(date, { start: selectedDates.start, end: selectedDates.end })
+                    const isToday = isSameDay(date, new Date())
+                    const isBooked = isDateBooked(date)
+                    const isUnavailable = isDateDisabled(date) && !isDateBooked(date)
+
+                    return cn(
+                      'h-10 w-10 rounded-full flex items-center justify-center text-sm transition-colors font-medium',
+                      // Base hover state
+                      'hover:bg-accent/80 hover:text-accent-foreground',
+                      
+                      // Available dates - matches legend
+                      isAvailable && [
+                        'text-foreground bg-background border border-foreground/20',
+                        'hover:bg-accent hover:text-accent-foreground'
+                      ],
+                      
+                      // Selected dates - matches legend
+                      isSelected && [
+                        'bg-primary text-primary-foreground',
+                        'hover:bg-primary/90'
+                      ],
+                      
+                      // Within range - matches legend
+                      isInRange && [
                         'bg-accent/70 text-accent-foreground',
                         'hover:bg-accent/80'
                       ],
-                    
-                    // Today's date
-                    isSameDay(date, new Date()) && [
-                      'border-2 border-primary',
-                      'font-bold'
-                    ],
-                    
-                    // Booked dates
-                    isDateBooked(date) && [
-                      'bg-destructive/20 text-destructive-foreground',
-                      'cursor-not-allowed',
-                      'line-through'
-                    ],
-                    
-                    // Disabled dates
-                    isDateDisabled(date) && !isDateBooked(date) && [
-                      'bg-muted/30 text-muted-foreground',
-                      'cursor-not-allowed',
-                      'opacity-70'
-                    ]
-                  ),
+                      
+                      // Today's date
+                      isToday && [
+                        'border-2 border-primary',
+                        'font-bold'
+                      ],
+                      
+                      // Booked dates - matches legend
+                      isBooked && [
+                        'bg-destructive/20 text-destructive-foreground',
+                        'cursor-not-allowed',
+                        'line-through',
+                        'hover:bg-destructive/30'
+                      ],
+                      
+                      // Unavailable dates - matches legend
+                      isUnavailable && [
+                        'bg-muted/30 text-muted-foreground',
+                        'cursor-not-allowed',
+                        'opacity-70',
+                        'hover:bg-muted/40'
+                      ]
+                    )
+                  },
                   day_outside: 'text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',
                   day_hidden: 'invisible',
                 }}
