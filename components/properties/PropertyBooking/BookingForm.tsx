@@ -26,23 +26,6 @@ import { Info } from 'lucide-react'
 import { BookingFormData } from '@/types/booking'
 import { Property } from '@/types/property'
 
-const bookingSchema = z.object({
-  checkIn: z.date({
-    required_error: 'Check-in date is required',
-  }),
-  checkOut: z.date({
-    required_error: 'Check-out date is required',
-  }),
-  guests: z.number({
-    required_error: 'Number of guests is required',
-  })
-    .min(1, 'At least 1 guest is required')
-    .max(property.max_guests || 10, `Maximum ${property.max_guests || 10} guests allowed`),
-  specialRequests: z.string().optional(),
-}).refine(data => data.checkOut > data.checkIn, {
-  message: 'Check-out date must be after check-in date',
-  path: ['checkOut'],
-})
 
 interface BookingFormProps {
   property: Property
@@ -54,6 +37,24 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
   const [dateError, setDateError] = useState<string>('')
   const [isCheckingAvailability, setIsCheckingAvailability] = useState(false)
   const [isAvailable, setIsAvailable] = useState(true)
+
+  const bookingSchema = z.object({
+    checkIn: z.date({
+      required_error: 'Check-in date is required',
+    }),
+    checkOut: z.date({
+      required_error: 'Check-out date is required',
+    }),
+    guests: z.number({
+      required_error: 'Number of guests is required',
+    })
+      .min(1, 'At least 1 guest is required')
+      .max(property.max_guests || 10, `Maximum ${property.max_guests || 10} guests allowed`),
+    specialRequests: z.string().optional(),
+  }).refine(data => data.checkOut > data.checkIn, {
+    message: 'Check-out date must be after check-in date',
+    path: ['checkOut'],
+  })
 
   const form = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
