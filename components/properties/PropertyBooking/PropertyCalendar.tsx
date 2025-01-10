@@ -105,14 +105,6 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
               <span className="text-sm">Selected</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded-full bg-accent/70" />
-              <span className="text-sm">Within Range</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded-full bg-destructive/20 line-through" />
-              <span className="text-sm">Booked</span>
-            </div>
-            <div className="flex items-center gap-2">
               <div className="h-4 w-4 rounded-full bg-muted/30 opacity-70" />
               <span className="text-sm">Unavailable</span>
             </div>
