@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { isPropertyAvailable } from '@/lib/utils'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -41,6 +42,8 @@ interface BookingFormProps {
 
 export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps) {
   const [dateError, setDateError] = useState<string>('')
+  const [isCheckingAvailability, setIsCheckingAvailability] = useState(false)
+  const [isAvailable, setIsAvailable] = useState(true)
 
   const form = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
@@ -50,7 +53,7 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
     },
   })
 
-  const handleSubmit = (data: BookingFormData) => {
+  const handleSubmit = async (data: BookingFormData) => {
     // Check if dates are within property's available range
     if (property.available_from && data.checkIn < new Date(property.available_from)) {
       setDateError('Check-in date is before property availability')
@@ -61,8 +64,36 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
       return
     }
 
-    setDateError('')
-    onSubmit(data)
+    // Check minimum rental period
+    if (property.minimum_rental_period) {
+      const days = Math.ceil(
+        (data.checkOut.getTime() - data.checkIn.getTime()) / (1000 * 60 * 60 * 24)
+      )
+      if (days < property.minimum_rental_period) {
+        setDateError(`Minimum rental period is ${property.minimum_rental_period} days`)
+        return
+      }
+    }
+
+    // Check availability
+    setIsCheckingAvailability(true)
+    try {
+      const available = await isPropertyAvailable(property.id, data.checkIn, data.checkOut)
+      if (!available) {
+        setDateError('Selected dates are not available')
+        setIsAvailable(false)
+        return
+      }
+      
+      setDateError('')
+      setIsAvailable(true)
+      onSubmit(data)
+    } catch (error) {
+      setDateError('Error checking availability')
+      console.error('Availability check failed:', error)
+    } finally {
+      setIsCheckingAvailability(false)
+    }
   }
 
   const isDateDisabled = (date: Date, type: 'checkIn' | 'checkOut'): boolean => {
@@ -162,8 +193,14 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
           )}
         />
 
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? 'Processing...' : 'Continue to Payment'}
+        <Button 
+          type="submit" 
+          disabled={isLoading || isCheckingAvailability}
+          className={!isAvailable ? 'bg-destructive hover:bg-destructive/90' : ''}
+        >
+          {isCheckingAvailability ? 'Checking availability...' : 
+           isLoading ? 'Processing...' : 
+           !isAvailable ? 'Not Available' : 'Continue to Payment'}
         </Button>
       </form>
     </Form>
