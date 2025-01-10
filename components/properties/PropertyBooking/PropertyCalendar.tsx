@@ -100,8 +100,8 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
           className="w-full"
           numberOfMonths={2}
           classNames={{
-            months: 'w-full',
-            month: 'space-y-4',
+            months: 'flex gap-4 w-full',
+            month: 'space-y-4 w-[300px]',
             caption: 'flex justify-center pt-1 relative items-center',
             caption_label: 'text-sm font-medium',
             nav: 'space-x-1 flex items-center',
