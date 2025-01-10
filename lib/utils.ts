@@ -145,7 +145,7 @@ export function getCalendarDateClasses(
     'transition-colors',
     'aria-selected:opacity-100',
     'flex items-center justify-center',
-    'antialiased'
+    'text-sm'
   ]
 
   // Check if date is in selected range

@@ -1,10 +1,12 @@
 @layer base {
   html {
     text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
 
   .antialiased {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
   }
 }
