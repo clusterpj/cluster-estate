@@ -219,6 +219,24 @@
     "adminSection": {
       "title": "Panel de administración",
       "description": "Administra tus propiedades y usuarios",
+      "bookings": {
+        "title": "Gestión de Reservas",
+        "loading": "Cargando reservas...",
+        "noBookings": "No se encontraron reservas",
+        "fetchError": "Error al cargar las reservas",
+        "status": {
+          "pending": "Pendiente",
+          "confirmed": "Confirmado",
+          "cancelled": "Cancelado",
+          "completed": "Completado"
+        },
+        "paymentStatus": {
+          "pending": "Pendiente",
+          "completed": "Completado",
+          "failed": "Fallido",
+          "refunded": "Reembolsado"
+        }
+      },
       "stats": {
         "totalProperties": "Propiedades Totales",
         "available": "Disponible",

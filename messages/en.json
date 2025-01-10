@@ -221,6 +221,24 @@
     "adminSection": {
       "title": "Admin Dashboard",
       "description": "Manage your properties and users",
+      "bookings": {
+        "title": "Manage Bookings",
+        "loading": "Loading bookings...",
+        "noBookings": "No bookings found",
+        "fetchError": "Failed to load bookings",
+        "status": {
+          "pending": "Pending",
+          "confirmed": "Confirmed",
+          "cancelled": "Cancelled",
+          "completed": "Completed"
+        },
+        "paymentStatus": {
+          "pending": "Pending",
+          "completed": "Completed",
+          "failed": "Failed",
+          "refunded": "Refunded"
+        }
+      },
       "stats": {
         "totalProperties": "Total Properties",
         "available": "Available",
