@@ -92,7 +92,28 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
   return (
     <div className="space-y-4">
       {/* Date Selection Controls */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-[1fr_1fr_300px]">
+        {/* Calendar Legend */}
+        <div className="md:col-span-3">
+          <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+            <div className="flex items-center gap-2">
+              <div className="h-4 w-4 rounded-sm bg-primary" />
+              <span className="text-sm">Selected</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-4 w-4 rounded-sm bg-destructive/10" />
+              <span className="text-sm">Unavailable</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-4 w-4 rounded-sm bg-muted hover:bg-accent" />
+              <span className="text-sm">Available</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-4 w-4 rounded-sm bg-accent/50" />
+              <span className="text-sm">Within Range</span>
+            </div>
+          </div>
+        </div>
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -159,7 +180,9 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
                         start: selectedDates.start, 
                         end: selectedDates.end 
                       }) && 'bg-accent/50',
-                    isSameDay(date, new Date()) && 'border border-primary'
+                    isSameDay(date, new Date()) && 'border border-primary',
+                    isDateBooked(date) && 'bg-destructive/10 text-destructive-foreground cursor-not-allowed',
+                    isDateDisabled(date) && !isDateBooked(date) && 'bg-muted text-muted-foreground cursor-not-allowed'
                   ),
                   day_outside: 'text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',
                   day_hidden: 'invisible',
@@ -361,29 +384,8 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
           </div>
         )}
         
-        {/* Legend and Policies */}
+        {/* Policies */}
         <div className="space-y-4">
-          <div className="rounded-lg border p-4">
-            <h3 className="font-semibold text-lg mb-3">Calendar Legend</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex items-center gap-3">
-                <div className="h-5 w-5 rounded-sm bg-primary" />
-                <span className="font-medium">Selected Dates</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="h-5 w-5 rounded-sm bg-destructive/10" />
-                <span className="font-medium">Unavailable</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="h-5 w-5 rounded-sm bg-muted hover:bg-accent" />
-                <span className="font-medium">Available</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="h-5 w-5 rounded-sm bg-accent/50" />
-                <span className="font-medium">Within Range</span>
-              </div>
-            </div>
-          </div>
 
           <div className="rounded-lg border p-4">
             <h3 className="font-semibold text-lg mb-3">Cancellation Policy</h3>
