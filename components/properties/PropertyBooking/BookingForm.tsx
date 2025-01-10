@@ -16,6 +16,13 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
+import { Info } from 'lucide-react'
 import { BookingFormData } from '@/types/booking'
 import { Property } from '@/types/property'
 
