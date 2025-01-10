@@ -97,20 +97,24 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
         <div className="md:col-span-3">
           <div className="flex flex-wrap gap-4 justify-center md:justify-start">
             <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded-sm bg-primary" />
-              <span className="text-sm">Selected</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded-sm bg-destructive/10" />
-              <span className="text-sm">Unavailable</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded-sm bg-muted hover:bg-accent" />
+              <div className="h-4 w-4 rounded-full bg-background border border-foreground/20" />
               <span className="text-sm">Available</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded-sm bg-accent/50" />
+              <div className="h-4 w-4 rounded-full bg-primary" />
+              <span className="text-sm">Selected</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-4 w-4 rounded-full bg-accent/70" />
               <span className="text-sm">Within Range</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-4 w-4 rounded-full bg-destructive/20 line-through" />
+              <span className="text-sm">Booked</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-4 w-4 rounded-full bg-muted/30 opacity-70" />
+              <span className="text-sm">Unavailable</span>
             </div>
           </div>
         </div>
@@ -169,20 +173,54 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
                   row: 'flex w-full mt-2',
                   cell: 'text-center p-0 relative [&:has([aria-selected])]:bg-accent/50 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
                   day: (date) => cn(
-                    'h-10 w-10 rounded-full flex items-center justify-center text-sm transition-colors',
-                    isDateDisabled(date) 
-                      ? 'text-muted-foreground opacity-50 cursor-not-allowed'
-                      : 'text-foreground hover:bg-accent',
-                    isSameDay(date, selectedDates.start || new Date(0)) && 'bg-primary text-primary-foreground hover:bg-primary/90',
-                    isSameDay(date, selectedDates.end || new Date(0)) && 'bg-primary text-primary-foreground hover:bg-primary/90',
+                    'h-10 w-10 rounded-full flex items-center justify-center text-sm transition-colors font-medium',
+                    // Base styles for all dates
+                    'hover:bg-accent/80 hover:text-accent-foreground',
+                    
+                    // Available dates
+                    !isDateDisabled(date) && !isDateBooked(date) && [
+                      'text-foreground bg-background',
+                      'hover:bg-accent hover:text-accent-foreground',
+                      'border border-transparent hover:border-accent'
+                    ],
+                    
+                    // Selected dates
+                    (isSameDay(date, selectedDates.start || new Date(0)) || 
+                     isSameDay(date, selectedDates.end || new Date(0))) && [
+                      'bg-primary text-primary-foreground',
+                      'hover:bg-primary/90',
+                      'border-2 border-primary/90'
+                    ],
+                    
+                    // Range selection
                     selectedDates.start && selectedDates.end && 
                       isWithinInterval(date, { 
                         start: selectedDates.start, 
                         end: selectedDates.end 
-                      }) && 'bg-accent/50',
-                    isSameDay(date, new Date()) && 'border border-primary',
-                    isDateBooked(date) && 'bg-destructive/10 text-destructive-foreground cursor-not-allowed',
-                    isDateDisabled(date) && !isDateBooked(date) && 'bg-muted text-muted-foreground cursor-not-allowed'
+                      }) && [
+                        'bg-accent/70 text-accent-foreground',
+                        'hover:bg-accent/80'
+                      ],
+                    
+                    // Today's date
+                    isSameDay(date, new Date()) && [
+                      'border-2 border-primary',
+                      'font-bold'
+                    ],
+                    
+                    // Booked dates
+                    isDateBooked(date) && [
+                      'bg-destructive/20 text-destructive-foreground',
+                      'cursor-not-allowed',
+                      'line-through'
+                    ],
+                    
+                    // Disabled dates
+                    isDateDisabled(date) && !isDateBooked(date) && [
+                      'bg-muted/30 text-muted-foreground',
+                      'cursor-not-allowed',
+                      'opacity-70'
+                    ]
                   ),
                   day_outside: 'text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',
                   day_hidden: 'invisible',
