@@ -356,6 +356,38 @@
           "completed": "Abgeschlossen",
           "failed": "Fehlgeschlagen",
           "refunded": "Erstattet"
+        },
+        "columns": {
+          "id": "Buchungsnummer",
+          "property": "Immobilie",
+          "checkIn": "Check-In",
+          "checkOut": "Check-Out",
+          "guests": "Gäste",
+          "totalPrice": "Gesamtpreis",
+          "status": "Status",
+          "paymentStatus": "Zahlungsstatus",
+          "actions": "Aktionen"
+        },
+        "actions": {
+          "view": "Anzeigen",
+          "edit": "Bearbeiten",
+          "cancel": "Stornieren",
+          "confirm": "Bestätigen",
+          "markCompleted": "Als abgeschlossen markieren"
+        },
+        "details": {
+          "title": "Buchungsdetails",
+          "guestInfo": "Gastinformationen",
+          "specialRequests": "Besondere Wünsche",
+          "paymentDetails": "Zahlungsdetails",
+          "createdAt": "Erstellt am",
+          "updatedAt": "Aktualisiert am"
+        },
+        "confirmation": {
+          "cancelTitle": "Buchung stornieren",
+          "cancelMessage": "Sind Sie sicher, dass Sie diese Buchung stornieren möchten?",
+          "confirmTitle": "Buchung bestätigen",
+          "confirmMessage": "Sind Sie sicher, dass Sie diese Buchung bestätigen möchten?"
         }
       },
       "users": {
