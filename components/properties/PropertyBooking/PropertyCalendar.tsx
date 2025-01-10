@@ -87,7 +87,7 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
         (selectedDates.end.getTime() - selectedDates.start.getTime()) / 
         (1000 * 60 * 60 * 24)
       )
-    : 0
+    : 0;
 
   return (
     <div className="space-y-4">
@@ -108,6 +108,7 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
               </Button>
             )}
           </div>
+        </div>
         <Popover>
           <PopoverTrigger asChild>
             <Button
