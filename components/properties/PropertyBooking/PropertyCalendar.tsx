@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Calendar } from '@/components/ui/calendar'
 import { getBookedDates } from '@/lib/utils'
 import { Property } from '@/types/property'
-import { addDays, isSameDay } from 'date-fns'
+import { addDays, isSameDay, isWithinInterval } from 'date-fns'
 
 interface PropertyCalendarProps {
   property: Property
@@ -47,27 +47,58 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
   }
 
   const getDateClassName = (date: Date) => {
-    if (isDateBooked(date)) {
-      return 'bg-destructive/10 text-destructive-foreground hover:bg-destructive/20'
+    let className = ''
+    
+    // Check if date is in selected range
+    if (selectedDates?.start && selectedDates?.end) {
+      const isInRange = isWithinInterval(date, {
+        start: selectedDates.start,
+        end: selectedDates.end
+      })
+      
+      if (isInRange) {
+        className += ' bg-primary/10 hover:bg-primary/20'
+      }
     }
+
+    // Check if date is selected start/end
     if (selectedDates?.start && isSameDay(date, selectedDates.start)) {
-      return 'bg-primary text-primary-foreground hover:bg-primary/90'
+      className += ' bg-primary text-primary-foreground hover:bg-primary/90'
     }
     if (selectedDates?.end && isSameDay(date, selectedDates.end)) {
-      return 'bg-primary text-primary-foreground hover:bg-primary/90'
+      className += ' bg-primary text-primary-foreground hover:bg-primary/90'
     }
-    return ''
+
+    // Check if date is booked
+    if (isDateBooked(date)) {
+      className += ' bg-destructive/10 text-destructive-foreground hover:bg-destructive/20'
+    }
+
+    // Check if date is available
+    if (!isDateDisabled(date) && !isDateBooked(date)) {
+      className += ' hover:bg-accent hover:text-accent-foreground'
+    }
+
+    return className.trim()
   }
 
   return (
     <div className="space-y-4">
       <div className="rounded-lg border bg-background p-6 shadow-sm">
         <Calendar
-          mode="single"
-          selected={selectedDates?.start}
-          onSelect={onDateSelect}
+          mode="range"
+          selected={{
+            from: selectedDates?.start,
+            to: selectedDates?.end
+          }}
+          onSelect={(range) => {
+            if (range?.from) {
+              onDateSelect?.(range.from)
+            }
+          }}
           disabled={isDateDisabled}
           className="w-full"
+          numberOfMonths={2}
           classNames={{
             months: 'w-full',
             month: 'space-y-4',
@@ -98,17 +129,21 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
         />
       </div>
       
-      <div className="flex items-center gap-4 text-sm">
+      <div className="flex flex-wrap items-center gap-4 text-sm">
         <div className="flex items-center gap-2">
           <div className="h-4 w-4 rounded-sm bg-primary" />
-          <span>Selected</span>
+          <span>Selected Dates</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="h-4 w-4 rounded-sm bg-primary/10" />
+          <span>Selected Range</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="h-4 w-4 rounded-sm bg-destructive/10" />
-          <span>Booked</span>
+          <span>Booked/Unavailable</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="h-4 w-4 rounded-sm bg-muted" />
+          <div className="h-4 w-4 rounded-sm bg-muted hover:bg-accent" />
           <span>Available</span>
         </div>
       </div>
