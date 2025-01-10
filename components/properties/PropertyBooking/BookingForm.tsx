@@ -120,8 +120,12 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
           onDateSelect={(date) => {
             if (!form.getValues('checkIn')) {
               form.setValue('checkIn', date)
-            } else {
+            } else if (date > form.getValues('checkIn')) {
               form.setValue('checkOut', date)
+            } else {
+              // If selected date is before check-in, reset both dates
+              form.setValue('checkIn', date)
+              form.setValue('checkOut', null)
             }
           }}
           selectedDates={{
@@ -129,47 +133,6 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
             end: form.watch('checkOut') || null
           }}
         />
-        <div className="grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="checkIn"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Check-in Date</FormLabel>
-                <FormControl>
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) => isDateDisabled(date, 'checkIn')}
-                    initialFocus
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="checkOut"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Check-out Date</FormLabel>
-                <FormControl>
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) => isDateDisabled(date, 'checkOut')}
-                    initialFocus
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
 
         {dateError && (
           <p className="text-sm font-medium text-destructive">{dateError}</p>
