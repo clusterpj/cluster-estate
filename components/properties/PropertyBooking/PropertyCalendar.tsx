@@ -165,8 +165,35 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
       </div>
 
       <div className="grid gap-4">
+        {/* Availability Overview */}
+        <div className="rounded-lg border p-4 space-y-4">
+          <h3 className="font-semibold text-lg">Availability Overview</h3>
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Listing Type</span>
+              <span className="font-medium capitalize">{property.listing_type}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Available From</span>
+              <span className="font-medium">
+                {property.available_from ? 
+                  format(new Date(property.available_from), "MMM d, yyyy") : 
+                  "Immediately"}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Available To</span>
+              <span className="font-medium">
+                {property.available_to ? 
+                  format(new Date(property.available_to), "MMM d, yyyy") : 
+                  "No end date"}
+              </span>
+            </div>
+          </div>
+        </div>
+
         {selectedDates.start && selectedDates.end && (
-          <div className="space-y-2 rounded-lg border p-4">
+          <div className="space-y-4 rounded-lg border p-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-muted-foreground">Check-in</p>
@@ -182,7 +209,8 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
               </div>
             </div>
             
-            <div className="border-t pt-4">
+            <div className="border-t pt-4 space-y-3">
+              <h4 className="font-semibold">Pricing Breakdown</h4>
               <div className="flex justify-between">
                 <p className="text-sm text-muted-foreground">Nights</p>
                 <p className="font-medium">
@@ -220,18 +248,43 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
           </div>
         )}
         
-        <div className="flex flex-wrap items-center gap-4 text-sm">
-          <div className="flex items-center gap-2">
-            <div className="h-4 w-4 rounded-sm bg-primary" />
-            <span>Selected</span>
+        {/* Legend and Policies */}
+        <div className="space-y-4">
+          <div className="rounded-lg border p-4">
+            <h3 className="font-semibold text-lg mb-3">Calendar Legend</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex items-center gap-3">
+                <div className="h-5 w-5 rounded-sm bg-primary" />
+                <span className="font-medium">Selected Dates</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="h-5 w-5 rounded-sm bg-destructive/10" />
+                <span className="font-medium">Unavailable</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="h-5 w-5 rounded-sm bg-muted hover:bg-accent" />
+                <span className="font-medium">Available</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="h-5 w-5 rounded-sm bg-accent/50" />
+                <span className="font-medium">Within Range</span>
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="h-4 w-4 rounded-sm bg-destructive/10" />
-            <span>Unavailable</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="h-4 w-4 rounded-sm bg-muted hover:bg-accent" />
-            <span>Available</span>
+
+          <div className="rounded-lg border p-4">
+            <h3 className="font-semibold text-lg mb-3">Cancellation Policy</h3>
+            <div className="space-y-2 text-sm">
+              <p className="text-muted-foreground">
+                Free cancellation up to {property.cancellation_days || 7} days before check-in
+              </p>
+              <p className="text-muted-foreground">
+                50% refund if canceled within {property.cancellation_days || 7} days of check-in
+              </p>
+              <p className="text-muted-foreground">
+                No refund for cancellations after check-in
+              </p>
+            </div>
           </div>
         </div>
       </div>
