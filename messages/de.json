@@ -340,6 +340,24 @@
         "properties": "Eigenschaften",
         "users": "Nutzer"
       },
+      "bookings": {
+        "title": "Buchungsverwaltung",
+        "loading": "Buchungen werden geladen...",
+        "noBookings": "Keine Buchungen gefunden",
+        "fetchError": "Fehler beim Laden der Buchungen",
+        "status": {
+          "pending": "Ausstehend",
+          "confirmed": "Bestätigt",
+          "cancelled": "Storniert",
+          "completed": "Abgeschlossen"
+        },
+        "paymentStatus": {
+          "pending": "Ausstehend",
+          "completed": "Abgeschlossen",
+          "failed": "Fehlgeschlagen",
+          "refunded": "Erstattet"
+        }
+      },
       "users": {
         "title": "Benutzerverwaltung",
         "description": "Benutzerkonten und Rollen verwalten",
