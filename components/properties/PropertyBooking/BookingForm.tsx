@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { isPropertyAvailable } from '@/lib/utils'
+import { isPropertyAvailable, getBookedDates } from '@/lib/utils'
+import { PropertyCalendar } from './PropertyCalendar'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -114,6 +115,20 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+        <PropertyCalendar 
+          property={property}
+          onDateSelect={(date) => {
+            if (!form.getValues('checkIn')) {
+              form.setValue('checkIn', date)
+            } else {
+              form.setValue('checkOut', date)
+            }
+          }}
+          selectedDates={{
+            start: form.watch('checkIn'),
+            end: form.watch('checkOut')
+          }}
+        />
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
