@@ -93,22 +93,6 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
     <div className="space-y-4">
       {/* Date Selection Controls */}
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-medium">Check-in</h3>
-            {selectedDates.start && (
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-muted-foreground hover:text-destructive"
-                onClick={() => onClearSelection?.()}
-              >
-                <X className="h-4 w-4 mr-1" />
-                Clear
-              </Button>
-            )}
-          </div>
-        </div>
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -120,10 +104,11 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
             >
               <CalendarIcon className="mr-2 h-4 w-4" />
               <div className="flex flex-col items-start">
-                <span>{selectedDates.start ? format(selectedDates.start, "PPP") : "Select check-in"}</span>
+                <span className="text-sm font-medium">Check-in</span>
+                <span>{selectedDates.start ? format(selectedDates.start, "PPP") : "Select date"}</span>
                 {selectedDates.start && (
                   <span className="text-xs text-muted-foreground">
-                    Check-in: 3:00 PM
+                    3:00 PM
                   </span>
                 )}
               </div>
@@ -214,10 +199,11 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
             >
               <CalendarIcon className="mr-2 h-4 w-4" />
               <div className="flex flex-col items-start">
-                <span>{selectedDates.end ? format(selectedDates.end, "PPP") : "Select check-out"}</span>
+                <span className="text-sm font-medium">Check-out</span>
+                <span>{selectedDates.end ? format(selectedDates.end, "PPP") : "Select date"}</span>
                 {selectedDates.end && (
                   <span className="text-xs text-muted-foreground">
-                    Check-out: 11:00 AM
+                    11:00 AM
                   </span>
                 )}
               </div>
