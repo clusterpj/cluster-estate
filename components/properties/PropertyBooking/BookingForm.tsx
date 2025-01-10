@@ -125,8 +125,8 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
             }
           }}
           selectedDates={{
-            start: form.watch('checkIn'),
-            end: form.watch('checkOut')
+            start: form.watch('checkIn') || null,
+            end: form.watch('checkOut') || null
           }}
         />
         <div className="grid grid-cols-2 gap-4">

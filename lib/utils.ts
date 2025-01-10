@@ -129,3 +129,44 @@ export function formatDate(date: Date): string {
     day: 'numeric',
   }).format(date)
 }
+
+export function getCalendarDateClasses(
+  date: Date,
+  selectedDates: SelectedDates,
+  isDateBooked: (date: Date) => boolean,
+  isDateDisabled: (date: Date) => boolean
+): string {
+  const classes = ['h-9', 'w-9', 'p-0', 'font-normal', 'aria-selected:opacity-100']
+
+  // Check if date is in selected range
+  if (selectedDates.start && selectedDates.end) {
+    const isInRange = isWithinInterval(date, {
+      start: selectedDates.start,
+      end: selectedDates.end
+    })
+    
+    if (isInRange) {
+      classes.push('bg-primary/10', 'hover:bg-primary/20')
+    }
+  }
+
+  // Check if date is selected start/end
+  if (selectedDates.start && isSameDay(date, selectedDates.start)) {
+    classes.push('bg-primary', 'text-primary-foreground', 'hover:bg-primary/90')
+  }
+  if (selectedDates.end && isSameDay(date, selectedDates.end)) {
+    classes.push('bg-primary', 'text-primary-foreground', 'hover:bg-primary/90')
+  }
+
+  // Check if date is booked
+  if (isDateBooked(date)) {
+    classes.push('bg-destructive/10', 'text-destructive-foreground', 'hover:bg-destructive/20')
+  }
+
+  // Check if date is available
+  if (!isDateDisabled(date) && !isDateBooked(date)) {
+    classes.push('hover:bg-accent', 'hover:text-accent-foreground')
+  }
+
+  return classes.join(' ')
+}

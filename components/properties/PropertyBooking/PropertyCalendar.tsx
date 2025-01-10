@@ -4,10 +4,15 @@ import { getBookedDates } from '@/lib/utils'
 import { Property } from '@/types/property'
 import { addDays, isSameDay, isWithinInterval } from 'date-fns'
 
+interface SelectedDates {
+  start: Date | null
+  end: Date | null
+}
+
 interface PropertyCalendarProps {
   property: Property
   onDateSelect?: (date: Date) => void
-  selectedDates?: { start?: Date; end?: Date }
+  selectedDates: SelectedDates
 }
 
 export function PropertyCalendar({ property, onDateSelect, selectedDates }: PropertyCalendarProps) {
@@ -47,39 +52,12 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
   }
 
   const getDateClassName = (date: Date) => {
-    let className = ''
-    
-    // Check if date is in selected range
-    if (selectedDates?.start && selectedDates?.end) {
-      const isInRange = isWithinInterval(date, {
-        start: selectedDates.start,
-        end: selectedDates.end
-      })
-      
-      if (isInRange) {
-        className += ' bg-primary/10 hover:bg-primary/20'
-      }
-    }
-
-    // Check if date is selected start/end
-    if (selectedDates?.start && isSameDay(date, selectedDates.start)) {
-      className += ' bg-primary text-primary-foreground hover:bg-primary/90'
-    }
-    if (selectedDates?.end && isSameDay(date, selectedDates.end)) {
-      className += ' bg-primary text-primary-foreground hover:bg-primary/90'
-    }
-
-    // Check if date is booked
-    if (isDateBooked(date)) {
-      className += ' bg-destructive/10 text-destructive-foreground hover:bg-destructive/20'
-    }
-
-    // Check if date is available
-    if (!isDateDisabled(date) && !isDateBooked(date)) {
-      className += ' hover:bg-accent hover:text-accent-foreground'
-    }
-
-    return className.trim()
+    return getCalendarDateClasses(
+      date,
+      selectedDates,
+      isDateBooked,
+      isDateDisabled
+    )
   }
 
   return (
@@ -113,7 +91,7 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
             head_cell: 'text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]',
             row: 'flex w-full mt-2',
             cell: 'text-center text-sm p-0 relative [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
-            day: getDateClassName + ' h-9 w-9 p-0 font-normal aria-selected:opacity-100',
+            day: (date) => getDateClassName(date),
             day_selected: 'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground',
             day_today: 'bg-accent text-accent-foreground',
             day_outside: 'text-muted-foreground opacity-50',
