@@ -136,7 +136,16 @@ export function getCalendarDateClasses(
   isDateBooked: (date: Date) => boolean,
   isDateDisabled: (date: Date) => boolean
 ): string {
-  const classes = ['h-9', 'w-9', 'p-0', 'font-normal', 'aria-selected:opacity-100']
+  const classes = [
+    'h-9',
+    'w-9',
+    'p-0',
+    'font-normal',
+    'rounded-md',
+    'transition-colors',
+    'aria-selected:opacity-100',
+    'flex items-center justify-center'
+  ]
 
   // Check if date is in selected range
   if (selectedDates.start && selectedDates.end) {
@@ -146,26 +155,54 @@ export function getCalendarDateClasses(
     })
     
     if (isInRange) {
-      classes.push('bg-primary/10', 'hover:bg-primary/20')
+      classes.push(
+        'bg-primary/10',
+        'hover:bg-primary/20',
+        'dark:bg-primary/20',
+        'dark:hover:bg-primary/30'
+      )
     }
   }
 
   // Check if date is selected start/end
   if (selectedDates.start && isSameDay(date, selectedDates.start)) {
-    classes.push('bg-primary', 'text-primary-foreground', 'hover:bg-primary/90')
+    classes.push(
+      'bg-primary',
+      'text-primary-foreground',
+      'hover:bg-primary/90',
+      'dark:bg-primary/90',
+      'dark:hover:bg-primary/80'
+    )
   }
   if (selectedDates.end && isSameDay(date, selectedDates.end)) {
-    classes.push('bg-primary', 'text-primary-foreground', 'hover:bg-primary/90')
+    classes.push(
+      'bg-primary',
+      'text-primary-foreground',
+      'hover:bg-primary/90',
+      'dark:bg-primary/90',
+      'dark:hover:bg-primary/80'
+    )
   }
 
   // Check if date is booked
   if (isDateBooked(date)) {
-    classes.push('bg-destructive/10', 'text-destructive-foreground', 'hover:bg-destructive/20')
+    classes.push(
+      'bg-destructive/10',
+      'text-destructive-foreground',
+      'hover:bg-destructive/20',
+      'dark:bg-destructive/20',
+      'dark:hover:bg-destructive/30'
+    )
   }
 
   // Check if date is available
   if (!isDateDisabled(date) && !isDateBooked(date)) {
-    classes.push('hover:bg-accent', 'hover:text-accent-foreground')
+    classes.push(
+      'hover:bg-accent',
+      'hover:text-accent-foreground',
+      'dark:hover:bg-accent/50',
+      'dark:hover:text-accent-foreground'
+    )
   }
 
   return classes.join(' ')
