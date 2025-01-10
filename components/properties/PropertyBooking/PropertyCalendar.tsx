@@ -171,7 +171,7 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
                   head_row: 'flex',
                   head_cell: 'text-muted-foreground rounded-md w-10 font-normal text-sm',
                   row: 'flex w-full mt-2',
-                  cell: 'text-center p-0 relative [&:has([aria-selected])]:bg-accent/50 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
+                  cell: 'text-center p-0 relative focus-within:relative focus-within:z-20',
                   day: (date) => cn(
                     'h-10 w-10 rounded-full flex items-center justify-center text-sm transition-colors font-medium',
                     // Base styles for all dates
