@@ -1,6 +1,19 @@
 import { Database } from './database.types'
 
-export type Property = Database['public']['Tables']['properties']['Row']
+export type Property = Database['public']['Tables']['properties']['Row'] & {
+  availability?: PropertyAvailability
+}
+
+export interface PropertyAvailability {
+  id: string
+  property_id: string
+  available_from: string
+  available_to: string
+  minimum_rental_period: number
+  max_guests: number
+  created_at: string
+  updated_at: string
+}
 export type NewProperty = Database['public']['Tables']['properties']['Insert']
 export type UpdateProperty = Database['public']['Tables']['properties']['Update']
 
