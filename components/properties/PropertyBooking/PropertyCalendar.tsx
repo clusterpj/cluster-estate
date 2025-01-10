@@ -62,7 +62,7 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
 
   return (
     <div className="space-y-4">
-      <div className="rounded-lg border bg-background p-6 shadow-sm">
+      <div className="rounded-lg border bg-background p-4 sm:p-6 shadow-sm">
         <Calendar
           mode="range"
           selected={{
@@ -78,14 +78,14 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
           className="w-full"
           numberOfMonths={2}
           classNames={{
-            months: 'flex gap-8 w-full',
-            month: 'space-y-4 w-[280px]',
+            months: 'flex gap-4 sm:gap-8 w-full',
+            month: 'space-y-4 w-full sm:w-[280px]',
             caption: 'flex justify-center pt-2 relative items-center',
-            caption_label: 'text-base font-medium text-foreground',
-            nav: 'space-x-2 flex items-center',
-            nav_button: 'h-8 w-8 bg-transparent p-0 opacity-70 hover:opacity-100 transition-opacity',
-            nav_button_previous: 'absolute left-2',
-            nav_button_next: 'absolute right-2',
+            caption_label: 'text-sm sm:text-base font-medium text-foreground',
+            nav: 'space-x-1 sm:space-x-2 flex items-center',
+            nav_button: 'h-7 w-7 sm:h-8 sm:w-8 bg-transparent p-0 opacity-70 hover:opacity-100 transition-opacity rounded-md border border-input hover:bg-accent hover:text-accent-foreground',
+            nav_button_previous: 'absolute left-1 sm:left-2',
+            nav_button_next: 'absolute right-1 sm:right-2',
             table: 'w-full border-collapse space-y-1',
             head_row: 'flex',
             head_cell: 'text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]',
@@ -94,7 +94,7 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
             day: (date) => getDateClassName(date),
             day_selected: 'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground',
             day_today: 'bg-accent text-accent-foreground',
-            day_outside: 'text-muted-foreground opacity-50',
+            day_outside: 'text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',
             day_disabled: 'text-muted-foreground opacity-50',
             day_range_middle: 'aria-selected:bg-accent/50 aria-selected:text-accent-foreground',
             day_hidden: 'invisible',
