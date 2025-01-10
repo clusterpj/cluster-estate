@@ -28,7 +28,9 @@ const bookingSchema = z.object({
   }),
   guests: z.number({
     required_error: 'Number of guests is required',
-  }).min(1, 'At least 1 guest is required'),
+  })
+    .min(1, 'At least 1 guest is required')
+    .max(property.max_guests || 10, `Maximum ${property.max_guests || 10} guests allowed`),
   specialRequests: z.string().optional(),
 }).refine(data => data.checkOut > data.checkIn, {
   message: 'Check-out date must be after check-in date',
@@ -143,13 +145,34 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
           name="guests"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Number of Guests</FormLabel>
+              <div className="flex items-center justify-between">
+                <FormLabel>Number of Guests</FormLabel>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="h-4 w-4 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Minimum: 1 guest</p>
+                      <p>Maximum: {property.max_guests || 10} guests</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
               <FormControl>
                 <Input
                   type="number"
                   min={1}
+                  max={property.max_guests || 10}
                   {...field}
-                  onChange={(e) => field.onChange(parseInt(e.target.value))}
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value)
+                    if (value > (property.max_guests || 10)) {
+                      field.onChange(property.max_guests || 10)
+                    } else {
+                      field.onChange(value)
+                    }
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -162,9 +185,12 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
           name="specialRequests"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Special Requests</FormLabel>
+              <FormLabel>Special Requests (Optional)</FormLabel>
               <FormControl>
-                <Textarea {...field} />
+                <Textarea 
+                  {...field}
+                  placeholder="Please let us know if you have any special requirements or requests"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
