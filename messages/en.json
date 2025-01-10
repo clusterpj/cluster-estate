@@ -498,5 +498,79 @@
       "monthly": "month",
       "yearly": "year"
     }
+  },
+  "PropertyForm": {
+    "title": "Property Details",
+    "description": "Please provide the details of your property",
+    "fields": {
+      "title": "Property Title",
+      "description": "Description",
+      "location": "Location",
+      "price": "Price",
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "squareFeet": "Square Feet",
+      "listingType": "Listing Type",
+      "status": "Status",
+      "features": "Features",
+      "images": "Images",
+      "rentalPrice": "Rental Price",
+      "rentalFrequency": "Rental Frequency",
+      "minimumRentalPeriod": "Minimum Rental Period",
+      "availableFrom": "Available From",
+      "availableTo": "Available To",
+      "cancellationDays": "Cancellation Days"
+    },
+    "placeholders": {
+      "title": "Enter property title...",
+      "description": "Describe your property...",
+      "location": "Enter property location...",
+      "price": "Enter price...",
+      "bedrooms": "Enter number of bedrooms...",
+      "bathrooms": "Enter number of bathrooms...",
+      "squareFeet": "Enter square footage...",
+      "features": "Add features (press enter)...",
+      "rentalPrice": "Enter rental price...",
+      "minimumRentalPeriod": "Enter minimum rental period...",
+      "cancellationDays": "Enter cancellation days..."
+    },
+    "errors": {
+      "required": "This field is required",
+      "invalidNumber": "Please enter a valid number",
+      "invalidDate": "Please enter a valid date",
+      "invalidImage": "Please upload valid images",
+      "minRentalPeriod": "Minimum rental period must be at least {min} days"
+    },
+    "actions": {
+      "submit": "Save Property",
+      "cancel": "Cancel",
+      "addImage": "Add Image",
+      "removeImage": "Remove Image"
+    },
+    "statusOptions": {
+      "available": "Available",
+      "pending": "Pending",
+      "sold": "Sold",
+      "rented": "Rented"
+    },
+    "listingTypeOptions": {
+      "sale": "For Sale",
+      "rent": "For Rent",
+      "both": "Sale & Rent"
+    },
+    "rentalFrequencyOptions": {
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "yearly": "Yearly"
+    },
+    "success": {
+      "created": "Property created successfully",
+      "updated": "Property updated successfully"
+    },
+    "error": {
+      "createFailed": "Failed to create property",
+      "updateFailed": "Failed to update property"
+    }
   }
 }
