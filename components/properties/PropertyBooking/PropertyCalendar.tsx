@@ -153,23 +153,30 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
                 classNames={{
                   months: 'flex gap-4 sm:gap-8 w-full',
                   month: 'space-y-4 w-full sm:w-[280px]',
-                  caption: 'flex justify-center pt-2 relative items-center',
-                  caption_label: 'text-sm sm:text-base font-medium text-foreground',
-                  nav: 'space-x-1 sm:space-x-2 flex items-center',
-                  nav_button: 'h-7 w-7 sm:h-8 sm:w-8 bg-transparent p-0 opacity-70 hover:opacity-100 transition-opacity rounded-md border border-input hover:bg-accent hover:text-accent-foreground',
-                  nav_button_previous: 'absolute left-1 sm:left-2',
-                  nav_button_next: 'absolute right-1 sm:right-2',
+                  caption: 'flex justify-between items-center px-2 py-2',
+                  caption_label: 'text-lg font-semibold',
+                  nav: 'flex gap-1',
+                  nav_button: 'h-9 w-9 p-2 hover:bg-accent rounded-full transition-colors',
                   table: 'w-full border-collapse space-y-1',
                   head_row: 'flex',
-                  head_cell: 'text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]',
-                  row: 'flex w-full mt-1',
-                  cell: 'text-center text-sm p-0 relative [&:has([aria-selected])]:bg-accent/50 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
-                  day: (date) => getDateClassName(date),
-                  day_selected: 'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground',
-                  day_today: 'bg-accent text-accent-foreground',
+                  head_cell: 'text-muted-foreground rounded-md w-10 font-normal text-sm',
+                  row: 'flex w-full mt-2',
+                  cell: 'text-center p-0 relative [&:has([aria-selected])]:bg-accent/50 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
+                  day: (date) => cn(
+                    'h-10 w-10 rounded-full flex items-center justify-center text-sm transition-colors',
+                    isDateDisabled(date) 
+                      ? 'text-muted-foreground opacity-50 cursor-not-allowed'
+                      : 'text-foreground hover:bg-accent',
+                    isSameDay(date, selectedDates.start || new Date(0)) && 'bg-primary text-primary-foreground hover:bg-primary/90',
+                    isSameDay(date, selectedDates.end || new Date(0)) && 'bg-primary text-primary-foreground hover:bg-primary/90',
+                    selectedDates.start && selectedDates.end && 
+                      isWithinInterval(date, { 
+                        start: selectedDates.start, 
+                        end: selectedDates.end 
+                      }) && 'bg-accent/50',
+                    isSameDay(date, new Date()) && 'border border-primary'
+                  ),
                   day_outside: 'text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',
-                  day_disabled: 'text-muted-foreground opacity-50',
-                  day_range_middle: 'aria-selected:bg-accent/50 aria-selected:text-accent-foreground',
                   day_hidden: 'invisible',
                 }}
               />
@@ -230,23 +237,30 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
                 classNames={{
                   months: 'flex gap-4 sm:gap-8 w-full',
                   month: 'space-y-4 w-full sm:w-[280px]',
-                  caption: 'flex justify-center pt-2 relative items-center',
-                  caption_label: 'text-sm sm:text-base font-medium text-foreground',
-                  nav: 'space-x-1 sm:space-x-2 flex items-center',
-                  nav_button: 'h-7 w-7 sm:h-8 sm:w-8 bg-transparent p-0 opacity-70 hover:opacity-100 transition-opacity rounded-md border border-input hover:bg-accent hover:text-accent-foreground',
-                  nav_button_previous: 'absolute left-1 sm:left-2',
-                  nav_button_next: 'absolute right-1 sm:right-2',
+                  caption: 'flex justify-between items-center px-2 py-2',
+                  caption_label: 'text-lg font-semibold',
+                  nav: 'flex gap-1',
+                  nav_button: 'h-9 w-9 p-2 hover:bg-accent rounded-full transition-colors',
                   table: 'w-full border-collapse space-y-1',
                   head_row: 'flex',
-                  head_cell: 'text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]',
-                  row: 'flex w-full mt-1',
-                  cell: 'text-center text-sm p-0 relative [&:has([aria-selected])]:bg-accent/50 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
-                  day: (date) => getDateClassName(date),
-                  day_selected: 'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground',
-                  day_today: 'bg-accent text-accent-foreground',
+                  head_cell: 'text-muted-foreground rounded-md w-10 font-normal text-sm',
+                  row: 'flex w-full mt-2',
+                  cell: 'text-center p-0 relative [&:has([aria-selected])]:bg-accent/50 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
+                  day: (date) => cn(
+                    'h-10 w-10 rounded-full flex items-center justify-center text-sm transition-colors',
+                    isDateDisabled(date) 
+                      ? 'text-muted-foreground opacity-50 cursor-not-allowed'
+                      : 'text-foreground hover:bg-accent',
+                    isSameDay(date, selectedDates.start || new Date(0)) && 'bg-primary text-primary-foreground hover:bg-primary/90',
+                    isSameDay(date, selectedDates.end || new Date(0)) && 'bg-primary text-primary-foreground hover:bg-primary/90',
+                    selectedDates.start && selectedDates.end && 
+                      isWithinInterval(date, { 
+                        start: selectedDates.start, 
+                        end: selectedDates.end 
+                      }) && 'bg-accent/50',
+                    isSameDay(date, new Date()) && 'border border-primary'
+                  ),
                   day_outside: 'text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',
-                  day_disabled: 'text-muted-foreground opacity-50',
-                  day_range_middle: 'aria-selected:bg-accent/50 aria-selected:text-accent-foreground',
                   day_hidden: 'invisible',
                 }}
               />
