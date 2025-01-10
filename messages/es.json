@@ -266,13 +266,13 @@
           "yearly": "por año"
         },
         "price": {
-          "forSale": "[object Object]",
-          "forRent": "[object Object]",
+          "forSale": "En Venta",
+          "forRent": "En Alquiler",
           "rentalFrequency": {
-            "daily": "[object Object]",
-            "weekly": "[object Object]",
-            "monthly": "[object Object]",
-            "yearly": "[object Object]"
+            "daily": "por día",
+            "weekly": "por semana",
+            "monthly": "por mes",
+            "yearly": "por año"
           }
         },
         "status": {
@@ -356,7 +356,8 @@
       },
       "tabs": {
         "properties": "Propiedades",
-        "users": "Usuarios"
+        "users": "Usuarios",
+        "bookings": "Reservas"
       },
       "users": {
         "title": "Administración de usuarios",
