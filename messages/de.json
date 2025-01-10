@@ -338,7 +338,8 @@
       },
       "tabs": {
         "properties": "Eigenschaften",
-        "users": "Nutzer"
+        "users": "Nutzer",
+        "bookings": "Buchungen"
       },
       "bookings": {
         "title": "Buchungsverwaltung",
