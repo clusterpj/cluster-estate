@@ -164,22 +164,75 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
         </Popover>
       </div>
 
-      <div className="flex flex-wrap items-center gap-4 text-sm">
-        <div className="flex items-center gap-2">
-          <div className="h-4 w-4 rounded-sm bg-primary" />
-          <span>Selected Dates</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="h-4 w-4 rounded-sm bg-primary/10" />
-          <span>Selected Range</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="h-4 w-4 rounded-sm bg-destructive/10" />
-          <span>Booked/Unavailable</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="h-4 w-4 rounded-sm bg-muted hover:bg-accent" />
-          <span>Available</span>
+      <div className="grid gap-4">
+        {selectedDates.start && selectedDates.end && (
+          <div className="space-y-2 rounded-lg border p-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="text-sm text-muted-foreground">Check-in</p>
+                <p className="font-medium">
+                  {format(selectedDates.start, "MMM d, yyyy")}
+                </p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Check-out</p>
+                <p className="font-medium">
+                  {format(selectedDates.end, "MMM d, yyyy")}
+                </p>
+              </div>
+            </div>
+            
+            <div className="border-t pt-4">
+              <div className="flex justify-between">
+                <p className="text-sm text-muted-foreground">Nights</p>
+                <p className="font-medium">
+                  {Math.ceil(
+                    (selectedDates.end.getTime() - selectedDates.start.getTime()) / 
+                    (1000 * 60 * 60 * 24)
+                  )}
+                </p>
+              </div>
+              <div className="flex justify-between">
+                <p className="text-sm text-muted-foreground">Price per night</p>
+                <p className="font-medium">
+                  {new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                  }).format(property.rental_price || 0)}
+                </p>
+              </div>
+              <div className="flex justify-between border-t pt-2">
+                <p className="text-sm text-muted-foreground">Total</p>
+                <p className="font-medium">
+                  {new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                  }).format(
+                    (property.rental_price || 0) * 
+                    Math.ceil(
+                      (selectedDates.end.getTime() - selectedDates.start.getTime()) / 
+                      (1000 * 60 * 60 * 24)
+                    )
+                  )}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        <div className="flex flex-wrap items-center gap-4 text-sm">
+          <div className="flex items-center gap-2">
+            <div className="h-4 w-4 rounded-sm bg-primary" />
+            <span>Selected</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="h-4 w-4 rounded-sm bg-destructive/10" />
+            <span>Unavailable</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="h-4 w-4 rounded-sm bg-muted hover:bg-accent" />
+            <span>Available</span>
+          </div>
         </div>
       </div>
     </div>
