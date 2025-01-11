@@ -259,12 +259,6 @@
           "condo": "Condo",
           "lot": "Lot"
         },
-        "propertyType": {
-          "house": "House",
-          "villa": "Villa",
-          "condo": "Condo",
-          "lot": "Lot"
-        },
         "form": {
           "createProperty": "Create New Property",
           "editProperty": "Edit Property",
@@ -395,6 +389,7 @@
         "table": {
           "title": "Title",
           "listingType": "Type",
+          "propertyType": "Property Type",
           "price": "Price",
           "rentalPrice": "Rental Price",
           "location": "Location",
