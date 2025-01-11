@@ -47,15 +47,15 @@
     "propertyDetails": {
       "beds": "Schlafzimmer",
       "baths": "Badezimmer",
-      "sqft": "ft²",
+      "sqft": "m²",
       "bedsCount": "{count} Schlafzimmer",
       "bathsCount": "{count} Badezimmer",
-      "squareFeet": "{value} ft²",
+      "squareFeet": "{value} m²",
       "area": "{value} m²"
     },
     "price": {
       "forSale": "Zum Verkauf",
-      "forRent": "Zu Vermieten",
+      "forRent": "Zur Miete",
       "rentalFrequency": {
         "daily": "Tag",
         "weekly": "Woche",
@@ -65,7 +65,7 @@
     },
     "status": {
       "available": "Verfügbar",
-      "pending": "In Bearbeitung",
+      "pending": "Ausstehend",
       "sold": "Verkauft",
       "rented": "Vermietet"
     },
@@ -73,6 +73,13 @@
       "rent": "Mieten",
       "sale": "Verkauf",
       "both": "Verkauf & Vermietung"
+    },
+    "propertyType": {
+      "house": "Haus",
+      "villa": "Villa",
+      "condo": "Eigentumswohnung",
+      "lot": "Grundstück",
+      "unknown": "Unbekannt"
     }
   },
   "WhyChooseUs": {

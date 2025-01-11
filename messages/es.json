@@ -40,16 +40,16 @@
     }
   },
   "FeaturedProperties": {
-    "title": "Propiedades destacadas",
-    "description": "Explora nuestra selección cuidadosamente elegida de propiedades premium en los lugares más codiciados del Caribe.",
+    "title": "Propiedades Destacadas",
+    "description": "Explore nuestra selección exclusiva de propiedades premium en las ubicaciones más deseadas del Caribe.",
     "viewDetails": "Ver Detalles",
-    "viewAllProperties": "Ver todas las propiedades",
+    "viewAllProperties": "Ver Todas las Propiedades",
     "propertyDetails": {
-      "beds": "Camas",
+      "beds": "Habitaciones",
       "baths": "Baños",
       "sqft": "m²",
-      "bedsCount": "{count} camas",
-      "bathsCount": "{count} baños",
+      "bedsCount": "{count} Habitaciones",
+      "bathsCount": "{count} Baños",
       "squareFeet": "{value} m²",
       "area": "{value} m²"
     },
@@ -66,13 +66,20 @@
     "status": {
       "available": "Disponible",
       "pending": "Pendiente",
-      "sold": "Vendido",
-      "rented": "Alquilado"
+      "sold": "Vendida",
+      "rented": "Alquilada"
     },
     "listingType": {
       "rent": "Alquiler",
       "sale": "Venta",
       "both": "Venta y Alquiler"
+    },
+    "propertyType": {
+      "house": "Casa",
+      "villa": "Villa",
+      "condo": "Apartamento",
+      "lot": "Terreno",
+      "unknown": "Desconocido"
     }
   },
   "WhyChooseUs": {

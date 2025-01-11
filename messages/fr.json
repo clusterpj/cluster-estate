@@ -39,18 +39,18 @@
       "button": "Commencez votre voyage"
     }
   },
-  "FeaturedProperties": {
+"FeaturedProperties": {
     "title": "Propriétés en Vedette",
-    "description": "Explorez notre sélection exclusive de propriétés de prestige dans les endroits les plus recherchés des Caraïbes.",
+    "description": "Découvrez notre sélection soignée de propriétés haut de gamme dans les endroits les plus recherchés des Caraïbes.",
     "viewDetails": "Voir les Détails",
     "viewAllProperties": "Voir Toutes les Propriétés",
     "propertyDetails": {
-      "beds": "Chambres",
+      "beds": "Lits",
       "baths": "Salles de Bain",
-      "sqft": "pi²",
-      "bedsCount": "{count} Chambres",
+      "sqft": "m²",
+      "bedsCount": "{count} Lits",
       "bathsCount": "{count} Salles de Bain",
-      "squareFeet": "{value} pi²",
+      "squareFeet": "{value} m²",
       "area": "{value} m²"
     },
     "price": {
@@ -73,6 +73,13 @@
       "rent": "Location",
       "sale": "Vente",
       "both": "Vente & Location"
+    },
+    "propertyType": {
+      "house": "Maison",
+      "villa": "Villa",
+      "condo": "Appartement",
+      "lot": "Terrain",
+      "unknown": "Inconnu"
     }
   },
   "WhyChooseUs": {

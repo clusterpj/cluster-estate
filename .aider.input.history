@@ -5381,3 +5381,42 @@
 +SEO requirements for localized content
 +Real-time translation updates
 +Mobile responsiveness considerations
+
+# 2025-01-11 01:01:39.494922
++/map-refresh
+
+# 2025-01-11 01:01:43.723708
++/map
+
+# 2025-01-11 01:01:46.233122
++/map-refresh
+
+# 2025-01-11 01:02:27.879627
++Please help me fix this issue on the property card Error: MISSING_MESSAGE: Could not resolve `PropertyDetails.propertyType.villa` in messages for locale `en`.
++    IntlError webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.3_react@18.3.1/node_modules/use-intl/dist/development/initializeConfig-BhfMSHP7.js:44
++    getFallbackFromErrorAndNotify webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.3_react@18.3.1/node_modules/use-intl/dist/development/createFormatter-QqAaZwGD.js:159
++    translateBaseFn webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.3_react@18.3.1/node_modules/use-intl/dist/development/createFormatter-QqAaZwGD.js:184
++    translateFn webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.3_react@18.3.1/node_modules/use-intl/dist/development/createFormatter-QqAaZwGD.js:258
++    PropertyCard webpack-internal:///(app-pages-browser)/./components/properties/PropertyList/PropertyCard.tsx:104
++ Component Stack: 
++    PropertyCard webpack-internal:///(app-pages-browser)/./components/properties/PropertyList/PropertyCard.tsx:33
++    div unknown:0
++    PropertyList webpack-internal:///(app-pages-browser)/./components/properties/PropertyList/index.tsx:23
++    div unknown:0
++    div unknown:0
++    QueryClientProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.16_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27
++    QueryClientProviderWrapper webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:12
++    div unknown:0
++    Container [Server] unknown:0
++    PropertiesPage [Server] unknown:0
++    InnerLayoutRouter webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:244
++<
+
+# 2025-01-11 01:09:46.409991
++/drop components\properties\PropertyList\PropertyCard.tsx
+
+# 2025-01-11 01:10:03.017917
++/drop app\[locale]\admin\components\property-management.tsx
+
+# 2025-01-11 01:30:57.471795
++we need to add the new property_type to the request qhen creating a new property. Can you help me with this?
