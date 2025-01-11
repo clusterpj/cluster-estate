@@ -319,8 +319,8 @@ export function PropertyManagement() {
               <TableCell>
                 <Badge variant="outline">
                   {property.property_type ? 
-                    t(`propertyType.${property.property_type}`) : 
-                    t('propertyType.house')}
+                    t(`auth.adminSection.properties.propertyType.${property.property_type}`) : 
+                    t('auth.adminSection.properties.propertyType.house')}
                 </Badge>
               </TableCell>
               <TableCell>
