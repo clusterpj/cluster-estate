@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { Property, isValidPropertyStatus } from '@/types/property'
+import { Property, isValidPropertyStatus, PropertyType } from '@/types/property'
 import {
   Table,
   TableBody,
