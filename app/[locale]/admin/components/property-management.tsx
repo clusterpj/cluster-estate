@@ -298,7 +298,7 @@ export function PropertyManagement() {
           <TableRow>
             <TableHead>{t('table.title')}</TableHead>
             <TableHead>{t('table.listingType')}</TableHead>
-            <TableHead>{t('properties.table.propertyType')}</TableHead>
+            <TableHead>{t('table.propertyType')}</TableHead>
             <TableHead>{t('table.price')}</TableHead>
             <TableHead>{t('table.rentalPrice')}</TableHead>
             <TableHead>{t('table.location')}</TableHead>
