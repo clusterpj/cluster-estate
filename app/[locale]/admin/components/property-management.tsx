@@ -400,7 +400,7 @@ export function PropertyManagement() {
                     
                     <DropdownMenuItem
                       onClick={() => updatePropertyStatus(property.id, 'rented')}
-                      disabled={(property as any).status === 'rented'}
+                      disabled={property.status === 'rented'}
                     >
                       <Check className="mr-2 h-4 w-4" />
                       {t('actions.markRented')}
