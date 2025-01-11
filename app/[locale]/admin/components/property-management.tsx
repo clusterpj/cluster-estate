@@ -298,6 +298,7 @@ export function PropertyManagement() {
           <TableRow>
             <TableHead>{t('table.title')}</TableHead>
             <TableHead>{t('table.listingType')}</TableHead>
+            <TableHead>{t('table.propertyType')}</TableHead>
             <TableHead>{t('table.price')}</TableHead>
             <TableHead>{t('table.rentalPrice')}</TableHead>
             <TableHead>{t('table.location')}</TableHead>
@@ -313,6 +314,11 @@ export function PropertyManagement() {
               <TableCell>
                 <Badge variant="outline">
                   {t(`listingType.${property.listing_type}`)}
+                </Badge>
+              </TableCell>
+              <TableCell>
+                <Badge variant="outline">
+                  {t(`propertyType.${property.property_type}`)}
                 </Badge>
               </TableCell>
               <TableCell>

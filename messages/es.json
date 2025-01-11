@@ -259,6 +259,12 @@
           "both": "Venta y alquiler",
           "undefined": "No especificado"
         },
+        "propertyType": {
+          "house": "Casa",
+          "villa": "Villa",
+          "condo": "Condominio",
+          "lot": "Terreno"
+        },
         "rentalFrequency": {
           "daily": "por día",
           "weekly": "por semana",
@@ -286,6 +292,7 @@
         "table": {
           "title": "Título",
           "listingType": "Tipo",
+          "propertyType": "Tipo de Propiedad",
           "price": "Precio",
           "rentalPrice": "Precio de Alquiler",
           "location": "Ubicación",
