@@ -365,7 +365,7 @@ export function PropertyManagement() {
                     <DropdownMenuSeparator />
                     
                     <DropdownMenuItem
-                      onClick={() => updatePropertyStatus(property.id, { featured: !(property as any).featured })}
+                      onClick={() => updatePropertyStatus(property.id, { featured: !property.featured })}
                     >
                       <Star className="mr-2 h-4 w-4" />
                       {property.featured ? t('actions.unmarkFeatured') : t('actions.markFeatured')}
