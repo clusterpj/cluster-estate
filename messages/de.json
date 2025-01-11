@@ -274,6 +274,7 @@
         "table": {
           "title": "Titel",
           "listingType": "Typ",
+          "propertyType": "Immobilientyp",
           "price": "Preis",
           "rentalPrice": "Mietpreis",
           "location": "Standort",

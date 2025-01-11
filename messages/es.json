@@ -292,6 +292,7 @@
         "table": {
           "title": "Título",
           "listingType": "Tipo",
+          "propertyType": "Tipo de Propiedad",
           "price": "Precio",
           "rentalPrice": "Precio de Alquiler",
           "location": "Ubicación",
