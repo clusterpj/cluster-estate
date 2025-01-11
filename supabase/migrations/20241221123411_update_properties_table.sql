@@ -145,23 +145,33 @@ END $$;
 ALTER TABLE properties ENABLE ROW LEVEL SECURITY;
 
 -- Create RLS policies
-DROP POLICY IF EXISTS "Enable read access for all users" ON properties;
-CREATE POLICY "Enable read access for all users" ON properties
-    FOR SELECT
-    USING (true);
+DO $$
+BEGIN
+    -- Ensure auth schema exists
+    IF EXISTS (SELECT 1 FROM pg_namespace WHERE nspname = 'auth') THEN
+        -- Read access for all users
+        DROP POLICY IF EXISTS "Enable read access for all users" ON properties;
+        CREATE POLICY "Enable read access for all users" ON properties
+            FOR SELECT
+            USING (true);
 
-DROP POLICY IF EXISTS "Enable insert for authenticated users only" ON properties;
-CREATE POLICY "Enable insert for authenticated users only" ON properties
-    FOR INSERT
-    WITH CHECK (auth.uid() = user_id);
+        -- Insert for authenticated users only
+        DROP POLICY IF EXISTS "Enable insert for authenticated users only" ON properties;
+        CREATE POLICY "Enable insert for authenticated users only" ON properties
+            FOR INSERT
+            WITH CHECK (auth.uid() = user_id);
 
-DROP POLICY IF EXISTS "Enable update for users based on user_id" ON properties;
-CREATE POLICY "Enable update for users based on user_id" ON properties
-    FOR UPDATE
-    USING (auth.uid() = user_id)
-    WITH CHECK (auth.uid() = user_id);
+        -- Update for users based on user_id
+        DROP POLICY IF EXISTS "Enable update for users based on user_id" ON properties;
+        CREATE POLICY "Enable update for users based on user_id" ON properties
+            FOR UPDATE
+            USING (auth.uid() = user_id)
+            WITH CHECK (auth.uid() = user_id);
 
-DROP POLICY IF EXISTS "Enable delete for users based on user_id" ON properties;
-CREATE POLICY "Enable delete for users based on user_id" ON properties
-    FOR DELETE
-    USING (auth.uid() = user_id);
+        -- Delete for users based on user_id
+        DROP POLICY IF EXISTS "Enable delete for users based on user_id" ON properties;
+        CREATE POLICY "Enable delete for users based on user_id" ON properties
+            FOR DELETE
+            USING (auth.uid() = user_id);
+    END IF;
+END $$;
