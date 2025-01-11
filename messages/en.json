@@ -259,6 +259,12 @@
           "condo": "Condo",
           "lot": "Lot"
         },
+        "propertyType": {
+          "house": "House",
+          "villa": "Villa",
+          "condo": "Condo",
+          "lot": "Lot"
+        },
         "form": {
           "createProperty": "Create New Property",
           "editProperty": "Edit Property",
