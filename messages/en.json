@@ -255,7 +255,7 @@
         },
         "propertyType": {
           "house": "House",
-          "villa": "Villa",
+          "villa": "Villa", 
           "condo": "Condo",
           "lot": "Lot"
         },
