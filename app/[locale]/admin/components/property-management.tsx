@@ -237,7 +237,7 @@ export function PropertyManagement() {
                 bathrooms: selectedProperty.bathrooms,
                 square_feet: selectedProperty.square_feet,
                 listing_type: selectedProperty.listing_type,
-                property_type: selectedProperty.property_type ?? 'house' as const,
+                property_type: (selectedProperty.property_type as PropertyType) ?? 'house',
                 rental_price: selectedProperty.rental_price ?? undefined,
                 rental_frequency: selectedProperty.rental_frequency ?? undefined,
                 minimum_rental_period: selectedProperty.minimum_rental_period ?? undefined,
