@@ -116,6 +116,7 @@ export function PropertyForm({
       features: Array.isArray(formData.features) ? formData.features : [],
       images: uploadedImages,
       user_id: user?.id,
+      property_type: formData.property_type || 'house', // Default to 'house' if not specified
       available_from: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.available_from : null,
       available_to: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.available_to : null,
     };
