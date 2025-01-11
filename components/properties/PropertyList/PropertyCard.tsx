@@ -19,7 +19,7 @@ interface PropertyCardProps {
 export function PropertyCard({ property }: PropertyCardProps) {
   const [isFavorite, setIsFavorite] = useState(false)
   const params = useParams()
-  const t = useTranslations('PropertyDetails')
+  const t = useTranslations('FeaturedProperties')
   const mainImage = property.images?.[0] || "/placeholder.jpg"
 
   // Fetch favorite status
