@@ -42,6 +42,7 @@ const propertyFormSchema = z.object({
   square_feet: z.number().min(0, 'Square feet must be positive'),
   status: z.enum(['available', 'sold', 'pending', 'rented']).default('available'),
   listing_type: z.enum(['sale', 'rent', 'both']).default('sale'),
+  property_type: z.enum(['house', 'villa', 'condo', 'lot']).default('house'),
   rental_price: z.number().min(0, 'Rental price must be positive').optional(),
   rental_frequency: z.enum(['daily', 'weekly', 'monthly', 'yearly']).optional(),
   minimum_rental_period: z.number().min(0, 'Minimum rental period must be positive').optional(),
@@ -377,6 +378,30 @@ export function PropertyForm({
                         <SelectItem value="sale">{t('listingType.sale')}</SelectItem>
                         <SelectItem value="rent">{t('listingType.rent')}</SelectItem>
                         <SelectItem value="both">{t('listingType.both')}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="property_type"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('form.propertyType')}</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('form.selectPropertyType')} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="house">{t('propertyType.house')}</SelectItem>
+                        <SelectItem value="villa">{t('propertyType.villa')}</SelectItem>
+                        <SelectItem value="condo">{t('propertyType.condo')}</SelectItem>
+                        <SelectItem value="lot">{t('propertyType.lot')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />

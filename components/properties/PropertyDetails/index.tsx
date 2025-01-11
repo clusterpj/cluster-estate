@@ -29,6 +29,9 @@ export function PropertyDetails({ property }: { property: Property }) {
             />
             <div className="absolute top-4 right-4 flex gap-2">
               <Badge className="bg-caribbean-600 hover:bg-caribbean-700">
+                {property.property_type}
+              </Badge>
+              <Badge className="bg-caribbean-600 hover:bg-caribbean-700">
                 {property.listing_type}
               </Badge>
               {property.status !== 'available' && (

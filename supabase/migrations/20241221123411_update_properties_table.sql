@@ -52,6 +52,14 @@ BEGIN
                   WHERE table_name = 'properties' AND column_name = 'available_to') THEN
         ALTER TABLE properties ADD COLUMN available_to timestamp with time zone;
     END IF;
+
+    -- Add property_type if it doesn't exist
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                  WHERE table_name = 'properties' AND column_name = 'property_type') THEN
+        ALTER TABLE properties 
+        ADD COLUMN property_type text 
+        CHECK (property_type IN ('house', 'villa', 'condo', 'lot'));
+    END IF;
 END $$;
 
 -- Add comments to the new columns

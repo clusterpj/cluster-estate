@@ -31,7 +31,10 @@ export function PropertyCard({ property }: PropertyCardProps) {
         </div>
       </CardHeader>
       <CardContent className="p-4">
-        <h3 className="truncate text-lg font-semibold">{property.title}</h3>
+        <div className="flex items-center gap-2">
+          <h3 className="truncate text-lg font-semibold">{property.title}</h3>
+          <Badge variant="secondary">{property.property_type}</Badge>
+        </div>
         <div className="mt-2 flex items-center gap-1 text-sm text-muted-foreground">
           <MapPin className="h-4 w-4" />
           <span className="truncate">{property.location}</span>
