@@ -318,7 +318,7 @@ export function PropertyManagement() {
               </TableCell>
               <TableCell>
                 <Badge variant="outline">
-                  {t(`auth.adminSection.properties.propertyType.${property.property_type || 'house'}`)}
+                  {t(`propertyType.${property.property_type || 'house'}`)}
                 </Badge>
               </TableCell>
               <TableCell>
