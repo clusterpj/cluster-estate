@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -5,18 +6,37 @@ import { EyeIcon, HeartIcon, MapPin } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { Database } from "@/types/database"
+import { useQuery } from '@tanstack/react-query'
+import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 type Property = Database["public"]["Tables"]["properties"]["Row"]
-
-import { useParams } from 'next/navigation'
 
 interface PropertyCardProps {
   property: Property
 }
 
 export function PropertyCard({ property }: PropertyCardProps) {
+  const [isFavorite, setIsFavorite] = useState(false)
   const params = useParams()
+  const t = useTranslations('PropertyDetails')
   const mainImage = property.images?.[0] || "/placeholder.jpg"
+
+  // Fetch favorite status
+  const { data: favoriteStatus } = useQuery({
+    queryKey: ['property-favorite', property.id],
+    queryFn: async () => {
+      // Implement your favorite status check logic here
+      return false // Default to not favorite
+    },
+    staleTime: 1000 * 60 * 5 // 5 minutes
+  })
+
+  useEffect(() => {
+    if (favoriteStatus !== undefined) {
+      setIsFavorite(favoriteStatus)
+    }
+  }, [favoriteStatus])
   
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg">
@@ -35,7 +55,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
         <div className="flex items-center gap-2">
           <h3 className="truncate text-lg font-semibold">{property.title}</h3>
           <Badge variant="secondary">
-            {t(`propertyType.${property.property_type}`)}
+            {property.property_type ? t(`propertyType.${property.property_type}`) : t('propertyType.unknown')}
           </Badge>
         </div>
         <div className="mt-2 flex items-center gap-1 text-sm text-muted-foreground">
@@ -67,8 +87,12 @@ export function PropertyCard({ property }: PropertyCardProps) {
               )}
             </div>
             <div className="flex gap-2">
-              <Button variant="ghost" size="icon">
-                <HeartIcon className="h-4 w-4" />
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => setIsFavorite(!isFavorite)}
+              >
+                <HeartIcon className={`h-4 w-4 ${isFavorite ? 'text-red-500 fill-current' : ''}`} />
               </Button>
               <Button asChild variant="ghost" size="icon">
                 <Link href={`/${params.locale}/properties/${property.id}`}>

@@ -257,7 +257,8 @@
           "house": "House",
           "villa": "Villa",
           "condo": "Condo",
-          "lot": "Lot"
+          "lot": "Lot",
+          "unknown": "Unknown"
         },
         "propertyType": {
           "house": "House",
