@@ -17,7 +17,7 @@ export interface PropertyAvailability {
 export type NewProperty = Database['public']['Tables']['properties']['Insert']
 export type UpdateProperty = Database['public']['Tables']['properties']['Update']
 
-export type PropertyStatus = 'available' | 'sold' | 'pending'
+export type PropertyStatus = 'available' | 'sold' | 'pending' | 'rented'
 export type ListingType = 'sale' | 'rent' | 'both'
 export type RentalFrequency = 'daily' | 'weekly' | 'monthly' | 'yearly'
 export type PropertyType = 'house' | 'villa' | 'condo' | 'lot'
@@ -39,6 +39,8 @@ export interface PropertySortOption {
 }
 
 export interface PropertyWithAvailability extends Property {
+  featured?: boolean;
+  property_type?: string;
   isAvailable: boolean
   availabilityMessage?: string
   nextAvailableDate?: Date

@@ -319,7 +319,7 @@ export function PropertyManagement() {
               </TableCell>
               <TableCell>
                 <Badge variant="outline">
-                  {t(`propertyType.${property.property_type || 'house'}`)}
+                  {t(`propertyType.${(property as any).property_type || 'house'}`)}
                 </Badge>
               </TableCell>
               <TableCell>
@@ -349,8 +349,8 @@ export function PropertyManagement() {
                 </Badge>
               </TableCell>
               <TableCell>
-                <Badge variant={property.featured ? 'default' : 'outline'}>
-                  {property.featured ? t('status.featured') : t('status.notFeatured')}
+                <Badge variant={(property as any).featured ? 'default' : 'outline'}>
+                  {(property as any).featured ? t('status.featured') : t('status.notFeatured')}
                 </Badge>
               </TableCell>
               <TableCell>
@@ -365,7 +365,7 @@ export function PropertyManagement() {
                     <DropdownMenuSeparator />
                     
                     <DropdownMenuItem
-                      onClick={() => updatePropertyStatus(property.id, { featured: !property.featured })}
+                      onClick={() => updatePropertyStatus(property.id, { featured: !(property as any).featured })}
                     >
                       <Star className="mr-2 h-4 w-4" />
                       {property.featured ? t('actions.unmarkFeatured') : t('actions.markFeatured')}
@@ -400,7 +400,7 @@ export function PropertyManagement() {
                     
                     <DropdownMenuItem
                       onClick={() => updatePropertyStatus(property.id, 'rented')}
-                      disabled={property.status === 'rented'}
+                      disabled={(property as any).status === 'rented'}
                     >
                       <Check className="mr-2 h-4 w-4" />
                       {t('actions.markRented')}
