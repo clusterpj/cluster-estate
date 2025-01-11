@@ -349,8 +349,8 @@ export function PropertyManagement() {
                 </Badge>
               </TableCell>
               <TableCell>
-                <Badge variant={(property as any).featured ? 'default' : 'outline'}>
-                  {(property as any).featured ? t('status.featured') : t('status.notFeatured')}
+                <Badge variant={property.featured ? 'default' : 'outline'}>
+                  {property.featured ? t('status.featured') : t('status.notFeatured')}
                 </Badge>
               </TableCell>
               <TableCell>
