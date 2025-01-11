@@ -20,6 +20,13 @@ export type UpdateProperty = Database['public']['Tables']['properties']['Update'
 export type PropertyStatus = 'available' | 'sold' | 'pending'
 export type ListingType = 'sale' | 'rent' | 'both'
 export type PropertyType = 'house' | 'villa' | 'condo' | 'lot'
+
+export interface PropertyTypes {
+  house: string;
+  villa: string;
+  condo: string;
+  lot: string;
+}
 export type RentalFrequency = 'daily' | 'weekly' | 'monthly' | 'yearly'
 
 export interface PropertyFilters {

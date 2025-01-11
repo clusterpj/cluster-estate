@@ -33,7 +33,9 @@ export function PropertyCard({ property }: PropertyCardProps) {
       <CardContent className="p-4">
         <div className="flex items-center gap-2">
           <h3 className="truncate text-lg font-semibold">{property.title}</h3>
-          <Badge variant="secondary">{property.property_type}</Badge>
+          <Badge variant="secondary">
+            {t(`propertyType.${property.property_type}`)}
+          </Badge>
         </div>
         <div className="mt-2 flex items-center gap-1 text-sm text-muted-foreground">
           <MapPin className="h-4 w-4" />
