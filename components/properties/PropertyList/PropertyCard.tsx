@@ -55,7 +55,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
         <div className="flex items-center gap-2">
           <h3 className="truncate text-lg font-semibold">{property.title}</h3>
           <Badge variant="secondary">
-            {property.property_type ? t(`propertyType.${property.property_type}`) : t('propertyType.unknown')}
+            {property.property_type ? t(`FeaturedProperties.propertyType.${property.property_type}`) : t('FeaturedProperties.propertyType.unknown')}
           </Badge>
         </div>
         <div className="mt-2 flex items-center gap-1 text-sm text-muted-foreground">

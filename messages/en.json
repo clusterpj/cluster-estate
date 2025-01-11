@@ -74,6 +74,13 @@
         "rent": "Rent",
         "sale": "Sale",
         "both": "Sale & Rent"
+      },
+      "propertyType": {
+        "house": "House",
+        "villa": "Villa",
+        "condo": "Condo",
+        "lot": "Lot",
+        "unknown": "Unknown"
       }
     },
 

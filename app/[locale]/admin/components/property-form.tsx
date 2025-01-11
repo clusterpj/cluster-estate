@@ -398,10 +398,10 @@ export function PropertyForm({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="house">{t('propertyType.house')}</SelectItem>
-                        <SelectItem value="villa">{t('propertyType.villa')}</SelectItem>
-                        <SelectItem value="condo">{t('propertyType.condo')}</SelectItem>
-                        <SelectItem value="lot">{t('propertyType.lot')}</SelectItem>
+                        <SelectItem value="house">{t('FeaturedProperties.propertyType.house')}</SelectItem>
+                        <SelectItem value="villa">{t('FeaturedProperties.propertyType.villa')}</SelectItem>
+                        <SelectItem value="condo">{t('FeaturedProperties.propertyType.condo')}</SelectItem>
+                        <SelectItem value="lot">{t('FeaturedProperties.propertyType.lot')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
