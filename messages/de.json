@@ -241,6 +241,12 @@
           "both": "Verkauf & Vermietung",
           "undefined": "Nicht angegeben"
         },
+        "propertyType": {
+          "house": "Haus",
+          "villa": "Villa",
+          "condo": "Wohnung",
+          "lot": "Grundstück"
+        },
         "rentalFrequency": {
           "daily": "pro Tag",
           "weekly": "pro Woche",
