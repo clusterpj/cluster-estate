@@ -318,7 +318,7 @@ export function PropertyManagement() {
               </TableCell>
               <TableCell>
                 <Badge variant="outline">
-                  {t(`FeaturedProperties.propertyType.${property.property_type}`)}
+                  {t(`propertyType.${property.property_type}`)}
                 </Badge>
               </TableCell>
               <TableCell>

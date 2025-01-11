@@ -204,145 +204,23 @@
       }
     ]
   },
-  "auth": {
+"auth": {
     "loginTitle": "Anmelden",
-    "loginDescription": "Willkommen! Bitte melden Sie sich bei Ihrem Konto an.",
+    "loginDescription": "Willkommen zurück! Bitte melden Sie sich in Ihrem Konto an.",
     "registerTitle": "Konto erstellen",
     "registerDescription": "Erstellen Sie ein neues Konto, um loszulegen.",
     "signIn": "Anmelden",
-    "signUp": "Anmelden",
+    "signUp": "Registrieren",
     "signOut": "Abmelden",
-    "userMenu": "Benutzermenu",
-    "dashboard": "Armaturenbrett",
+    "userMenu": "Benutzermenü",
+    "dashboard": "Dashboard",
     "profile": "Profil",
-    "adminDashboard": "Verwaltungs-Dashboard",
+    "adminDashboard": "Admin-Dashboard",
     "adminSection": {
-      "title": "Verwaltungs-Dashboard",
-      "description": "Verwalte deine Immobilien und Nutzer",
-      "stats": {
-        "totalProperties": "Gesamtliegenschaften",
-        "available": "Verfügbar",
-        "sold": "Verkauft",
-        "pending": "Ausstehend",
-        "rented": "Vermietet"
-      },
-      "properties": {
-        "title": "Immobilienverwaltung",
-        "loading": "Eigenschaften werden geladen...",
-        "error": "Fehler",
-        "success": "Erfolg",
-        "filters": {
-          "all": "Alle Eigenschaften",
-          "selectListingType": "Filtern nach Typ"
-        },
-        "listingType": {
-          "sale": "Zu verkaufen",
-          "rent": "Zu vermieten",
-          "both": "Verkauf & Vermietung",
-          "undefined": "Nicht angegeben"
-        },
-        "rentalFrequency": {
-          "daily": "pro Tag",
-          "weekly": "pro Woche",
-          "monthly": "pro Monat",
-          "yearly": "pro Jahr"
-        },
-        "price": {
-          "forSale": "Zum Verkauf",
-          "forRent": "Zu Vermieten",
-          "rentalFrequency": {
-            "daily": "pro Tag",
-            "weekly": "pro Woche",
-            "monthly": "pro Monat",
-            "yearly": "pro Jahr"
-          }
-        },
-        "status": {
-          "available": "Verfügbar",
-          "pending": "Ausstehend",
-          "sold": "Verkauft",
-          "rented": "Gemietet",
-          "featured": "Ausgewählt",
-          "notFeatured": "Nicht ausgewählt"
-        },
-        "table": {
-          "title": "Titel",
-          "listingType": "Typ",
-          "price": "Preis",
-          "rentalPrice": "Mietpreis",
-          "location": "Standort",
-          "status": "Status",
-          "featured": "Hervorgehoben",
-          "actions": "Handlungen"
-        },
-        "form": {
-          "createProperty": "Neue Immobilie erstellen",
-          "editProperty": "Eigentum bearbeiten",
-          "createPropertyDescription": "Füllen Sie die Details unten aus, um eine neue Immobilienlistung zu erstellen.",
-          "editPropertyDescription": "Aktualisieren Sie die unten stehenden Objektdetails.",
-          "title": "Titel",
-          "description": "Beschreibung",
-          "price": "Preis",
-          "salePrice": "Verkaufspreis",
-          "saleInformation": "Verkaufsinformation",
-          "rentalInformation": "Mietinformationen",
-          "additionalInformation": "Zusätzliche Informationen",
-          "location": "Standort",
-          "bedrooms": "Schlafzimmer",
-          "bathrooms": "Badezimmer",
-          "squareFeet": "Quadratfuß",
-          "status": "Status",
-          "selectStatus": "Auswählen Grundstücksstatus",
-          "listingType": "Angebotstyp",
-          "selectListingType": "Wählen Sie den Listungstyp aus",
-          "features": "Funktionen",
-          "featuresDescription": "Drücke Enter, um eine neue Funktion hinzuzufügen.",
-          "featuresPlaceholder": "Tippen Sie ein Feature ein und drücken Sie die Eingabetaste.",
-          "images": "Bilder",
-          "imagesDescription": "Immobilienbilder hochladen (JPG, PNG)",
-          "rentalPrice": "Mietpreis",
-          "rentalFrequency": "Mietfrequenz",
-          "selectRentalFrequency": "Wähle die Frequenz",
-          "minimumRentalPeriod": "Mindestmietdauer",
-          "depositAmount": "Kaution",
-          "availableFrom": "Verfügbar von",
-          "availableTo": "Verfügbar für",
-          "submit": "Immobilie sichern"
-        },
-        "actions": {
-          "createProperty": "Erstellen Sie eine Immobilie",
-          "manage": "Verwalten Sie Eigentum",
-          "markFeatured": "Kennzeichnen als Ausgezeichnet",
-          "unmarkFeatured": "Entfernen Sie Hervorgehobenes",
-          "markAvailable": "Mark verfügbar",
-          "markPending": "Offen stehend",
-          "markSold": "Mark verkaufte",
-          "markRented": "Vermietet",
-          "edit": "Bearbeiten",
-          "delete": "Löschen",
-          "status": "Statusänderung"
-        },
-        "deleteConfirmation": {
-          "title": "Löschen Sie die Eigenschaft",
-          "description": "Sind Sie sicher, dass Sie diese Eigenschaft löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
-          "cancel": "Stornieren",
-          "confirm": "Löschen"
-        },
-        "fetchError": "Fehler beim Laden der Eigenschaften",
-        "updateError": "Fehler beim Aktualisieren der Eigenschaft",
-        "createError": "Fehler beim Erstellen der Eigenschaft",
-        "deleteError": "Fehlgeschlagen, Eigenschaft zu löschen",
-        "updateSuccess": "Eigenschaft erfolgreich aktualisiert",
-        "createSuccess": "Eigentum erfolgreich erstellt",
-        "deleteSuccess": "Eigentum erfolgreich gelöscht"
-      },
-      "tabs": {
-        "properties": "Eigenschaften",
-        "users": "Nutzer",
-        "bookings": "Buchungen"
-      },
+      "title": "Admin-Dashboard",
+      "description": "Verwalten Sie Ihre Immobilien und Benutzer",
       "bookings": {
-        "title": "Buchungsverwaltung",
+        "title": "Buchungen verwalten",
         "loading": "Buchungen werden geladen...",
         "noBookings": "Keine Buchungen gefunden",
         "fetchError": "Fehler beim Laden der Buchungen",
@@ -357,91 +235,195 @@
           "completed": "Abgeschlossen",
           "failed": "Fehlgeschlagen",
           "refunded": "Erstattet"
-        },
-        "columns": {
-          "id": "Buchungsnummer",
-          "property": "Immobilie",
-          "checkIn": "Check-In",
-          "checkOut": "Check-Out",
-          "guests": "Gäste",
-          "totalPrice": "Gesamtpreis",
-          "status": "Status",
-          "paymentStatus": "Zahlungsstatus",
-          "actions": "Aktionen"
-        },
-        "actions": {
-          "view": "Anzeigen",
-          "edit": "Bearbeiten",
-          "cancel": "Stornieren",
-          "confirm": "Bestätigen",
-          "markCompleted": "Als abgeschlossen markieren"
-        },
-        "details": {
-          "title": "Buchungsdetails",
-          "guestInfo": "Gastinformationen",
-          "specialRequests": "Besondere Wünsche",
-          "paymentDetails": "Zahlungsdetails",
-          "createdAt": "Erstellt am",
-          "updatedAt": "Aktualisiert am"
-        },
-        "confirmation": {
-          "cancelTitle": "Buchung stornieren",
-          "cancelMessage": "Sind Sie sicher, dass Sie diese Buchung stornieren möchten?",
-          "confirmTitle": "Buchung bestätigen",
-          "confirmMessage": "Sind Sie sicher, dass Sie diese Buchung bestätigen möchten?"
         }
+      },
+      "stats": {
+        "totalProperties": "Gesamte Immobilien",
+        "available": "Verfügbar",
+        "sold": "Verkauft",
+        "pending": "Ausstehend",
+        "rented": "Vermietet"
+      },
+      "tabs": {
+        "properties": "Immobilien",
+        "users": "Benutzer",
+        "bookings": "Buchungen"
       },
       "users": {
         "title": "Benutzerverwaltung",
-        "description": "Benutzerkonten und Rollen verwalten",
+        "description": "Verwalten Sie Benutzerkonten und Rollen",
         "loading": "Benutzer werden geladen...",
         "error": "Fehler beim Laden der Benutzer",
-        "success": "Erfolg",
-        "fetchError": "Nutzer konnten nicht abgerufen werden",
-        "updateError": "Benutzer konnte nicht aktualisiert werden",
+        "success": "Erfolgreich",
+        "fetchError": "Fehler beim Abrufen der Benutzer",
+        "updateError": "Fehler beim Aktualisieren des Benutzers",
         "updateSuccess": "Benutzer erfolgreich aktualisiert",
         "table": {
           "user": "Benutzer",
           "email": "E-Mail",
           "role": "Rolle",
           "joined": "Beigetreten",
-          "actions": "Handlungen"
+          "actions": "Aktionen"
         },
         "roles": {
           "user": "Benutzer",
-          "agent": "Agent",
-          "admin": "Admin"
+          "agent": "Makler",
+          "admin": "Administrator"
         },
         "actions": {
           "edit": "Benutzer bearbeiten",
           "delete": "Benutzer löschen",
-          "changeRole": "Rollenwechsel"
+          "changeRole": "Rolle ändern"
         }
+      },
+      "properties": {
+        "title": "Immobilienverwaltung",
+        "loading": "Immobilien werden geladen...",
+        "error": "Fehler",
+        "success": "Erfolgreich",
+        "filters": {
+          "all": "Alle Immobilien",
+          "selectListingType": "Nach Typ filtern"
+        },
+        "listingType": {
+          "sale": "Zum Verkauf",
+          "rent": "Zur Miete",
+          "both": "Verkauf & Vermietung",
+          "undefined": "Nicht angegeben"
+        },
+        "propertyType": {
+          "house": "Haus",
+          "villa": "Villa",
+          "condo": "Eigentumswohnung",
+          "lot": "Grundstück"
+        },
+        "rentalFrequency": {
+          "daily": "pro Tag",
+          "weekly": "pro Woche",
+          "monthly": "pro Monat",
+          "yearly": "pro Jahr"
+        },
+        "price": {
+          "forSale": "Zum Verkauf",
+          "forRent": "Zur Miete",
+          "rentalFrequency": {
+            "daily": "Tag",
+            "weekly": "Woche",
+            "monthly": "Monat",
+            "yearly": "Jahr"
+          }
+        },
+        "status": {
+          "available": "Verfügbar",
+          "pending": "Ausstehend",
+          "sold": "Verkauft",
+          "rented": "Vermietet",
+          "featured": "Hervorgehoben",
+          "notFeatured": "Nicht hervorgehoben"
+        },
+        "table": {
+          "title": "Titel",
+          "listingType": "Typ",
+          "propertyType": "Immobilientyp",
+          "price": "Preis",
+          "rentalPrice": "Mietpreis",
+          "location": "Standort",
+          "status": "Status",
+          "featured": "Hervorgehoben",
+          "actions": "Aktionen"
+        },
+        "form": {
+          "createProperty": "Neue Immobilie erstellen",
+          "editProperty": "Immobilie bearbeiten",
+          "createPropertyDescription": "Fügen Sie eine neue Immobilie zu Ihren Angeboten hinzu",
+          "editPropertyDescription": "Immobiliendetails bearbeiten",
+          "title": "Immobilientitel",
+          "description": "Beschreibung",
+          "price": "Verkaufspreis",
+          "salePrice": "Preis",
+          "saleInformation": "Verkaufsinformationen",
+          "rentalInformation": "Mietinformationen",
+          "additionalInformation": "Zusätzliche Informationen",
+          "location": "Standort",
+          "bedrooms": "Schlafzimmer",
+          "bathrooms": "Badezimmer",
+          "squareFeet": "Quadratmeter",
+          "status": "Status",
+          "selectStatus": "Immobilienstatus auswählen",
+          "listingType": "Angebotsart",
+          "propertyType": "Immobilientyp",
+          "selectListingType": "Angebotsart auswählen",
+          "selectPropertyType": "Typ auswählen",
+          "features": "Merkmale",
+          "featuresDescription": "Drücken Sie Enter, um ein Merkmal hinzuzufügen",
+          "featuresPlaceholder": "Merkmal hinzufügen...",
+          "images": "Bilder",
+          "imagesDescription": "Immobilienbilder hochladen",
+          "rentalPrice": "Mietpreis",
+          "rentalFrequency": "Mietintervall",
+          "selectRentalFrequency": "Intervall auswählen",
+          "minimumRentalPeriod": "Mindestmietdauer",
+          "depositAmount": "Kaution",
+          "availableFrom": "Verfügbar ab",
+          "availableTo": "Verfügbar bis",
+          "submit": "Immobilie speichern"
+        },
+        "actions": {
+          "createProperty": "Immobilie hinzufügen",
+          "manage": "Immobilie verwalten",
+          "markFeatured": "Als hervorgehoben markieren",
+          "unmarkFeatured": "Hervorhebung entfernen",
+          "markAvailable": "Als verfügbar markieren",
+          "markPending": "Als ausstehend markieren",
+          "markSold": "Als verkauft markieren",
+          "markRented": "Als vermietet markieren",
+          "edit": "Immobilie bearbeiten",
+          "delete": "Immobilie löschen",
+          "status": "Status ändern"
+        },
+        "deleteConfirmation": {
+          "title": "Immobilie löschen",
+          "description": "Sind Sie sicher, dass Sie diese Immobilie löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+          "cancel": "Abbrechen",
+          "confirm": "Löschen"
+        },
+        "sectionHeaders": {
+          "saleInformation": "Verkaufsinformationen",
+          "rentalInformation": "Mietinformationen",
+          "additionalInformation": "Zusätzliche Informationen"
+        },
+        "fetchError": "Fehler beim Abrufen der Immobilien",
+        "updateError": "Fehler beim Aktualisieren der Immobilie",
+        "createError": "Fehler beim Erstellen der Immobilie",
+        "deleteError": "Fehler beim Löschen der Immobilie",
+        "updateSuccess": "Immobilie erfolgreich aktualisiert",
+        "createSuccess": "Immobilie erfolgreich erstellt",
+        "deleteSuccess": "Immobilie erfolgreich gelöscht"
       }
     },
     "email": "E-Mail",
     "password": "Passwort",
-    "confirmPassword": "Bestätigen Sie das Passwort",
+    "confirmPassword": "Passwort bestätigen",
     "forgotPassword": "Passwort vergessen?",
-    "rememberMe": "Erinnere dich an mich.",
-    "dontHaveAccount": "Haben Sie noch keinen Account?",
-    "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
+    "rememberMe": "Angemeldet bleiben",
+    "dontHaveAccount": "Noch kein Konto?",
+    "alreadyHaveAccount": "Bereits ein Konto?",
     "createAccount": "Konto erstellen",
     "signInNow": "Jetzt anmelden",
     "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein",
     "passwordPlaceholder": "Geben Sie Ihr Passwort ein",
     "confirmPasswordPlaceholder": "Bestätigen Sie Ihr Passwort",
     "login": "Anmelden",
-    "register": "Anmelden",
-    "loggingIn": "Anmelden...",
+    "register": "Registrieren",
+    "loggingIn": "Anmeldung läuft...",
     "registering": "Konto wird erstellt...",
-    "noAccount": "Haben Sie noch keinen Account?",
-    "haveAccount": "Haben Sie bereits ein Konto?",
+    "noAccount": "Noch kein Konto?",
+    "haveAccount": "Bereits ein Konto?",
     "loginSuccess": "Erfolgreich angemeldet!",
-    "loginError": "Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.",
+    "loginError": "Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Zugangsdaten.",
     "registrationSuccess": "Konto erfolgreich erstellt! Bitte melden Sie sich an.",
-    "registrationError": "Fehlgeschlagen, Konto zu erstellen. Bitte versuchen Sie es erneut.",
-    "passwordMismatch": "Passwörter stimmen nicht überein."
+    "registrationError": "Fehler beim Erstellen des Kontos. Bitte versuchen Sie es erneut.",
+    "passwordMismatch": "Die Passwörter stimmen nicht überein"
   },
   "nav": {
     "properties": "Eigenschaften",

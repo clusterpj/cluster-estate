@@ -205,136 +205,44 @@
     ]
   },
   "auth": {
-    "loginTitle": "Se connecter",
+    "loginTitle": "Connexion",
     "loginDescription": "Bienvenue ! Veuillez vous connecter à votre compte.",
-    "registerTitle": "Créer un compte",
+    "registerTitle": "Créer un Compte",
     "registerDescription": "Créez un nouveau compte pour commencer.",
-    "signIn": "Se connecter",
+    "signIn": "Se Connecter",
     "signUp": "S'inscrire",
-    "signOut": "Se déconnecter",
-    "userMenu": "Menu utilisateur",
-    "dashboard": "Tableau de bord",
+    "signOut": "Se Déconnecter",
+    "userMenu": "Menu Utilisateur",
+    "dashboard": "Tableau de Bord",
     "profile": "Profil",
-    "adminDashboard": "Tableau de bord d'administration",
+    "adminDashboard": "Tableau de Bord Admin",
     "adminSection": {
-      "title": "Tableau de bord d'administration",
-      "description": "Gérez vos biens et utilisateurs",
-      "stats": {
-        "totalProperties": "Propriétés totales",
-        "available": "Disponible",
-        "sold": "Vendu",
-        "pending": "En attente",
-        "rented": "[object Object]"
-      },
-      "properties": {
-        "title": "Gestion immobilière",
-        "loading": "Chargement des propriétés...",
-        "error": "Erreur",
-        "success": "Succès",
-        "filters": {
-          "all": "Toutes les propriétés",
-          "selectListingType": "Filtrer par type"
-        },
-        "listingType": {
-          "sale": "À vendre",
-          "rent": "À Louer",
-          "both": "Vente et location",
-          "undefined": "Pas spécifié"
-        },
-        "rentalFrequency": {
-          "daily": "par jour",
-          "weekly": "par semaine",
-          "monthly": "par mois",
-          "yearly": "par année"
-        },
-        "price": {
-          "forSale": "À Vendre",
-          "forRent": "À Louer",
-          "rentalFrequency": {
-            "daily": "par jour",
-            "weekly": "par semaine",
-            "monthly": "par mois",
-            "yearly": "par an"
-          }
-        },
+      "title": "Tableau de Bord Admin",
+      "description": "Gérez vos propriétés et utilisateurs",
+      "bookings": {
+        "title": "Gérer les Réservations",
+        "loading": "Chargement des réservations...",
+        "noBookings": "Aucune réservation trouvée",
+        "fetchError": "Échec du chargement des réservations",
         "status": {
-          "available": "Disponible",
-          "pending": "En attente",
-          "sold": "Vendu",
-          "rented": "Loué",
-          "featured": "Vedette",
-          "notFeatured": "Non vedette"
+          "pending": "En Attente",
+          "confirmed": "Confirmée",
+          "cancelled": "Annulée",
+          "completed": "Terminée"
         },
-        "table": {
-          "title": "Titre",
-          "listingType": "Type",
-          "price": "Prix",
-          "rentalPrice": "Prix de location",
-          "location": "Emplacement",
-          "status": "Statut",
-          "featured": "En vedette",
-          "actions": "Actions"
-        },
-        "form": {
-          "createProperty": "Créer une propriété",
-          "editProperty": "Modifier la propriété",
-          "createPropertyDescription": "Remplissez les détails ci-dessous pour créer une nouvelle annonce de propriété.",
-          "editPropertyDescription": "Mettez à jour les détails de la propriété ci-dessous.",
-          "title": "Titre",
-          "description": "Description",
-          "price": "Prix",
-          "salePrice": "Prix Soldé",
-          "saleInformation": "Voici la traduction en français :\n\nInformations sur la vente",
-          "rentalInformation": "Voici la traduction en français :\n\nInformations de location",
-          "additionalInformation": "Informations complémentaires",
-          "location": "Emplacement",
-          "bedrooms": "Chambres",
-          "bathrooms": "Salles de bain",
-          "squareFeet": "Pieds carrés",
-          "status": "Statut",
-          "selectStatus": "Sélectionner le statut de la propriété",
-          "listingType": "Type de liste",
-          "selectListingType": "Sélectionnez le type de liste",
-          "features": "Caractéristiques",
-          "featuresDescription": "Appuyez sur Entrée pour ajouter une nouvelle caractéristique",
-          "featuresPlaceholder": "Tapez une caractéristique et appuyez sur Entrée",
-          "images": "Images",
-          "imagesDescription": "Télécharger les images de la propriété (JPG, PNG)",
-          "rentalPrice": "Prix de location",
-          "rentalFrequency": "Fréquence de location",
-          "selectRentalFrequency": "Sélectionner la fréquence",
-          "minimumRentalPeriod": "Période de location minimale",
-          "depositAmount": "Dépôt de garantie",
-          "availableFrom": "Disponible à partir de",
-          "availableTo": "Disponible jusqu'à",
-          "submit": "Sauver la propriété"
-        },
-        "actions": {
-          "createProperty": "Créer une propriété",
-          "manage": "Gérer la propriété",
-          "markFeatured": "Marquer comme en vedette",
-          "unmarkFeatured": "Retirer des vedettes",
-          "markAvailable": "Marquer comme disponible",
-          "markPending": "Marquer comme en attente",
-          "markSold": "Marquer comme vendu",
-          "markRented": "Marquer comme loué",
-          "edit": "Modifier",
-          "delete": "Supprimer",
-          "status": "Changer le statut"
-        },
-        "deleteConfirmation": {
-          "title": "Supprimer la propriété",
-          "description": "Êtes-vous sûr de vouloir supprimer cette propriété ? Cette action ne peut pas être annulée.",
-          "cancel": "Annuler",
-          "confirm": "Supprimer"
-        },
-        "fetchError": "Échec de la récupération des propriétés",
-        "updateError": "Échec de la mise à jour de la propriété",
-        "createError": "Échec de la création de la propriété",
-        "deleteError": "Échec de la suppression de la propriété",
-        "updateSuccess": "La propriété a été mise à jour avec succès.",
-        "createSuccess": "Propriété créée avec succès",
-        "deleteSuccess": "Propriété supprimée avec succès."
+        "paymentStatus": {
+          "pending": "En Attente",
+          "completed": "Terminé",
+          "failed": "Échoué",
+          "refunded": "Remboursé"
+        }
+      },
+      "stats": {
+        "totalProperties": "Total des Propriétés",
+        "available": "Disponibles",
+        "sold": "Vendues",
+        "pending": "En Attente",
+        "rented": "Louées"
       },
       "tabs": {
         "properties": "Propriétés",
@@ -342,19 +250,19 @@
         "bookings": "Réservations"
       },
       "users": {
-        "title": "Gestion des utilisateurs",
-        "description": "Gérer les comptes et les rôles des utilisateurs",
+        "title": "Gestion des Utilisateurs",
+        "description": "Gérer les comptes et rôles utilisateurs",
         "loading": "Chargement des utilisateurs...",
         "error": "Erreur de chargement des utilisateurs",
         "success": "Succès",
-        "fetchError": "Échec de la récupération des utilisateurs",
-        "updateError": "Échec de la mise à jour de l'utilisateur",
+        "fetchError": "Échec de récupération des utilisateurs",
+        "updateError": "Échec de mise à jour de l'utilisateur",
         "updateSuccess": "Utilisateur mis à jour avec succès",
         "table": {
           "user": "Utilisateur",
-          "email": "Courriel",
+          "email": "Email",
           "role": "Rôle",
-          "joined": "Rejointe",
+          "joined": "Inscrit le",
           "actions": "Actions"
         },
         "roles": {
@@ -363,26 +271,150 @@
           "admin": "Administrateur"
         },
         "actions": {
-          "edit": "Modifier l'utilisateur",
-          "delete": "Supprimer l'utilisateur",
-          "changeRole": "Changer de rôle"
+          "edit": "Modifier l'Utilisateur",
+          "delete": "Supprimer l'Utilisateur",
+          "changeRole": "Changer le Rôle"
         }
+      },
+      "properties": {
+        "title": "Gestion des Propriétés",
+        "loading": "Chargement des propriétés...",
+        "error": "Erreur",
+        "success": "Succès",
+        "filters": {
+          "all": "Toutes les Propriétés",
+          "selectListingType": "Filtrer par type"
+        },
+        "listingType": {
+          "sale": "À Vendre",
+          "rent": "À Louer",
+          "both": "Vente & Location",
+          "undefined": "Non Spécifié"
+        },
+        "propertyType": {
+          "house": "Maison",
+          "villa": "Villa",
+          "condo": "Appartement",
+          "lot": "Terrain"
+        },
+        "rentalFrequency": {
+          "daily": "par jour",
+          "weekly": "par semaine",
+          "monthly": "par mois",
+          "yearly": "par an"
+        },
+        "price": {
+          "forSale": "À Vendre",
+          "forRent": "À Louer",
+          "rentalFrequency": {
+            "daily": "jour",
+            "weekly": "semaine",
+            "monthly": "mois",
+            "yearly": "année"
+          }
+        },
+        "status": {
+          "available": "Disponible",
+          "pending": "En Attente",
+          "sold": "Vendu",
+          "rented": "Loué",
+          "featured": "En Vedette",
+          "notFeatured": "Non en Vedette"
+        },
+        "table": {
+          "title": "Titre",
+          "listingType": "Type",
+          "propertyType": "Type de Propriété",
+          "price": "Prix",
+          "rentalPrice": "Prix de Location",
+          "location": "Emplacement",
+          "status": "Statut",
+          "featured": "En Vedette",
+          "actions": "Actions"
+        },
+        "form": {
+          "createProperty": "Créer une Nouvelle Propriété",
+          "editProperty": "Modifier la Propriété",
+          "createPropertyDescription": "Ajouter une nouvelle propriété à vos annonces",
+          "editPropertyDescription": "Modifier les détails de la propriété",
+          "title": "Titre de la Propriété",
+          "description": "Description",
+          "price": "Prix de Vente",
+          "salePrice": "Prix",
+          "saleInformation": "Informations de Vente",
+          "rentalInformation": "Informations de Location",
+          "additionalInformation": "Informations Complémentaires",
+          "location": "Emplacement",
+          "bedrooms": "Chambres",
+          "bathrooms": "Salles de Bain",
+          "squareFeet": "Mètres Carrés",
+          "status": "Statut",
+          "selectStatus": "Sélectionner le statut de la propriété",
+          "listingType": "Type d'Annonce",
+          "propertyType": "Type de Propriété",
+          "selectListingType": "Sélectionner le type d'annonce",
+          "selectPropertyType": "Sélectionner le type",
+          "features": "Caractéristiques",
+          "featuresDescription": "Appuyez sur Entrée pour ajouter une caractéristique",
+          "featuresPlaceholder": "Ajouter une caractéristique...",
+          "images": "Images",
+          "imagesDescription": "Télécharger des images de la propriété",
+          "rentalPrice": "Prix de Location",
+          "rentalFrequency": "Fréquence de Location",
+          "selectRentalFrequency": "Sélectionner la fréquence",
+          "minimumRentalPeriod": "Période Minimale de Location",
+          "depositAmount": "Montant de la Caution",
+          "availableFrom": "Disponible à partir du",
+          "availableTo": "Disponible jusqu'au",
+          "submit": "Enregistrer la Propriété"
+        },
+        "actions": {
+          "createProperty": "Ajouter une Propriété",
+          "manage": "Gérer la Propriété",
+          "markFeatured": "Marquer comme En Vedette",
+          "unmarkFeatured": "Retirer des En Vedette",
+          "markAvailable": "Marquer comme Disponible",
+          "markPending": "Marquer comme En Attente",
+          "markSold": "Marquer comme Vendu",
+          "markRented": "Marquer comme Loué",
+          "edit": "Modifier la Propriété",
+          "delete": "Supprimer la Propriété",
+          "status": "Changer le Statut"
+        },
+        "deleteConfirmation": {
+          "title": "Supprimer la Propriété",
+          "description": "Êtes-vous sûr de vouloir supprimer cette propriété ? Cette action ne peut pas être annulée.",
+          "cancel": "Annuler",
+          "confirm": "Supprimer"
+        },
+        "sectionHeaders": {
+          "saleInformation": "Informations de Vente",
+          "rentalInformation": "Informations de Location",
+          "additionalInformation": "Informations Complémentaires"
+        },
+        "fetchError": "Échec de récupération des propriétés",
+        "updateError": "Échec de mise à jour de la propriété",
+        "createError": "Échec de création de la propriété",
+        "deleteError": "Échec de suppression de la propriété",
+        "updateSuccess": "Propriété mise à jour avec succès",
+        "createSuccess": "Propriété créée avec succès",
+        "deleteSuccess": "Propriété supprimée avec succès"
       }
     },
-    "email": "Courriel",
+    "email": "Email",
     "password": "Mot de passe",
     "confirmPassword": "Confirmer le mot de passe",
     "forgotPassword": "Mot de passe oublié ?",
-    "rememberMe": "Souviens-toi de moi",
+    "rememberMe": "Se souvenir de moi",
     "dontHaveAccount": "Vous n'avez pas de compte ?",
     "alreadyHaveAccount": "Vous avez déjà un compte ?",
     "createAccount": "Créer un compte",
-    "signInNow": "Connectez-vous maintenant",
-    "emailPlaceholder": "Entrez votre adresse e-mail",
-    "passwordPlaceholder": "Entrez votre mot de passe.",
+    "signInNow": "Se connecter maintenant",
+    "emailPlaceholder": "Entrez votre adresse email",
+    "passwordPlaceholder": "Entrez votre mot de passe",
     "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
     "login": "Se connecter",
-    "register": "Inscription",
+    "register": "S'inscrire",
     "loggingIn": "Connexion en cours...",
     "registering": "Création du compte...",
     "noAccount": "Vous n'avez pas de compte ?",
@@ -391,7 +423,7 @@
     "loginError": "Échec de la connexion. Veuillez vérifier vos identifiants.",
     "registrationSuccess": "Compte créé avec succès ! Veuillez vous connecter.",
     "registrationError": "Échec de la création du compte. Veuillez réessayer.",
-    "passwordMismatch": "Mots de passe ne correspondent pas."
+    "passwordMismatch": "Les mots de passe ne correspondent pas"
   },
   "nav": {
     "properties": "Propriétés",

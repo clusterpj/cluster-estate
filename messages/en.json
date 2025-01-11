@@ -253,86 +253,10 @@
         "pending": "Pending",
         "rented": "Rented"
       },
-      "properties": {
-        "listingType": {
-          "sale": "For Sale",
-          "rent": "For Rent",
-          "both": "Sale & Rent",
-          "undefined": "Not Specified"
-        },
-        "propertyType": {
-          "house": "House",
-          "villa": "Villa",
-          "condo": "Condo",
-          "lot": "Lot",
-          "unknown": "Unknown"
-        },
-        "propertyType": {
-          "house": "House",
-          "villa": "Villa",
-          "condo": "Condo",
-          "lot": "Lot"
-        },
-        "form": {
-          "createProperty": "Create New Property",
-          "editProperty": "Edit Property",
-          "createPropertyDescription": "Add a new property to your listings",
-          "editPropertyDescription": "Modify property details",
-          "title": "Property Title",
-          "description": "Description",
-          "price": "Sale Price",
-          "salePrice": "Price",
-          "saleInformation": "Sale Information",
-          "rentalInformation": "Rental Information",
-          "additionalInformation": "Additional Information",
-          "location": "Location",
-          "bedrooms": "Bedrooms",
-          "bathrooms": "Bathrooms",
-          "squareFeet": "Square Feet",
-          "status": "Status",
-          "selectStatus": "Select property status",
-          "listingType": "Listing Type",
-          "selectListingType": "Select listing type",
-          "features": "Features",
-          "featuresDescription": "Press Enter to add a feature",
-          "featuresPlaceholder": "Add a feature...",
-          "images": "Images",
-          "imagesDescription": "Upload property images",
-          "rentalPrice": "Rental Price",
-          "rentalFrequency": "Rental Frequency",
-          "selectRentalFrequency": "Select frequency",
-          "minimumRentalPeriod": "Minimum Rental Period",
-          "depositAmount": "Security Deposit",
-          "availableFrom": "Available From",
-          "availableTo": "Available To",
-          "submit": "Save Property"
-        },
-        "saleInformationHeader": "Sale Information",
-        "rentalInformationHeader": "Rental Information",
-        "additionalInformationHeader": "Additional Information"
-      },
       "tabs": {
         "properties": "Properties",
         "users": "Users",
         "bookings": "Bookings"
-      },
-      "bookings": {
-        "title": "Manage Bookings",
-        "loading": "Loading bookings...",
-        "noBookings": "No bookings found",
-        "fetchError": "Failed to load bookings",
-        "status": {
-          "pending": "Pending",
-          "confirmed": "Confirmed",
-          "cancelled": "Cancelled",
-          "completed": "Completed"
-        },
-        "paymentStatus": {
-          "pending": "Pending",
-          "completed": "Completed",
-          "failed": "Failed",
-          "refunded": "Refunded"
-        }
       },
       "users": {
         "title": "User Management",
@@ -361,117 +285,131 @@
           "changeRole": "Change Role"
         }
       },
-      "properties": {
-        "title": "Property Management",
-        "loading": "Loading properties...",
-        "error": "Error",
-        "success": "Success",
-        "filters": {
-          "all": "All Properties",
-          "selectListingType": "Filter by type"
-        },
-        "listingType": {
-          "sale": "For Sale",
-          "rent": "For Rent",
-          "both": "Sale & Rent",
-          "undefined": "Not Specified"
-        },
-        "rentalFrequency": {
-          "daily": "per day",
-          "weekly": "per week",
-          "monthly": "per month",
-          "yearly": "per year"
-        },
-        "price": {
-      "forSale": "For Sale",
-      "forRent": "For Rent",
-      "rentalFrequency": {
-        "daily": "day",
-        "weekly": "week",
-        "monthly": "month",
-        "yearly": "year"
-      }
-    },
-    "status": {
-          "available": "Available",
-          "pending": "Pending",
-          "sold": "Sold",
-          "rented": "Rented",
-          "featured": "Featured",
-          "notFeatured": "Not Featured"
-        },
-        "table": {
-          "title": "Title",
-          "listingType": "Type",
-          "propertyType": "Property Type",
-          "price": "Price",
-          "rentalPrice": "Rental Price",
-          "location": "Location",
-          "status": "Status",
-          "featured": "Featured",
-          "actions": "Actions"
-        },
-        "form": {
-          "createProperty": "Create New Property",
-          "editProperty": "Edit Property",
-          "createPropertyDescription": "Add a new property to your listings",
-          "editPropertyDescription": "Modify property details",
-          "title": "Property Title",
-          "description": "Description",
-          "price": "Price",
-          "salePrice": "Sale Price",
-          "saleInformation": "Sale Information",
-          "rentalInformation": "Rental Information",
-          "additionalInformation": "Additional Information",
-          "location": "Location",
-          "bedrooms": "Bedrooms",
-          "bathrooms": "Bathrooms",
-          "squareFeet": "Square Feet",
-          "status": "Status",
-          "selectStatus": "Select property status",
-          "listingType": "Listing Type",
-          "selectListingType": "Select listing type",
-          "features": "Features",
-          "featuresDescription": "Press Enter to add a feature",
-          "featuresPlaceholder": "Add a feature...",
-          "images": "Images",
-          "imagesDescription": "Upload property images",
-          "rentalPrice": "Rental Price",
-          "rentalFrequency": "Rental Frequency",
-          "selectRentalFrequency": "Select frequency",
-          "minimumRentalPeriod": "Minimum Rental Period",
-          "depositAmount": "Security Deposit",
-          "availableFrom": "Available From",
-          "availableTo": "Available To",
-          "submit": "Save Property"
-        },
-        "actions": {
-          "createProperty": "Add Property",
-          "manage": "Manage Property",
-          "markFeatured": "Mark as Featured",
-          "unmarkFeatured": "Remove Featured",
-          "markAvailable": "Mark as Available",
-          "markPending": "Mark as Pending",
-          "markSold": "Mark as Sold",
-          "markRented": "Mark as Rented",
-          "edit": "Edit Property",
-          "delete": "Delete Property",
-          "status": "Change Status"
-        },
-        "deleteConfirmation": {
-          "title": "Delete Property",
-          "description": "Are you sure you want to delete this property? This action cannot be undone.",
-          "cancel": "Cancel",
-          "confirm": "Delete"
-        },
-        "fetchError": "Failed to fetch properties",
-        "updateError": "Failed to update property",
-        "createError": "Failed to create property",
-        "deleteError": "Failed to delete property",
-        "updateSuccess": "Property updated successfully",
-        "createSuccess": "Property created successfully",
-        "deleteSuccess": "Property deleted successfully"
-      }
+        "properties": {
+          "title": "Property Management",
+          "loading": "Loading properties...",
+          "error": "Error",
+          "success": "Success",
+          "filters": {
+            "all": "All Properties",
+            "selectListingType": "Filter by type"
+          },
+          "listingType": {
+            "sale": "For Sale",
+            "rent": "For Rent",
+            "both": "Sale & Rent",
+            "undefined": "Not Specified"
+          },
+          "propertyType": {
+            "house": "House",
+            "villa": "Villa",
+            "condo": "Condo",
+            "lot": "Lot"
+          },
+          "rentalFrequency": {
+            "daily": "per day",
+            "weekly": "per week",
+            "monthly": "per month",
+            "yearly": "per year"
+          },
+          "price": {
+            "forSale": "For Sale",
+            "forRent": "For Rent",
+            "rentalFrequency": {
+              "daily": "day",
+              "weekly": "week",
+              "monthly": "month",
+              "yearly": "year"
+            }
+          },
+          "status": {
+            "available": "Available",
+            "pending": "Pending",
+            "sold": "Sold",
+            "rented": "Rented",
+            "featured": "Featured",
+            "notFeatured": "Not Featured"
+          },
+          "table": {
+            "title": "Title",
+            "listingType": "Type",
+            "propertyType": "Property Type",
+            "price": "Price",
+            "rentalPrice": "Rental Price",
+            "location": "Location",
+            "status": "Status",
+            "featured": "Featured",
+            "actions": "Actions"
+          },
+          "form": {
+            "createProperty": "Create New Property",
+            "editProperty": "Edit Property",
+            "createPropertyDescription": "Add a new property to your listings",
+            "editPropertyDescription": "Modify property details",
+            "title": "Property Title",
+            "description": "Description",
+            "price": "Sale Price",
+            "salePrice": "Price",
+            "saleInformation": "Sale Information",
+            "rentalInformation": "Rental Information",
+            "additionalInformation": "Additional Information",
+            "location": "Location",
+            "bedrooms": "Bedrooms",
+            "bathrooms": "Bathrooms",
+            "squareFeet": "Square Feet",
+            "status": "Status",
+            "selectStatus": "Select property status",
+            "listingType": "Listing Type",
+            "propertyType": "Property Type",
+            "selectListingType": "Select listing type",
+            "selectPropertyType": "Select type",
+            "features": "Features",
+            "featuresDescription": "Press Enter to add a feature",
+            "featuresPlaceholder": "Add a feature...",
+            "images": "Images",
+            "imagesDescription": "Upload property images",
+            "rentalPrice": "Rental Price",
+            "rentalFrequency": "Rental Frequency",
+            "selectRentalFrequency": "Select frequency",
+            "minimumRentalPeriod": "Minimum Rental Period",
+            "depositAmount": "Security Deposit",
+            "availableFrom": "Available From",
+            "availableTo": "Available To",
+            "submit": "Save Property"
+          },
+          "actions": {
+            "createProperty": "Add Property",
+            "manage": "Manage Property",
+            "markFeatured": "Mark as Featured",
+            "unmarkFeatured": "Remove Featured",
+            "markAvailable": "Mark as Available",
+            "markPending": "Mark as Pending",
+            "markSold": "Mark as Sold",
+            "markRented": "Mark as Rented",
+            "edit": "Edit Property",
+            "delete": "Delete Property",
+            "status": "Change Status"
+          },
+          "deleteConfirmation": {
+            "title": "Delete Property",
+            "description": "Are you sure you want to delete this property? This action cannot be undone.",
+            "cancel": "Cancel",
+            "confirm": "Delete"
+          },
+          "sectionHeaders": {
+            "saleInformation": "Sale Information",
+            "rentalInformation": "Rental Information",
+            "additionalInformation": "Additional Information"
+          },
+          "fetchError": "Failed to fetch properties",
+          "updateError": "Failed to update property",
+          "createError": "Failed to create property",
+          "deleteError": "Failed to delete property",
+          "updateSuccess": "Property updated successfully",
+          "createSuccess": "Property created successfully",
+          "deleteSuccess": "Property deleted successfully"
+        }
+      
     },
     "email": "Email",
     "password": "Password",
