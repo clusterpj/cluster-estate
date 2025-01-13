@@ -109,6 +109,15 @@ export function PropertyForm({
     } : undefined,
   })
 
+  // Debug logging for form initialization
+  useEffect(() => {
+    console.group('Form Initialization Debug')
+    console.log('Initial Data:', initialData)
+    console.log('Form Values:', form.getValues())
+    console.log('Uploaded Images:', uploadedImages)
+    console.groupEnd()
+  }, [initialData, form, uploadedImages])
+
   const processPropertyData = async () => {
     const formData = form.getValues();
     console.log('Form data before processing:', formData);
@@ -134,7 +143,14 @@ export function PropertyForm({
   };
 
   async function onSubmit(data: PropertyFormValues) {
-    console.log('Form submitted with data:', data);
+    console.group('Form Submission Debug');
+    console.log('Raw Form Data:', data);
+    console.log('Processed Dates:', {
+      available_from: data.available_from ? new Date(data.available_from) : null,
+      available_to: data.available_to ? new Date(data.available_to) : null
+    });
+    console.log('Current Form State:', form.getValues());
+    console.groupEnd();
     try {
       // Process the property data with user information
       const propertyData = await processPropertyData();
@@ -377,7 +393,16 @@ export function PropertyForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t('form.listingType')}</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value || ''}>
+                    <Select 
+                      onValueChange={(value) => {
+                        console.log('Select value changed:', {
+                          field: field.name,
+                          value
+                        });
+                        field.onChange(value);
+                      }} 
+                      value={field.value || ''}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder={t('form.selectListingType')} />
@@ -546,9 +571,13 @@ export function PropertyForm({
                         <FormControl>
                           <Input
                             type="date"
-                            value={field.value || ''}
+                            value={field.value ? new Date(field.value).toISOString().split('T')[0] : ''}
                             onChange={(e) => {
                               const date = e.target.value;
+                              console.log('Date input changed:', {
+                                rawValue: date,
+                                isoString: date ? new Date(date).toISOString() : null
+                              });
                               field.onChange(date ? new Date(date).toISOString() : '');
                             }}
                           />

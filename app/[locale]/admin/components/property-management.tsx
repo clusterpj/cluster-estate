@@ -236,6 +236,22 @@ export function PropertyManagement() {
                 features: Array.isArray(selectedProperty.features) ? selectedProperty.features : [],
                 images: Array.isArray(selectedProperty.images) ? selectedProperty.images : [],
               } : undefined}
+              onOpenChange={(open) => {
+                if (open) {
+                  console.group('Edit Property Debug');
+                  console.log('Selected Property:', selectedProperty);
+                  console.log('Processed Initial Data:', {
+                    ...selectedProperty,
+                    status: isValidPropertyStatus(selectedProperty?.status || '') ? selectedProperty?.status : 'available',
+                    property_type: selectedProperty?.property_type || 'house',
+                    available_from: selectedProperty?.available_from ? new Date(selectedProperty.available_from + 'Z').toISOString() : '',
+                    available_to: selectedProperty?.available_to ? new Date(selectedProperty.available_to + 'Z').toISOString() : '',
+                    features: Array.isArray(selectedProperty?.features) ? selectedProperty.features : [],
+                    images: Array.isArray(selectedProperty?.images) ? selectedProperty.images : [],
+                  });
+                  console.groupEnd();
+                }
+              }}
               onSuccess={() => {
                 setIsEditDialogOpen(false)
                 fetchProperties()
