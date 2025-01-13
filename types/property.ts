@@ -17,7 +17,7 @@ export interface PropertyAvailability {
 export type NewProperty = Database['public']['Tables']['properties']['Insert']
 export type UpdateProperty = Database['public']['Tables']['properties']['Update']
 
-export type PropertyStatus = 'available' | 'sold' | 'pending'
+export type PropertyStatus = 'available' | 'sold' | 'pending' | 'rented'
 export type ListingType = 'sale' | 'rent' | 'both'
 export type PropertyType = 'house' | 'villa' | 'condo' | 'lot'
 
@@ -53,7 +53,7 @@ export interface PropertyWithAvailability extends Property {
 }
 
 export function isValidPropertyStatus(status: string): status is PropertyStatus {
-  return ['available', 'sold', 'pending'].includes(status)
+  return ['available', 'sold', 'pending', 'rented'].includes(status)
 }
 
 export function isPropertyAvailableForBooking(property: Property): PropertyWithAvailability {

@@ -73,14 +73,40 @@ export function PropertyManagement() {
     }
   }
 
+  const validStatusTransitions: Record<PropertyStatus, PropertyStatus[]> = {
+    available: ['pending', 'sold', 'rented'],
+    pending: ['available', 'sold', 'rented'],
+    sold: ['available'],
+    rented: ['available']
+  };
+
   async function updatePropertyStatus(id: string, status: Property['status'] | { featured?: boolean }) {
     try {
+      // Get current property status
+      const { data: currentProperty } = await supabase
+        .from('properties')
+        .select('status')
+        .eq('id', id)
+        .single();
+
+      if (!currentProperty) {
+        throw new Error('Property not found');
+      }
+
+      // Validate status transition if it's a status change
+      if (typeof status === 'string') {
+        const currentStatus = currentProperty.status as PropertyStatus;
+        if (!validStatusTransitions[currentStatus]?.includes(status)) {
+          throw new Error(`Invalid status transition from ${currentStatus} to ${status}`);
+        }
+      }
+
       const { error } = await supabase
         .from('properties')
         .update(typeof status === 'string' ? { status } : status)
-        .eq('id', id)
+        .eq('id', id);
 
-      if (error) throw error
+      if (error) throw error;
 
       fetchProperties()
       setToastMessage({
@@ -89,12 +115,12 @@ export function PropertyManagement() {
         type: 'success'
       })
     } catch (err) {
-      console.error('Error updating property:', err)
+      console.error('Error updating property:', err);
       setToastMessage({
         title: t('error'),
-        description: t('updateError'),
+        description: err instanceof Error ? err.message : t('updateError'),
         type: 'error'
-      })
+      });
     }
   }
 
