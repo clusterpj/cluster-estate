@@ -96,8 +96,8 @@ export function PropertyForm({
       rental_frequency: initialData?.rental_frequency || undefined,
       minimum_rental_period: initialData?.minimum_rental_period || undefined,
       deposit_amount: initialData?.deposit_amount || undefined,
-      available_from: initialData?.available_from || undefined,
-      available_to: initialData?.available_to || undefined,
+      available_from: initialData?.available_from ? new Date(initialData.available_from).toISOString().split('T')[0] : '',
+      available_to: initialData?.available_to ? new Date(initialData.available_to).toISOString().split('T')[0] : '',
       features: Array.isArray(initialData?.features) ? initialData.features : [],
       images: uploadedImages,
     },
@@ -343,7 +343,7 @@ export function PropertyForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t('form.status')}</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder={t('form.selectStatus')} />
