@@ -80,7 +80,7 @@ export function PropertyManagement() {
     rented: ['available']
   } as const;
 
-  async function updatePropertyStatus(id: string, status: PropertyStatus | { featured?: boolean }) {
+  async function updatePropertyStatus(id: string, status: PropertyStatus | { features?: string[] }) {
     try {
       // Get current property status
       const { data: currentProperty } = await supabase
@@ -254,6 +254,8 @@ export function PropertyManagement() {
                 ...selectedProperty,
                 status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
                 property_type: selectedProperty.property_type || 'house',
+                sale_price: selectedProperty.sale_price || 0,
+                rental_price: selectedProperty.rental_price || 0,
                 available_from: selectedProperty.available_from ? 
                   new Date(selectedProperty.available_from).toISOString().split('T')[0] : '',
                 available_to: selectedProperty.available_to ? 
@@ -373,6 +375,7 @@ export function PropertyManagement() {
                   property.status === 'available' ? 'default' :
                   property.status === 'pending' ? 'secondary' :
                   property.status === 'rented' ? 'secondary' :
+                  property.status === 'sold' ? 'outline' :
                   'outline'
                 }>
                   {t(`status.${property.status}`)}
@@ -405,7 +408,7 @@ export function PropertyManagement() {
                       }}
                     >
                       <Star className="mr-2 h-4 w-4" />
-                      {property.featured ? t('actions.unmarkFeatured') : t('actions.markFeatured')}
+                      {property.features?.includes('featured') ? t('actions.unmarkFeatured') : t('actions.markFeatured')}
                     </DropdownMenuItem>
                     
                     <DropdownMenuSeparator />
