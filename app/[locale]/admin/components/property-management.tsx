@@ -227,26 +227,36 @@ export function PropertyManagement() {
             <PropertyForm
               mode="edit"
               propertyId={selectedProperty.id}
-              initialData={{
-                ...selectedProperty,
-                status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
-                sale_price: selectedProperty.sale_price ?? 0,
-                property_type: selectedProperty.property_type ?? 'house',
-                rental_price: selectedProperty.rental_price ?? 0,
-                rental_frequency: selectedProperty.rental_frequency ?? 'monthly',
-                minimum_rental_period: selectedProperty.minimum_rental_period ?? 1,
-                deposit_amount: selectedProperty.deposit_amount ?? 0,
-                available_from: selectedProperty.available_from ? new Date(selectedProperty.available_from) : new Date(),
-                available_to: selectedProperty.available_to ? new Date(selectedProperty.available_to) : new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
-                features: selectedProperty.features ?? [],
-                images: selectedProperty.images ?? [],
-                bedrooms: selectedProperty.bedrooms ?? 1,
-                bathrooms: selectedProperty.bathrooms ?? 1,
-                square_feet: selectedProperty.square_feet ?? 0,
-                location: selectedProperty.location ?? '',
-                description: selectedProperty.description ?? '',
-                listing_type: selectedProperty.listing_type ?? 'both'
-              }}
+              initialData={(function() {
+                console.group('Property Form Initial Data Debug')
+                console.log('Selected Property from DB:', selectedProperty)
+                
+                const initialData = {
+                  ...selectedProperty,
+                  status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
+                  sale_price: selectedProperty.sale_price ?? 0,
+                  property_type: selectedProperty.property_type ?? 'house',
+                  rental_price: selectedProperty.rental_price ?? 0,
+                  rental_frequency: selectedProperty.rental_frequency ?? 'monthly',
+                  minimum_rental_period: selectedProperty.minimum_rental_period ?? 1,
+                  deposit_amount: selectedProperty.deposit_amount ?? 0,
+                  available_from: selectedProperty.available_from ? new Date(selectedProperty.available_from) : new Date(),
+                  available_to: selectedProperty.available_to ? new Date(selectedProperty.available_to) : new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+                  features: selectedProperty.features ?? [],
+                  images: selectedProperty.images ?? [],
+                  bedrooms: selectedProperty.bedrooms ?? 1,
+                  bathrooms: selectedProperty.bathrooms ?? 1,
+                  square_feet: selectedProperty.square_feet ?? 0,
+                  location: selectedProperty.location ?? '',
+                  description: selectedProperty.description ?? '',
+                  listing_type: selectedProperty.listing_type ?? 'both'
+                }
+                
+                console.log('Processed Initial Data:', initialData)
+                console.groupEnd()
+                
+                return initialData
+              })()}
               onSuccess={() => {
                 setIsEditDialogOpen(false)
                 fetchProperties()
