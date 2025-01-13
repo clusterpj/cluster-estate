@@ -479,6 +479,15 @@
       "weekly": "week",
       "monthly": "month",
       "yearly": "year"
+    },
+    "FeaturedProperties": {
+      "propertyType": {
+        "house": "House",
+        "villa": "Villa",
+        "condo": "Condo",
+        "lot": "Lot",
+        "unknown": "Unknown"
+      }
     }
   },
   "PropertyForm": {
