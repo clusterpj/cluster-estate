@@ -369,7 +369,7 @@ export function PropertyForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t('form.listingType')}</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value || ''}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder={t('form.selectListingType')} />
@@ -392,7 +392,7 @@ export function PropertyForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t('form.propertyType')}</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value || ''}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder={t('form.selectPropertyType')} />
@@ -471,7 +471,7 @@ export function PropertyForm({
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>{t('form.rentalFrequency')}</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value || ''}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder={t('form.selectRentalFrequency')} />
