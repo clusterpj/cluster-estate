@@ -237,12 +237,13 @@ export function PropertyManagement() {
                 bathrooms: selectedProperty.bathrooms,
                 square_feet: selectedProperty.square_feet,
                 listing_type: selectedProperty.listing_type,
+                property_type: selectedProperty.property_type ?? 'house', // Add property_type with default
                 rental_price: selectedProperty.rental_price ?? undefined,
                 rental_frequency: selectedProperty.rental_frequency ?? undefined,
                 minimum_rental_period: selectedProperty.minimum_rental_period ?? undefined,
                 deposit_amount: selectedProperty.deposit_amount ?? undefined,
-                available_from: selectedProperty.available_from ?? undefined,
-                available_to: selectedProperty.available_to ?? undefined,
+                available_from: selectedProperty.available_from ? new Date(selectedProperty.available_from) : undefined,
+                available_to: selectedProperty.available_to ? new Date(selectedProperty.available_to) : undefined,
                 features: selectedProperty.features ?? [],
                 images: selectedProperty.images ?? []
               }}
