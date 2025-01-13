@@ -22,11 +22,16 @@ export async function POST(request: Request) {
     const captureData = await capturePayPalOrder(orderId)
 
     // Update booking status
+    const newStatus = captureData.status === 'COMPLETED' ? 'completed' : 'failed'
     await updateBookingPaymentStatus(
       bookingId,
       captureData.id,
-      captureData.status === 'COMPLETED' ? 'completed' : 'failed'
+      newStatus
     )
+
+    // Update calendar event status
+    const calendarSync = new CalendarSyncService()
+    await calendarSync.handleBookingStatusChange(bookingId, newStatus)
 
     return NextResponse.json({
       success: true,

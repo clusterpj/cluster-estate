@@ -15,6 +15,7 @@ export async function isPropertyAvailable(
   timezone: string = 'UTC'
 ): Promise<{ available: boolean; conflicts: CalendarEvent[] }> {
   const supabase = createClient()
+  const calendarSync = new CalendarSyncService()
   
   // Check if property exists and is available for rent
   const { data: property } = await supabase
@@ -23,11 +24,11 @@ export async function isPropertyAvailable(
     .eq('id', propertyId)
     .single()
 
-  if (!property) return false
+  if (!property) return { available: false, conflicts: [] }
   
   // Check listing type
   if (property.listing_type !== 'rent' && property.listing_type !== 'both') {
-    return false
+    return { available: false, conflicts: [] }
   }
 
   // Check availability window
@@ -35,18 +36,33 @@ export async function isPropertyAvailable(
   const availableFrom = property.available_from ? new Date(property.available_from) : null
   const availableTo = property.available_to ? new Date(property.available_to) : null
 
-  if (availableFrom && availableFrom > now) return false
-  if (availableTo && availableTo < now) return false
+  if (availableFrom && availableFrom > now) return { available: false, conflicts: [] }
+  if (availableTo && availableTo < now) return { available: false, conflicts: [] }
 
   // Check for overlapping bookings
-  const { count } = await supabase
+  const { data: bookingConflicts } = await supabase
     .from('bookings')
-    .select('*', { count: 'exact' })
+    .select('*')
     .eq('property_id', propertyId)
     .or(`and(check_in.lte.${checkOut.toISOString()},check_out.gte.${checkIn.toISOString()})`)
     .neq('status', 'cancelled')
 
-  return count === 0
+  // Check for calendar conflicts
+  const isCalendarAvailable = await calendarSync.checkAvailability(
+    propertyId,
+    checkIn,
+    checkOut
+  )
+
+  const conflicts = [
+    ...(bookingConflicts || []),
+    ...(!isCalendarAvailable ? [{ type: 'calendar', start: checkIn, end: checkOut }] : [])
+  ]
+
+  return {
+    available: (bookingConflicts?.length || 0) === 0 && isCalendarAvailable,
+    conflicts
+  }
 }
 
 export async function getBookedDates(

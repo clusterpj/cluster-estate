@@ -57,6 +57,21 @@ export async function POST(request: Request) {
 
     console.log('Authenticated user:', user.id)
 
+    // Check calendar availability
+    const calendarSync = new CalendarSyncService()
+    const isAvailable = await calendarSync.checkAvailability(
+      bookingData.propertyId,
+      bookingData.checkIn,
+      bookingData.checkOut
+    )
+
+    if (!isAvailable) {
+      return NextResponse.json(
+        { error: 'Selected dates are not available' },
+        { status: 400 }
+      )
+    }
+
     // Create booking with RLS check
     console.log('Creating booking in database...')
     const initialPaymentStatus = BookingPaymentStatus.PENDING
