@@ -230,12 +230,13 @@ export function PropertyManagement() {
               initialData={(function() {
                 console.group('Property Form Initial Data Debug')
                 console.log('Selected Property from DB:', selectedProperty)
+                console.log('Property type from DB:', selectedProperty.property_type)
                 
                 const initialData = {
                   ...selectedProperty,
                   status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
                   sale_price: selectedProperty.sale_price ?? 0,
-                  property_type: selectedProperty.property_type ?? 'house',
+                  property_type: selectedProperty.property_type ?? 'house', // Default to 'house' if null
                   rental_price: selectedProperty.rental_price ?? 0,
                   rental_frequency: selectedProperty.rental_frequency ?? 'monthly',
                   minimum_rental_period: selectedProperty.minimum_rental_period ?? 1,
