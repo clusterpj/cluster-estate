@@ -228,16 +228,10 @@ export function PropertyManagement() {
               mode="edit"
               propertyId={selectedProperty.id}
               initialData={{
-                title: selectedProperty.title,
-                description: selectedProperty.description,
+                ...selectedProperty,
                 status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
                 sale_price: selectedProperty.sale_price ?? 0,
-                location: selectedProperty.location,
-                bedrooms: selectedProperty.bedrooms,
-                bathrooms: selectedProperty.bathrooms,
-                square_feet: selectedProperty.square_feet,
-                listing_type: selectedProperty.listing_type,
-                property_type: selectedProperty.property_type ?? 'house', // Add property_type with default
+                property_type: selectedProperty.property_type ?? 'house',
                 rental_price: selectedProperty.rental_price ?? undefined,
                 rental_frequency: selectedProperty.rental_frequency ?? undefined,
                 minimum_rental_period: selectedProperty.minimum_rental_period ?? undefined,
