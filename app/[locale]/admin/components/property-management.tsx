@@ -252,16 +252,23 @@ export function PropertyManagement() {
               propertyId={selectedProperty.id}
               initialData={selectedProperty ? {
                 ...selectedProperty,
+                title: selectedProperty.title || '',
+                description: selectedProperty.description || '',
                 status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
                 property_type: selectedProperty.property_type || 'house',
                 sale_price: selectedProperty.sale_price || 0,
                 rental_price: selectedProperty.rental_price || 0,
+                location: selectedProperty.location || '',
+                bedrooms: selectedProperty.bedrooms || 0,
+                bathrooms: selectedProperty.bathrooms || 0,
+                square_feet: selectedProperty.square_feet || 0,
                 available_from: selectedProperty.available_from ? 
-                  new Date(selectedProperty.available_from).toISOString().split('T')[0] : '',
+                  new Date(selectedProperty.available_from).toISOString().split('T')[0] : undefined,
                 available_to: selectedProperty.available_to ? 
-                  new Date(selectedProperty.available_to).toISOString().split('T')[0] : '',
+                  new Date(selectedProperty.available_to).toISOString().split('T')[0] : undefined,
                 features: Array.isArray(selectedProperty.features) ? selectedProperty.features : [],
                 images: Array.isArray(selectedProperty.images) ? selectedProperty.images : [],
+                rental_frequency: selectedProperty.rental_frequency || undefined,
               } : undefined}
               onOpenChange={(open: boolean) => {
                 if (open) {
@@ -375,7 +382,7 @@ export function PropertyManagement() {
                   property.status === 'available' ? 'default' :
                   property.status === 'pending' ? 'secondary' :
                   property.status === 'rented' ? 'secondary' :
-                  property.status === 'sold' ? 'outline' :
+                  property.status === 'sold' ? 'destructive' :
                   'outline'
                 }>
                   {t(`status.${property.status}`)}
@@ -438,6 +445,7 @@ export function PropertyManagement() {
                       {t('actions.markSold')}
                     </DropdownMenuItem>
                     
+                    {property.listing_type === 'rent' || property.listing_type === 'both' ? (
                     <DropdownMenuItem
                       onClick={() => updatePropertyStatus(property.id, 'rented')}
                       disabled={property.status === 'rented'}
