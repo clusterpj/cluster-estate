@@ -96,8 +96,8 @@ export function PropertyForm({
       rental_frequency: initialData?.rental_frequency || undefined,
       minimum_rental_period: initialData?.minimum_rental_period || undefined,
       deposit_amount: initialData?.deposit_amount || undefined,
-      available_from: initialData?.available_from ? new Date(initialData.available_from).toISOString().split('T')[0] : '',
-      available_to: initialData?.available_to ? new Date(initialData.available_to).toISOString().split('T')[0] : '',
+      available_from: initialData?.available_from || '',
+      available_to: initialData?.available_to || '',
       features: Array.isArray(initialData?.features) ? initialData.features : [],
       images: uploadedImages,
     },
@@ -117,8 +117,10 @@ export function PropertyForm({
       images: uploadedImages,
       user_id: user?.id,
       property_type: formData.property_type || 'house', // Default to 'house' if not specified
-      available_from: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.available_from : null,
-      available_to: formData.listing_type === 'rent' || formData.listing_type === 'both' ? formData.available_to : null,
+      available_from: formData.listing_type === 'rent' || formData.listing_type === 'both' ? 
+        (formData.available_from ? new Date(formData.available_from).toISOString() : null) : null,
+      available_to: formData.listing_type === 'rent' || formData.listing_type === 'both' ? 
+        (formData.available_to ? new Date(formData.available_to).toISOString() : null) : null,
     };
 
     console.log('Processed data for database:', processedData);
@@ -538,7 +540,11 @@ export function PropertyForm({
                         <FormControl>
                           <Input
                             type="date"
-                            {...field}
+                            value={field.value || ''}
+                            onChange={(e) => {
+                              const date = e.target.value;
+                              field.onChange(date ? new Date(date).toISOString() : '');
+                            }}
                           />
                         </FormControl>
                         <FormMessage />
