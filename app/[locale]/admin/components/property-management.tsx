@@ -262,6 +262,7 @@ export function PropertyManagement() {
                 bedrooms: selectedProperty.bedrooms || 0,
                 bathrooms: selectedProperty.bathrooms || 0,
                 square_feet: selectedProperty.square_feet || 0,
+                deposit_amount: selectedProperty.deposit_amount ?? undefined,
                 minimum_rental_period: selectedProperty.minimum_rental_period ?? undefined,
                 available_from: selectedProperty.available_from ? 
                   new Date(selectedProperty.available_from).toISOString().split('T')[0] : undefined,
@@ -380,10 +381,10 @@ export function PropertyManagement() {
               <TableCell>{property.location}</TableCell>
               <TableCell>
                 <Badge variant={
-                  property.status === 'available' ? 'default' :
-                  property.status === 'pending' ? 'secondary' :
-                  property.status === 'sold' ? 'destructive' :
-                  property.status === 'rented' ? 'secondary' :
+                  property.status === PropertyStatus.AVAILABLE ? 'default' :
+                  property.status === PropertyStatus.PENDING ? 'secondary' :
+                  property.status === PropertyStatus.SOLD ? 'destructive' :
+                  property.status === PropertyStatus.RENTED ? 'secondary' :
                   'outline'
                 }>
                   {t(`status.${property.status}`)}
