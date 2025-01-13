@@ -465,6 +465,11 @@ export function PropertyManagement() {
           ))}
         </TableBody>
       </Table>
+
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Calendar Management</h2>
+        <CalendarManagement propertyId={selectedProperty?.id || ''} />
+      </div>
     </div>
   )
 }
