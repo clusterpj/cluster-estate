@@ -262,13 +262,14 @@ export function PropertyManagement() {
                 bedrooms: selectedProperty.bedrooms || 0,
                 bathrooms: selectedProperty.bathrooms || 0,
                 square_feet: selectedProperty.square_feet || 0,
+                minimum_rental_period: selectedProperty.minimum_rental_period ?? undefined,
                 available_from: selectedProperty.available_from ? 
                   new Date(selectedProperty.available_from).toISOString().split('T')[0] : undefined,
                 available_to: selectedProperty.available_to ? 
                   new Date(selectedProperty.available_to).toISOString().split('T')[0] : undefined,
                 features: Array.isArray(selectedProperty.features) ? selectedProperty.features : [],
                 images: Array.isArray(selectedProperty.images) ? selectedProperty.images : [],
-                rental_frequency: selectedProperty.rental_frequency || undefined,
+                rental_frequency: selectedProperty.rental_frequency ?? undefined,
               } : undefined}
               onOpenChange={(open: boolean) => {
                 if (open) {
@@ -381,8 +382,8 @@ export function PropertyManagement() {
                 <Badge variant={
                   property.status === 'available' ? 'default' :
                   property.status === 'pending' ? 'secondary' :
-                  property.status === 'rented' ? 'secondary' :
                   property.status === 'sold' ? 'destructive' :
+                  property.status === 'rented' ? 'secondary' :
                   'outline'
                 }>
                   {t(`status.${property.status}`)}
@@ -445,16 +446,18 @@ export function PropertyManagement() {
                       {t('actions.markSold')}
                     </DropdownMenuItem>
                     
-                    {property.listing_type === 'rent' || property.listing_type === 'both' ? (
-                    <DropdownMenuItem
-                      onClick={() => updatePropertyStatus(property.id, 'rented')}
-                      disabled={property.status === 'rented'}
-                    >
-                      <Check className="mr-2 h-4 w-4" />
-                      {t('actions.markRented')}
-                    </DropdownMenuItem>
-                    
-                    <DropdownMenuSeparator />
+                    {(property.listing_type === 'rent' || property.listing_type === 'both') && (
+                      <>
+                        <DropdownMenuItem
+                          onClick={() => updatePropertyStatus(property.id, 'rented')}
+                          disabled={property.status === 'rented'}
+                        >
+                          <Check className="mr-2 h-4 w-4" />
+                          {t('actions.markRented')}
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                      </>
+                    )}
                     
                     <DropdownMenuItem
                       onClick={() => {
