@@ -272,22 +272,6 @@ export function PropertyManagement() {
                 images: Array.isArray(selectedProperty.images) ? selectedProperty.images : [],
                 rental_frequency: selectedProperty.rental_frequency ?? undefined,
               } : undefined}
-              onOpenChange={(open: boolean) => {
-                if (open) {
-                  console.group('Edit Property Debug');
-                  console.log('Selected Property:', selectedProperty);
-                  console.log('Processed Initial Data:', {
-                    ...selectedProperty,
-                    status: isValidPropertyStatus(selectedProperty?.status || '') ? selectedProperty?.status : 'available',
-                    property_type: selectedProperty?.property_type || 'house',
-                    available_from: selectedProperty?.available_from ? new Date(selectedProperty.available_from + 'Z').toISOString() : '',
-                    available_to: selectedProperty?.available_to ? new Date(selectedProperty.available_to + 'Z').toISOString() : '',
-                    features: Array.isArray(selectedProperty?.features) ? selectedProperty.features : [],
-                    images: Array.isArray(selectedProperty?.images) ? selectedProperty.images : [],
-                  });
-                  console.groupEnd();
-                }
-              }}
               onSuccess={() => {
                 setIsEditDialogOpen(false)
                 fetchProperties()
@@ -381,10 +365,10 @@ export function PropertyManagement() {
               <TableCell>{property.location}</TableCell>
               <TableCell>
                 <Badge variant={
-                  property.status === PropertyStatus.AVAILABLE ? 'default' :
-                  property.status === PropertyStatus.PENDING ? 'secondary' :
-                  property.status === PropertyStatus.SOLD ? 'destructive' :
-                  property.status === PropertyStatus.RENTED ? 'secondary' :
+                  property.status === 'available' ? 'default' :
+                  property.status === 'pending' ? 'secondary' :
+                  property.status === 'sold' ? 'destructive' :
+                  property.status === 'rented' ? 'secondary' :
                   'outline'
                 }>
                   {t(`status.${property.status}`)}
