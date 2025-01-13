@@ -56,6 +56,7 @@ export default function AdminDashboard() {
           <TabsTrigger value="properties">{t('tabs.properties')}</TabsTrigger>
           <TabsTrigger value="users">{t('tabs.users')}</TabsTrigger>
           <TabsTrigger value="bookings">{t('tabs.bookings')}</TabsTrigger>
+          <TabsTrigger value="calendar">{t('tabs.calendar')}</TabsTrigger>
         </TabsList>
         <TabsContent value="properties">
           <Card>
@@ -84,6 +85,33 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <BookingsManagement />
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="calendar">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t('calendar.title')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-lg font-semibold">iCal Integration</h3>
+                  <Button variant="outline">
+                    Sync Calendar
+                  </Button>
+                </div>
+                <div className="border rounded-lg p-4">
+                  <p className="text-muted-foreground">
+                    Calendar sync coming soon. This feature will allow you to:
+                  </p>
+                  <ul className="list-disc list-inside mt-2 text-muted-foreground">
+                    <li>Sync property availability with external calendars</li>
+                    <li>Import bookings from other platforms</li>
+                    <li>Export your calendar to iCal format</li>
+                  </ul>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

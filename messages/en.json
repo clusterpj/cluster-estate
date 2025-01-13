@@ -256,7 +256,12 @@
       "tabs": {
         "properties": "Properties",
         "users": "Users",
-        "bookings": "Bookings"
+        "bookings": "Bookings",
+        "calendar": "Calendar"
+      },
+      "calendar": {
+        "title": "Calendar Management",
+        "description": "Manage calendar sync and availability"
       },
       "users": {
         "title": "User Management",
