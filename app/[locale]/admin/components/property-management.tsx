@@ -227,37 +227,15 @@ export function PropertyManagement() {
             <PropertyForm
               mode="edit"
               propertyId={selectedProperty.id}
-              initialData={(function() {
-                console.group('Property Form Initial Data Debug')
-                console.log('Selected Property from DB:', selectedProperty)
-                console.log('Property type from DB:', selectedProperty.property_type)
-                
-                const initialData = {
-                  ...selectedProperty,
-                  status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
-                  sale_price: selectedProperty.sale_price ?? 0,
-                  property_type: selectedProperty.property_type ?? 'house', // Default to 'house' if null
-                  rental_price: selectedProperty.rental_price ?? 0,
-                  rental_frequency: selectedProperty.rental_frequency ?? 'monthly',
-                  minimum_rental_period: selectedProperty.minimum_rental_period ?? 1,
-                  deposit_amount: selectedProperty.deposit_amount ?? 0,
-                  available_from: selectedProperty.available_from ? new Date(selectedProperty.available_from + 'Z').toISOString() : '',
-                  available_to: selectedProperty.available_to ? new Date(selectedProperty.available_to + 'Z').toISOString() : '',
-                  features: selectedProperty.features ?? [],
-                  images: selectedProperty.images ?? [],
-                  bedrooms: selectedProperty.bedrooms ?? 1,
-                  bathrooms: selectedProperty.bathrooms ?? 1,
-                  square_feet: selectedProperty.square_feet ?? 0,
-                  location: selectedProperty.location ?? '',
-                  description: selectedProperty.description ?? '',
-                  listing_type: selectedProperty.listing_type ?? 'both'
-                }
-                
-                console.log('Processed Initial Data:', initialData)
-                console.groupEnd()
-                
-                return initialData
-              })()}
+              initialData={selectedProperty ? {
+                ...selectedProperty,
+                status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
+                property_type: selectedProperty.property_type || 'house',
+                available_from: selectedProperty.available_from ? new Date(selectedProperty.available_from + 'Z').toISOString() : '',
+                available_to: selectedProperty.available_to ? new Date(selectedProperty.available_to + 'Z').toISOString() : '',
+                features: Array.isArray(selectedProperty.features) ? selectedProperty.features : [],
+                images: Array.isArray(selectedProperty.images) ? selectedProperty.images : [],
+              } : undefined}
               onSuccess={() => {
                 setIsEditDialogOpen(false)
                 fetchProperties()
