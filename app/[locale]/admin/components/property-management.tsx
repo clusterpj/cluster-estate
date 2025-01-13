@@ -365,10 +365,10 @@ export function PropertyManagement() {
               <TableCell>{property.location}</TableCell>
               <TableCell>
                 <Badge variant={
-                  property.status === 'available' ? 'default' :
-                  property.status === 'pending' ? 'secondary' :
-                  property.status === 'sold' ? 'destructive' :
-                  property.status === 'rented' ? 'secondary' :
+                  property.status === PropertyStatus.AVAILABLE ? 'default' :
+                  property.status === PropertyStatus.PENDING ? 'secondary' :
+                  property.status === PropertyStatus.SOLD ? 'destructive' :
+                  property.status === PropertyStatus.RENTED ? 'secondary' :
                   'outline'
                 }>
                   {t(`status.${property.status}`)}
