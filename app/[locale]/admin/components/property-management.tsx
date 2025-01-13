@@ -205,10 +205,7 @@ export function PropertyManagement() {
         </Dialog>
       </div>
 
-      <Dialog open={isEditDialogOpen} onOpenChange={(open) => {
-        if (!open) return;
-        setIsEditDialogOpen(open);
-      }}>
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="max-w-[95vw] w-full lg:max-w-[1400px]" hideDefaultClose>
           <DialogHeader>
             <div className="flex justify-between items-center">
@@ -231,8 +228,10 @@ export function PropertyManagement() {
                 ...selectedProperty,
                 status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
                 property_type: selectedProperty.property_type || 'house',
-                available_from: selectedProperty.available_from ? new Date(selectedProperty.available_from + 'Z').toISOString() : '',
-                available_to: selectedProperty.available_to ? new Date(selectedProperty.available_to + 'Z').toISOString() : '',
+                available_from: selectedProperty.available_from ? 
+                  new Date(selectedProperty.available_from).toISOString().split('T')[0] : '',
+                available_to: selectedProperty.available_to ? 
+                  new Date(selectedProperty.available_to).toISOString().split('T')[0] : '',
                 features: Array.isArray(selectedProperty.features) ? selectedProperty.features : [],
                 images: Array.isArray(selectedProperty.images) ? selectedProperty.images : [],
               } : undefined}

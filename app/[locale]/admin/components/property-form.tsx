@@ -101,12 +101,8 @@ export function PropertyForm({
       available_to: '',
       features: [],
       images: [],
-      ...initialData, // Spread initialData last to override defaults
+      ...(initialData || {}), // Spread initialData last to override defaults
     },
-    values: initialData ? {
-      ...initialData,
-      images: uploadedImages,
-    } : undefined,
   })
 
   // Debug logging for form initialization
@@ -571,14 +567,14 @@ export function PropertyForm({
                         <FormControl>
                           <Input
                             type="date"
-                            value={field.value ? new Date(field.value).toISOString().split('T')[0] : ''}
+                            value={field.value || ''}
                             onChange={(e) => {
                               const date = e.target.value;
                               console.log('Date input changed:', {
                                 rawValue: date,
-                                isoString: date ? new Date(date).toISOString() : null
+                                isoString: date
                               });
-                              field.onChange(date ? new Date(date).toISOString() : '');
+                              field.onChange(date);
                             }}
                           />
                         </FormControl>
