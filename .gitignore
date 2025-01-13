@@ -33,6 +33,7 @@ yarn-error.log*
 next-env.d.ts
 .aider*
 .env
+.env.local
 .aider.input.history
 .aider.conf.yml
 .aider.chat.history.md
