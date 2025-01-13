@@ -17,14 +17,14 @@ export interface PropertyAvailability {
 export type NewProperty = Database['public']['Tables']['properties']['Insert']
 export type UpdateProperty = Database['public']['Tables']['properties']['Update']
 
-export const PropertyStatus = {
+export type PropertyStatus = 'available' | 'sold' | 'pending' | 'rented'
+
+export const PropertyStatus: Record<Uppercase<PropertyStatus>, PropertyStatus> = {
   AVAILABLE: 'available',
   SOLD: 'sold',
   PENDING: 'pending',
   RENTED: 'rented'
 } as const
-
-export type PropertyStatus = typeof PropertyStatus[keyof typeof PropertyStatus]
 export type ListingType = 'sale' | 'rent' | 'both'
 export type PropertyType = 'house' | 'villa' | 'condo' | 'lot'
 
