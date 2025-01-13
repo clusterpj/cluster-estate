@@ -232,14 +232,20 @@ export function PropertyManagement() {
                 status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
                 sale_price: selectedProperty.sale_price ?? 0,
                 property_type: selectedProperty.property_type ?? 'house',
-                rental_price: selectedProperty.rental_price ?? undefined,
-                rental_frequency: selectedProperty.rental_frequency ?? undefined,
-                minimum_rental_period: selectedProperty.minimum_rental_period ?? undefined,
-                deposit_amount: selectedProperty.deposit_amount ?? undefined,
-                available_from: selectedProperty.available_from ? new Date(selectedProperty.available_from) : undefined,
-                available_to: selectedProperty.available_to ? new Date(selectedProperty.available_to) : undefined,
+                rental_price: selectedProperty.rental_price ?? 0,
+                rental_frequency: selectedProperty.rental_frequency ?? 'monthly',
+                minimum_rental_period: selectedProperty.minimum_rental_period ?? 1,
+                deposit_amount: selectedProperty.deposit_amount ?? 0,
+                available_from: selectedProperty.available_from ? new Date(selectedProperty.available_from) : new Date(),
+                available_to: selectedProperty.available_to ? new Date(selectedProperty.available_to) : new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
                 features: selectedProperty.features ?? [],
-                images: selectedProperty.images ?? []
+                images: selectedProperty.images ?? [],
+                bedrooms: selectedProperty.bedrooms ?? 1,
+                bathrooms: selectedProperty.bathrooms ?? 1,
+                square_feet: selectedProperty.square_feet ?? 0,
+                location: selectedProperty.location ?? '',
+                description: selectedProperty.description ?? '',
+                listing_type: selectedProperty.listing_type ?? 'both'
               }}
               onSuccess={() => {
                 setIsEditDialogOpen(false)
