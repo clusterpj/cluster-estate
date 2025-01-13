@@ -1,6 +1,6 @@
 'use client'
 
-import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 import { useToast } from '@/components/ui/use-toast'
 import { useState, useEffect } from 'react'
 
@@ -22,103 +22,71 @@ export function PayPalButtonsWrapper({
   onInit
 }: PayPalButtonsProps) {
   const { toast } = useToast()
-  const [isPayPalReady, setIsPayPalReady] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [{ isPending, isRejected }, dispatch] = usePayPalScriptReducer()
   const [error, setError] = useState<string | null>(null)
   const [isCreatingOrder, setIsCreatingOrder] = useState(false)
 
   useEffect(() => {
-    console.log('Initializing PayPal SDK...')
-    const script = document.createElement('script')
-    script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=${currency}`
-    script.async = true
-    script.setAttribute('data-sdk-integration-source', 'integrationbuilder_sc')
-    script.setAttribute('data-namespace', 'paypal_sdk')
-    script.setAttribute('data-client-token', 'paypal-client-token')
-    script.setAttribute('data-csp-nonce', 'paypal-nonce')
-
-    script.onload = () => {
-      console.log('PayPal SDK loaded successfully')
-      setIsPayPalReady(true)
-      setIsLoading(false)
-      onInit?.()
-    }
-
-    script.onerror = () => {
-      console.error('Failed to load PayPal SDK')
-      setError('Failed to load PayPal SDK')
-      setIsLoading(false)
-      toast({
-        variant: 'destructive',
-        title: 'Payment Error',
-        description: 'Failed to load payment system'
-      })
-    }
-
-    document.body.appendChild(script)
-
-    return () => {
-      console.log('Cleaning up PayPal SDK')
-      document.body.removeChild(script)
-    }
-  }, [currency, toast, onInit])
-
-  return (
-    <PayPalScriptProvider 
-      options={{
+    dispatch({
+      type: 'resetOptions',
+      value: {
         'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '',
         currency,
-        'disable-funding': 'card,venmo'
-      }}
-    >
-      {isLoading && <div>Loading PayPal...</div>}
-      {error && (
-        <div className="text-red-500">
-          Payment system error: {error}
-        </div>
-      )}
-      {isPayPalReady && !error && (
-        <PayPalButtons
-          style={{ layout: 'vertical' }}
-          createOrder={async (data, actions) => {
-            console.log('Creating PayPal order...')
-          createOrder={(data, actions) => {
-            try {
-              setIsCreatingOrder(true)
-              return actions.order.create({
-              const order = await actions.order.create({
-                purchase_units: [{
-                  amount: {
+        'disable-funding': 'credit,card',
+        'enable-funding': 'paypal'
+      }
+    })
+  }, [currency, dispatch])
+
+  if (isPending) {
+    return <div>Loading PayPal...</div>
+  }
+
+  if (isRejected || error) {
+    return (
+      <div className="text-red-500">
+        Payment system error: {error || 'Failed to load PayPal'}
+      </div>
+    )
+  }
+
+  return (
+    <PayPalButtons
+      style={{ layout: 'vertical' }}
+      createOrder={(data, actions) => {
+        console.log('Creating PayPal order...')
+        try {
+          setIsCreatingOrder(true)
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: totalPrice.toString(),
+                currency_code: currency,
+                breakdown: {
+                  item_total: {
                     value: totalPrice.toString(),
-                    currency_code: currency,
-                    breakdown: {
-                      item_total: {
-                        value: totalPrice.toString(),
-                        currency_code: currency
-                      }
-                    }
-                  },
-                  items: [{
-                    name: 'Property Booking',
-                    quantity: '1',
-                    unit_amount: {
-                      value: totalPrice.toString(),
-                      currency_code: currency
-                    }
-                  }]
-                }]
-              })
-              console.log('PayPal order created successfully:', order)
-              return order
-            } catch (err) {
-              console.error('Error creating PayPal order:', err)
-              setError('Failed to create payment order')
-              setIsCreatingOrder(false)
-              throw err
-            } finally {
-              setIsCreatingOrder(false)
-            }
-          }}
+                    currency_code: currency
+                  }
+                }
+              },
+              items: [{
+                name: 'Property Booking',
+                quantity: '1',
+                unit_amount: {
+                  value: totalPrice.toString(),
+                  currency_code: currency
+                }
+              }]
+            }]
+          })
+        } catch (err) {
+          console.error('Error creating PayPal order:', err)
+          setError('Failed to create payment order')
+          throw err
+        } finally {
+          setIsCreatingOrder(false)
+        }
+      }}
           onApprove={async (data, actions) => {
             console.log('PayPal payment approved:', data)
             try {
@@ -155,8 +123,8 @@ export function PayPalButtonsWrapper({
           }}
           forceReRender={[totalPrice, currency]}
           disabled={isCreatingOrder}
-        />
-      )}
-    </PayPalScriptProvider>
+      disabled={isCreatingOrder}
+      forceReRender={[totalPrice, currency]}
+    />
   )
 }
