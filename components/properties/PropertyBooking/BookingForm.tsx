@@ -31,8 +31,6 @@ interface BookingFormProps {
   property: Property
   onSubmit: (data: BookingFormData) => void
   isLoading?: boolean
-  timezone?: string
-  onTimezoneChange?: (timezone: string) => void
 }
 
 export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps) {

@@ -11,9 +11,8 @@ export function cn(...inputs: ClassValue[]) {
 export async function isPropertyAvailable(
   propertyId: string,
   checkIn: Date,
-  checkOut: Date,
-  timezone: string = 'UTC'
-): Promise<{ available: boolean; conflicts: CalendarEvent[] }> {
+  checkOut: Date
+): Promise<boolean> {
   const supabase = createClient()
   
   // Check if property exists and is available for rent
@@ -49,10 +48,7 @@ export async function isPropertyAvailable(
   return count === 0
 }
 
-export async function getBookedDates(
-  propertyId: string,
-  timezone: string = 'UTC'
-): Promise<{ dates: Date[]; events: CalendarEvent[] }> {
+export async function getBookedDates(propertyId: string): Promise<Date[]> {
   const supabase = createClient()
   
   const { data: bookings } = await supabase
