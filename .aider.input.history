@@ -5420,3 +5420,721 @@
 
 # 2025-01-11 01:30:57.471795
 +we need to add the new property_type to the request qhen creating a new property. Can you help me with this?
+
+# 2025-01-13 13:05:46.206069
++n
+
+# 2025-01-13 13:06:54.012024
++Please help me fix this issue Build Error
++
++Failed to compile
++Next.js (14.2.16) is outdated (learn more)
++./components/ui/data-table.tsx:4:1
++
++Module not found: Can't resolve '@tanstack/react-table'
++  2 |
++  3 | import * as React from 'react'
++> 4 | import {
++    | ^
++  5 |   ColumnDef,
++  6 |   ColumnFiltersState,
++  7 |   SortingState,
++
++https://nextjs.org/docs/messages/module-not-found
++
++Import trace for requested module:
++./app/[locale]/admin/components/bookings-management.tsx
++
++./app/[locale]/admin/page.tsx
+
+# 2025-01-13 13:06:55.862990
++y
+
+# 2025-01-13 13:07:22.489131
++/run pnpm add @tanstack/react-table
+
+# 2025-01-13 13:07:22.490136
++/run pnpm add @tanstack/react-table
+
+# 2025-01-13 13:07:28.413274
++y
+
+# 2025-01-13 13:18:33.926092
++/add property app\[locale]\admin\components\property-management.tsx
+
+# 2025-01-13 13:18:38.564527
++n
+
+# 2025-01-13 13:23:22.068816
++I need you to help me fix the Form fields on the property edit form. when i click on edit when the edit form open the Property type info and the Available From
++Available To the data from those are not beign populated when the details of the property are loaded on the property edit form. PLease help me revise and fix this issue. When i create a property i can confirm all the data is on the database. As a refresher this is what the properties table has Columns
++NameFormatTypeDescription
++id
++
++uuid
++string
++created_at
++
++timestamp with time zone
++string
++title
++
++text
++string
++description
++
++text
++string
++legacy_price
++
++numeric
++numberLegacy price column - deprecated in favor of sale_price and rental_price
++location
++
++text
++string
++bedrooms
++
++integer
++number
++bathrooms
++
++integer
++number
++square_feet
++
++numeric
++number
++images
++
++text[]
++array
++features
++
++text[]
++array
++status
++
++text
++string
++user_id
++
++uuid
++string
++featured
++
++boolean
++boolean
++listing_type
++
++text
++stringType of listing: sale, rent, or both
++sale_price
++
++numeric
++numberPrice for sale listings
++rental_price
++
++numeric
++numberPrice for rental listings
++rental_frequency
++
++text
++stringFrequency of rental payments
++minimum_rental_period
++
++integer
++numberMinimum rental period in the units specified by rental_frequency
++deposit_amount
++
++numeric
++numberSecurity deposit amount for rentals
++available_from
++
++timestamp with time zone
++stringDate from which the property is available for rent
++available_to
++
++timestamp with time zone
++stringDate until which the property is available for rent
++property_type
++
++text
++stringProperty Types: house, villa, condo or lot
+
+# 2025-01-13 13:23:58.512513
++n
+
+# 2025-01-13 13:27:37.185723
++I noticedthat issue still persists the data from Property Type and the Availability dates for the property are not being passed down when loading the edit form. THe edit form works if i change these field and save them but it will not bring back the data from these fields 
+
+# 2025-01-13 13:30:36.220410
++If yoi notice we can save correclty but it seems that the missing fields are not beign called when loading the property. This is whats going on when i save a property Form submitted with data: 
++Object { title: "Cabarete Oceanview", description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout.", sale_price: 435000, location: "Cabarete", bedrooms: 4, bathrooms: 4, square_feet: 1200, status: "available", listing_type: "both", property_type: "condo",  }
++
++available_from: "2025-01-13"
++
++available_to: "2025-01-14"
++
++bathrooms: 4
++
++bedrooms: 4
++
++deposit_amount: 200
++
++description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout."
++
++features: Array(10) [ "2 Stall Garage", "AC", "Cable TV",  ]
++
++images: Array(9) [ "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/154874d3-3896-40d0-84c3-051906b9ab5e.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/be9109c7-1210-4b4e-b3ed-ce7452d62b35.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/f077a349-3f07-4ad8-b533-a55d39c84408.jpg",  ]
++
++listing_type: "both"
++
++location: "Cabarete"
++
++minimum_rental_period: 5
++
++property_type: "condo"
++
++rental_frequency: "weekly"
++
++rental_price: 2000
++
++sale_price: 435000
++
++square_feet: 1200
++
++status: "available"
++
++title: "Cabarete Oceanview"
++
++<prototype>: Object {  }
++property-form.tsx:129:12
++Form data before processing: 
++Object { title: "Cabarete Oceanview", description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout.", sale_price: 435000, location: "Cabarete", bedrooms: 4, bathrooms: 4, square_feet: 1200, status: "available", listing_type: "both", rental_price: 2000,  }
++
++available_from: "2025-01-13"
++
++available_to: "2025-01-14"
++
++bathrooms: 4
++
++bedrooms: 4
++
++deposit_amount: 200
++
++description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout."
++
++features: Array(10) [ "2 Stall Garage", "AC", "Cable TV",  ]
++
++images: Array(9) [ "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/154874d3-3896-40d0-84c3-051906b9ab5e.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/be9109c7-1210-4b4e-b3ed-ce7452d62b35.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/f077a349-3f07-4ad8-b533-a55d39c84408.jpg",  ]
++
++listing_type: "both"
++
++location: "Cabarete"
++
++minimum_rental_period: 5
++
++property_type: "condo"
++
++rental_frequency: "weekly"
++
++rental_price: 2000
++
++sale_price: 435000
++
++square_feet: 1200
++
++status: "available"
++
++title: "Cabarete Oceanview"
++
++<prototype>: Object {  }
++property-form.tsx:108:12
++Processed data for database: 
++Object { title: "Cabarete Oceanview", description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout.", sale_price: 435000, location: "Cabarete", bedrooms: 4, bathrooms: 4, square_feet: 1200, status: "available", listing_type: "both", rental_price: 2000,  }
++
++available_from: "2025-01-13"
++
++available_to: "2025-01-14"
++
++bathrooms: 4
++
++bedrooms: 4
++
++deposit_amount: 200
++
++description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout."
++
++features: Array(10) [ "2 Stall Garage", "AC", "Cable TV",  ]
++
++images: Array(9) [ "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/154874d3-3896-40d0-84c3-051906b9ab5e.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/be9109c7-1210-4b4e-b3ed-ce7452d62b35.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/f077a349-3f07-4ad8-b533-a55d39c84408.jpg",  ]
++
++listing_type: "both"
++
++location: "Cabarete"
++
++minimum_rental_period: 5
++
++property_type: "condo"
++
++rental_frequency: "weekly"
++
++rental_price: 2000
++
++sale_price: 435000
++
++square_feet: 1200
++
++status: "available"
++
++title: "Cabarete Oceanview"
++
++user_id: "120dab94-5049-4e85-a38d-fc0cd29e9cbe"
++
++<prototype>: Object {  }
++property-form.tsx:124:12
++Processing property data: 
++Object { title: "Cabarete Oceanview", description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout.", sale_price: 435000, location: "Cabarete", bedrooms: 4, bathrooms: 4, square_feet: 1200, status: "available", listing_type: "both", rental_price: 2000,  }
++
++available_from: "2025-01-13"
++
++available_to: "2025-01-14"
++
++bathrooms: 4
++
++bedrooms: 4
++
++deposit_amount: 200
++
++description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout."
++
++features: Array(10) [ "2 Stall Garage", "AC", "Cable TV",  ]
++
++images: Array(9) [ "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/154874d3-3896-40d0-84c3-051906b9ab5e.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/be9109c7-1210-4b4e-b3ed-ce7452d62b35.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/f077a349-3f07-4ad8-b533-a55d39c84408.jpg",  ]
++
++listing_type: "both"
++
++location: "Cabarete"
++
++minimum_rental_period: 5
++
++property_type: "condo"
++
++rental_frequency: "weekly"
++
++rental_price: 2000
++
++sale_price: 435000
++
++square_feet: 1200
++
++status: "available"
++
++title: "Cabarete Oceanview"
++
++user_id: "120dab94-5049-4e85-a38d-fc0cd29e9cbe"
++
++<prototype>: Object {  }
++property-form.tsx:133:14
++Property saved successfully: 
++Object { id: "cf8c30ba-a068-4d41-a10b-2d13ecbbf395", created_at: "2025-01-13T17:16:42.431413+00:00", title: "Cabarete Oceanview", description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout.", legacy_price: null, location: "Cabarete", bedrooms: 4, bathrooms: 4, square_feet: 1200, images: (9) [],  }
++
++available_from: "2025-01-13T00:00:00+00:00"
++
++available_to: "2025-01-14T00:00:00+00:00"
++
++bathrooms: 4
++
++bedrooms: 4
++
++created_at: "2025-01-13T17:16:42.431413+00:00"
++
++deposit_amount: 200
++
++description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout."
++
++featured: true
++
++features: Array(10) [ "2 Stall Garage", "AC", "Cable TV",  ]
++
++id: "cf8c30ba-a068-4d41-a10b-2d13ecbbf395"
++
++images: Array(9) [ "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/154874d3-3896-40d0-84c3-051906b9ab5e.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/be9109c7-1210-4b4e-b3ed-ce7452d62b35.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/f077a349-3f07-4ad8-b533-a55d39c84408.jpg",  ]
++
++legacy_price: null
++
++listing_type: "both"
++
++location: "Cabarete"
++
++minimum_rental_period: 5
++
++property_type: "condo"
++
++rental_frequency: "weekly"
++
++rental_price: 2000
++
++sale_price: 435000
++
++square_feet: 1200
++
++status: "available"
++
++title: "Cabarete Oceanview"
++
++user_id: "120dab94-5049-4e85-a38d-fc0cd29e9cbe"
+
+# 2025-01-13 13:30:38.495712
++s
+
+# 2025-01-13 13:32:54.395868
++The issue still persists. Please add console logs to the process so we can debug what is going on. These logs must be set in a way that by watching them we can fix the issue right away 
+
+# 2025-01-13 13:35:16.724348
++These are the logs now Property Form Initial Data Debug property-management.tsx:231:24
++Selected Property from DB: 
++Object { id: "cf8c30ba-a068-4d41-a10b-2d13ecbbf395", created_at: "2025-01-13T17:16:42.431413+00:00", title: "Cabarete Oceanview", description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout.", legacy_price: null, location: "Cabarete", bedrooms: 4, bathrooms: 4, square_feet: 1200, images: (9) [],  }
++
++available_from: "2025-01-13T00:00:00+00:00"
++
++available_to: "2025-01-14T00:00:00+00:00"
++
++bathrooms: 4
++
++bedrooms: 4
++
++created_at: "2025-01-13T17:16:42.431413+00:00"
++
++deposit_amount: 200
++
++description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout."
++
++featured: true
++
++features: Array(10) [ "2 Stall Garage", "AC", "Cable TV",  ]
++
++0: "2 Stall Garage"
++
++1: "AC"
++
++2: "Cable TV"
++
++3: "Elevator"
++
++4: "Gated 24 Hour Secured Community"
++
++5: "Internet"
++
++6: "Maid Service"
++
++7: "Ocean View"
++
++8: "One Minute Walk To Beach"
++
++9: "Pool/Whirlpool/Waterfall/Slide"
++
++length: 10
++
++<prototype>: Array []
++
++id: "cf8c30ba-a068-4d41-a10b-2d13ecbbf395"
++
++images: Array(9) [ "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/154874d3-3896-40d0-84c3-051906b9ab5e.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/be9109c7-1210-4b4e-b3ed-ce7452d62b35.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/f077a349-3f07-4ad8-b533-a55d39c84408.jpg",  ]
++
++legacy_price: null
++
++listing_type: "both"
++
++location: "Cabarete"
++
++minimum_rental_period: 5
++
++property_type: "condo"
++
++rental_frequency: "weekly"
++
++rental_price: 2000
++
++sale_price: 435000
++
++square_feet: 1200
++
++status: "available"
++
++title: "Cabarete Oceanview"
++
++user_id: "120dab94-5049-4e85-a38d-fc0cd29e9cbe"
++
++<prototype>: Object {  }
++property-management.tsx:232:24
++Processed Initial Data: 
++Object { id: "cf8c30ba-a068-4d41-a10b-2d13ecbbf395", created_at: "2025-01-13T17:16:42.431413+00:00", title: "Cabarete Oceanview", description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout.", legacy_price: null, location: "Cabarete", bedrooms: 4, bathrooms: 4, square_feet: 1200, images: (9) [],  }
++
++available_from: Date Sun Jan 12 2025 20:00:00 GMT-0400 (Atlantic Standard Time)
++
++available_to: Date Mon Jan 13 2025 20:00:00 GMT-0400 (Atlantic Standard Time)
++
++<prototype>: Date.prototype {  }
++
++bathrooms: 4
++
++bedrooms: 4
++
++created_at: "2025-01-13T17:16:42.431413+00:00"
++
++deposit_amount: 200
++
++description: "This brand new, Italian architectural style, luxurious home just a minute walk to the beach in our gated 24 hour secured family friendly community. This house has 2 garage stalls with electric garage doors. The main level is an open concept living space with a large kitchen with granite countertops and a large island to entertain. The live edge custom made dining room table with custom made swivel chairs to relax while eating. It opens up to the living room with a large flatscreen TV with extended cable. There is a 1/2 bath powder room off the living room. That room opens up to a beautiful pool with a whirlpool, waterfall and a slide. The master bedroom has a king bed with doors that open up to the pool area. The on suite has a double sink with walk in shower, separate soaking bath tub a top flush toilet and a large walk in closet. On the other side of the house is a Jack and Jill. The first bedroom has a queen bed. In between there is a bathroom with a vanity, sink, toilet and shower that is separated by a sliding door to another sink and a large closet. The second bedroom has two bunk beds. The top is a twin and the bottom is a full. A/C units throughout.\n\nGoing to the second floor are stairs or an elevator. The second floor is a separate rental or can be combined as a rental with the main level.\n\nThe second floor is a 1 bedroom penthouse with a stunning view of the ocean. It is an open concept living area. The kitchen has granite countertops and a granite bar for entertaining. It has a custom made live edge table with custom made swivel chairs. It opens up to a deck perfect for stargazing at night or watching the kite surfers during the day.  The bedroom has a king size bed with an on suite that has double sinks, top flush toilet and a walk in shower. A/C units throughout."
++
++featured: true
++
++features: Array(10) [ "2 Stall Garage", "AC", "Cable TV",  ]
++
++id: "cf8c30ba-a068-4d41-a10b-2d13ecbbf395"
++
++images: Array(9) [ "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/154874d3-3896-40d0-84c3-051906b9ab5e.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/be9109c7-1210-4b4e-b3ed-ce7452d62b35.jpg", "https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/f077a349-3f07-4ad8-b533-a55d39c84408.jpg",  ]
++
++legacy_price: null
++
++listing_type: "both"
++
++location: "Cabarete"
++
++minimum_rental_period: 5
++
++property_type: "condo"
++
++rental_frequency: "weekly"
++
++rental_price: 2000
++
++sale_price: 435000
++
++square_feet: 1200
++
++status: "available"
++
++title: "Cabarete Oceanview"
++
++user_id: "120dab94-5049-4e85-a38d-fc0cd29e9cbe"
++
++<prototype>: Object {  }
++property-management.tsx:255:24
+
+# 2025-01-13 13:35:18.832972
++n
+
+# 2025-01-13 13:35:21.808500
++s
+
+# 2025-01-13 13:37:20.503613
++still the issue persists
+
+# 2025-01-13 13:40:06.257200
++please give me a  summaty of the issue we are having to ask for help to an ai agent 
+
+# 2025-01-13 13:42:21.213932
++/add types\property.ts
+
+# 2025-01-13 13:42:55.997234
++What form library are you using in PropertyForm?
+
+# 2025-01-13 13:43:06.110562
++y
+
+# 2025-01-13 13:43:59.509420
++Are you using controlled or uncontrolled inputs?
+
+# 2025-01-13 13:45:33.664631
++I need help fixing a form initialization issue in a Next.js application using react-hook-form. The property_type and date fields aren't showing correct initial values. Please review these files:
++[paste both property-form.tsx and property-management.tsx]
++
++Can you first analyze these files and confirm you see these specific issues:
++1. Select components using defaultValue instead of value
++2. Date input value formatting mismatches
++3. Form initialization data format issues
+
+# 2025-01-13 13:46:18.094349
++Great. Let's fix the Select components first, particularly for property_type. Please modify the Select components in property-form.tsx to use controlled values instead of defaultValue. The components should:
++1. Use value instead of defaultValue
++2. Handle undefined/null values gracefully
++3. Maintain compatibility with react-hook-form's field state
+
+# 2025-01-13 13:46:46.559634
++Next, let's fix the date handling. Please update:
++1. The date input components in property-form.tsx to properly format ISO dates
++2. The date value processing in property-management.tsx where initial values are prepared
++3. Add proper date string formatting when the form handles the values
++
++Remember this is a controlled form using react-hook-form.
+
+# 2025-01-13 13:47:22.716945
++Finally, let's update the form initialization. Please modify:
++1. The useForm configuration in property-form.tsx
++2. The initial data preparation in property-management.tsx
++3. Add proper default values handling
++
++The goal is to ensure all fields, especially property_type and dates, are properly initialized when editing an existing property.
+
+# 2025-01-13 13:48:29.918369
++Please review the complete changes and verify:
++1. All Select components are properly controlled
++2. Date handling is consistent throughout the form
++3. Initial values are properly formatted before being passed to the form
++4. The form maintains its controlled nature with react-hook-form
++
++Also, please add debug logging statements that would help verify the fixes are working.
+
+# 2025-01-13 13:51:48.599640
++Looking at the error messages and the code, I can see that we have multiple issues causing the invalid date errors and state updates during render. Let me help create a fix for this.
++
++First, let's fix the immediate state update issue in PropertyManagement. The error occurs because we're calling setSelectedProperty during render. Let's modify the dialog's onOpenChange handler:
++
++typescriptCopy// In property-management.tsx
++<Dialog open={isEditDialogOpen} onOpenChange={(open) => {
++  setIsEditDialogOpen(open); // Only update dialog state
++}}>
++
++Next, let's fix the date handling in both components. The invalid date errors are occurring because we're trying to create dates from invalid strings. Let's fix the initialData preparation in PropertyManagement:
++
++typescriptCopy{selectedProperty && (
++  <PropertyForm
++    mode="edit"
++    propertyId={selectedProperty.id}
++    initialData={selectedProperty ? {
++      ...selectedProperty,
++      status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
++      property_type: selectedProperty.property_type || 'house',
++      // Fix date handling
++      available_from: selectedProperty.available_from ? 
++        new Date(selectedProperty.available_from).toISOString().split('T')[0] : '',
++      available_to: selectedProperty.available_to ? 
++        new Date(selectedProperty.available_to).toISOString().split('T')[0] : '',
++      features: Array.isArray(selectedProperty.features) ? selectedProperty.features : [],
++      images: Array.isArray(selectedProperty.images) ? selectedProperty.images : [],
++    } : undefined}
++    onSuccess={() => {
++      setIsEditDialogOpen(false)
++      fetchProperties()
++      setToastMessage({
++        title: t('success'),
++        description: t('updateSuccess'),
++        type: 'success'
++      })
++    }}
++    onError={() => {
++      setToastMessage({
++        title: t('error'),
++        description: t('updateError'),
++        type: 'error'
++      })
++    }}
++  />
++)}
++
++In the PropertyForm component, let's update the date field handling:
++
++typescriptCopy// In property-form.tsx
++<FormField
++  control={form.control}
++  name="available_from"
++  render={({ field }) => (
++    <FormItem>
++      <FormLabel>{t('form.availableFrom')}</FormLabel>
++      <FormControl>
++        <Input
++          type="date"
++          value={field.value || ''}
++          onChange={(e) => {
++            field.onChange(e.target.value);
++          }}
++        />
++      </FormControl>
++      <FormMessage />
++    </FormItem>
++  )}
++/>
++
++<FormField
++  control={form.control}
++  name="available_to"
++  render={({ field }) => (
++    <FormItem>
++      <FormLabel>{t('form.availableTo')}</FormLabel>
++      <FormControl>
++        <Input
++          type="date"
++          value={field.value || ''}
++          onChange={(e) => {
++            field.onChange(e.target.value);
++          }}
++        />
++      </FormControl>
++      <FormMessage />
++    </FormItem>
++  )}
++/>
++
++Update the form initialization in PropertyForm:
++
++typescriptCopyconst form = useForm<PropertyFormValues>({
++  resolver: zodResolver(propertyFormSchema),
++  defaultValues: {
++    title: '',
++    description: '',
++    sale_price: 0,
++    location: '',
++    bedrooms: 1,
++    bathrooms: 1,
++    square_feet: 0,
++    status: 'available',
++    listing_type: 'sale',
++    property_type: 'house',
++    rental_price: undefined,
++    rental_frequency: undefined,
++    minimum_rental_period: undefined,
++    deposit_amount: undefined,
++    available_from: '',
++    available_to: '',
++    features: [],
++    images: [],
++    ...(initialData || {}), // Spread initialData last to override defaults
++  },
++}) Warning: Cannot update a component (HotReload) while rendering a different component (PropertyManagement). To locate the bad setState() call inside PropertyManagement, follow the stack trace as described in https://reactjs.org/link/setstate-in-render Component Stack:
++    PropertyManagement webpack-internal:///(app-pages-browser)/./app/[locale]/admin/components/property-management.tsx:45
++    div unknown:0
++    _c8 webpack-internal:///(app-pages-browser)/./components/ui/card.tsx:74
++    div unknown:0
++    _c webpack-internal:///(app-pages-browser)/./components/ui/card.tsx:18
++    div unknown:0
++    Node webpack-internal:///(app-pages-browser)/./nodemodules/.pnpm/@radix-ui+react-primitive@2.0.1@types+react-dom@18.3.5_@types+react@18.3.18@types+react@18_sspjpiczol7qxzbuuyfihuep4u/node_modules/@radix-ui/react-primitive/dist/index.mjs:36
++    Presence webpack-internal:///(app-pages-browser)/./nodemodules/.pnpm/@radix-ui+react-presence@1.1.2@types+react-dom@18.3.5_@types+react@18.3.18@types+react@18._pqwkltkxenlrsgmgun6icjiigu/node_modules/@radix-ui/react-presence/dist/index.mjs:26
++<anonymous code>:1:145535
++Uncaught RangeError: invalid date
++    PropertyManagement webpack-internal:///(app-pages-browser)/./app/[locale]/admin/components/property-management.tsx:418
++    React 4
++property-management.tsx:234:114
++Uncaught RangeError: invalid date
++    PropertyManagement webpack-internal:///(app-pages-browser)/./app/[locale]/admin/components/property-management.tsx:418
++    React 4
++property-management.tsx:234:114
++Uncaught RangeError: invalid date
++    PropertyManagement webpack-internal:///(app-pages-browser)/./app/[locale]/admin/components/property-management.tsx:418
++    React 4
++property-management.tsx:234:114
++Uncaught RangeError: invalid date
++    PropertyManagement webpack-internal:///(app-pages-browser)/./app/[locale]/admin/components/property-management.tsx:418
++    React 4
++property-management.tsx:234:114
++Uncaught RangeError: invalid date
++    PropertyManagement webpack-internal:///(app-pages-browser)/./app/[locale]/admin/components/property-management.tsx:418
++    React 4
++property-management.tsx:234:114
++Uncaught RangeError: invalid date
++    PropertyManagement webpack-internal:///(app-pages-browser)/./app/[locale]/admin/components/property-management.tsx:418
++    React 4
+
+# 2025-01-13 13:51:50.624625
++n
