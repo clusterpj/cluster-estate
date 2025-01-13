@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { Property, isValidPropertyStatus } from '@/types/property'
+import { Property, isValidPropertyStatus, PropertyStatus } from '@/types/property'
 import {
   Table,
   TableBody,
@@ -78,9 +78,9 @@ export function PropertyManagement() {
     pending: ['available', 'sold', 'rented'],
     sold: ['available'],
     rented: ['available']
-  };
+  } as const;
 
-  async function updatePropertyStatus(id: string, status: Property['status'] | { featured?: boolean }) {
+  async function updatePropertyStatus(id: string, status: PropertyStatus | { featured?: boolean }) {
     try {
       // Get current property status
       const { data: currentProperty } = await supabase
@@ -261,7 +261,7 @@ export function PropertyManagement() {
                 features: Array.isArray(selectedProperty.features) ? selectedProperty.features : [],
                 images: Array.isArray(selectedProperty.images) ? selectedProperty.images : [],
               } : undefined}
-              onOpenChange={(open) => {
+              onOpenChange={(open: boolean) => {
                 if (open) {
                   console.group('Edit Property Debug');
                   console.log('Selected Property:', selectedProperty);
@@ -379,8 +379,8 @@ export function PropertyManagement() {
                 </Badge>
               </TableCell>
               <TableCell>
-                <Badge variant={property.featured ? 'default' : 'outline'}>
-                  {property.featured ? t('status.featured') : t('status.notFeatured')}
+                <Badge variant={property.features?.includes('featured') ? 'default' : 'outline'}>
+                  {property.features?.includes('featured') ? t('status.featured') : t('status.notFeatured')}
                 </Badge>
               </TableCell>
               <TableCell>
@@ -395,7 +395,14 @@ export function PropertyManagement() {
                     <DropdownMenuSeparator />
                     
                     <DropdownMenuItem
-                      onClick={() => updatePropertyStatus(property.id, { featured: !property.featured })}
+                      onClick={() => {
+                        const features = property.features || [];
+                        const isFeatured = features.includes('featured');
+                        const updatedFeatures = isFeatured 
+                          ? features.filter(f => f !== 'featured')
+                          : [...features, 'featured'];
+                        updatePropertyStatus(property.id, { features: updatedFeatures });
+                      }}
                     >
                       <Star className="mr-2 h-4 w-4" />
                       {property.featured ? t('actions.unmarkFeatured') : t('actions.markFeatured')}
