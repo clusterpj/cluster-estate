@@ -17,7 +17,14 @@ export interface PropertyAvailability {
 export type NewProperty = Database['public']['Tables']['properties']['Insert']
 export type UpdateProperty = Database['public']['Tables']['properties']['Update']
 
-export type PropertyStatus = 'available' | 'sold' | 'pending' | 'rented'
+export const PropertyStatus = {
+  AVAILABLE: 'available',
+  SOLD: 'sold',
+  PENDING: 'pending',
+  RENTED: 'rented'
+} as const
+
+export type PropertyStatus = typeof PropertyStatus[keyof typeof PropertyStatus]
 export type ListingType = 'sale' | 'rent' | 'both'
 export type PropertyType = 'house' | 'villa' | 'condo' | 'lot'
 
@@ -53,7 +60,7 @@ export interface PropertyWithAvailability extends Property {
 }
 
 export function isValidPropertyStatus(status: string): status is PropertyStatus {
-  return ['available', 'sold', 'pending', 'rented'].includes(status)
+  return Object.values(PropertyStatus).includes(status as PropertyStatus)
 }
 
 export function isPropertyAvailableForBooking(property: Property): PropertyWithAvailability {
