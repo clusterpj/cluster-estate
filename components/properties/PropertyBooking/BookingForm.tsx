@@ -66,11 +66,7 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
     },
   })
 
-  const [calendarStatus, setCalendarStatus] = useState<'loading' | 'available' | 'unavailable'>('loading')
-
   const handleSubmit = async (data: BookingFormData) => {
-    setCalendarStatus('loading')
-    
     // Check if dates are within property's available range
     if (property.available_from && data.checkIn < new Date(property.available_from)) {
       setDateError('Check-in date is before property availability')
@@ -211,30 +207,15 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
           )}
         />
 
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm">
-            <div className={`h-2 w-2 rounded-full ${
-              calendarStatus === 'loading' ? 'bg-yellow-500' :
-              calendarStatus === 'available' ? 'bg-green-500' :
-              'bg-red-500'
-            }`} />
-            <span>
-              {calendarStatus === 'loading' ? 'Checking calendar availability...' :
-               calendarStatus === 'available' ? 'Calendar is available' :
-               'Calendar conflict detected'}
-            </span>
-          </div>
-
-          <Button 
-            type="submit" 
-            disabled={isLoading || isCheckingAvailability || calendarStatus !== 'available'}
-            className={!isAvailable || calendarStatus !== 'available' ? 'bg-destructive hover:bg-destructive/90' : ''}
-          >
-            {isCheckingAvailability ? 'Checking availability...' : 
-             isLoading ? 'Processing...' : 
-             !isAvailable || calendarStatus !== 'available' ? 'Not Available' : 'Continue to Payment'}
-          </Button>
-        </div>
+        <Button 
+          type="submit" 
+          disabled={isLoading || isCheckingAvailability}
+          className={!isAvailable ? 'bg-destructive hover:bg-destructive/90' : ''}
+        >
+          {isCheckingAvailability ? 'Checking availability...' : 
+           isLoading ? 'Processing...' : 
+           !isAvailable ? 'Not Available' : 'Continue to Payment'}
+        </Button>
       </form>
     </Form>
   )
