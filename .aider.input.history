@@ -6138,3 +6138,751 @@
 
 # 2025-01-13 13:51:50.624625
 +n
+
+# 2025-01-13 17:34:20.301999
++/add app\[locale]\admin\components\property-management.tsx
+
+# 2025-01-13 17:34:33.367657
++Please help me fix these [{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2304",
++"severity": 8,
++"message": "Cannot find name 'PropertyStatus'.",
++"source": "ts",
++"startLineNumber": 76,
++"startColumn": 40,
++"endLineNumber": 76,
++"endColumn": 54
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2304",
++"severity": 8,
++"message": "Cannot find name 'PropertyStatus'.",
++"source": "ts",
++"startLineNumber": 76,
++"startColumn": 56,
++"endLineNumber": 76,
++"endColumn": 70
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2304",
++"severity": 8,
++"message": "Cannot find name 'PropertyStatus'.",
++"source": "ts",
++"startLineNumber": 98,
++"startColumn": 57,
++"endLineNumber": 98,
++"endColumn": 71
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type '{ status: \"available\" | \"pending\" | \"sold\"; property_type: \"house\" | \"villa\" | \"condo\" | \"lot\"; available_from: string; available_to: string; features: string[]; images: string[]; id: string; ... 14 more ...; availability?: PropertyAvailability | undefined; } | undefined' is not assignable to type '{ title: string; description: string; status: \"available\" | \"pending\" | \"sold\" | \"rented\"; sale_price: number; location: string; bedrooms: number; bathrooms: number; square_feet: number; ... 9 more ...; available_to?: string | undefined; } | undefined'.\n  Type '{ status: \"available\" | \"pending\" | \"sold\"; property_type: \"house\" | \"villa\" | \"condo\" | \"lot\"; available_from: string; available_to: string; features: string[]; images: string[]; id: string; ... 14 more ...; availability?: PropertyAvailability; }' is not assignable to type '{ title: string; description: string; status: \"available\" | \"pending\" | \"sold\" | \"rented\"; sale_price: number; location: string; bedrooms: number; bathrooms: number; square_feet: number; listing_type: \"sale\" | ... 1 more ... | \"both\"; ... 8 more ...; available_to?: string | undefined; }'.\n    Types of property 'sale_price' are incompatible.\n      Type 'number | null' is not assignable to type 'number'.\n        Type 'null' is not assignable to type 'number'.",
++"source": "ts",
++"startLineNumber": 253,
++"startColumn": 15,
++"endLineNumber": 253,
++"endColumn": 26,
++"relatedInformation": [
++{
++"startLineNumber": 61,
++"startColumn": 3,
++"endLineNumber": 61,
++"endColumn": 14,
++"message": "The expected type comes from property 'initialData' which is declared here on type 'IntrinsicAttributes & PropertyFormProps'",
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx"
++}
++]
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "7006",
++"severity": 8,
++"message": "Parameter 'open' implicitly has an 'any' type.",
++"source": "ts",
++"startLineNumber": 264,
++"startColumn": 30,
++"endLineNumber": 264,
++"endColumn": 34
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"sold\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 375,
++"startColumn": 19,
++"endLineNumber": 375,
++"endColumn": 47
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2551",
++"severity": 8,
++"message": "Property 'featured' does not exist on type 'Property'. Did you mean 'features'?",
++"source": "ts",
++"startLineNumber": 382,
++"startColumn": 42,
++"endLineNumber": 382,
++"endColumn": 50,
++"relatedInformation": [
++{
++"startLineNumber": 23,
++"startColumn": 11,
++"endLineNumber": 23,
++"endColumn": 19,
++"message": "'features' is declared here.",
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/types/database.types.ts"
++}
++]
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2551",
++"severity": 8,
++"message": "Property 'featured' does not exist on type 'Property'. Did you mean 'features'?",
++"source": "ts",
++"startLineNumber": 383,
++"startColumn": 29,
++"endLineNumber": 383,
++"endColumn": 37,
++"relatedInformation": [
++{
++"startLineNumber": 23,
++"startColumn": 11,
++"endLineNumber": 23,
++"endColumn": 19,
++"message": "'features' is declared here.",
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/types/database.types.ts"
++}
++]
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2551",
++"severity": 8,
++"message": "Property 'featured' does not exist on type 'Property'. Did you mean 'features'?",
++"source": "ts",
++"startLineNumber": 398,
++"startColumn": 94,
++"endLineNumber": 398,
++"endColumn": 102,
++"relatedInformation": [
++{
++"startLineNumber": 23,
++"startColumn": 11,
++"endLineNumber": 23,
++"endColumn": 19,
++"message": "'features' is declared here.",
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/types/database.types.ts"
++}
++]
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2551",
++"severity": 8,
++"message": "Property 'featured' does not exist on type 'Property'. Did you mean 'features'?",
++"source": "ts",
++"startLineNumber": 401,
++"startColumn": 33,
++"endLineNumber": 401,
++"endColumn": 41,
++"relatedInformation": [
++{
++"startLineNumber": 23,
++"startColumn": 11,
++"endLineNumber": 23,
++"endColumn": 19,
++"message": "'features' is declared here.",
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/types/database.types.ts"
++}
++]
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2345",
++"severity": 8,
++"message": "Argument of type '\"rented\"' is not assignable to parameter of type '\"available\" | \"pending\" | \"sold\" | { featured?: boolean | undefined; }'.",
++"source": "ts",
++"startLineNumber": 432,
++"startColumn": 72,
++"endLineNumber": 432,
++"endColumn": 80
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"pending\" | \"sold\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 433,
++"startColumn": 33,
++"endLineNumber": 433,
++"endColumn": 61
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "cSpell",
++"severity": 2,
++"message": "\"unmark\": Unknown word.",
++"source": "cSpell",
++"startLineNumber": 401,
++"startColumn": 55,
++"endLineNumber": 401,
++"endColumn": 61
++}]
+
+# 2025-01-13 17:34:35.829818
++n
+
+# 2025-01-13 17:35:10.088702
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type '{ status: \"available\" | \"sold\" | \"pending\"; property_type: \"house\" | \"villa\" | \"condo\" | \"lot\"; available_from: string; available_to: string; features: string[]; images: string[]; id: string; ... 14 more ...; availability?: PropertyAvailability | undefined; } | undefined' is not assignable to type '{ title: string; description: string; status: \"available\" | \"sold\" | \"pending\" | \"rented\"; sale_price: number; location: string; bedrooms: number; bathrooms: number; square_feet: number; ... 9 more ...; available_to?: string | undefined; } | undefined'.\n  Type '{ status: \"available\" | \"sold\" | \"pending\"; property_type: \"house\" | \"villa\" | \"condo\" | \"lot\"; available_from: string; available_to: string; features: string[]; images: string[]; id: string; ... 14 more ...; availability?: PropertyAvailability; }' is not assignable to type '{ title: string; description: string; status: \"available\" | \"sold\" | \"pending\" | \"rented\"; sale_price: number; location: string; bedrooms: number; bathrooms: number; square_feet: number; listing_type: \"sale\" | ... 1 more ... | \"both\"; ... 8 more ...; available_to?: string | undefined; }'.\n    Types of property 'sale_price' are incompatible.\n      Type 'number | null' is not assignable to type 'number'.\n        Type 'null' is not assignable to type 'number'.",
++"source": "ts",
++"startLineNumber": 253,
++"startColumn": 15,
++"endLineNumber": 253,
++"endColumn": 26,
++"relatedInformation": [
++{
++"startLineNumber": 61,
++"startColumn": 3,
++"endLineNumber": 61,
++"endColumn": 14,
++"message": "The expected type comes from property 'initialData' which is declared here on type 'IntrinsicAttributes & PropertyFormProps'",
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx"
++}
++]
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"sold\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 375,
++"startColumn": 19,
++"endLineNumber": 375,
++"endColumn": 47
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2561",
++"severity": 8,
++"message": "Object literal may only specify known properties, but 'features' does not exist in type '{ featured?: boolean | undefined; }'. Did you mean to write 'featured'?",
++"source": "ts",
++"startLineNumber": 404,
++"startColumn": 61,
++"endLineNumber": 404,
++"endColumn": 69
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2551",
++"severity": 8,
++"message": "Property 'featured' does not exist on type 'Property'. Did you mean 'features'?",
++"source": "ts",
++"startLineNumber": 408,
++"startColumn": 33,
++"endLineNumber": 408,
++"endColumn": 41,
++"relatedInformation": [
++{
++"startLineNumber": 23,
++"startColumn": 11,
++"endLineNumber": 23,
++"endColumn": 19,
++"message": "'features' is declared here.",
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/types/database.types.ts"
++}
++]
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"sold\" | \"pending\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 440,
++"startColumn": 33,
++"endLineNumber": 440,
++"endColumn": 61
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "cSpell",
++"severity": 2,
++"message": "\"unmark\": Unknown word.",
++"source": "cSpell",
++"startLineNumber": 408,
++"startColumn": 55,
++"endLineNumber": 408,
++"endColumn": 61
++}]
+
+# 2025-01-13 17:35:34.168417
++y
+
+# 2025-01-13 17:36:14.116179
++/add types\property.ts
+
+# 2025-01-13 17:36:20.200379
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type '{ status: \"available\" | \"sold\" | \"pending\"; property_type: \"house\" | \"villa\" | \"condo\" | \"lot\"; sale_price: number; rental_price: number; available_from: string; available_to: string; ... 15 more ...; availability?: PropertyAvailability | undefined; } | undefined' is not assignable to type '{ title: string; description: string; status: \"available\" | \"sold\" | \"pending\" | \"rented\"; features: string[]; sale_price: number; location: string; bedrooms: number; bathrooms: number; square_feet: number; ... 8 more ...; available_to?: string | undefined; } | undefined'.\n  Type '{ status: \"available\" | \"sold\" | \"pending\"; property_type: \"house\" | \"villa\" | \"condo\" | \"lot\"; sale_price: number; rental_price: number; available_from: string; available_to: string; ... 15 more ...; availability?: PropertyAvailability; }' is not assignable to type '{ title: string; description: string; status: \"available\" | \"sold\" | \"pending\" | \"rented\"; features: string[]; sale_price: number; location: string; bedrooms: number; bathrooms: number; square_feet: number; ... 8 more ...; available_to?: string | undefined; }'.\n    Types of property 'rental_frequency' are incompatible.\n      Type '\"daily\" | \"weekly\" | \"monthly\" | \"yearly\" | null' is not assignable to type '\"daily\" | \"weekly\" | \"monthly\" | \"yearly\" | undefined'.\n        Type 'null' is not assignable to type '\"daily\" | \"weekly\" | \"monthly\" | \"yearly\" | undefined'.",
++"source": "ts",
++"startLineNumber": 253,
++"startColumn": 15,
++"endLineNumber": 253,
++"endColumn": 26,
++"relatedInformation": [
++{
++"startLineNumber": 61,
++"startColumn": 3,
++"endLineNumber": 61,
++"endColumn": 14,
++"message": "The expected type comes from property 'initialData' which is declared here on type 'IntrinsicAttributes & PropertyFormProps'",
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx"
++}
++]
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"sold\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 377,
++"startColumn": 19,
++"endLineNumber": 377,
++"endColumn": 47
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"sold\" | \"pending\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 443,
++"startColumn": 33,
++"endLineNumber": 443,
++"endColumn": 61
++}]
+
+# 2025-01-13 17:37:04.221122
++Still ha ving these tysecript errors [{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type '{ title: string; description: string; status: \"available\" | \"sold\" | \"pending\"; property_type: \"house\" | \"villa\" | \"condo\" | \"lot\"; sale_price: number; rental_price: number; location: string; ... 14 more ...; availability?: PropertyAvailability | undefined; } | undefined' is not assignable to type '{ title: string; status: \"available\" | \"sold\" | \"pending\" | \"rented\"; description: string; features: string[]; sale_price: number; location: string; bedrooms: number; bathrooms: number; square_feet: number; ... 8 more ...; available_to?: string | undefined; } | undefined'.\n  Type '{ title: string; description: string; status: \"available\" | \"sold\" | \"pending\"; property_type: \"house\" | \"villa\" | \"condo\" | \"lot\"; sale_price: number; rental_price: number; location: string; ... 14 more ...; availability?: PropertyAvailability; }' is not assignable to type '{ title: string; status: \"available\" | \"sold\" | \"pending\" | \"rented\"; description: string; features: string[]; sale_price: number; location: string; bedrooms: number; bathrooms: number; square_feet: number; ... 8 more ...; available_to?: string | undefined; }'.\n    Types of property 'minimum_rental_period' are incompatible.\n      Type 'number | null' is not assignable to type 'number | undefined'.\n        Type 'null' is not assignable to type 'number | undefined'.",
++"source": "ts",
++"startLineNumber": 253,
++"startColumn": 15,
++"endLineNumber": 253,
++"endColumn": 26,
++"relatedInformation": [
++{
++"startLineNumber": 61,
++"startColumn": 3,
++"endLineNumber": 61,
++"endColumn": 14,
++"message": "The expected type comes from property 'initialData' which is declared here on type 'IntrinsicAttributes & PropertyFormProps'",
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx"
++}
++]
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"sold\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 384,
++"startColumn": 19,
++"endLineNumber": 384,
++"endColumn": 47
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "eslint",
++"severity": 8,
++"message": "Parsing error: JSX expressions must have one parent element.",
++"source": "eslint",
++"startLineNumber": 449,
++"startColumn": 20,
++"endLineNumber": 449,
++"endColumn": 20
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2657",
++"severity": 8,
++"message": "JSX expressions must have one parent element.",
++"source": "ts",
++"startLineNumber": 449,
++"startColumn": 21,
++"endLineNumber": 478,
++"endColumn": 40
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"sold\" | \"pending\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 451,
++"startColumn": 33,
++"endLineNumber": 451,
++"endColumn": 61
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "1005",
++"severity": 8,
++"message": "')' expected.",
++"source": "ts",
++"startLineNumber": 479,
++"startColumn": 19,
++"endLineNumber": 479,
++"endColumn": 21
++}]
+
+# 2025-01-13 17:37:54.898045
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"sold\" | \"pending\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 453,
++"startColumn": 37,
++"endLineNumber": 453,
++"endColumn": 65
++}]
+
+# 2025-01-13 17:38:20.825374
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type '{ title: string; description: string; status: \"available\" | \"sold\" | \"pending\"; property_type: \"house\" | \"villa\" | \"condo\" | \"lot\"; sale_price: number; rental_price: number; location: string; ... 14 more ...; availability?: PropertyAvailability | undefined; } | undefined' is not assignable to type '{ title: string; description: string; status: \"available\" | \"sold\" | \"pending\" | \"rented\"; features: string[]; sale_price: number; location: string; bedrooms: number; bathrooms: number; square_feet: number; ... 8 more ...; available_to?: string | undefined; } | undefined'.\n  Type '{ title: string; description: string; status: \"available\" | \"sold\" | \"pending\"; property_type: \"house\" | \"villa\" | \"condo\" | \"lot\"; sale_price: number; rental_price: number; location: string; ... 14 more ...; availability?: PropertyAvailability; }' is not assignable to type '{ title: string; description: string; status: \"available\" | \"sold\" | \"pending\" | \"rented\"; features: string[]; sale_price: number; location: string; bedrooms: number; bathrooms: number; square_feet: number; ... 8 more ...; available_to?: string | undefined; }'.\n    Types of property 'deposit_amount' are incompatible.\n      Type 'number | null' is not assignable to type 'number | undefined'.\n        Type 'null' is not assignable to type 'number | undefined'.",
++"source": "ts",
++"startLineNumber": 253,
++"startColumn": 15,
++"endLineNumber": 253,
++"endColumn": 26,
++"relatedInformation": [
++{
++"startLineNumber": 61,
++"startColumn": 3,
++"endLineNumber": 61,
++"endColumn": 14,
++"message": "The expected type comes from property 'initialData' which is declared here on type 'IntrinsicAttributes & PropertyFormProps'",
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx"
++}
++]
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"sold\" | \"pending\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 453,
++"startColumn": 37,
++"endLineNumber": 453,
++"endColumn": 65
++}]
+
+# 2025-01-13 17:38:52.482543
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type '{ mode: \"edit\"; propertyId: string; initialData: { title: string; description: string; status: \"available\" | \"sold\" | \"pending\"; property_type: \"house\" | \"villa\" | \"condo\" | \"lot\"; sale_price: number; ... 16 more ...; availability?: PropertyAvailability | undefined; } | undefined; onOpenChange: (open: boolean) => vo...' is not assignable to type 'IntrinsicAttributes & PropertyFormProps'.\n  Property 'onOpenChange' does not exist on type 'IntrinsicAttributes & PropertyFormProps'.",
++"source": "ts",
++"startLineNumber": 275,
++"startColumn": 15,
++"endLineNumber": 275,
++"endColumn": 27
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"sold\" | \"pending\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 454,
++"startColumn": 37,
++"endLineNumber": 454,
++"endColumn": 65
++}]
+
+# 2025-01-13 17:39:15.752010
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"sold\" | \"pending\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 438,
++"startColumn": 37,
++"endLineNumber": 438,
++"endColumn": 65
++}]
+
+# 2025-01-13 17:39:39.713909
++Still hvae this issue [{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"sold\" | \"pending\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 438,
++"startColumn": 37,
++"endLineNumber": 438,
++"endColumn": 65
++}]
+
+# 2025-01-13 17:40:15.226205
++The issue still persists [{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"sold\" | \"pending\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 438,
++"startColumn": 37,
++"endLineNumber": 438,
++"endColumn": 65
++}]
+
+# 2025-01-13 17:45:00.575745
++/add components\ui\calendar.tsx components\properties\PropertyBooking\PropertyCalendar.tsx
+
+# 2025-01-13 17:45:18.902634
++Please explain the implementation of the calendar on the system
+
+# 2025-01-13 18:04:21.874949
++/add app\[locale]\admin\page.tsx
+
+# 2025-01-13 18:04:55.534497
++Onw i want you to please create a new tab for the Calendar with iCal. For now just create the new tab and render it correclty with some dummy content 
+
+# 2025-01-13 18:06:23.484925
++y
+
+# 2025-01-13 18:07:10.216835
++1 of 1 error
++Next.js (14.2.16) is outdated (learn more)
++Unhandled Runtime Error
++
++ReferenceError: Button is not defined
++Source
++
++app\[locale]\admin\page.tsx (100:20) @ Button
++
++   98 |                 <div className="flex justify-between items-center">
++   99 |                   <h3 className="text-lg font-semibold">iCal Integration</h3>
++> 100 |                   <Button variant="outline">
++      |                    ^
++  101 |                     Sync Calendar
++  102 |                   </Button>
++  103 |                 </div>
+
+# 2025-01-13 18:51:06.867916
++I keep getting this on the app whenever i reload a page PayPal client ID is not configured Component Stack: 
++    PayPalProvider webpack-internal:///(app-pages-browser)/./components/providers/paypal-provider.tsx:20
++    AuthProvider webpack-internal:///(app-pages-browser)/./components/providers/auth-provider.tsx:19
++    Provider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-context@1.1.1_@types+react@18.3.18_react@18.3.1/node_modules/@radix-ui/react-context/dist/index.mjs:34
++    Provider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-context@1.1.1_@types+react@18.3.18_react@18.3.1/node_modules/@radix-ui/react-context/dist/index.mjs:34
++    CollectionProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-collection@1.1.1_@types+react-dom@18.3.5_@types+react@18.3.18__@types+react@1_du3umibpgknzrmwryvhzp3lgou/node_modules/@radix-ui/react-collection/dist/index.mjs:28
++    ToastProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-toast@1.2.4_@types+react-dom@18.3.5_@types+react@18.3.18__@types+react@18.3.1_2e4ydfdf6w5rwxwj7oru67swmi/node_modules/@radix-ui/react-toast/dist/index.mjs:59
++    _ webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next-themes@0.4.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next-themes/dist/index.mjs:54
++    J webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next-themes@0.4.4_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next-themes/dist/index.mjs:47
++    ThemeProvider webpack-internal:///(app-pages-browser)/./components/theme-provider.tsx:13
++    Providers webpack-internal:///(app-pages-browser)/./components/providers/providers.tsx:18
++    IntlProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.3_react@18.3.1/node_modules/use-intl/dist/development/_IntlProvider.js:25
++    r NextJS
++    i [Server] unknown:0
++    LocaleLayout [Server] unknown:0
++    InnerLayoutRouter webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:244
++    RedirectErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:74
++    RedirectBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:82
++    NotFoundErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:76
++    NotFoundBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:84
++    LoadingBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:349
++    ErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/error-boundary.js:160
++    InnerScrollAndFocusHandler webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:153
++    ScrollAndFocusHandler webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:228
++    RenderFromTemplateContext webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/render-from-template-context.js:16
++    OuterLayoutRouter webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:370
++    body unknown:0
++    html unknown:0
++    RootLayout [Server] unknown:0
++    RedirectErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:74
++    RedirectBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:82
++    NotFoundErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:76
++    NotFoundBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-boundary.js:84
++    DevRootNotFoundBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/dev-root-not-found-boundary.js:33
++    ReactDevOverlay webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/react-dev-overlay/app/ReactDevOverlay.js:87
++    HotReload webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:321
++    Router webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/app-router.js:207
++    ErrorBoundaryHandler webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/error-boundary.js:113
++    ErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/error-boundary.js:160
++    AppRouter webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/app-router.js:585
++    ServerRoot webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-index.js:112
++    Root webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-index.js:117
++<anonymous code>:1:145535
++    overrideMethod <anonymous code>:1
++    error app-index.tsx:25
++    error hydration-error-info.ts:72
++    PayPalProvider paypal-provider.tsx:19
++    renderWithHooks react-dom.development.js:11121
++    mountIndeterminateComponent react-dom.development.js:16869
++    beginWork$1 react-dom.development.js:18458
++    beginWork react-dom.development.js:26927
++    performUnitOfWork react-dom.development.js:25748
++    workLoopConcurrent react-dom.development.js:25734
++    renderRootConcurrent react-dom.development.js:25690
++    performConcurrentWorkOnRoot react-dom.development.js:24504
++    workLoop scheduler.development.js:256
++    flushWork scheduler.development.js:225
++    performWorkUntilDeadline scheduler.development.js:534
++    (Async: EventHandlerNonNull)
++    <anonymous> scheduler.development.js:569
++    <anonymous> scheduler.development.js:630
++    NextJS 4
++    <anonymous> index.js:4
++    NextJS 4
++    <anonymous> react-dom.development.js:27
++    <anonymous> react-dom.development.js:38595
++    NextJS 4
++    <anonymous> index.js:32
++    NextJS 4
++    <anonymous> client.js:3
++    NextJS 4
++    <anonymous> app-index.js:15
++    NextJS 4
++    <anonymous> app-next-dev.js:9
++    appBootstrap app-bootstrap.ts:61
++    loadScriptsInSequence app-bootstrap.ts:20
++    appBootstrap app-bootstrap.ts:60
++    <anonymous> app-next-dev.js:8
++    NextJS 7
+
+# 2025-01-13 18:51:35.474699
++y
+
+# 2025-01-13 18:52:06.688303
++n
+
+# 2025-01-13 18:54:08.635543
++Adding this fixed the paypal issue. does the PAYPAL_CLIENT_SECRET needs to be the NEXT_PUBLIC_ as well?
+
+# 2025-01-13 18:54:49.121502
++n
+
+# 2025-01-13 18:55:19.253910
++Now when i click on pay on the paypal button i get this on the console paypal_js_sdk_v5_unhandled_exception 
++Object { err: "zoid destroyed all components\nfi/n/<@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:133289\noe/register/o<@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:33055\nkn/<@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:29259\nall@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:33222\nhi@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:135870\nqs/<@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:305447\nqs@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:305491\nvalue/<@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:308535\nvalue@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:308507\n@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:307622\n@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:308572\nt@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:157\n@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:941\n@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3:951\n@https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:4:5\n", timestamp: "1736808877219", uid: "uid_7d0773818e_mji6ntm6mdc", env: "sandbox", clientId: "Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX", csnwCorrelationId: "prebuild", referrer: "localhost:3001", version: "5.0.465", merchantId: [], sessionId: "uid_7d0773818e_mji6ntm6mdc",  } Uncaught Error: zoid destroyed all components
++    n https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    o https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    kn https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    all https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    hi https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    qs https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    qs https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    value https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    value https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    <anonymous> https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    <anonymous> https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    t https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    <anonymous> https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    <anonymous> https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    <anonymous> https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:4
++js:3:133289
++    n https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    o https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    kn https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    all https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    hi https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    qs https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    qs https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    value https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    forEach self-hosted:157
++    value https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    <anonymous> https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    <anonymous> https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    t https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    <anonymous> https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    <anonymous> https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:3
++    <anonymous> https://www.paypal.com/sdk/js?client-id=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&currency=USD:4
++Partitioned cookie or storage access was provided to https://www.sandbox.paypal.com/smart/buttons?allowBillingPayments=true&applePaySupport=false&buttonSessionID=uid_1a2289b32e_mji6ntq6mzc&buttonSize=large&customerId=&clientID=Ad2Qst6Dgp35X3_3c87yyp45lmVNmLyDgTEQ9siPvnL6Au51jHiJyeQFL1M2RjpHG5VkSGqOZsbMuUkX&clientMetadataID=uid_7d0773818e_mji6ntm6mdc&commit=true&components.0=buttons&currency=USD&debug=false&disableSetCookie=true&env=sandbox&experiment.enableVenmo=false&experiment.venmoVaultWithoutPurchase=false&experiment.venmoWebEnabled=false&flow=purchase&fundingEligibility=eyJwYXlwYWwiOnsiZWxpZ2libGUiOnRydWUsInZhdWx0YWJsZSI6ZmFsc2V9LCJwYXlsYXRlciI6eyJlbGlnaWJsZSI6ZmFsc2UsInZhdWx0YWJsZSI6ZmFsc2UsInByb2R1Y3RzIjp7InBheUluMyI6eyJlbGlnaWJsZSI6ZmFsc2UsInZhcmlhbnQiOm51bGx9LCJwYXlJbjQiOnsiZWxpZ2libGUiOmZhbHNlLCJ2YXJpYW50IjpudWxsfSwicGF5bGF0ZXIiOnsiZWxpZ2libGUiOmZhbHNlLCJ2YXJpYW50IjpudWxsfX19LCJjYXJkIjp7ImVsaWdpYmxlIjp0cnVlLCJicmFuZGVkIjp0cnVlLCJpbnN0YWxsbWVudHMiOmZhbHNlLCJ2ZW5kb3JzIjp7InZpc2EiOnsiZWxpZ2libGUiOnRydWUsInZhdWx0YWJsZSI6dHJ1ZX0sIm1hc3RlcmNhcmQiOnsiZWxpZ2libGUiOnRydWUsInZhdWx0YWJsZSI6dHJ1ZX0sImFtZXgiOnsiZWxpZ2libGUiOnRydWUsInZhdWx0YWJsZSI6dHJ1ZX0sImRpc2NvdmVyIjp7ImVsaWdpYmxlIjpmYWxzZSwidmF1bHRhYmxlIjp0cnVlfSwiaGlwZXIiOnsiZWxpZ2libGUiOmZhbHNlLCJ2YXVsdGFibGUiOmZhbHNlfSwiZWxvIjp7ImVsaWdpYmxlIjpmYWxzZSwidmF1bHRhYmxlIjp0cnVlfSwiamNiIjp7ImVsaWdpYmxlIjpmYWxzZSwidmF1bHRhYmxlIjp0cnVlfSwibWFlc3RybyI6eyJlbGlnaWJsZSI6dHJ1ZSwidmF1bHRhYmxlIjp0cnVlfSwiZGluZXJzIjp7ImVsaWdpYmxlIjp0cnVlLCJ2YXVsdGFibGUiOnRydWV9LCJjdXAiOnsiZWxpZ2libGUiOmZhbHNlLCJ2YXVsdGFibGUiOnRydWV9fSwiZ3Vlc3RFbmFibGVkIjpmYWxzZX0sInZlbm1vIjp7ImVsaWdpYmxlIjpmYWxzZSwidmF1bHRhYmxlIjpmYWxzZX0sIml0YXUiOnsiZWxpZ2libGUiOmZhbHNlfSwiY3JlZGl0Ijp7ImVsaWdpYmxlIjpmYWxzZX0sImFwcGxlcGF5Ijp7ImVsaWdpYmxlIjpmYWxzZX0sInNlcGEiOnsiZWxpZ2libGUiOmZhbHNlfSwiaWRlYWwiOnsiZWxpZ2libGUiOmZhbHNlfSwiYmFuY29udGFjdCI6eyJlbGlnaWJsZSI6ZmFsc2V9LCJnaXJvcGF5Ijp7ImVsaWdpYmxlIjpmYWxzZX0sImVwcyI6eyJlbGlnaWJsZSI6ZmFsc2V9LCJzb2ZvcnQiOnsiZWxpZ2libGUiOmZhbHNlfSwibXliYW5rIjp7ImVsaWdpYmxlIjpmYWxzZX0sInAyNCI6eyJlbGlnaWJsZSI6ZmFsc2V9LCJ3ZWNoYXRwYXkiOnsiZWxpZ2libGUiOmZhbHNlfSwicGF5dSI6eyJlbGlnaWJsZSI6ZmFsc2V9LCJibGlrIjp7ImVsaWdpYmxlIjpmYWxzZX0sInRydXN0bHkiOnsiZWxpZ2libGUiOmZhbHNlfSwib3h4byI6eyJlbGlnaWJsZSI6ZmFsc2V9LCJib2xldG8iOnsiZWxpZ2libGUiOmZhbHNlfSwiYm9sZXRvYmFuY2FyaW8iOnsiZWxpZ2libGUiOmZhbHNlfSwibWVyY2Fkb3BhZ28iOnsiZWxpZ2libGUiOmZhbHNlfSwibXVsdGliYW5jbyI6eyJlbGlnaWJsZSI6ZmFsc2V9LCJzYXRpc3BheSI6eyJlbGlnaWJsZSI6ZmFsc2V9LCJwYWlkeSI6eyJlbGlnaWJsZSI6ZmFsc2V9fQ&intent=capture&locale.country=US&locale.lang=en&hasShippingCallback=false&platform=desktop&renderedButtons.0=paypal&renderedButtons.1=card&sessionID=uid_7d0773818e_mji6ntm6mdc&sdkCorrelationID=prebuild&sdkMeta=eyJ1cmwiOiJodHRwczovL3d3dy5wYXlwYWwuY29tL3Nkay9qcz9jbGllbnQtaWQ9QWQyUXN0NkRncDM1WDNfM2M4N3l5cDQ1bG1WTm1MeURnVEVROXNpUHZuTDZBdTUxakhpSnllUUZMMU0yUmpwSEc1VmtTR3FPWnNiTXVVa1gmY3VycmVuY3k9VVNEIiwiYXR0cnMiOnsiZGF0YS11aWQiOiJ1aWRfcWFyZnFrcmRqcnJibnJ5aXNlamxqZnJkY2NscHpmIn19&sdkVersion=5.0.465&storageID=uid_9d62c25a99_mdq6mdk6ndk&style.layout=vertical&style.shape=rect&style.tagline=false&style.menuPlacement=below&supportedNativeBrowser=false&supportsPopups=true&vault=false because it is loaded in the third-party context and dynamic state partitioning is enabled.
+
+# 2025-01-13 18:55:21.395448
++s
+
+# 2025-01-13 18:55:49.250095
++y
+
+# 2025-01-13 18:59:38.284149
++Please help me fix this on the property single page template Error: MISSING_MESSAGE: Could not resolve `PropertyDetails.FeaturedProperties.propertyType.condo` in messages for locale `en`.
++    IntlError webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.3_react@18.3.1/node_modules/use-intl/dist/development/initializeConfig-BhfMSHP7.js:44
++    getFallbackFromErrorAndNotify webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.3_react@18.3.1/node_modules/use-intl/dist/development/createFormatter-QqAaZwGD.js:159
++    translateBaseFn webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.3_react@18.3.1/node_modules/use-intl/dist/development/createFormatter-QqAaZwGD.js:184
++    translateFn webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/use-intl@3.26.3_react@18.3.1/node_modules/use-intl/dist/development/createFormatter-QqAaZwGD.js:258
++    PropertyDetails webpack-internal:///(app-pages-browser)/./components/properties/PropertyDetails/index.tsx:60
++    React 9
++    workLoop webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/scheduler/cjs/scheduler.development.js:256
++    flushWork webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/scheduler/cjs/scheduler.development.js:225
++    performWorkUntilDeadline webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/scheduler/cjs/scheduler.development.js:534
++    EventHandlerNonNull* webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/scheduler/cjs/scheduler.development.js:569
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/scheduler/cjs/scheduler.development.js:630
++    NextJS 4
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/scheduler/index.js:4
++    NextJS 4
++    React 2
++    NextJS 4
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/react-dom/index.js:32
++    NextJS 4
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/react-dom/client.js:3
++    NextJS 4
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-index.js:15
++    NextJS 4
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-next-dev.js:9
++    appBootstrap webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-bootstrap.js:57
++    loadScriptsInSequence webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-bootstrap.js:23
++    appBootstrap webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-bootstrap.js:56
++    <anonymous> webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/app-next-dev.js:8
++    NextJS 7
++ Component Stack: 
++    PropertyDetails webpack-internal:///(app-pages-browser)/./components/properties/PropertyDetails/index.tsx:31
++    QueryClientProvider webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@tanstack+react-query@5.62.16_react@18.3.1/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:27
++    QueryClientProviderWrapper webpack-internal:///(app-pages-browser)/./components/providers/query-client-provider.tsx:12
++    div unknown:0
++    Container [Server] unknown:0
++    PropertyPage [Server] unknown:0
++    InnerLayoutRouter webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/layout-router.js:244
++    RedirectErrorBoundary webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@14.2.16_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/redirect-boundary.js:74
++<anonymo
+
+# 2025-01-13 20:48:14.576241
++/drop
