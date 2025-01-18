@@ -272,7 +272,11 @@
         "loading": "Loading calendar...",
         "selectProperty": "Select Property",
         "pickDate": "Pick a date",
-        "allProperties": "All Properties"
+        "allProperties": "All Properties",
+        "error": {
+          "title": "Error",
+          "message": "Failed to load calendar data"
+        }
       },
       "users": {
         "title": "User Management",
