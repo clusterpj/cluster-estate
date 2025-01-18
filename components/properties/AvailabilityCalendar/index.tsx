@@ -1,0 +1,146 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { Calendar } from '@/components/ui/calendar'
+import { Toggle } from '@/components/ui/toggle'
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import { useQuery } from '@tanstack/react-query'
+import { Property, PropertyStatus } from '@/types/property'
+import { useTranslations } from 'next-intl'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Badge } from '@/components/ui/badge'
+
+interface AvailabilityCalendarProps {
+  propertyId?: string // Optional for single property view
+}
+
+interface CalendarDay {
+  date: Date
+  status: PropertyStatus
+  propertyCount?: number // For aggregate view
+}
+
+export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) {
+  const t = useTranslations('AvailabilityCalendar')
+  const [viewMode, setViewMode] = useState<'single' | 'aggregate'>('single')
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
+
+  // Fetch availability data
+  const { data: availabilityData, isLoading, isError } = useQuery({
+    queryKey: ['property-availability', propertyId, viewMode],
+    queryFn: async () => {
+      const endpoint = viewMode === 'single' && propertyId 
+        ? `/api/properties/${propertyId}/availability`
+        : '/api/properties/availability'
+      
+      const response = await fetch(endpoint)
+      if (!response.ok) throw new Error('Failed to fetch availability data')
+      return response.json()
+    }
+  })
+
+  // Generate calendar days with status
+  const getCalendarDays = (): CalendarDay[] => {
+    if (!availabilityData) return []
+    
+    return availabilityData.map((day: any) => ({
+      date: new Date(day.date),
+      status: day.status,
+      propertyCount: day.propertyCount
+    }))
+  }
+
+  // Calendar day styling based on status
+  const getDayClassName = (day: CalendarDay) => {
+    const baseClasses = 'h-10 w-10 rounded-full flex items-center justify-center text-sm'
+    
+    switch (day.status) {
+      case 'available':
+        return `${baseClasses} bg-green-100 hover:bg-green-200 text-green-800`
+      case 'booked':
+        return `${baseClasses} bg-red-100 hover:bg-red-200 text-red-800`
+      case 'pending':
+        return `${baseClasses} bg-yellow-100 hover:bg-yellow-200 text-yellow-800`
+      case 'maintenance':
+        return `${baseClasses} bg-gray-100 hover:bg-gray-200 text-gray-800`
+      default:
+        return `${baseClasses} bg-background hover:bg-accent`
+    }
+  }
+
+  if (isError) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>{t('errorTitle')}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-destructive">{t('errorMessage')}</p>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  return (
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle>
+          {viewMode === 'single' 
+            ? t('singlePropertyTitle') 
+            : t('allPropertiesTitle')}
+        </CardTitle>
+        <div className="flex items-center gap-2">
+          <Toggle
+            pressed={viewMode === 'single'}
+            onPressedChange={(pressed) => setViewMode(pressed ? 'single' : 'aggregate')}
+            aria-label={t('toggleViewMode')}
+          >
+            {viewMode === 'single' ? t('singleView') : t('aggregateView')}
+          </Toggle>
+        </div>
+      </CardHeader>
+      <CardContent>
+        {isLoading ? (
+          <Skeleton className="h-[400px] w-full" />
+        ) : (
+          <Calendar
+            mode="single"
+            selected={selectedDate}
+            onSelect={setSelectedDate}
+            className="rounded-md border"
+            classNames={{
+              day: (date) => {
+                const dayData = getCalendarDays().find(d => 
+                  d.date.toDateString() === date.toDateString()
+                )
+                return dayData ? getDayClassName(dayData) : ''
+              }
+            }}
+            disabled={(date) => date < new Date()}
+            components={{
+              DayContent: ({ date }) => {
+                const dayData = getCalendarDays().find(d => 
+                  d.date.toDateString() === date.toDateString()
+                )
+                
+                return (
+                  <div className="relative">
+                    <span>{date.getDate()}</span>
+                    {viewMode === 'aggregate' && dayData?.propertyCount && (
+                      <Badge 
+                        variant="secondary" 
+                        className="absolute -top-1 -right-1 h-4 w-4 p-0 text-xs"
+                      >
+                        {dayData.propertyCount}
+                      </Badge>
+                    )}
+                  </div>
+                )
+              }
+            }}
+          />
+        )}
+      </CardContent>
+    </Card>
+  )
+}

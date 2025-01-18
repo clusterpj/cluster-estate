@@ -19,7 +19,14 @@ export interface PropertyAvailability {
 export type NewProperty = Database['public']['Tables']['properties']['Insert']
 export type UpdateProperty = Database['public']['Tables']['properties']['Update']
 
-export type PropertyStatus = 'available' | 'sold' | 'pending' | 'rented'
+export type PropertyStatus = 'available' | 'booked' | 'pending' | 'maintenance' | 'sold' | 'rented'
+
+export interface PropertyAvailability {
+  date: string
+  status: PropertyStatus
+  propertyId?: string
+  propertyCount?: number
+}
 
 export const PropertyStatus: Record<Uppercase<PropertyStatus>, PropertyStatus> = {
   AVAILABLE: 'available',
