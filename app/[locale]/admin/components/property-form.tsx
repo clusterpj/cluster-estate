@@ -24,37 +24,56 @@ export function PropertyForm({
 }: PropertyFormProps) {
   const t = useTranslations('auth.adminSection.properties')
   const { form, onSubmit } = usePropertyForm(initialData)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (data: PropertyFormValues) => {
+    setIsLoading(true)
     try {
       const processedData = await onSubmit(data)
-      
       const supabase = createClientComponentClient<Database>()
-      let dbOperation
       
       if (mode === 'edit' && propertyId) {
-        dbOperation = supabase
+        // For edit mode, we need to preserve some existing fields
+        const { data: existingData } = await supabase
           .from('properties')
-          .update(processedData)
+          .select('*')
           .eq('id', propertyId)
-          .select()
           .single()
+
+        if (!existingData) {
+          throw new Error('Property not found')
+        }
+
+        // Merge existing data with updated data
+        const updatedData = {
+          ...existingData,
+          ...processedData,
+          updated_at: new Date().toISOString()
+        }
+
+        const { error } = await supabase
+          .from('properties')
+          .update(updatedData)
+          .eq('id', propertyId)
+
+        if (error) throw error
       } else {
-        dbOperation = supabase
+        // Create new property
+        const { error } = await supabase
           .from('properties')
           .insert([processedData])
           .select()
           .single()
+
+        if (error) throw error
       }
-
-      const { error } = await dbOperation
-
-      if (error) throw error
       
       onSuccess?.()
     } catch (error) {
       console.error('Error in form submission:', error)
       onError?.(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -87,7 +106,16 @@ export function PropertyForm({
         </div>
 
         <div className="flex justify-end">
-          <Button type="submit">{t('form.submit')}</Button>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                {t('form.saving')}
+              </div>
+            ) : (
+              t('form.submit')
+            )}
+          </Button>
         </div>
       </form>
     </Form>

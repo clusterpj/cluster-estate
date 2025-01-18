@@ -39,18 +39,26 @@ export function usePropertyForm(initialData?: PropertyFormValues) {
     try {
       const { data: { user } } = await supabase.auth.getUser()
       
+      // Convert dates to ISO strings
+      const availableFrom = data.available_from ? new Date(data.available_from).toISOString() : null
+      const availableTo = data.available_to ? new Date(data.available_to).toISOString() : null
+
+      // Process images array
+      const processedImages = Array.isArray(data.images) ? 
+        data.images.filter(img => typeof img === 'string') : 
+        []
+
       const processedData = {
         ...data,
         sale_price: data.sale_price || null,
         rental_price: data.rental_price || null,
         features: Array.isArray(data.features) ? data.features : [],
-        images: data.images,
+        images: processedImages,
         user_id: user?.id,
         property_type: data.property_type || 'house',
-        available_from: data.listing_type === 'rent' || data.listing_type === 'both' ? 
-          (data.available_from ? new Date(data.available_from).toISOString() : null) : null,
-        available_to: data.listing_type === 'rent' || data.listing_type === 'both' ? 
-          (data.available_to ? new Date(data.available_to).toISOString() : null) : null,
+        available_from: availableFrom,
+        available_to: availableTo,
+        updated_at: new Date().toISOString()
       }
 
       return processedData
