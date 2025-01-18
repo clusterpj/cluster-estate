@@ -66,24 +66,36 @@ export function PropertyForm({
     setIsLoading(true)
     
     try {
+      console.log('Validating form...')
       const isValid = await form.trigger()
       if (!isValid) {
         console.log('Form validation failed')
         return
       }
 
-      const processedData = await onSubmit(data)
-      console.log('Processed data:', processedData)
+      console.log('Processing form data...')
+      const processedData = await onSubmit(data, true)
+      console.log('Processed data for update:', processedData)
       
+      console.log('Initializing Supabase client...')
       const supabase = createClientComponentClient<Database>()
-      const { error: updateError } = await supabase
+      
+      console.log('Sending update request to Supabase...')
+      const { data: updateResult, error: updateError } = await supabase
         .from('properties')
         .update(processedData)
         .eq('id', propertyId!)
+        .select()
+        .single()
 
-      if (updateError) throw updateError
+      console.log('Update result:', updateResult)
       
-      console.log('Property updated successfully')
+      if (updateError) {
+        console.error('Supabase update error:', updateError)
+        throw updateError
+      }
+      
+      console.log('Property updated successfully:', updateResult)
       onSuccess?.()
     } catch (error) {
       console.error('Error updating property:', error)
@@ -94,10 +106,21 @@ export function PropertyForm({
   }
 
   const handleSubmit = async (data: PropertyFormValues) => {
-    if (mode === 'edit' && propertyId) {
-      await handleUpdate(data)
-    } else {
-      await handleCreate(data)
+    console.log('Form data:', data)
+    console.log('Mode:', mode)
+    console.log('Property ID:', propertyId)
+    
+    try {
+      if (mode === 'edit' && propertyId) {
+        console.log('Attempting to update property...')
+        await handleUpdate(data)
+      } else {
+        console.log('Attempting to create new property...')
+        await handleCreate(data)
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      onError?.(error)
     }
   }
 

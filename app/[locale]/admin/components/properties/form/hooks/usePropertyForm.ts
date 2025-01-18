@@ -36,7 +36,9 @@ export function usePropertyForm(initialData?: PropertyFormValues) {
   })
 
   const onSubmit = async (data: PropertyFormValues, isUpdate = false) => {
+    console.log('Processing form data...')
     try {
+      console.log('Getting current user...')
       const { data: { user } } = await supabase.auth.getUser()
       
       // Convert dates to ISO strings
@@ -48,6 +50,7 @@ export function usePropertyForm(initialData?: PropertyFormValues) {
         data.images.filter(img => typeof img === 'string') : 
         []
 
+      console.log('Creating processed data...')
       // For updates, only include changed fields
       const processedData = isUpdate ? {
         ...(data.title && { title: data.title }),
