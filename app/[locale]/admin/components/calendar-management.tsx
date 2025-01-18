@@ -12,7 +12,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/types/supabase'
 
 export function CalendarManagement() {
-  const t = useTranslations('admin.calendar');
+  const t = useTranslations('auth.adminSection.calendar');
   const [selectedProperty, setSelectedProperty] = useState('all');
   const [date, setDate] = useState<Date>(new Date());
 

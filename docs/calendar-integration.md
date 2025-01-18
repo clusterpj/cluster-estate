@@ -141,15 +141,28 @@ The calendar supports localization through the `next-intl` library. Add translat
 
 ```json
 {
-  "AvailabilityCalendar": {
-    "title": "Availability Calendar",
-    "singlePropertyTitle": "Property Availability",
-    "allPropertiesTitle": "All Properties Availability",
-    "toggleViewMode": "Toggle view mode",
-    "singleView": "Single",
-    "aggregateView": "Aggregate",
-    "errorTitle": "Error",
-    "errorMessage": "Failed to load calendar data"
+  "auth": {
+    "adminSection": {
+      "calendar": {
+        "title": "Calendar Management",
+        "description": "Manage calendar sync and availability",
+        "legend": {
+          "available": "Available",
+          "booked": "Booked",
+          "pending": "Pending",
+          "maintenance": "Maintenance",
+          "partial": "Partial Availability"
+        },
+        "loading": "Loading calendar...",
+        "selectProperty": "Select Property",
+        "pickDate": "Pick a date",
+        "allProperties": "All Properties",
+        "error": {
+          "title": "Error",
+          "message": "Failed to load calendar data"
+        }
+      }
+    }
   }
 }
 ```
