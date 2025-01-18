@@ -9,7 +9,7 @@ interface PayPalButtonsProps {
   totalPrice: number
   currency?: string
   onApprove: (
-    data: { orderID: string; payerID?: string }, 
+    data: { orderID: string; payerID?: string | null }, 
     actions: {
       order: {
         capture: () => Promise<{
@@ -110,7 +110,7 @@ export function PayPalButtonsWrapper({
               console.log('Capturing PayPal payment...')
               const captureData = await actions.order?.capture()
               console.log('Payment captured successfully:', captureData)
-              await onApprove(data)
+              await onApprove(data, actions)
             } catch (error: unknown) {
               console.error('Error capturing payment:', error)
               setError('Payment processing failed')
