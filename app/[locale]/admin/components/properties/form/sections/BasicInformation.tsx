@@ -84,8 +84,11 @@ export function BasicInformation({ form }: BasicInformationProps) {
                 <Input
                   id="bedrooms"
                   type="number"
-                  {...field}
-                  onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  value={isNaN(field.value) ? '' : field.value}
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value)
+                    field.onChange(isNaN(value) ? 0 : value)
+                  }}
                 />
               </FormControl>
               <FormMessage />

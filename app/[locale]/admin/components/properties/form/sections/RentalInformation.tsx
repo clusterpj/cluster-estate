@@ -43,8 +43,11 @@ export function RentalInformation({ form }: RentalInformationProps) {
                 <Input
                   id="rental_price"
                   type="number"
-                  {...field}
-                  onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  value={isNaN(field.value) ? '' : field.value}
+                  onChange={(e) => {
+                    const value = parseFloat(e.target.value)
+                    field.onChange(isNaN(value) ? 0 : value)
+                  }}
                 />
               </FormControl>
               <FormMessage />
