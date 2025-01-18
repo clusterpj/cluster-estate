@@ -10,8 +10,8 @@ import { RentalInformation } from '@/app/[locale]/admin/components/properties/fo
 import { PetInformation } from '@/app/[locale]/admin/components/properties/form/sections/PetInformation'
 import { FeaturesSection } from '@/app/[locale]/admin/components/properties/form/sections/FeaturesSection'
 import { ImagesSection } from '@/app/[locale]/admin/components/properties/form/sections/ImagesSection'
-import { usePropertyForm } from './components/properties/form/hooks/usePropertyForm'
-import { PropertyFormProps } from './components/properties/form/types'
+import { usePropertyForm } from '@/app/[locale]/admin/components/properties/form/hooks/usePropertyForm'
+import { PropertyFormProps } from '@/app/[locale]/admin/components/properties/form/types'
 
 export function PropertyForm({ 
   onSuccess, 
