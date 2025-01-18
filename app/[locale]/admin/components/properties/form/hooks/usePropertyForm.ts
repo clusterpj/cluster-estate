@@ -40,6 +40,7 @@ export function usePropertyForm(initialData?: PropertyFormValues) {
     try {
       console.log('Getting current user...')
       const { data: { user } } = await supabase.auth.getUser()
+      if (!user) throw new Error('User not authenticated')
       
       // Convert dates to ISO strings
       const availableFrom = data.available_from ? new Date(data.available_from).toISOString() : null
@@ -53,6 +54,7 @@ export function usePropertyForm(initialData?: PropertyFormValues) {
       console.log('Creating processed data...')
       // For updates, only include changed fields
       const processedData = isUpdate ? {
+        id: data.id,
         ...(data.title && { title: data.title }),
         ...(data.description && { description: data.description }),
         ...(data.sale_price && { sale_price: data.sale_price }),
