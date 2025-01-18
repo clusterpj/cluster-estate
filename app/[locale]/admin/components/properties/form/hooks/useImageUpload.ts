@@ -1,0 +1,50 @@
+import { useState } from 'react'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { v4 as uuidv4 } from 'uuid'
+import type { Database } from '@/types/supabase'
+
+export function useImageUpload(initialImages?: string[], onError?: (error: any) => void) {
+  const [uploadedImages, setUploadedImages] = useState<string[]>(initialImages || [])
+  const supabase = createClientComponentClient<Database>()
+
+  const handleImageUpload = async (files: FileList | null) => {
+    if (!files || files.length === 0) return
+
+    try {
+      const uploadedUrls: string[] = []
+
+      for (const file of Array.from(files)) {
+        const fileExt = file.name.split('.').pop()
+        const fileName = `${uuidv4()}.${fileExt}`
+        const filePath = `properties/${fileName}`
+        
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('property-images')
+          .upload(filePath, file)
+
+        if (uploadError) throw uploadError
+
+        const { data: { publicUrl } } = supabase.storage
+          .from('property-images')
+          .getPublicUrl(filePath)
+
+        uploadedUrls.push(publicUrl)
+      }
+
+      setUploadedImages(prev => [...prev, ...uploadedImages])
+    } catch (error) {
+      console.error('Error uploading images:', error)
+      onError?.(error)
+    }
+  }
+
+  const handleImageRemove = (image: string) => {
+    setUploadedImages(prev => prev.filter(img => img !== image))
+  }
+
+  return {
+    uploadedImages,
+    handleImageUpload,
+    handleImageRemove
+  }
+}
