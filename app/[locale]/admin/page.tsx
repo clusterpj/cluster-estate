@@ -14,6 +14,9 @@ import { useTranslations } from 'next-intl'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/utils/supabase-client'
 import { useParams } from 'next/navigation'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 export default function AdminDashboard() {
   const t = useTranslations('auth.adminSection')
@@ -39,7 +42,8 @@ export default function AdminDashboard() {
   const pendingProperties = stats?.filter(p => p.status === 'pending').length || 0
 
   return (
-    <div className="container mx-auto py-10">
+    <QueryClientProvider client={queryClient}>
+      <div className="container mx-auto py-10">
       <DashboardHeader />
       
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
@@ -101,6 +105,7 @@ export default function AdminDashboard() {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
+      </div>
+    </QueryClientProvider>
   )
 }
