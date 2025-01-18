@@ -67,6 +67,8 @@ export async function GET(request: Request) {
         end: new Date(booking.check_out)
       })
       
+      logger.info(`Processing booking from ${booking.check_in} to ${booking.check_out} with status ${booking.status}`)
+      
       bookingDates.forEach(date => {
         const dateKey = format(date, 'yyyy-MM-dd')
         const existing = availabilityMap.get(dateKey) || {
@@ -75,11 +77,18 @@ export async function GET(request: Request) {
           propertyCount: totalProperties
         }
         
+        logger.info(`Updating date ${dateKey} from status ${existing.status} to ${booking.status}`)
+        
+        // Only mark as booked if status is 'confirmed'
+        const newStatus = booking.status === 'confirmed' ? 'booked' : booking.status
+        
         availabilityMap.set(dateKey, {
           date: dateKey,
-          status: booking.status,
+          status: newStatus,
           propertyCount: (existing.propertyCount || totalProperties) - 1
         })
+        
+        logger.info(`Set date ${dateKey} to status ${newStatus} with ${(existing.propertyCount || totalProperties) - 1} properties available`)
       })
     })
 
