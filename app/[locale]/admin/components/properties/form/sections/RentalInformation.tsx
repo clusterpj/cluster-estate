@@ -32,7 +32,7 @@ export function RentalInformation({ form }: RentalInformationProps) {
         <h3 className="font-semibold text-lg">{t('form.rentalInformation')}</h3>
       </div>
       
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         <FormField
           control={form.control}
           name="rental_price"

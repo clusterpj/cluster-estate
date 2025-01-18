@@ -60,15 +60,15 @@ export function PropertyForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 w-full">
-        <div className="grid grid-cols-2 gap-x-12 gap-y-8">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 w-full h-[calc(100vh-200px)] overflow-y-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 lg:gap-x-12 gap-y-8 px-4">
           {/* Left Column */}
           <div className="space-y-6">
             <BasicInformation form={form} />
           </div>
 
           {/* Right Column */}
-          <div className="space-y-6">
+          <div className="space-y-6 pb-8">
             {(form.watch('listing_type') === 'sale' || form.watch('listing_type') === 'both') && (
               <SaleInformation form={form} />
             )}
