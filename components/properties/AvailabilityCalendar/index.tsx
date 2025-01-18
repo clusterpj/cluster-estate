@@ -34,6 +34,8 @@ export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) 
         ? `/api/properties/${propertyId}/availability`
         : '/api/properties/availability'
       
+      console.log(`Fetching availability data from: ${endpoint}`)
+      
       const response = await fetch(endpoint, {
         headers: {
           'Cache-Control': 'no-cache',
@@ -41,9 +43,13 @@ export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) 
         }
       })
       
-      if (!response.ok) throw new Error('Failed to fetch availability data')
+      if (!response.ok) {
+        console.error('Failed to fetch availability data:', response.statusText)
+        throw new Error('Failed to fetch availability data')
+      }
       
       const data = await response.json()
+      console.log('Received availability data:', data)
       
       // Transform data to include partial availability
       return data.map((day: any) => {
@@ -70,13 +76,22 @@ export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) 
 
   // Generate calendar days with status
   const getCalendarDays = (): CalendarDay[] => {
-    if (!availabilityData) return []
+    if (!availabilityData) {
+      console.log('No availability data available')
+      return []
+    }
     
-    return availabilityData.map((day: any) => ({
-      date: new Date(day.date),
-      status: day.status,
-      propertyCount: day.propertyCount
-    }))
+    const days = availabilityData.map((day: any) => {
+      console.log(`Processing day ${day.date} with status ${day.status}`)
+      return {
+        date: new Date(day.date),
+        status: day.status,
+        propertyCount: day.propertyCount
+      }
+    })
+    
+    console.log('Generated calendar days:', days)
+    return days
   }
 
   // Calendar day styling based on status

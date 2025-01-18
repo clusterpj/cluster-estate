@@ -3,6 +3,7 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { PropertyAvailability } from '@/types/property'
 import { addDays, eachDayOfInterval, format } from 'date-fns'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: Request) {
   const supabase = createRouteHandlerClient({ cookies })
@@ -11,14 +12,20 @@ export async function GET(request: Request) {
   const endDate = searchParams.get('end')
   
   try {
+    logger.info(`Fetching aggregate availability from ${startDate} to ${endDate}`)
+    
     // Fetch all properties to get total count
     const { data: properties, error: propertiesError } = await supabase
       .from('properties')
       .select('id')
 
-    if (propertiesError) throw propertiesError
+    if (propertiesError) {
+      logger.error('Error fetching properties:', propertiesError)
+      throw propertiesError
+    }
 
     const totalProperties = properties.length
+    logger.info(`Total properties found: ${totalProperties}`)
 
     // Fetch bookings within date range
     const { data: bookings, error: bookingsError } = await supabase
@@ -27,7 +34,12 @@ export async function GET(request: Request) {
       .gte('check_in', startDate || new Date().toISOString())
       .lte('check_out', endDate || addDays(new Date(), 30).toISOString())
 
-    if (bookingsError) throw bookingsError
+    if (bookingsError) {
+      logger.error('Error fetching bookings:', bookingsError)
+      throw bookingsError
+    }
+
+    logger.info(`Found ${bookings.length} bookings across all properties:`, bookings)
 
     // Generate date range
     const dateRange = eachDayOfInterval({
@@ -73,6 +85,8 @@ export async function GET(request: Request) {
 
     // Convert map to array
     const availability = Array.from(availabilityMap.values())
+    
+    logger.info('Final aggregate availability data:', availability)
     
     return NextResponse.json(availability)
   } catch (error) {
