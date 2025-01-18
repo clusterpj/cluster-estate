@@ -13,9 +13,10 @@ interface AdminLayoutProps {
 
 export default async function AdminLayout({
   children,
-  params: { locale },
+  params,
   parallel
 }: AdminLayoutProps) {
+  const { locale } = params;
   const supabase = createServerComponentClient<Database>({ cookies })
   
   const {

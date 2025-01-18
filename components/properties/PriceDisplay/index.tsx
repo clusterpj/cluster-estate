@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations } from 'next-intl'
-import { Property } from "@/types/supabase"
+import type { Property } from '@/types/property';
 
 export function PriceDisplay({ property }: { property: Property }) {
   const t = useTranslations('PropertyDetails')

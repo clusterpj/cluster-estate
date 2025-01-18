@@ -6886,3 +6886,419 @@
 
 # 2025-01-13 20:48:14.576241
 +/drop
+
+# 2025-01-17 21:19:06.417999
++help me fix ti TS issue components/properties/PropertyBooking/PayPalButtons.tsx:122:15 - error TS2322: Type '{}' is not assignable to type 'ReactNode'.
++
++122               description: error.message || 'Payment failed'
++                  ~~~~~~~~~~~
++
++  components/ui/use-toast.ts:15:3
++    15   description?: React.ReactNode
++         ~~~~~~~~~~~
++    The expected type comes from property 'description' which is declared here on type 'Toast'
+
+# 2025-01-17 21:19:17.466747
++y
+
+# 2025-01-17 21:19:34.539844
++n
+
+# 2025-01-17 21:20:05.080659
++compile typescript and lets fix issues
+
+# 2025-01-17 21:20:39.822319
++n
+
+# 2025-01-17 21:20:47.519353
++/undo
+
+# 2025-01-17 21:21:24.480613
++[{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButton.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-explicit-any",
++"target": {
++"$mid": 1,
++"path": "/rules/no-explicit-any",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "Unexpected any. Specify a different type.",
++"source": "eslint",
++"startLineNumber": 11,
++"startColumn": 23,
++"endLineNumber": 11,
++"endColumn": 26
++}]
+
+# 2025-01-17 21:23:34.826914
++[{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButton.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-explicit-any",
++"target": {
++"$mid": 1,
++"external": "https://typescript-eslint.io/rules/no-explicit-any",
++"path": "/rules/no-explicit-any",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "Unexpected any. Specify a different type.",
++"source": "eslint",
++"startLineNumber": 11,
++"startColumn": 23,
++"endLineNumber": 11,
++"endColumn": 26
++}]
+
+# 2025-01-17 21:23:37.109487
++n
+
+# 2025-01-17 21:25:31.220251
++[{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButton.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-explicit-any",
++"target": {
++"$mid": 1,
++"external": "https://typescript-eslint.io/rules/no-explicit-any",
++"path": "/rules/no-explicit-any",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "Unexpected any. Specify a different type.",
++"source": "eslint",
++"startLineNumber": 11,
++"startColumn": 23,
++"endLineNumber": 11,
++"endColumn": 26
++}]
+
+# 2025-01-17 21:25:33.080332
++y
+
+# 2025-01-17 21:26:34.430982
++[{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-unused-vars",
++"target": {
++"$mid": 1,
++"path": "/rules/no-unused-vars",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "'SCRIPT_LOADING_STATE' is defined but never used.",
++"source": "eslint",
++"startLineNumber": 4,
++"startColumn": 49,
++"endLineNumber": 4,
++"endColumn": 69
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-unused-vars",
++"target": {
++"$mid": 1,
++"path": "/rules/no-unused-vars",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "'onInit' is defined but never used.",
++"source": "eslint",
++"startLineNumber": 34,
++"startColumn": 3,
++"endLineNumber": 34,
++"endColumn": 9
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx",
++"owner": "typescript",
++"code": "2554",
++"severity": 8,
++"message": "Expected 2 arguments, but got 1.",
++"source": "ts",
++"startLineNumber": 115,
++"startColumn": 21,
++"endLineNumber": 115,
++"endColumn": 30,
++"relatedInformation": [
++{
++"startLineNumber": 13,
++"startColumn": 5,
++"endLineNumber": 21,
++"endColumn": 6,
++"message": "An argument for 'actions' was not provided.",
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx"
++}
++]
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx",
++"owner": "typescript",
++"code": "2345",
++"severity": 8,
++"message": "Argument of type 'unknown' is not assignable to parameter of type '{ message?: string | undefined; details?: Record<string, unknown> | undefined; }'.",
++"source": "ts",
++"startLineNumber": 124,
++"startColumn": 23,
++"endLineNumber": 124,
++"endColumn": 28
++}]
+
+# 2025-01-17 21:27:05.588256
++[{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type '(data: { orderID: string; payerID?: string | undefined; }, actions: OnApproveActions) => Promise<void>' is not assignable to type 'PayPalButtonOnApprove'.\n  Types of parameters 'data' and 'data' are incompatible.\n    Type 'OnApproveData' is not assignable to type '{ orderID: string; payerID?: string | undefined; }'.\n      Types of property 'payerID' are incompatible.\n        Type 'string | null | undefined' is not assignable to type 'string | undefined'.\n          Type 'null' is not assignable to type 'string | undefined'.",
++"source": "ts",
++"startLineNumber": 107,
++"startColumn": 11,
++"endLineNumber": 107,
++"endColumn": 20,
++"relatedInformation": [
++{
++"startLineNumber": 309,
++"startColumn": 5,
++"endLineNumber": 309,
++"endColumn": 14,
++"message": "The expected type comes from property 'onApprove' which is declared here on type 'IntrinsicAttributes & PayPalButtonsComponentProps'",
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/node_modules/.pnpm/@paypal+paypal-js@8.1.2/node_modules/@paypal/paypal-js/types/components/buttons.d.ts"
++}
++]
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx",
++"owner": "typescript",
++"code": "2554",
++"severity": 8,
++"message": "Expected 2 arguments, but got 1.",
++"source": "ts",
++"startLineNumber": 113,
++"startColumn": 21,
++"endLineNumber": 113,
++"endColumn": 30,
++"relatedInformation": [
++{
++"startLineNumber": 13,
++"startColumn": 5,
++"endLineNumber": 21,
++"endColumn": 6,
++"message": "An argument for 'actions' was not provided.",
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx"
++}
++]
++}]
+
+# 2025-01-17 21:27:30.758266
++[{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type '(data: { orderID: string; payerID?: string | undefined; }, actions: OnApproveActions) => Promise<void>' is not assignable to type 'PayPalButtonOnApprove'.\n  Types of parameters 'data' and 'data' are incompatible.\n    Type 'OnApproveData' is not assignable to type '{ orderID: string; payerID?: string | undefined; }'.\n      Types of property 'payerID' are incompatible.\n        Type 'string | null | undefined' is not assignable to type 'string | undefined'.\n          Type 'null' is not assignable to type 'string | undefined'.",
++"source": "ts",
++"startLineNumber": 107,
++"startColumn": 11,
++"endLineNumber": 107,
++"endColumn": 20,
++"relatedInformation": [
++{
++"startLineNumber": 309,
++"startColumn": 5,
++"endLineNumber": 309,
++"endColumn": 14,
++"message": "The expected type comes from property 'onApprove' which is declared here on type 'IntrinsicAttributes & PayPalButtonsComponentProps'",
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/node_modules/.pnpm/@paypal+paypal-js@8.1.2/node_modules/@paypal/paypal-js/types/components/buttons.d.ts"
++}
++]
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx",
++"owner": "typescript",
++"code": "2345",
++"severity": 8,
++"message": "Argument of type 'OnApproveActions' is not assignable to parameter of type '{ order: { capture: () => Promise<{ status: string; id: string; payer: Record<string, unknown>; }>; }; }'.\n  Types of property 'order' are incompatible.\n    Type '{ capture: () => Promise<{ create_time?: string | undefined; update_time?: string | undefined; } & { id?: string | undefined; payment_source?: { card?: { name?: string | undefined; last_digits?: string | undefined; ... 7 more ...; bin_details?: { ...; } | undefined; } | undefined; ... 10 more ...; venmo?: { ...; } |...' is not assignable to type '{ capture: () => Promise<{ status: string; id: string; payer: Record<string, unknown>; }>; }'.\n      Type 'undefined' is not assignable to type '{ capture: () => Promise<{ status: string; id: string; payer: Record<string, unknown>; }>; }'.",
++"source": "ts",
++"startLineNumber": 113,
++"startColumn": 37,
++"endLineNumber": 113,
++"endColumn": 44
++}]
+
+# 2025-01-17 21:28:57.008155
++Unhandled Runtime Error
++
++NotFoundError: Node.removeChild: The node to be removed is not a child of this node
++Source
++
++components\properties\PropertyBooking\PayPalButton.tsx (112:23) @ removeChild
++
++  110 |       const script = document.querySelector('script[src*="paypal.com/sdk/js"]')
++  111 |       if (script) {
++> 112 |         document.body.removeChild(script)
++      |                       ^
++  113 |       }
++  114 |     }
++  115 |   }, [bookingData, onSuccess, onError, toast])
+
+# 2025-01-17 22:23:04.119127
++/drop components\properties\PropertyBooking\PayPalButton.tsx
+
+# 2025-01-17 22:23:58.961972
++onApprove={async (data: { orderID: string; payerID?: string }, actions) => {
++            console.log('PayPal payment approved:', data)
++            try {
++              console.log('Capturing PayPal payment...')
++              const captureData = await actions.order?.capture?.()
++              console.log('Payment captured successfully:', captureData)
++              await onApprove(data, actions)
++            } catch (error: unknown) {
++              console.error('Error capturing payment:', error)
++              setError('Payment processing failed')
++              toast({
++                variant: 'destructive',
++                title: 'Payment Error',
++                description: String('There was an error processing your payment')
++              })
++              onError({ message: error instanceof Error ? error.message : 'Unknown error' })
++            }
++          }}
+
+# 2025-01-17 22:24:33.124421
++We still have this issue left [{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx",
++"owner": "typescript",
++"code": "2345",
++"severity": 8,
++"message": "Argument of type 'OnApproveActions' is not assignable to parameter of type '{ order?: { capture: () => Promise<{ status: string; id: string; payer: Record<string, unknown>; create_time?: string | undefined; update_time?: string | undefined; payment_source?: Record<string, unknown> | undefined; }>; } | undefined; }'.\n  Types of property 'order' are incompatible.\n    Type '{ capture: () => Promise<{ create_time?: string | undefined; update_time?: string | undefined; } & { id?: string | undefined; payment_source?: { card?: { name?: string | undefined; last_digits?: string | undefined; ... 7 more ...; bin_details?: { ...; } | undefined; } | undefined; ... 10 more ...; venmo?: { ...; } |...' is not assignable to type '{ capture: () => Promise<{ status: string; id: string; payer: Record<string, unknown>; create_time?: string | undefined; update_time?: string | undefined; payment_source?: Record<string, unknown> | undefined; }>; } | undefined'.\n      Type '{ capture: () => Promise<{ create_time?: string | undefined; update_time?: string | undefined; } & { id?: string | undefined; payment_source?: { card?: { name?: string | undefined; last_digits?: string | undefined; ... 7 more ...; bin_details?: { ...; } | undefined; } | undefined; ... 10 more ...; venmo?: { ...; } |...' is not assignable to type '{ capture: () => Promise<{ status: string; id: string; payer: Record<string, unknown>; create_time?: string | undefined; update_time?: string | undefined; payment_source?: Record<string, unknown> | undefined; }>; }'.\n        The types returned by 'capture()' are incompatible between these types.\n          Type 'Promise<{ create_time?: string | undefined; update_time?: string | undefined; } & { id?: string | undefined; payment_source?: { card?: { name?: string | undefined; last_digits?: string | undefined; ... 7 more ...; bin_details?: { ...; } | undefined; } | undefined; ... 10 more ...; venmo?: { ...; } | undefined; } | u...' is not assignable to type 'Promise<{ status: string; id: string; payer: Record<string, unknown>; create_time?: string | undefined; update_time?: string | undefined; payment_source?: Record<string, unknown> | undefined; }>'.\n            Type '{ create_time?: string | undefined; update_time?: string | undefined; } & { id?: string | undefined; payment_source?: { card?: { name?: string | undefined; last_digits?: string | undefined; ... 7 more ...; bin_details?: { ...; } | undefined; } | undefined; ... 10 more ...; venmo?: { ...; } | undefined; } | undefined...' is not assignable to type '{ status: string; id: string; payer: Record<string, unknown>; create_time?: string | undefined; update_time?: string | undefined; payment_source?: Record<string, unknown> | undefined; }'.\n              Types of property 'status' are incompatible.\n                Type 'string | undefined' is not assignable to type 'string'.\n                  Type 'undefined' is not assignable to type 'string'.",
++"source": "ts",
++"startLineNumber": 125,
++"startColumn": 37,
++"endLineNumber": 125,
++"endColumn": 44
++}]
+
+# 2025-01-17 22:25:23.648368
++/drop components\ui\use-toast.ts
+
+# 2025-01-17 22:26:17.694476
++I see no types defined for paypal on the types folder is this why we are having all these issues?
+
+# 2025-01-17 22:26:46.280434
++y
+
+# 2025-01-17 22:26:56.385762
++/run npm install -D @paypal/react-paypal-js @paypal/paypal-js
+
+# 2025-01-17 22:26:56.385762
++/run npm install -D @paypal/react-paypal-js @paypal/paypal-js
+
+# 2025-01-17 22:28:09.477369
++use pnpm instead
+
+# 2025-01-17 22:28:23.965539
++y
+
+# 2025-01-17 22:28:23.970546
++/run pnpm add @paypal/react-paypal-js @paypal/paypal-js
+
+# 2025-01-17 22:28:23.970546
++/run pnpm add @paypal/react-paypal-js @paypal/paypal-js
+
+# 2025-01-17 22:28:34.081206
++y
+
+# 2025-01-17 22:29:36.159459
++However we still have issues [{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-unused-vars",
++"target": {
++"$mid": 1,
++"path": "/rules/no-unused-vars",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "'PayPalError' is defined but never used.",
++"source": "eslint",
++"startLineNumber": 7,
++"startColumn": 35,
++"endLineNumber": 7,
++"endColumn": 46
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx",
++"owner": "typescript",
++"code": "2345",
++"severity": 8,
++"message": "Argument of type 'OnApproveActions' is not assignable to parameter of type '{ order: { capture: () => Promise<PayPalCaptureResponse>; }; }'.\n  Types of property 'order' are incompatible.\n    Type '{ capture: () => Promise<{ create_time?: string | undefined; update_time?: string | undefined; } & { id?: string | undefined; payment_source?: { card?: { name?: string | undefined; last_digits?: string | undefined; ... 7 more ...; bin_details?: { ...; } | undefined; } | undefined; ... 10 more ...; venmo?: { ...; } |...' is not assignable to type '{ capture: () => Promise<PayPalCaptureResponse>; }'.\n      Type 'undefined' is not assignable to type '{ capture: () => Promise<PayPalCaptureResponse>; }'.",
++"source": "ts",
++"startLineNumber": 105,
++"startColumn": 37,
++"endLineNumber": 105,
++"endColumn": 44
++}]
+
+# 2025-01-17 22:30:10.761879
++The issue persys [{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type '(data: OnApproveData, actions: { order: { capture: () => Promise<PayPalCaptureResponse>; }; }) => Promise<void>' is not assignable to type 'PayPalButtonOnApprove'.\n  Types of parameters 'actions' and 'actions' are incompatible.\n    Type 'OnApproveActions' is not assignable to type '{ order: { capture: () => Promise<PayPalCaptureResponse>; }; }'.\n      Types of property 'order' are incompatible.\n        Type '{ capture: () => Promise<{ create_time?: string | undefined; update_time?: string | undefined; } & { id?: string | undefined; payment_source?: { card?: { name?: string | undefined; last_digits?: string | undefined; ... 7 more ...; bin_details?: { ...; } | undefined; } | undefined; ... 10 more ...; venmo?: { ...; } |...' is not assignable to type '{ capture: () => Promise<PayPalCaptureResponse>; }'.\n          Type 'undefined' is not assignable to type '{ capture: () => Promise<PayPalCaptureResponse>; }'.",
++"source": "ts",
++"startLineNumber": 90,
++"startColumn": 11,
++"endLineNumber": 90,
++"endColumn": 20,
++"relatedInformation": [
++{
++"startLineNumber": 309,
++"startColumn": 5,
++"endLineNumber": 309,
++"endColumn": 14,
++"message": "The expected type comes from property 'onApprove' which is declared here on type 'IntrinsicAttributes & PayPalButtonsComponentProps'",
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/node_modules/.pnpm/@paypal+paypal-js@8.1.2/node_modules/@paypal/paypal-js/types/components/buttons.d.ts"
++}
++]
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/components/properties/PropertyBooking/PayPalButtons.tsx",
++"owner": "typescript",
++"code": "2304",
++"severity": 8,
++"message": "Cannot find name 'PayPalCaptureResponse'.",
++"source": "ts",
++"startLineNumber": 90,
++"startColumn": 78,
++"endLineNumber": 90,
++"endColumn": 99
++}]
+
+# 2025-01-17 22:34:20.063610
++Please refactor this button to solve this typescript issue also make sure the paypal.ts gets updated as well if needed. Make sure the code is backwards comtabile an that adheres to the implementation guidelines from the paypal official docs for this type of integration https://developer.paypal.com/sdk/js/configuration/ https://developer.paypal.com/sdk/js/reference/
+
+# 2025-01-17 22:34:21.774612
++y
+
+# 2025-01-17 22:37:54.139827
++/run pnpm run dev
+
+# 2025-01-17 22:37:54.139827
++/run pnpm run dev

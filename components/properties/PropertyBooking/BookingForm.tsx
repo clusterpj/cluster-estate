@@ -135,7 +135,7 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
             } else {
               // If selected date is before check-in, reset both dates
               form.setValue('checkIn', date)
-              form.setValue('checkOut', null)
+              form.setValue('checkOut', new Date()); // Set to current date as default
             }
           }}
           selectedDates={{
