@@ -55,13 +55,34 @@ export interface PayPalError {
   details?: Record<string, unknown>
 }
 
+import type { PayPalButtonsComponentProps, OnApproveData, OnApproveActions } from '@paypal/paypal-js';
+
 export interface PayPalButtonsProps extends PayPalButtonsComponentProps {
-  totalPrice: number
-  currency?: string
+  totalPrice: number;
+  currency?: string;
   onApprove: (
     data: OnApproveData,
     actions: OnApproveActions
-  ) => Promise<void>
-  onError: (error: { message?: string; details?: Record<string, unknown> }) => void
-  onCancel?: () => void
+  ) => Promise<void>;
+  onError: (error: { message?: string; details?: Record<string, unknown> }) => void;
+  onCancel?: () => void;
+}
+
+export interface PayPalCaptureResponse {
+  id?: string;
+  status?: string;
+  payer?: {
+    name?: {
+      given_name?: string;
+      surname?: string;
+    };
+    email_address?: string;
+  };
+  create_time?: string;
+  update_time?: string;
+  links?: Array<{
+    href: string;
+    rel: string;
+    method: string;
+  }>;
 }
