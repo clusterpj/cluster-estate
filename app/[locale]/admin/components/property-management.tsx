@@ -250,28 +250,7 @@ export function PropertyManagement() {
             <PropertyForm
               mode="edit"
               propertyId={selectedProperty.id}
-              initialData={selectedProperty ? {
-                ...selectedProperty,
-                title: selectedProperty.title || '',
-                description: selectedProperty.description || '',
-                status: isValidPropertyStatus(selectedProperty.status) ? selectedProperty.status : 'available',
-                property_type: selectedProperty.property_type || 'house',
-                sale_price: selectedProperty.sale_price || 0,
-                rental_price: selectedProperty.rental_price || 0,
-                location: selectedProperty.location || '',
-                bedrooms: selectedProperty.bedrooms || 0,
-                bathrooms: selectedProperty.bathrooms || 0,
-                square_feet: selectedProperty.square_feet || 0,
-                deposit_amount: selectedProperty.deposit_amount ?? undefined,
-                minimum_rental_period: selectedProperty.minimum_rental_period ?? undefined,
-                available_from: selectedProperty.available_from ? 
-                  new Date(selectedProperty.available_from).toISOString().split('T')[0] : undefined,
-                available_to: selectedProperty.available_to ? 
-                  new Date(selectedProperty.available_to).toISOString().split('T')[0] : undefined,
-                features: Array.isArray(selectedProperty.features) ? selectedProperty.features : [],
-                images: Array.isArray(selectedProperty.images) ? selectedProperty.images : [],
-                rental_frequency: selectedProperty.rental_frequency ?? undefined,
-              } : undefined}
+              initialData={selectedProperty}
               onSuccess={() => {
                 setIsEditDialogOpen(false)
                 fetchProperties()
@@ -446,7 +425,29 @@ export function PropertyManagement() {
                     
                     <DropdownMenuItem
                       onClick={() => {
-                        setSelectedProperty(property)
+                        setSelectedProperty({
+                          ...property,
+                          // Ensure all required fields are present
+                          title: property.title || '',
+                          description: property.description || '',
+                          status: isValidPropertyStatus(property.status) ? property.status : 'available',
+                          property_type: property.property_type || 'house',
+                          sale_price: property.sale_price || 0,
+                          rental_price: property.rental_price || 0,
+                          location: property.location || '',
+                          bedrooms: property.bedrooms || 0,
+                          bathrooms: property.bathrooms || 0,
+                          square_feet: property.square_feet || 0,
+                          deposit_amount: property.deposit_amount ?? undefined,
+                          minimum_rental_period: property.minimum_rental_period ?? undefined,
+                          available_from: property.available_from ? 
+                            new Date(property.available_from).toISOString().split('T')[0] : undefined,
+                          available_to: property.available_to ? 
+                            new Date(property.available_to).toISOString().split('T')[0] : undefined,
+                          features: Array.isArray(property.features) ? property.features : [],
+                          images: Array.isArray(property.images) ? property.images : [],
+                          rental_frequency: property.rental_frequency ?? undefined,
+                        })
                         setIsEditDialogOpen(true)
                       }}
                     >
