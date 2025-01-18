@@ -8,15 +8,18 @@ import { useState, useEffect } from 'react'
 interface PayPalButtonsProps {
   totalPrice: number
   currency?: string
-  onApprove: (data: { orderID: string; payerID?: string }, actions: {
-    order: {
-      capture: () => Promise<{
-        status: string;
-        id: string;
-        payer: Record<string, unknown>;
-      }>;
-    };
-  }) => Promise<void>
+  onApprove: (
+    data: { orderID: string; payerID?: string }, 
+    actions: {
+      order: {
+        capture: () => Promise<{
+          status: string;
+          id: string;
+          payer: Record<string, unknown>;
+        }>;
+      };
+    }
+  ) => Promise<void>
   onError: (error: { message?: string; details?: Record<string, unknown> }) => void
   onCancel?: () => void
   onInit?: () => void
