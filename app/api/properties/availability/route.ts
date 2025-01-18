@@ -77,18 +77,29 @@ export async function GET(request: Request) {
           propertyCount: totalProperties
         }
         
-        logger.info(`Updating date ${dateKey} from status ${existing.status} to ${booking.status}`)
+        const newPropertyCount = (existing.propertyCount || totalProperties) - 1
         
-        // Only mark as booked if status is 'confirmed'
-        const newStatus = booking.status === 'confirmed' ? 'booked' : booking.status
+        // Calculate new status based on availability percentage
+        const availabilityPercentage = (newPropertyCount / totalProperties) * 100
+        let newStatus = existing.status
+        
+        if (booking.status === 'confirmed') {
+          newStatus = 'booked'
+        } else if (availabilityPercentage < 100 && availabilityPercentage > 0) {
+          newStatus = 'partial'
+        } else if (availabilityPercentage === 0) {
+          newStatus = 'booked'
+        } else if (booking.status === 'pending') {
+          newStatus = 'pending'
+        }
+        
+        logger.info(`Updating date ${dateKey} from status ${existing.status} to ${newStatus} with ${newPropertyCount}/${totalProperties} properties available`)
         
         availabilityMap.set(dateKey, {
           date: dateKey,
           status: newStatus,
-          propertyCount: (existing.propertyCount || totalProperties) - 1
+          propertyCount: newPropertyCount
         })
-        
-        logger.info(`Set date ${dateKey} to status ${newStatus} with ${(existing.propertyCount || totalProperties) - 1} properties available`)
       })
     })
 
