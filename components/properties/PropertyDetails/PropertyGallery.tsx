@@ -46,10 +46,10 @@ export function PropertyGallery({ property }: PropertyGalleryProps) {
   return (
     <div className="space-y-4">
       {/* Main Gallery Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         {/* Large primary image */}
         <div 
-          className="relative aspect-square md:aspect-[4/3] cursor-pointer"
+          className="relative aspect-[16/9] cursor-pointer"
           onClick={() => handleImageClick(0)}
         >
           <Image
@@ -62,12 +62,12 @@ export function PropertyGallery({ property }: PropertyGalleryProps) {
         </div>
 
         {/* 2x2 grid for smaller images */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-2">
           {images.slice(1, 5).map((image, index) => (
             <div
               key={index}
               className={cn(
-                "relative aspect-square cursor-pointer",
+                "relative aspect-[16/9] cursor-pointer",
                 index === 3 && images.length > 5 && "relative"
               )}
               onClick={() => handleImageClick(index + 1)}
