@@ -108,7 +108,7 @@ export function PayPalButtonsWrapper({
               toast({
                 variant: 'destructive',
                 title: 'Payment Error',
-                description: 'There was an error processing your payment'
+                description: String('There was an error processing your payment')
               })
               onError(error)
             }
@@ -119,7 +119,7 @@ export function PayPalButtonsWrapper({
             toast({
               variant: 'destructive',
               title: 'Payment Error',
-              description: error.message || 'Payment failed'
+              description: String(error.message || 'Payment failed')
             })
             onError(error)
           }}
