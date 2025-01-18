@@ -380,7 +380,14 @@
             "depositAmount": "Security Deposit",
             "availableFrom": "Available From",
             "availableTo": "Available To",
-            "submit": "Save Property"
+            "submit": "Save Property",
+            "petsAllowed": "Pets Allowed",
+            "petsAllowedDescription": "Whether pets are allowed at this property",
+            "petInformation": "Pet Information",
+            "petRestrictions": "Pet Restrictions",
+            "petRestrictionsDescription": "List any restrictions for pets (e.g. size, breed)",
+            "petRestrictionsPlaceholder": "Add a restriction...",
+            "petDeposit": "Pet Deposit"
           },
           "actions": {
             "createProperty": "Add Property",
