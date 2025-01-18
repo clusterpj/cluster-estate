@@ -1,6 +1,7 @@
 'use client'
 
-import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
+import React from 'react'
+import { PayPalButtons, usePayPalScriptReducer, SCRIPT_LOADING_STATE, DISPATCH_ACTION } from '@paypal/react-paypal-js'
 import { useToast } from '@/components/ui/use-toast'
 import { useState, useEffect } from 'react'
 
@@ -20,7 +21,7 @@ export function PayPalButtonsWrapper({
   onError,
   onCancel,
   onInit
-}: PayPalButtonsProps) {
+}: PayPalButtonsProps): React.ReactNode {
   const { toast } = useToast()
   const [{ isPending, isRejected }, dispatch] = usePayPalScriptReducer()
   const [error, setError] = useState<string | null>(null)
@@ -28,9 +29,9 @@ export function PayPalButtonsWrapper({
 
   useEffect(() => {
     dispatch({
-      type: 'resetOptions',
+      type: DISPATCH_ACTION.RESET_OPTIONS,
       value: {
-        'client-id': process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '',
+        clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '',
         currency,
         'disable-funding': 'credit,card',
         'enable-funding': 'paypal'
@@ -39,58 +40,64 @@ export function PayPalButtonsWrapper({
   }, [currency, dispatch])
 
   if (isPending) {
-    return <div>Loading PayPal...</div>
+    return (
+      <div className="w-full p-4 text-center text-gray-500">
+        Loading PayPal...
+      </div>
+    );
   }
 
   if (isRejected || error) {
     return (
-      <div className="text-red-500">
+      <div className="w-full p-4 text-center text-red-500">
         Payment system error: {error || 'Failed to load PayPal'}
       </div>
-    )
+    );
   }
 
   return (
-    <PayPalButtons
-      style={{ layout: 'vertical' }}
-      createOrder={(data, actions) => {
-        console.log('Creating PayPal order...')
-        try {
-          setIsCreatingOrder(true)
-          return actions.order.create({
-            purchase_units: [{
-              amount: {
-                value: totalPrice.toString(),
-                currency_code: currency,
-                breakdown: {
-                  item_total: {
+    <div className="w-full space-y-4">
+      <div className="relative">
+        <PayPalButtons
+          style={{ layout: 'vertical', label: 'checkout' }}
+          createOrder={(data, actions) => {
+            console.log('Creating PayPal order...')
+            try {
+              setIsCreatingOrder(true)
+              return actions.order.create({
+                intent: "CAPTURE",
+                purchase_units: [{
+                  amount: {
                     value: totalPrice.toString(),
-                    currency_code: currency
-                  }
-                }
-              },
-              items: [{
-                name: 'Property Booking',
-                quantity: '1',
-                unit_amount: {
-                  value: totalPrice.toString(),
-                  currency_code: currency
-                }
-              }]
-            }]
-          })
-        } catch (err) {
-          console.error('Error creating PayPal order:', err)
-          setError('Failed to create payment order')
-          throw err
-        } finally {
-          setIsCreatingOrder(false)
-        }
-      }}
+                    currency_code: currency,
+                    breakdown: {
+                      item_total: {
+                        value: totalPrice.toString(),
+                        currency_code: currency
+                      }
+                    }
+                  },
+                  items: [{
+                    name: 'Property Booking',
+                    quantity: '1',
+                    unit_amount: {
+                      value: totalPrice.toString(),
+                      currency_code: currency
+                    }
+                  }]
+                }]
+              })
+            } catch (err) {
+              console.error('Error creating PayPal order:', err)
+              setError('Failed to create payment order')
+              throw err
+            } finally {
+              setIsCreatingOrder(false)
+            }
+          }}
           onApprove={async (data, actions) => {
             console.log('PayPal payment approved:', data)
             try {
-              await actions.order?.capture()
               console.log('Capturing PayPal payment...')
               const captureData = await actions.order?.capture()
               console.log('Payment captured successfully:', captureData)
@@ -123,8 +130,15 @@ export function PayPalButtonsWrapper({
           }}
           forceReRender={[totalPrice, currency]}
           disabled={isCreatingOrder}
-      disabled={isCreatingOrder}
-      forceReRender={[totalPrice, currency]}
-    />
-  )
+        />
+        {isCreatingOrder && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white/80">
+            <div className="text-sm text-gray-500">
+              Processing your payment...
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
