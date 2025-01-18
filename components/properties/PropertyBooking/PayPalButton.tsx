@@ -108,7 +108,7 @@ export function PayPalButton({ bookingData, onSuccess, onError }: PayPalButtonPr
 
     return () => {
       const script = document.querySelector('script[src*="paypal.com/sdk/js"]')
-      if (script) {
+      if (script && script.parentNode === document.body) {
         document.body.removeChild(script)
       }
     }
