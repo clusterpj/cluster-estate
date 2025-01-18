@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { UserManagement } from './components/user-management'
 import { PropertyManagement } from './components/property-management'
 import { BookingsManagement } from './components/bookings-management'
+import { CalendarManagement } from './components/calendar-management'
 import { DashboardHeader } from './components/dashboard-header'
 import { DashboardStats } from './components/dashboard-stats'
 import { useTranslations } from 'next-intl'
@@ -95,24 +96,7 @@ export default function AdminDashboard() {
               <CardTitle>{t('calendar.title')}</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-semibold">iCal Integration</h3>
-                  <Button variant="outline">
-                    Sync Calendar
-                  </Button>
-                </div>
-                <div className="border rounded-lg p-4">
-                  <p className="text-muted-foreground">
-                    Calendar sync coming soon. This feature will allow you to:
-                  </p>
-                  <ul className="list-disc list-inside mt-2 text-muted-foreground">
-                    <li>Sync property availability with external calendars</li>
-                    <li>Import bookings from other platforms</li>
-                    <li>Export your calendar to iCal format</li>
-                  </ul>
-                </div>
-              </div>
+              <CalendarManagement />
             </CardContent>
           </Card>
         </TabsContent>
