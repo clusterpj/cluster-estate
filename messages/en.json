@@ -262,7 +262,17 @@
       "calendar": {
         "title": "Calendar Management",
         "description": "Manage calendar sync and availability",
-        "title": "Calendar"
+        "legend": {
+          "available": "Available",
+          "booked": "Booked",
+          "pending": "Pending",
+          "maintenance": "Maintenance",
+          "partial": "Partial Availability"
+        },
+        "loading": "Loading calendar...",
+        "selectProperty": "Select Property",
+        "pickDate": "Pick a date",
+        "allProperties": "All Properties"
       },
       "users": {
         "title": "User Management",
