@@ -387,7 +387,9 @@
             "petRestrictions": "Pet Restrictions",
             "petRestrictionsDescription": "List any restrictions for pets (e.g. size, breed)",
             "petRestrictionsPlaceholder": "Add a restriction...",
-            "petDeposit": "Pet Deposit"
+            "petDeposit": "Pet Deposit",
+            "update": "Update",
+            "updating": "Updating"
           },
           "actions": {
             "createProperty": "Add Property",

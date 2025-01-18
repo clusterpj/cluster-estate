@@ -6,7 +6,7 @@ deepseek: true
 edit-format: diff
 
 # Token and context settings
-map-tokens: 2024
+map-tokens: 4024
 max-chat-history-tokens: 4024
 
 # Performance Settings

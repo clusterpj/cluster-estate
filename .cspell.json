@@ -13,6 +13,7 @@
     "oceanworld",
     "sqft",
     "supabase",
-    "unmark"
+    "unmark",
+    "uuidv4"
   ]
 }
