@@ -23,6 +23,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 interface CalendarSource {
   id: string;
@@ -270,7 +272,7 @@ export function CalendarManagement() {
                     </TableCell>
                     <TableCell>
                       {source.is_active ? (
-                        <Badge variant="success">Active</Badge>
+                        <Badge variant="default">Active</Badge>
                       ) : (
                         <Badge variant="secondary">Inactive</Badge>
                       )}
