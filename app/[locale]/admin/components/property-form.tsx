@@ -28,48 +28,63 @@ export function PropertyForm({
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (data: PropertyFormValues) => {
+    console.log('Form submitted with data:', data)
     setIsLoading(true)
+    
     try {
+      // Validate form
+      const isValid = await form.trigger()
+      if (!isValid) {
+        console.log('Form validation failed')
+        return
+      }
+
       const processedData = await onSubmit(data)
+      console.log('Processed data:', processedData)
+      
       const supabase = createClientComponentClient<Database>()
       
       if (mode === 'edit' && propertyId) {
-        // For edit mode, we need to preserve some existing fields
-        const { data: existingData } = await supabase
+        console.log('Updating existing property...')
+        const { data: existingData, error: fetchError } = await supabase
           .from('properties')
           .select('*')
           .eq('id', propertyId)
           .single()
 
-        if (!existingData) {
-          throw new Error('Property not found')
-        }
+        if (fetchError) throw fetchError
+        if (!existingData) throw new Error('Property not found')
 
-        // Merge existing data with updated data
         const updatedData = {
           ...existingData,
           ...processedData,
           updated_at: new Date().toISOString()
         }
 
-        const { error } = await supabase
+        console.log('Updating with data:', updatedData)
+        
+        const { error: updateError } = await supabase
           .from('properties')
           .update(updatedData)
           .eq('id', propertyId)
 
-        if (error) throw error
+        if (updateError) throw updateError
+        
+        console.log('Property updated successfully')
+        onSuccess?.()
       } else {
-        // Create new property
-        const { error } = await supabase
+        console.log('Creating new property...')
+        const { data: newProperty, error: insertError } = await supabase
           .from('properties')
           .insert([processedData])
           .select()
           .single()
 
-        if (error) throw error
+        if (insertError) throw insertError
+        
+        console.log('Property created successfully:', newProperty)
+        onSuccess?.()
       }
-      
-      onSuccess?.()
     } catch (error) {
       console.error('Error in form submission:', error)
       onError?.(error)
@@ -80,7 +95,14 @@ export function PropertyForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 w-full h-[calc(100vh-200px)] overflow-y-auto">
+      <form 
+        onSubmit={(e) => {
+          console.log('Form submit event triggered')
+          e.preventDefault()
+          form.handleSubmit(handleSubmit)(e)
+        }} 
+        className="space-y-8 w-full h-[calc(100vh-200px)] overflow-y-auto"
+      >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 lg:gap-x-12 gap-y-8 px-4">
           {/* Left Column */}
           <div className="space-y-6">
