@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { logger } from '@/lib/logger'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 import { Toggle } from '@/components/ui/toggle'
