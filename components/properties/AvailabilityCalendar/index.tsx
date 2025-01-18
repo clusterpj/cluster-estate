@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Calendar } from '@/components/ui/calendar'
+import { DayPicker } from 'react-day-picker'
+import 'react-day-picker/dist/style.css'
 import { Toggle } from '@/components/ui/toggle'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { useQuery } from '@tanstack/react-query'
@@ -82,65 +83,72 @@ export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) 
   }
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>
+    <div className="w-full">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold">
           {viewMode === 'single' 
             ? t('singlePropertyTitle') 
             : t('allPropertiesTitle')}
-        </CardTitle>
-        <div className="flex items-center gap-2">
-          <Toggle
-            pressed={viewMode === 'single'}
-            onPressedChange={(pressed) => setViewMode(pressed ? 'single' : 'aggregate')}
-            aria-label={t('toggleViewMode')}
-          >
-            {viewMode === 'single' ? t('singleView') : t('aggregateView')}
-          </Toggle>
-        </div>
-      </CardHeader>
-      <CardContent>
-        {isLoading ? (
-          <Skeleton className="h-[400px] w-full" />
-        ) : (
-          <Calendar
-            mode="single"
-            selected={selectedDate}
-            onSelect={setSelectedDate}
-            className="rounded-md border w-full min-w-[800px]"
-            classNames={{
-              day: (date) => {
-                const dayData = getCalendarDays().find(d => 
-                  d.date.toDateString() === date.toDateString()
-                )
-                return dayData ? getDayClassName(dayData) : ''
-              }
-            }}
-            disabled={(date) => date < new Date()}
-            components={{
-              DayContent: ({ date }) => {
-                const dayData = getCalendarDays().find(d => 
-                  d.date.toDateString() === date.toDateString()
-                )
-                
-                return (
-                  <div className="relative">
-                    <span>{date.getDate()}</span>
-                    {viewMode === 'aggregate' && dayData?.propertyCount && (
-                      <Badge 
-                        variant="secondary" 
-                        className="absolute -top-1 -right-1 h-4 w-4 p-0 text-xs"
-                      >
-                        {dayData.propertyCount}
-                      </Badge>
-                    )}
-                  </div>
-                )
-              }
-            }}
-          />
-        )}
-      </CardContent>
-    </Card>
+        </h2>
+        <Toggle
+          pressed={viewMode === 'single'}
+          onPressedChange={(pressed) => setViewMode(pressed ? 'single' : 'aggregate')}
+          aria-label={t('toggleViewMode')}
+        >
+          {viewMode === 'single' ? t('singleView') : t('aggregateView')}
+        </Toggle>
+      </div>
+      
+      {isLoading ? (
+        <Skeleton className="h-[400px] w-full" />
+      ) : (
+        <DayPicker
+          mode="single"
+          selected={selectedDate}
+          onSelect={setSelectedDate}
+          className="w-full"
+          classNames={{
+            root: 'w-full',
+            months: 'w-full',
+            month: 'w-full',
+            caption: 'flex justify-center items-center h-12',
+            nav_button: 'h-6 w-6 bg-transparent hover:bg-accent',
+            table: 'w-full',
+            head_row: 'w-full',
+            head_cell: 'w-1/7 text-center',
+            row: 'w-full',
+            cell: 'w-1/7 text-center',
+            day: (date) => {
+              const dayData = getCalendarDays().find(d => 
+                d.date.toDateString() === date.toDateString()
+              )
+              return dayData ? getDayClassName(dayData) : ''
+            }
+          }}
+          disabled={(date) => date < new Date()}
+          components={{
+            DayContent: ({ date }) => {
+              const dayData = getCalendarDays().find(d => 
+                d.date.toDateString() === date.toDateString()
+              )
+              
+              return (
+                <div className="relative">
+                  <span>{date.getDate()}</span>
+                  {viewMode === 'aggregate' && dayData?.propertyCount && (
+                    <Badge 
+                      variant="secondary" 
+                      className="absolute -top-1 -right-1 h-4 w-4 p-0 text-xs"
+                    >
+                      {dayData.propertyCount}
+                    </Badge>
+                  )}
+                </div>
+              )
+            }
+          }}
+        />
+      )}
+    </div>
   )
 }
