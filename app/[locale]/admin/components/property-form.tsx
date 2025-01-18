@@ -1,57 +1,17 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import type { Database } from '@/types/supabase'
 import { Button } from '@/components/ui/button'
-import { Switch } from '@/components/ui/switch'
 import { Form } from '@/components/ui/form'
 import { useTranslations } from 'next-intl'
-import { useState, useEffect } from 'react' 
+import { useState } from 'react'
 import { BasicInformation } from '@/app/[locale]/admin/components/properties/form/sections/BasicInformation'
 import { SaleInformation } from '@/app/[locale]/admin/components/properties/form/sections/SaleInformation'
 import { RentalInformation } from '@/app/[locale]/admin/components/properties/form/sections/RentalInformation'
 import { PetInformation } from '@/app/[locale]/admin/components/properties/form/sections/PetInformation'
 import { FeaturesSection } from '@/app/[locale]/admin/components/properties/form/sections/FeaturesSection'
 import { ImagesSection } from '@/app/[locale]/admin/components/properties/form/sections/ImagesSection'
-import { propertyFormSchema, PropertyFormValues } from './components/properties/form/schema'
-
-type PropertyInsert = Database['public']['Tables']['properties']['Insert']
-
-const propertyFormSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  description: z.string().min(1, 'Description is required'),
-  sale_price: z.number().min(0, 'Sale price must be positive'),
-  pets_allowed: z.boolean().default(false),
-  pet_restrictions: z.array(z.string()).default([]),
-  pet_deposit: z.number().min(0, 'Pet deposit must be positive').optional(),
-  location: z.string().min(1, 'Location is required'),
-  bedrooms: z.number().min(0, 'Number of bedrooms must be positive'),
-  bathrooms: z.number().min(0, 'Number of bathrooms must be positive'),
-  square_feet: z.number().min(0, 'Square feet must be positive'),
-  status: z.enum(['available', 'sold', 'pending', 'rented']).default('available'),
-  listing_type: z.enum(['sale', 'rent', 'both']).default('sale'),
-  property_type: z.enum(['house', 'villa', 'condo', 'lot']).default('house'),
-  rental_price: z.number().min(0, 'Rental price must be positive').optional(),
-  rental_frequency: z.enum(['daily', 'weekly', 'monthly', 'yearly']).optional(),
-  minimum_rental_period: z.number().min(0, 'Minimum rental period must be positive').optional(),
-  deposit_amount: z.number().min(0, 'Deposit amount must be positive').optional(),
-  available_from: z.string().optional(),
-  available_to: z.string().optional(),
-  features: z.array(z.string()).default([]),
-  images: z.array(z.string()).default([]),
-})
-
-type PropertyFormValues = z.infer<typeof propertyFormSchema>
-
-interface PropertyFormProps {
-  onSuccess?: () => void
-  onError?: (error: any) => void
-  initialData?: PropertyFormValues
-  mode?: 'create' | 'edit'
-  propertyId?: string
-}
+import { usePropertyForm } from './components/properties/form/hooks/usePropertyForm'
+import { PropertyFormProps } from './components/properties/form/types'
 
 export function PropertyForm({ 
   onSuccess, 
@@ -60,194 +20,45 @@ export function PropertyForm({
   mode = 'create',
   propertyId 
 }: PropertyFormProps) {
-  const [uploadedImages, setUploadedImages] = useState<string[]>(initialData?.images || []);
   const t = useTranslations('auth.adminSection.properties')
-  const supabase = createClientComponentClient<Database>()
+  const { form, onSubmit } = usePropertyForm(initialData)
 
-  useEffect(() => {
-    if (initialData?.images) {
-      setUploadedImages(initialData.images);
-    }
-  }, [initialData?.images]);
-
-  const form = useForm<PropertyFormValues>({
-    resolver: zodResolver(propertyFormSchema),
-    defaultValues: {
-      title: '',
-      description: '',
-      sale_price: 0,
-      pets_allowed: false,
-      pet_restrictions: [],
-      pet_deposit: undefined,
-      location: '',
-      bedrooms: 1,
-      bathrooms: 1,
-      square_feet: 0,
-      status: 'available',
-      listing_type: 'sale',
-      property_type: 'house',
-      rental_price: undefined,
-      rental_frequency: undefined,
-      minimum_rental_period: undefined,
-      deposit_amount: undefined,
-      available_from: '',
-      available_to: '',
-      features: [],
-      images: [],
-      ...(initialData || {}), // Spread initialData last to override defaults
-    },
-  })
-
-  // Debug logging for form initialization
-  useEffect(() => {
-    console.group('Form Initialization Debug')
-    console.log('Initial Data:', initialData)
-    console.log('Form Values:', form.getValues())
-    console.log('Uploaded Images:', uploadedImages)
-    console.groupEnd()
-  }, [initialData, form, uploadedImages])
-
-  const processPropertyData = async () => {
-    const formData = form.getValues();
-    console.log('Form data before processing:', formData);
-    
-    const { data: { user } } = await supabase.auth.getUser();
-
-    const processedData = {
-      ...formData,
-      sale_price: formData.sale_price || null,
-      rental_price: formData.rental_price || null,
-      features: Array.isArray(formData.features) ? formData.features : [],
-      images: uploadedImages,
-      user_id: user?.id,
-      property_type: formData.property_type || 'house', // Default to 'house' if not specified
-      available_from: formData.listing_type === 'rent' || formData.listing_type === 'both' ? 
-        (formData.available_from ? new Date(formData.available_from).toISOString() : null) : null,
-      available_to: formData.listing_type === 'rent' || formData.listing_type === 'both' ? 
-        (formData.available_to ? new Date(formData.available_to).toISOString() : null) : null,
-    };
-
-    console.log('Processed data for database:', processedData);
-    return processedData;
-  };
-
-  async function onSubmit(data: PropertyFormValues) {
-    console.group('Form Submission Debug');
-    console.log('Raw Form Data:', data);
-    console.log('Processed Dates:', {
-      available_from: data.available_from ? new Date(data.available_from) : null,
-      available_to: data.available_to ? new Date(data.available_to) : null
-    });
-    console.log('Current Form State:', form.getValues());
-    console.groupEnd();
+  const handleSubmit = async (data: any) => {
     try {
-      // Process the property data with user information
-      const propertyData = await processPropertyData();
-      console.log('Processing property data:', propertyData);
-
-      let dbOperation;
+      const processedData = await onSubmit(data)
+      
+      const supabase = createClientComponentClient<Database>()
+      let dbOperation
+      
       if (mode === 'edit' && propertyId) {
-        // Update existing property
         dbOperation = supabase
           .from('properties')
-          .update(propertyData)
+          .update(processedData)
           .eq('id', propertyId)
           .select()
-          .single();
+          .single()
       } else {
-        // Create new property
         dbOperation = supabase
           .from('properties')
-          .insert([propertyData])
+          .insert([processedData])
           .select()
-          .single();
+          .single()
       }
 
-      const { data: savedProperty, error } = await dbOperation;
+      const { data: savedProperty, error } = await dbOperation
 
-      if (error) {
-        console.error('Error saving property:', error);
-        throw error;
-      }
-
-      console.log('Property saved successfully:', savedProperty);
-      onSuccess?.();
-    } catch (error) {
-      console.error('Error in form submission:', error);
-      onError?.(error);
-    }
-  }
-
-  const handleImageUpload = async (files: FileList | null) => {
-    if (!files || files.length === 0) return
-
-    try {
-      console.log('Starting image upload for files:', files)
-      const uploadedUrls: string[] = [];
-
-      for (const file of Array.from(files)) {
-        const fileExt = file.name.split('.').pop();
-        const fileName = `${uuidv4()}.${fileExt}`;
-        const filePath = `properties/${fileName}`;
-        
-        console.log('Uploading file:', filePath);
-        
-        const { data: uploadData, error: uploadError } = await supabase.storage
-          .from('property-images')
-          .upload(filePath, file);
-
-        if (uploadError) {
-          console.error('Error uploading file:', uploadError);
-          throw uploadError;
-        }
-
-        console.log('File uploaded successfully:', uploadData);
-
-        // Get public URL for the uploaded file
-        const { data: { publicUrl } } = supabase.storage
-          .from('property-images')
-          .getPublicUrl(filePath);
-
-        console.log('Generated public URL:', publicUrl);
-        uploadedUrls.push(publicUrl);
-      }
-
-      console.log('All images uploaded successfully:', uploadedUrls);
-      setUploadedImages(uploadedUrls);
-      console.log('Updated form images:', uploadedUrls);
-
-    } catch (error) {
-      console.error('Error uploading images:', error);
-      onError?.(error);
-    }
-  }
-
-  function handleFeatureAdd(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter' && event.currentTarget.value) {
-      event.preventDefault()
-      const newFeature = event.currentTarget.value.trim()
-      const currentFeatures = form.getValues('features')
+      if (error) throw error
       
-      if (newFeature && !currentFeatures.includes(newFeature)) {
-        form.setValue('features', [...currentFeatures, newFeature])
-        event.currentTarget.value = ''
-      }
+      onSuccess?.()
+    } catch (error) {
+      console.error('Error in form submission:', error)
+      onError?.(error)
     }
-  }
-
-  function handleFeatureRemove(feature: string) {
-    const currentFeatures = form.getValues('features')
-    form.setValue('features', currentFeatures.filter(f => f !== feature))
-  }
-
-  function handleImageRemove(image: string) {
-    const currentImages = uploadedImages
-    setUploadedImages(currentImages.filter(img => img !== image))
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 w-full">
         <div className="grid grid-cols-2 gap-x-12 gap-y-8">
           {/* Left Column */}
           <div className="space-y-6">
@@ -256,340 +67,20 @@ export function PropertyForm({
 
           {/* Right Column */}
           <div className="space-y-6">
-            {/* Sale Information */}
             {(form.watch('listing_type') === 'sale' || form.watch('listing_type') === 'both') && (
-              <div className="space-y-6">
-                <div className="border-b pb-2">
-                  <h3 className="font-semibold text-lg">{t('form.saleInformation')}</h3>
-                </div>
-                <FormField
-                  control={form.control}
-                  name="sale_price"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('form.price')}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          {...field}
-                          onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+              <SaleInformation form={form} />
             )}
 
-            {/* Pets Allowed Switch */}
-            <FormField
-              control={form.control}
-              name="pets_allowed"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                  <div className="space-y-0.5">
-                    <FormLabel className="text-base">{t('form.petsAllowed')}</FormLabel>
-                    <FormDescription>{t('form.petsAllowedDescription')}</FormDescription>
-                  </div>
-                  <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-
-            {/* Rental Information */}
             {(form.watch('listing_type') === 'rent' || form.watch('listing_type') === 'both') && (
-              <div className="space-y-6">
-                <div className="border-b pb-2">
-                  <h3 className="font-semibold text-lg">{t('form.rentalInformation')}</h3>
-                </div>
-                <div className="grid grid-cols-2 gap-6">
-                  <FormField
-                    control={form.control}
-                    name="rental_price"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('form.rentalPrice')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            {...field}
-                            onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="rental_frequency"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('form.rentalFrequency')}</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value || ''}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder={t('form.selectRentalFrequency')} />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="daily">{t('rentalFrequency.daily')}</SelectItem>
-                            <SelectItem value="weekly">{t('rentalFrequency.weekly')}</SelectItem>
-                            <SelectItem value="monthly">{t('rentalFrequency.monthly')}</SelectItem>
-                            <SelectItem value="yearly">{t('rentalFrequency.yearly')}</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-6">
-                  <FormField
-                    control={form.control}
-                    name="minimum_rental_period"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('form.minimumRentalPeriod')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            {...field}
-                            onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="deposit_amount"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('form.depositAmount')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            {...field}
-                            onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-6">
-                  <FormField
-                    control={form.control}
-                    name="available_from"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('form.availableFrom')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="date"
-                            value={field.value || ''}
-                            onChange={(e) => {
-                              const date = e.target.value;
-                              console.log('Date input changed:', {
-                                rawValue: date,
-                                isoString: date
-                              });
-                              field.onChange(date);
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="available_to"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('form.availableTo')}</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="date"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
+              <RentalInformation form={form} />
             )}
 
-            {/* Pet Information Section */}
-            {(form.watch('pets_allowed')) && (
-              <div className="space-y-6">
-                <div className="border-b pb-2">
-                  <h3 className="font-semibold text-lg">{t('form.petInformation')}</h3>
-                </div>
-                
-                <FormField
-                  control={form.control}
-                  name="pet_restrictions"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('form.petRestrictions')}</FormLabel>
-                      <FormDescription>{t('form.petRestrictionsDescription')}</FormDescription>
-                      <FormControl>
-                        <div className="space-y-2">
-                          <Input
-                            placeholder={t('form.petRestrictionsPlaceholder')}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter' && e.currentTarget.value) {
-                                e.preventDefault()
-                                const newRestriction = e.currentTarget.value.trim()
-                                const currentRestrictions = form.getValues('pet_restrictions')
-                                
-                                if (newRestriction && !currentRestrictions.includes(newRestriction)) {
-                                  form.setValue('pet_restrictions', [...currentRestrictions, newRestriction])
-                                  e.currentTarget.value = ''
-                                }
-                              }
-                            }}
-                          />
-                          <div className="flex flex-wrap gap-2">
-                            {field.value.map((restriction, index) => (
-                              <Badge key={index} variant="secondary">
-                                {restriction}
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    const currentRestrictions = form.getValues('pet_restrictions')
-                                    form.setValue('pet_restrictions', currentRestrictions.filter(r => r !== restriction))
-                                  }}
-                                  className="ml-1 hover:text-destructive"
-                                >
-                                  <X className="h-3 w-3" />
-                                </button>
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="pet_deposit"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('form.petDeposit')}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          {...field}
-                          onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+            {form.watch('pets_allowed') && (
+              <PetInformation form={form} />
             )}
 
-            {/* Features and Images Section */}
-            <div className="space-y-6">
-              <div className="border-b pb-2">
-                <h3 className="font-semibold text-lg">{t('form.additionalInformation')}</h3>
-              </div>
-              <FormField
-                control={form.control}
-                name="features"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('form.features')}</FormLabel>
-                    <FormDescription>{t('form.featuresDescription')}</FormDescription>
-                    <FormControl>
-                      <div className="space-y-2">
-                        <Input
-                          placeholder={t('form.featuresPlaceholder')}
-                          onKeyDown={handleFeatureAdd}
-                        />
-                        <div className="flex flex-wrap gap-2">
-                          {field.value.map((feature, index) => (
-                            <Badge key={index} variant="secondary">
-                              {feature}
-                              <button
-                                type="button"
-                                onClick={() => handleFeatureRemove(feature)}
-                                className="ml-1 hover:text-destructive"
-                              >
-                                <X className="h-3 w-3" />
-                              </button>
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="images"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('form.images')}</FormLabel>
-                    <FormDescription>{t('form.imagesDescription')}</FormDescription>
-                    <FormControl>
-                      <div className="space-y-2">
-                        <Input
-                          type="file"
-                          accept="image/jpeg,image/png"
-                          multiple
-                          onChange={(e) => handleImageUpload(e.target.files)}
-                        />
-                        <div className="grid grid-cols-3 gap-2">
-                          {uploadedImages.map((image, index) => (
-                            <div key={index} className="relative group">
-                              <img
-                                src={image}
-                                alt={`Property ${index + 1}`}
-                                className="w-full h-24 object-cover rounded-md"
-                              />
-                              <button
-                                type="button"
-                                onClick={() => handleImageRemove(image)}
-                                className="absolute top-1 right-1 p-1 bg-background/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                              >
-                                <X className="h-4 w-4 text-destructive" />
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            <FeaturesSection form={form} />
+            <ImagesSection form={form} onError={onError} />
           </div>
         </div>
 
