@@ -64,8 +64,8 @@ export interface PayPalButtonsProps extends PayPalButtonsComponentProps {
       order: {
         capture: () => Promise<PayPalCaptureResponse>
       }
-    }
+    } | undefined
   ) => Promise<void>
-  onError: (error: PayPalError) => void
+  onError: (error: { message?: string; details?: Record<string, unknown> }) => void
   onCancel?: () => void
 }

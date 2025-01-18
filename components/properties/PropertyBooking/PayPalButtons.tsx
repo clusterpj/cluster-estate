@@ -4,7 +4,7 @@ import React from 'react'
 import { PayPalButtons, usePayPalScriptReducer, DISPATCH_ACTION } from '@paypal/react-paypal-js'
 import { useToast } from '@/components/ui/use-toast'
 import { useState, useEffect } from 'react'
-import type { PayPalButtonsProps, PayPalError } from '@/types/paypal'
+import type { PayPalButtonsProps } from '@/types/paypal'
 
 export function PayPalButtonsWrapper({
   totalPrice,
@@ -87,7 +87,7 @@ export function PayPalButtonsWrapper({
               setIsCreatingOrder(false)
             }
           }}
-          onApprove={async (data, actions) => {
+          onApprove={async (data, actions: { order: { capture: () => Promise<PayPalCaptureResponse> } }) => {
             console.log('PayPal payment approved:', data)
             try {
               if (!actions.order) {
