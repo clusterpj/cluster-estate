@@ -11,14 +11,22 @@ interface PayPalButtonsProps {
   onApprove: (
     data: { orderID: string; payerID?: string | null | undefined }, 
     actions: {
-      order?: {
+      order: {
         capture: () => Promise<{
-          status: string;
-          id: string;
-          payer: Record<string, unknown>;
           create_time?: string;
           update_time?: string;
-          payment_source?: Record<string, unknown>;
+          id?: string;
+          payment_source?: {
+            card?: {
+              name?: string;
+              last_digits?: string;
+              bin_details?: Record<string, unknown>;
+            };
+            paypal?: Record<string, unknown>;
+            venmo?: Record<string, unknown>;
+          };
+          status?: string;
+          payer?: Record<string, unknown>;
         }>;
       };
     }
