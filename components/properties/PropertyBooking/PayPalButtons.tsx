@@ -25,7 +25,8 @@ export function PayPalButtonsWrapper({
         clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '',
         currency,
         'disable-funding': 'credit,card',
-        'enable-funding': 'paypal'
+        'enable-funding': 'paypal',
+        components: 'buttons,hosted-fields'
       }
     })
   }, [currency, dispatch])
