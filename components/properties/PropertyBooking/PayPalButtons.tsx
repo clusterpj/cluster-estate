@@ -107,22 +107,37 @@ export function PayPalButtonsWrapper({
               setIsCreatingOrder(false)
             }
           }}
-          onApprove={async (data: { orderID: string; payerID?: string }, actions) => {
+          onApprove={async (data, actions) => {
             console.log('PayPal payment approved:', data)
             try {
+              if (!actions.order) {
+                throw new Error('Payment actions not available')
+              }
+
               console.log('Capturing PayPal payment...')
-              const captureData = await actions.order?.capture?.()
+              const captureData = await actions.order.capture()
+              
+              if (!captureData?.id) {
+                throw new Error('Payment capture failed - no transaction ID')
+              }
+
               console.log('Payment captured successfully:', captureData)
               await onApprove(data, actions)
             } catch (error: unknown) {
               console.error('Error capturing payment:', error)
               setError('Payment processing failed')
+              
+              const errorMessage = error instanceof Error ? error.message : 'Unknown error'
               toast({
                 variant: 'destructive',
                 title: 'Payment Error',
-                description: String('There was an error processing your payment')
+                description: `There was an error processing your payment: ${errorMessage}`
               })
-              onError({ message: error instanceof Error ? error.message : 'Unknown error' })
+              
+              onError({ 
+                message: errorMessage,
+                details: error instanceof Error ? { stack: error.stack } : undefined
+              })
             }
           }}
           onError={(error: { message?: string }) => {
