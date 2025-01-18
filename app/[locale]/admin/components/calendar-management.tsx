@@ -281,14 +281,7 @@ export function CalendarManagement() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Availability Calendar</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <AvailabilityCalendar />
-          </CardContent>
-        </Card>
+        <AvailabilityCalendar />
       </div>
     </div>
   );
