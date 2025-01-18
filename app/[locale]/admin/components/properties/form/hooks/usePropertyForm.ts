@@ -75,7 +75,7 @@ export function usePropertyForm(initialData?: PropertyFormValues) {
         available_to: availableTo,
         features: Array.isArray(data.features) ? data.features : [],
         images: processedImages,
-        updated_at: new Date().toISOString()
+        // Removed updated_at since it doesn't exist in the schema
       }
 
       // Only add user_id for new properties
