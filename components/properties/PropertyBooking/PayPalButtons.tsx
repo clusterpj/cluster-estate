@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { PayPalButtons, usePayPalScriptReducer, SCRIPT_LOADING_STATE, DISPATCH_ACTION } from '@paypal/react-paypal-js'
+import { PayPalButtons, usePayPalScriptReducer, DISPATCH_ACTION } from '@paypal/react-paypal-js'
 import { useToast } from '@/components/ui/use-toast'
 import { useState, useEffect } from 'react'
 
@@ -22,7 +22,6 @@ interface PayPalButtonsProps {
   ) => Promise<void>
   onError: (error: { message?: string; details?: Record<string, unknown> }) => void
   onCancel?: () => void
-  onInit?: () => void
 }
 
 export function PayPalButtonsWrapper({
@@ -31,7 +30,6 @@ export function PayPalButtonsWrapper({
   onApprove,
   onError,
   onCancel,
-  onInit
 }: PayPalButtonsProps): React.ReactNode {
   const { toast } = useToast()
   const [{ isPending, isRejected }, dispatch] = usePayPalScriptReducer()
@@ -106,7 +104,7 @@ export function PayPalButtonsWrapper({
               setIsCreatingOrder(false)
             }
           }}
-          onApprove={async (data: { orderID: string }, actions) => {
+          onApprove={async (data: { orderID: string; payerID?: string }, actions) => {
             console.log('PayPal payment approved:', data)
             try {
               console.log('Capturing PayPal payment...')
@@ -121,7 +119,7 @@ export function PayPalButtonsWrapper({
                 title: 'Payment Error',
                 description: String('There was an error processing your payment')
               })
-              onError(error)
+              onError({ message: error instanceof Error ? error.message : 'Unknown error' })
             }
           }}
           onError={(error: { message?: string }) => {
