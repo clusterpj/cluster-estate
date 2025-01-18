@@ -23,7 +23,7 @@ interface CalendarDay {
 }
 
 export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) {
-  const t = useTranslations('AvailabilityCalendar')
+  const t = useTranslations('auth.adminSection.calendar')
   const [viewMode, setViewMode] = useState<'single' | 'aggregate'>('single')
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
 
