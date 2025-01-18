@@ -6,20 +6,34 @@ import { CalendarIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
 import { Calendar } from '@/components/ui/calendar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useState } from 'react';
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Database } from '@/types/supabase'
 
 export function CalendarManagement() {
   const t = useTranslations('admin.calendar');
   const [selectedProperty, setSelectedProperty] = useState('all');
   const [date, setDate] = useState<Date>(new Date());
 
-  // Mock properties for filtering
-  const properties = [
-    { id: 'all', name: t('allProperties') },
-    { id: '1', name: 'Villa Azul' },
-    { id: '2', name: 'Casa Verde' },
-    { id: '3', name: 'Penthouse Rojo' }
-  ];
+  // Fetch properties from database
+  const { data: properties = [], isLoading: isLoadingProperties } = useQuery({
+    queryKey: ['properties'],
+    queryFn: async () => {
+      const supabase = createClientComponentClient<Database>()
+      const { data, error } = await supabase
+        .from('properties')
+        .select('id, title')
+        .order('title', { ascending: true })
+      
+      if (error) throw error
+      
+      return [
+        { id: 'all', name: t('allProperties') },
+        ...data.map(p => ({ id: p.id, name: p.title }))
+      ]
+    }
+  })
 
   return (
     <div className="space-y-6">
@@ -32,7 +46,14 @@ export function CalendarManagement() {
       <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
         <Select value={selectedProperty} onValueChange={setSelectedProperty}>
           <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder={t('selectProperty')} />
+            {isLoadingProperties ? (
+              <div className="flex items-center gap-2">
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-muted-foreground border-t-transparent" />
+                <span>{t('loading')}</span>
+              </div>
+            ) : (
+              <SelectValue placeholder={t('selectProperty')} />
+            )}
           </SelectTrigger>
           <SelectContent>
             {properties.map(property => (
