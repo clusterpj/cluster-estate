@@ -88,20 +88,24 @@ export function CalendarManagement() {
       {/* Calendar Legend */}
       <div className="flex flex-wrap gap-4 text-sm">
         <div className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full bg-green-100" />
+          <span className="h-3 w-3 rounded-full bg-green-100 border border-green-300" />
           {t('legend.available')}
         </div>
         <div className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full bg-red-100" />
+          <span className="h-3 w-3 rounded-full bg-red-100 border border-red-300" />
           {t('legend.booked')}
         </div>
         <div className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full bg-yellow-100" />
+          <span className="h-3 w-3 rounded-full bg-yellow-100 border border-yellow-300" />
           {t('legend.pending')}
         </div>
         <div className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full bg-gray-100" />
+          <span className="h-3 w-3 rounded-full bg-gray-100 border border-gray-300" />
           {t('legend.maintenance')}
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="h-3 w-3 rounded-full bg-blue-100 border border-blue-300" />
+          {t('legend.partial')}
         </div>
       </div>
 

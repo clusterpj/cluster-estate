@@ -34,9 +34,37 @@ export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) 
         ? `/api/properties/${propertyId}/availability`
         : '/api/properties/availability'
       
-      const response = await fetch(endpoint)
+      const response = await fetch(endpoint, {
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      })
+      
       if (!response.ok) throw new Error('Failed to fetch availability data')
-      return response.json()
+      
+      const data = await response.json()
+      
+      // Transform data to include partial availability
+      return data.map((day: any) => {
+        const totalProperties = day.totalProperties || 1
+        const availableCount = day.availableCount || 0
+        
+        // Calculate availability percentage
+        const availabilityPercentage = (availableCount / totalProperties) * 100
+        
+        // Determine status based on availability
+        let status = day.status
+        if (availabilityPercentage > 0 && availabilityPercentage < 100) {
+          status = 'partial'
+        }
+        
+        return {
+          ...day,
+          status,
+          availabilityPercentage
+        }
+      })
     }
   })
 
@@ -64,6 +92,8 @@ export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) 
         return `${baseClasses} bg-yellow-100 hover:bg-yellow-200 text-yellow-800 text-lg font-medium`
       case 'maintenance':
         return `${baseClasses} bg-gray-100 hover:bg-gray-200 text-gray-800 text-lg font-medium`
+      case 'partial':
+        return `${baseClasses} bg-blue-100 hover:bg-blue-200 text-blue-800 text-lg font-medium`
       default:
         return `${baseClasses} bg-background hover:bg-accent`
     }
