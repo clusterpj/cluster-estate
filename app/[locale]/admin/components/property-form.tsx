@@ -74,7 +74,7 @@ export function PropertyForm({
       }
 
       console.log('Processing form data...')
-      const processedData = await onSubmit(data, true)
+      const processedData = await processFormData(data, true)
       console.log('Processed data for update:', processedData)
       
       console.log('Initializing Supabase client...')
@@ -117,15 +117,12 @@ export function PropertyForm({
     console.log('Property ID:', propertyId)
     
     try {
-      const processedData = await processFormData(data, mode === 'edit')
-      console.log('Processed form data:', processedData)
-      
       if (mode === 'edit' && propertyId) {
         console.log('Attempting to update property...')
-        return handleUpdate(processedData)
+        return handleUpdate(data)
       } else {
         console.log('Attempting to create new property...')
-        return handleCreate(processedData)
+        return handleCreate(data)
       }
     } catch (error) {
       console.error('Form submission error:', error)
