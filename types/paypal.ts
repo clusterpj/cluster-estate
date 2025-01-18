@@ -59,12 +59,8 @@ export interface PayPalButtonsProps extends PayPalButtonsComponentProps {
   totalPrice: number
   currency?: string
   onApprove: (
-    data: { orderID: string; payerID?: string | null | undefined },
-    actions: {
-      order: {
-        capture: () => Promise<PayPalCaptureResponse>
-      }
-    } | undefined
+    data: OnApproveData,
+    actions: OnApproveActions
   ) => Promise<void>
   onError: (error: { message?: string; details?: Record<string, unknown> }) => void
   onCancel?: () => void

@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { PayPalButtons, usePayPalScriptReducer, DISPATCH_ACTION } from '@paypal/react-paypal-js'
+import { PayPalButtons, usePayPalScriptReducer, DISPATCH_ACTION, type OnApproveData, type OnApproveActions } from '@paypal/react-paypal-js'
 import { useToast } from '@/components/ui/use-toast'
 import { useState, useEffect } from 'react'
 import type { PayPalButtonsProps } from '@/types/paypal'
@@ -87,7 +87,7 @@ export function PayPalButtonsWrapper({
               setIsCreatingOrder(false)
             }
           }}
-          onApprove={async (data, actions: { order: { capture: () => Promise<PayPalCaptureResponse> } }) => {
+          onApprove={async (data: OnApproveData, actions: OnApproveActions) => {
             console.log('PayPal payment approved:', data)
             try {
               if (!actions.order) {
@@ -95,7 +95,7 @@ export function PayPalButtonsWrapper({
               }
 
               console.log('Capturing PayPal payment...')
-              const captureData = await actions.order.capture()
+              const captureData = await actions.order?.capture()
               
               if (!captureData?.id) {
                 throw new Error('Payment capture failed - no transaction ID')
