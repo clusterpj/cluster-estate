@@ -579,20 +579,5 @@
     }
   }
 }
-{
-  "AvailabilityCalendar": {
-    "singlePropertyTitle": "Property Availability",
-    "allPropertiesTitle": "All Properties Availability",
-    "toggleViewMode": "Toggle view mode",
-    "singleView": "Single Property",
-    "aggregateView": "All Properties",
-    "errorTitle": "Error Loading Availability",
-    "errorMessage": "Failed to load availability data. Please try again later.",
-    "status": {
-      "available": "Available",
-      "booked": "Booked",
-      "pending": "Pending",
-      "maintenance": "Maintenance"
-    }
-  }
-}
+
+

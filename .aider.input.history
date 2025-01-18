@@ -8888,3 +8888,960 @@
 +  381 |                         />
 +  382 |                         <div className="flex flex-wrap gap-2">
 +  383 |                           {field.value.map((feature, index) => (
+
+# 2025-01-18 15:19:44.069303
++I need you to help me refactor the PropertyForm component following this structure and requirements:
++
++Create this file structure:
++
++Copycomponents/
++  properties/
++    form/
++      PropertyForm.tsx (main component)
++      schema.ts (form validation schema)
++      types.ts (shared types)
++      hooks/
++        usePropertyForm.ts (form logic)
++        useImageUpload.ts (image handling)
++      sections/
++        BasicInformation.tsx
++        SaleInformation.tsx
++        RentalInformation.tsx
++        PetInformation.tsx
++        FeaturesSection.tsx
++        ImagesSection.tsx
++      utils/
++        processPropertyData.ts
++
++Key Requirements:
++
++
++Break down the current monolithic PropertyForm.tsx into smaller, focused components
++Maintain all existing functionality while improving code organization
++Ensure proper type safety throughout
++Keep the same UI/UX and form behavior
++Maintain all translations using next-intl
++Keep the same form validation using Zod
++Preserve all Supabase interactions
++Keep all the shadcn/ui components implementation
++
++
++For each file:
++
++schema.ts:
++
++Move all Zod schema definitions here
++Export proper TypeScript types derived from the schema
++Include all form field validations
++
++types.ts:
++
++Define interfaces for component props
++Define any shared types used across components
++Include proper TypeScript definitions for all data structures
++
++hooks/usePropertyForm.ts:
++
++Handle form initialization
++Manage form state and validation
++Include default values handling
++Handle form submission logic
++
++hooks/useImageUpload.ts:
++
++Manage image upload state
++Handle image upload to Supabase storage
++Include image removal functionality
++Handle error states
++
++sections/*.tsx:
++
++Each section should be a self-contained component
++Accept form control as a prop
++Handle its own field rendering
++Use translations for labels and messages
++Maintain proper typing
++
++utils/processPropertyData.ts:
++
++Handle data transformation for API submission
++Manage date formatting
++Handle proper type conversions
++Process images and features arrays
++
++PropertyForm.tsx:
++
++Should be a clean orchestrator of all components
++Handle main form submission
++Coordinate between different sections
++Manage overall form state
++
++
++Important Notes:
++
++
++Maintain error handling throughout
++Keep all console.log statements for debugging
++Preserve all existing form validation rules
++Keep the same responsive design classes
++Maintain all existing feature flags (like pets_allowed toggle)
++Keep all existing field dependencies (like rental fields showing based on listing_type)
++
++
++Testing:
++
++
++Ensure all form scenarios still work:
++
++Creating new properties
++Editing existing properties
++Image uploads
++Feature additions/removals
++Pet information toggling
++All field validations
++Form submission
++Error handling
++
++
++
++Please implement this refactoring while maintaining all existing functionality. If you need any clarification about specific parts of the implementation, please ask.
+
+# 2025-01-18 15:20:27.435088
++/drop
+
+# 2025-01-18 15:20:30.229883
++/reset
+
+# 2025-01-18 15:20:32.554681
++/clear
+
+# 2025-01-18 15:20:41.494858
++/map-refresh
+
+# 2025-01-18 15:20:47.320592
++I need you to help me refactor the PropertyForm component following this structure and requirements:
++
++Create this file structure:
++
++Copycomponents/
++  properties/
++    form/
++      PropertyForm.tsx (main component)
++      schema.ts (form validation schema)
++      types.ts (shared types)
++      hooks/
++        usePropertyForm.ts (form logic)
++        useImageUpload.ts (image handling)
++      sections/
++        BasicInformation.tsx
++        SaleInformation.tsx
++        RentalInformation.tsx
++        PetInformation.tsx
++        FeaturesSection.tsx
++        ImagesSection.tsx
++      utils/
++        processPropertyData.ts
++
++Key Requirements:
++
++
++Break down the current monolithic PropertyForm.tsx into smaller, focused components
++Maintain all existing functionality while improving code organization
++Ensure proper type safety throughout
++Keep the same UI/UX and form behavior
++Maintain all translations using next-intl
++Keep the same form validation using Zod
++Preserve all Supabase interactions
++Keep all the shadcn/ui components implementation
++
++
++For each file:
++
++schema.ts:
++
++Move all Zod schema definitions here
++Export proper TypeScript types derived from the schema
++Include all form field validations
++
++types.ts:
++
++Define interfaces for component props
++Define any shared types used across components
++Include proper TypeScript definitions for all data structures
++
++hooks/usePropertyForm.ts:
++
++Handle form initialization
++Manage form state and validation
++Include default values handling
++Handle form submission logic
++
++hooks/useImageUpload.ts:
++
++Manage image upload state
++Handle image upload to Supabase storage
++Include image removal functionality
++Handle error states
++
++sections/*.tsx:
++
++Each section should be a self-contained component
++Accept form control as a prop
++Handle its own field rendering
++Use translations for labels and messages
++Maintain proper typing
++
++utils/processPropertyData.ts:
++
++Handle data transformation for API submission
++Manage date formatting
++Handle proper type conversions
++Process images and features arrays
++
++PropertyForm.tsx:
++
++Should be a clean orchestrator of all components
++Handle main form submission
++Coordinate between different sections
++Manage overall form state
++
++
++Important Notes:
++
++
++Maintain error handling throughout
++Keep all console.log statements for debugging
++Preserve all existing form validation rules
++Keep the same responsive design classes
++Maintain all existing feature flags (like pets_allowed toggle)
++Keep all existing field dependencies (like rental fields showing based on listing_type)
++
++
++Testing:
++
++
++Ensure all form scenarios still work:
++
++Creating new properties
++Editing existing properties
++Image uploads
++Feature additions/removals
++Pet information toggling
++All field validations
++Form submission
++Error handling
++
++
++
++Please implement this refactoring while maintaining all existing functionality. If you need any clarification about specific parts of the implementation, please ask.
+
+# 2025-01-18 15:23:54.283255
++# PropertyForm Component Refactoring Prompt
++
++## Overview
++This document outlines the requirements and specifications for refactoring the PropertyForm component currently located at `app/[locale]/admin/components/property-form.tsx`.
++
++## File Structure
++Create the following file structure starting from the admin directory:
++
++```
++app/
++  [locale]/
++    admin/
++      components/
++        properties/
++          form/
++            PropertyForm.tsx (main component, moved from current location)
++            schema.ts (form validation schema)
++            types.ts (shared types)
++            hooks/
++              usePropertyForm.ts (form logic)
++              useImageUpload.ts (image handling)
++            sections/
++              BasicInformation.tsx
++              SaleInformation.tsx
++              RentalInformation.tsx
++              PetInformation.tsx
++              FeaturesSection.tsx
++              ImagesSection.tsx
++            utils/
++              processPropertyData.ts
++```
++
++## File Specifications
++
++### 1. schema.ts
++```typescript
++// Purpose: Define and export all form validation schemas
++import * as z from 'zod'
++
++// Move the current schema from property-form.tsx:
++export const propertyFormSchema = z.object({
++  // Existing schema definition
++  title: z.string().min(1, 'Title is required'),
++  description: z.string().min(1, 'Description is required'),
++  // ... rest of the schema
++})
++
++export type PropertyFormValues = z.infer<typeof propertyFormSchema>
++```
++
++### 2. types.ts
++```typescript
++// Purpose: Define shared types and interfaces
++import { PropertyFormValues } from './schema'
++
++export interface PropertyFormProps {
++  onSuccess?: () => void
++  onError?: (error: any) => void
++  initialData?: PropertyFormValues
++  mode?: 'create' | 'edit'
++  propertyId?: string
++}
++
++// Add any additional shared types
++```
++
++### 3. hooks/usePropertyForm.ts
++```typescript
++// Purpose: Handle form logic and state management
++import { useForm } from 'react-hook-form'
++import { zodResolver } from '@hookform/resolvers/zod'
++import { propertyFormSchema, PropertyFormValues } from '../schema'
++
++export function usePropertyForm(initialData?: PropertyFormValues) {
++  // Implement form logic currently in PropertyForm
++  const form = useForm<PropertyFormValues>({
++    resolver: zodResolver(propertyFormSchema),
++    defaultValues: {
++      // Current default values
++      ...(initialData || {})
++    }
++  })
++
++  // Add form submission logic
++  const onSubmit = async (data: PropertyFormValues) => {
++    // Current submission logic
++  }
++
++  return {
++    form,
++    onSubmit
++  }
++}
++```
++
++### 4. hooks/useImageUpload.ts
++```typescript
++// Purpose: Handle image upload functionality
++import { useState } from 'react'
++import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
++import { v4 as uuidv4 } from 'uuid'
++
++export function useImageUpload(onError?: (error: any) => void) {
++  // Move current image upload logic here
++  const [uploadedImages, setUploadedImages] = useState<string[]>([])
++  
++  // Implement handleImageUpload and handleImageRemove
++  
++  return {
++    uploadedImages,
++    handleImageUpload,
++    handleImageRemove
++  }
++}
++```
++
++### 5. Sections Components
++Each section component should:
++- Accept form control as a prop
++- Handle its own field rendering
++- Use translations
++- Maintain proper typing
++
++Example for BasicInformation.tsx:
++```typescript
++import { useTranslations } from 'next-intl'
++import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
++import { Input } from '@/components/ui/input'
++import { PropertyFormValues } from '../schema'
++import { UseFormReturn } from 'react-hook-form'
++
++interface BasicInformationProps {
++  form: UseFormReturn<PropertyFormValues>
++}
++
++export function BasicInformation({ form }: BasicInformationProps) {
++  const t = useTranslations('auth.adminSection.properties')
++  
++  return (
++    // Current basic information fields
++  )
++}
++```
++
++### 6. utils/processPropertyData.ts
++```typescript
++// Purpose: Handle data processing before submission
++import { PropertyFormValues } from '../schema'
++
++export async function processPropertyData(data: PropertyFormValues, uploadedImages: string[]) {
++  // Move current processPropertyData function here
++  return {
++    // Processed data
++  }
++}
++```
++
++### 7. PropertyForm.tsx (Main Component)
++```typescript
++// Purpose: Main component orchestrating all pieces
++import { usePropertyForm } from './hooks/usePropertyForm'
++import { useImageUpload } from './hooks/useImageUpload'
++import { ProcessPropertyData } from './utils/processPropertyData'
++import { PropertyFormProps } from './types'
++// Import all sections
++
++export function PropertyForm({ onSuccess, onError, initialData, mode = 'create', propertyId }: PropertyFormProps) {
++  // Implement main component using all the pieces
++}
++```
++
++## Implementation Requirements
++
++### 1. Functionality
++- Maintain all existing features:
++  * Property creation/editing
++  * Image uploads
++  * Feature management
++  * Pet information handling
++  * Form validation
++  * Error handling
++  * Responsive design
++  * Translation support
++
++### 2. Technical Requirements
++- Use Next.js 13+ conventions
++- Maintain type safety
++- Keep existing shadcn/ui components
++- Preserve Supabase integration
++- Keep next-intl translations
++- Maintain form validation using Zod
++
++### 3. State Management
++- Preserve all form state handling
++- Maintain image upload state
++- Keep feature/pet management state
++- Handle loading and error states
++
++### 4. UI/UX
++- Maintain current layout and styling
++- Keep all responsive design classes
++- Preserve all user interactions
++- Keep the same form flow and behavior
++
++### 5. Integration
++- Update all import paths
++- Maintain compatibility with admin layout
++- Keep working with [locale] routing
++- Preserve all existing provider context
++
++## Testing Checklist
++
++### Functionality Testing
++- [ ] Form submission (create/edit)
++- [ ] Image upload/remove
++- [ ] Feature add/remove
++- [ ] Pet information toggle
++- [ ] Field validation
++- [ ] Error handling
++- [ ] Responsive design
++- [ ] Translations
++
++### Integration Testing
++- [ ] Admin layout compatibility
++- [ ] Locale routing
++- [ ] Supabase operations
++- [ ] Form state persistence
++- [ ] Navigation handling
++
++## Notes
++- Maintain all console.log statements for debugging
++- Keep existing error handling patterns
++- Preserve all feature flags
++- Maintain field dependencies
++- Keep all form validation rules
++
++## Implementation Order
++1. Create new directory structure
++2. Move and set up schema and types
++3. Implement hooks
++4. Create utility functions
++5. Break out section components
++6. Implement main PropertyForm component
++7. Update import paths
++8. Test all functionality
++9. Update any broken references
+
+# 2025-01-18 15:23:58.003499
++y
+
+# 2025-01-18 15:24:16.482187
++n
+
+# 2025-01-18 15:25:12.932504
++y
+
+# 2025-01-18 15:25:22.214045
++/run mkdir -p app/[locale]/admin/components/properties/form/hooks app/[locale]/admin/components/properties/form/sections app/[locale]/admin/components/properties/form/utils
+
+# 2025-01-18 15:25:22.214045
++/run mkdir -p app/[locale]/admin/components/properties/form/hooks app/[locale]/admin/components/properties/form/sections app/[locale]/admin/components/properties/form/utils
+
+# 2025-01-18 15:25:24.624357
++y
+
+# 2025-01-18 15:25:57.313694
++The command to create the new directories did nhot work check your logs. The command needs to be for windows 
+
+# 2025-01-18 15:26:09.066360
++y
+
+# 2025-01-18 15:26:09.071986
++/run mkdir app\[locale]\admin\components\properties\form\hooks
+
+# 2025-01-18 15:26:09.071986
++/run mkdir app\[locale]\admin\components\properties\form\hooks
+
+# 2025-01-18 15:26:09.349999
++/run mkdir app\[locale]\admin\components\properties\form\sections
+
+# 2025-01-18 15:26:09.350503
++/run mkdir app\[locale]\admin\components\properties\form\sections
+
+# 2025-01-18 15:26:09.606559
++/run mkdir app\[locale]\admin\components\properties\form\utils
+
+# 2025-01-18 15:26:09.606559
++/run mkdir app\[locale]\admin\components\properties\form\utils
+
+# 2025-01-18 15:26:13.143312
++y
+
+# 2025-01-18 15:26:23.028811
++Now please continue with the implementation 
+
+# 2025-01-18 15:27:35.430941
++y
+
+# 2025-01-18 15:28:57.501781
++Looks good please continue 
+
+# 2025-01-18 15:29:36.286103
++y
+
+# 2025-01-18 15:29:51.576083
++Please continue the implementation 
+
+# 2025-01-18 15:32:43.403765
++y
+
+# 2025-01-18 15:41:14.459273
++There is a lot of issues on the new property form, it seems like you did not update it properly, i still see the same old code 
+
+# 2025-01-18 15:46:34.413146
++Let's solve these issues [{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-unused-vars",
++"target": {
++"$mid": 1,
++"path": "/rules/no-unused-vars",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "'useState' is defined but never used.",
++"source": "eslint",
++"startLineNumber": 6,
++"startColumn": 10,
++"endLineNumber": 6,
++"endColumn": 18
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-explicit-any",
++"target": {
++"$mid": 1,
++"path": "/rules/no-explicit-any",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "Unexpected any. Specify a different type.",
++"source": "eslint",
++"startLineNumber": 26,
++"startColumn": 37,
++"endLineNumber": 26,
++"endColumn": 40
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx",
++"owner": "typescript",
++"code": "2304",
++"severity": 8,
++"message": "Cannot find name 'createClientComponentClient'.",
++"source": "ts",
++"startLineNumber": 30,
++"startColumn": 24,
++"endLineNumber": 30,
++"endColumn": 51
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx",
++"owner": "typescript",
++"code": "2304",
++"severity": 8,
++"message": "Cannot find name 'Database'.",
++"source": "ts",
++"startLineNumber": 30,
++"startColumn": 52,
++"endLineNumber": 30,
++"endColumn": 60
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-unused-vars",
++"target": {
++"$mid": 1,
++"path": "/rules/no-unused-vars",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "'savedProperty' is assigned a value but never used.",
++"source": "eslint",
++"startLineNumber": 48,
++"startColumn": 21,
++"endLineNumber": 48,
++"endColumn": 34
++}]
+
+# 2025-01-18 15:47:50.888318
++[{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx",
++"owner": "typescript",
++"code": "2304",
++"severity": 8,
++"message": "Cannot find name 'PropertyFormValues'.",
++"source": "ts",
++"startLineNumber": 27,
++"startColumn": 37,
++"endLineNumber": 27,
++"endColumn": 55
++}]
+
+# 2025-01-18 15:50:16.591938
++We need to handle the responsiveness better and the way we display the info on the form because irght now when there is a lot of info on the form it gets bigger and i cannot scrop to see the top and the bottom of the form 
+
+# 2025-01-18 15:53:16.245835
++On the form when i  try to save the property when creating a nre property when i click on image and selct an image i get a message of undefined and cannot continuw with the creationg of the property 
+
+# 2025-01-18 15:55:51.416686
++Now the Creationg of properties work. The edit property functions is not working i am not sure why so i want you to refact to it so we can make sure the property gets updated when i click on save property
+
+# 2025-01-18 15:57:06.917737
++1 of 1 error
++Next.js (14.2.16) is outdated (learn more)
++
++Unhandled Runtime Error
++ReferenceError: useState is not defined
++
++Source
++app\[locale]\admin\components\property-form.tsx (27:37) @ useState
++
++  25 |   const t = useTranslations('auth.adminSection.properties')
++  26 |   const { form, onSubmit } = usePropertyForm(initialData)
++> 27 |   const [isLoading, setIsLoading] = useState(false)
++     |                                     ^
++  28 |
++  29 |   const handleSubmit = async (data: PropertyFormValues) => {
++  30 |     setIsLoading(true)
+
+# 2025-01-18 15:59:00.991843
++Nothing is happenign when we click on the Save property after chaging the title on a property i see no logs whatsoever there is no check or validation that the form is doing something it seems like the button is not connected to the update functionality 
+
+# 2025-01-18 16:00:40.047803
++Please create a new new update functionality for properties an replace the other one also make sure to create a new button that will only show on the edit property screen, let's separate these 2 concerns from creating properties and updating properties 
+
+# 2025-01-18 16:01:49.994784
++y
+
+# 2025-01-18 16:02:03.855498
++1 of 1 error
++Next.js (14.2.16) is outdated (learn more)
++
++Unhandled Runtime Error
++ReferenceError: UpdateButton is not defined
++
++Source
++app\[locale]\admin\components\property-form.tsx (140:14) @ UpdateButton
++
++  138 |         <div className="flex justify-end">
++  139 |           {mode === 'edit' ? (
++> 140 |             <UpdateButton isLoading={isLoading} />
++      |              ^
++  141 |           ) : (
++  142 |             <Button type="submit" disabled={isLoading}>
++  143 |               {isLoading ? (
+
+# 2025-01-18 16:05:49.620567
++The update functionality is not working all i get is this on the console Form submit event triggered but i see no request beign set to supabase on the networks tab
+
+# 2025-01-18 16:08:33.806752
++The edit form still does not work, not sure if this is related but on chrome isee this error Page Errors
++Incorrect use of <label for=FORM_ELEMENT>
++The label's for attribute doesn't match any element id. This might prevent the browser from correctly autofilling the form and accessibility tools from working correctly.
++
++To fix this issue, make sure the label's for attribute references the correct id of a form field.
++
++
+
+# 2025-01-18 16:15:04.555288
++Th edit properties is not working with this form, all the changes we have made have not fixed it. When clicking on the button to update nothing hppens, no requests are sent so the problems must be coming from elsewhere. Try another approach 
+
+# 2025-01-18 16:16:19.554764
++[{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx",
++"owner": "typescript",
++"code": "2451",
++"severity": 8,
++"message": "Cannot redeclare block-scoped variable 'onSubmit'.",
++"source": "ts",
++"startLineNumber": 28,
++"startColumn": 17,
++"endLineNumber": 28,
++"endColumn": 25
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx",
++"owner": "typescript",
++"code": "2451",
++"severity": 8,
++"message": "Cannot redeclare block-scoped variable 'onSubmit'.",
++"source": "ts",
++"startLineNumber": 128,
++"startColumn": 9,
++"endLineNumber": 128,
++"endColumn": 17
++},{
++"resource": "/C:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-form.tsx",
++"owner": "typescript",
++"code": "2345",
++"severity": 8,
++"message": "Argument of type '(data: { sale_price: number; pets_allowed: boolean; status: \"available\" | \"sold\" | \"pending\" | \"rented\"; pet_restrictions: string[]; location: string; bedrooms: number; bathrooms: number; square_feet: number; ... 12 more ...; available_to?: string | undefined; }, isUpdate?: boolean) => Promise<...>' is not assignable to parameter of type 'SubmitHandler<{ sale_price: number; pets_allowed: boolean; status: \"available\" | \"sold\" | \"pending\" | \"rented\"; pet_restrictions: string[]; location: string; bedrooms: number; bathrooms: number; square_feet: number; ... 12 more ...; available_to?: string | undefined; }>'.\n  Types of parameters 'isUpdate' and 'event' are incompatible.\n    Type 'BaseSyntheticEvent<object, any, any> | undefined' is not assignable to type 'boolean | undefined'.\n      Type 'BaseSyntheticEvent<object, any, any>' is not assignable to type 'boolean | undefined'.",
++"source": "ts",
++"startLineNumber": 144,
++"startColumn": 37,
++"endLineNumber": 144,
++"endColumn": 45
++}]
+
+# 2025-01-18 16:20:53.966148
++could the issue is we are not paasing any props or emits to the app\[locale]\admin\components\property-management.tsx component when the update button is clicked?
+
+# 2025-01-18 16:20:56.380090
++y
+
+# 2025-01-18 16:23:04.851107
++Still nothing the Update functionality still does not work 
+
+# 2025-01-18 16:25:20.745402
++Build Error
++
++Failed to compile
++Next.js (14.2.16) is outdated (learn more)
++./app/[locale]/admin/components/properties/form/hooks/usePropertyForm.ts
++
++Error: 
++  × Expected a semicolon
++    ╭─[C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\app\[locale]\admin\components\properties\form\hooks\usePropertyForm.ts:62:1]
++ 62 │         available_from: availableFrom,
++ 63 │         available_to: availableTo,
++ 64 │         updated_at: new Date().toISOString()
++ 65 │       } : {
++    ·         ─
++ 66 │         ...data,
++ 67 │         sale_price: data.sale_price || null,
++ 67 │         rental_price: data.rental_price || null,
++
++    ╰────
++
++  × Expression expected
++    ╭─[C:\Users\pjime\OneDrive\Documents\Repositories\real-estate\cluster-estate\app\[locale]\admin\components\properties\form\hooks\usePropertyForm.ts:63:1]
++ 63 │         available_to: availableTo,
++ 64 │         updated_at: new Date().toISOString()
++ 65 │       } : {
++ 66 │         ...data,
++    ·         ───
++ 67 │         sale_price: data.sale_price || null,
++ 68 │         rental_price: data.rental_price || null,
++ 68 │         features: Array.isArray(data.features) ? data.features : [],
++
++    ╰────
++
++Caused by:
++    Syntax Error\
+
+# 2025-01-18 16:26:45.493584
++I have these issue on the update form Warning: Received NaN for the `value` attribute. If this is expected, cast the value to a string. Component Stack: 
++    input unknown:0
++    _c webpack-internal:///(app-pages-browser)/./components/ui/input.tsx:13
++    SlotClone webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-slot@1.1.1_@types+react@18.3.18_react@18.3.1/node_modules/@radix-ui/react-slot/dist/index.mjs:34
++    Slot webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-slot@1.1.1_@types+react@18.3.18_react@18.3.1/node_modules/@radix-ui/react-slot/dist/index.mjs:15
++    _c5 webpack-internal:///(app-pages-browser)/./components/ui/form.tsx:124
++    div unknown:0
++    _c1 webpack-internal:///(app-pages-browser)/./components/ui/form.tsx:74
++    Controller webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-hook-form@7.54.2_react@18.3.1/node_modules/react-hook-form/dist/index.esm.mjs:576
++    FormField webpack-internal:///(app-pages-browser)/./components/ui/form.tsx:29
++    div unknown:0
++<anonymous code>:1:145535
++Select value changed: 
++Object { field: "listing_type", value: "rent" }
++BasicInformation.tsx:168:26
++Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components Component Stack: 
++    input unknown:0
++    _c webpack-internal:///(app-pages-browser)/./components/ui/input.tsx:13
++    SlotClone webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-slot@1.1.1_@types+react@18.3.18_react@18.3.1/node_modules/@radix-ui/react-slot/dist/index.mjs:34
++    Slot webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-slot@1.1.1_@types+react@18.3.18_react@18.3.1/node_modules/@radix-ui/react-slot/dist/index.mjs:15
++    _c5 webpack-internal:///(app-pages-browser)/./components/ui/form.tsx:124
++    div unknown:0
++    _c1 webpack-internal:///(app-pages-browser)/./components/ui/form.tsx:74
++    Controller webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-hook-form@7.54.2_react@18.3.1/node_modules/react-hook-form/dist/index.esm.mjs:576
++    FormField webpack-internal:///(app-pages-browser)/./components/ui/form.tsx:29
++    div unknown:0
++    div unknown:0
++<anonymous code>:1:145535
++
+
+# 2025-01-18 16:28:33.169237
++THe update property functions still is not beign trigger  we might need to take more extrict measures to fix this 
+
+# 2025-01-18 16:34:32.334333
++i am getting this error but i noticed that this column does not exists on my supabase the only one i have is created_at Supabase update error: 
++Object { code: "PGRST204", details: null, hint: null, message: "Could not find the 'updated_at' column of 'properties' in the schema cache" }
++​
++code: "PGRST204"
++​
++details: null
++​
++hint: null
++​
++message: "Could not find the 'updated_at' column of 'properties' in the schema cache"
+
+# 2025-01-18 16:35:33.532477
++/drop
+
+# 2025-01-18 16:35:35.998085
++/reset
+
+# 2025-01-18 16:35:41.560360
++/clear
+
+# 2025-01-18 16:38:12.435107
++/add docs\booking-setup.md
+
+# 2025-01-18 16:39:04.129429
++Please analyze the booking setup on the system so we can start working on it. Tell me the files invvovedd in all related to booking on the platform
+
+# 2025-01-18 16:39:59.334099
++a
+
+# 2025-01-18 16:41:16.581100
++Nowhow is the availability of the properties handeled
+
+# 2025-01-18 16:46:56.376659
++Create a property availability calendar component that provides a visual management interface for property statuses. The calendar should support both single-property and all-properties view modes.
++Requirements:
++
++Component Architecture:
++
++Implement as a TypeScript React component using provided tech stack
++Utilize Shadcn UI components where applicable
++Follow project's type safety patterns with strict TypeScript implementation
++
++
++Core Functionality:
++
++Display a large calendar interface showing property availability statuses
++Implement two view modes:
++
++Single Property View (default mode)
++All Properties View (aggregate view)
++
++
++Include a mode toggle switch between views
++Show clear visual indicators for different property statuses
++
++
++UI/UX Specifications:
++
++Follow project's design standards and UI principles
++Ensure responsive design implementation
++Maintain consistent spacing using Tailwind classes
++Implement proper accessibility standards (ARIA labels, keyboard navigation)
++
++
++Data Integration:
++
++Define TypeScript interfaces for property and availability data
++Implement proper error handling for data fetching
++Include loading states for data operations
+
+# 2025-01-18 16:47:40.336072
++y
+
+# 2025-01-18 16:51:25.171217
++Build Error
++
++Failed to compile
++Next.js (14.2.16) is outdated (learn more)
++./messages/en.json
++
++Module parse failed: Cannot parse JSON: Unexpected non-whitespace character after JSON at position 23144 (line 582 column 1) while parsing '{
++
++  "Hero": {
++
++    "title": "Find Your '
++You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders
++Error: Cannot parse JSON: Unexpected non-whitespace character after JSON at position 23144 (line 582 column 1) while parsing '{
++
++  "Hero": {
++
++    "title": "Find Your '
++
++This error occurred during the build process and can only be dismissed by fixing the error.
+
+# 2025-01-18 16:51:27.444630
++n
+
+# 2025-01-18 17:02:05.442642
++I do not see the new availability calendat on th the calendar management section 
+
+# 2025-01-18 17:09:00.617206
++y
+
+# 2025-01-18 17:12:33.622070
++I am not able to see the new calendar on the calendar management it still has the dummt content i had before 
+
+# 2025-01-18 17:14:56.602650
++n
+
+# 2025-01-18 17:15:25.067086
++/map refresh
+
+# 2025-01-18 17:15:30.111020
++/map-refresh
