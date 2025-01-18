@@ -4,36 +4,7 @@ import React from 'react'
 import { PayPalButtons, usePayPalScriptReducer, DISPATCH_ACTION } from '@paypal/react-paypal-js'
 import { useToast } from '@/components/ui/use-toast'
 import { useState, useEffect } from 'react'
-
-interface PayPalButtonsProps {
-  totalPrice: number
-  currency?: string
-  onApprove: (
-    data: { orderID: string; payerID?: string | null | undefined }, 
-    actions: {
-      order: {
-        capture: () => Promise<{
-          create_time?: string;
-          update_time?: string;
-          id?: string;
-          payment_source?: {
-            card?: {
-              name?: string;
-              last_digits?: string;
-              bin_details?: Record<string, unknown>;
-            };
-            paypal?: Record<string, unknown>;
-            venmo?: Record<string, unknown>;
-          };
-          status?: string;
-          payer?: Record<string, unknown>;
-        }>;
-      };
-    }
-  ) => Promise<void>
-  onError: (error: { message?: string; details?: Record<string, unknown> }) => void
-  onCancel?: () => void
-}
+import type { PayPalButtonsProps, PayPalError } from '@/types/paypal'
 
 export function PayPalButtonsWrapper({
   totalPrice,
