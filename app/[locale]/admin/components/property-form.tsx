@@ -25,7 +25,7 @@ export function PropertyForm({
   propertyId 
 }: PropertyFormProps) {
   const t = useTranslations('auth.adminSection.properties')
-  const { form, onSubmit } = usePropertyForm(initialData)
+  const { form, processFormData } = usePropertyForm(initialData)
   const [isLoading, setIsLoading] = useState(false)
 
   const handleCreate = async (data: PropertyFormValues) => {
@@ -110,27 +110,23 @@ export function PropertyForm({
     }
   }
 
-  const handleSubmit = async (data: PropertyFormValues) => {
+  const handleFormSubmit = async (data: PropertyFormValues) => {
     console.log('Form submit handler triggered')
     console.log('Form data:', data)
     console.log('Mode:', mode)
     console.log('Property ID:', propertyId)
     
-    if (mode === 'edit' && propertyId) {
-      console.log('Attempting to update property...')
-      return handleUpdate(data)
-    } else {
-      console.log('Attempting to create new property...')
-      return handleCreate(data)
-    }
-  }
-
-  const onSubmit = async (data: PropertyFormValues) => {
     try {
-      console.log('Form submission started')
-      const result = await handleSubmit(data)
-      console.log('Form submission completed:', result)
-      return result
+      const processedData = await processFormData(data, mode === 'edit')
+      console.log('Processed form data:', processedData)
+      
+      if (mode === 'edit' && propertyId) {
+        console.log('Attempting to update property...')
+        return handleUpdate(processedData)
+      } else {
+        console.log('Attempting to create new property...')
+        return handleCreate(processedData)
+      }
     } catch (error) {
       console.error('Form submission error:', error)
       onError?.(error)
@@ -141,7 +137,7 @@ export function PropertyForm({
   return (
     <Form {...form}>
       <form 
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(handleFormSubmit)}
         className="space-y-8 w-full h-[calc(100vh-200px)] overflow-y-auto"
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 lg:gap-x-12 gap-y-8 px-4">

@@ -35,7 +35,7 @@ export function usePropertyForm(initialData?: PropertyFormValues) {
     },
   })
 
-  const onSubmit = async (data: PropertyFormValues, isUpdate = false) => {
+  const processFormData = async (data: PropertyFormValues, isUpdate = false) => {
     console.log('Processing form data...')
     try {
       console.log('Getting current user...')
@@ -99,6 +99,6 @@ export function usePropertyForm(initialData?: PropertyFormValues) {
 
   return {
     form,
-    onSubmit
+    processFormData
   }
 }
