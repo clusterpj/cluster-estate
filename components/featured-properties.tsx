@@ -26,39 +26,39 @@ function PriceDisplay({ property }: { property: Property }) {
 
   
   const renderPrice = () => {
-    if (property.listing_type === 'sale' && property.sale_price) {
+    if (property.listing_type === 'sale') {
       return (
         <div>
           <span className="text-sm text-muted-foreground">{t('price.forSale')}: </span>
-          <span>${formatPrice(property.sale_price)}</span>
+          <span>${formatPrice(property.price)}</span>
         </div>
       );
     }
 
-    if (property.listing_type === 'rent' && property.rental_price) {
+    if (property.listing_type === 'rent') {
       const frequency = property.rental_frequency ?  
         t(`price.rentalFrequency.${property.rental_frequency}`) : '';
       return (
         <div>
           <span className="text-sm text-muted-foreground">{t('price.forRent')}: </span>
-          <span>${formatPrice(property.rental_price)}</span>
+          <span>${formatPrice(property.price)}</span>
           {frequency && <span className="text-sm text-muted-foreground">/{frequency}</span>}
         </div>
       );
     }
 
-    if (property.listing_type === 'both' && property.sale_price && property.rental_price) {
+    if (property.listing_type === 'both') {
       const frequency = property.rental_frequency ?
         t(`price.rentalFrequency.${property.rental_frequency}`) : '';
       return (
         <div className="space-y-1">
           <div>
             <span className="text-sm text-muted-foreground">{t('price.forSale')}: </span>
-            <span>${formatPrice(property.sale_price)}</span>
+            <span>${formatPrice(property.price)}</span>
           </div>
           <div>
             <span className="text-sm text-muted-foreground">{t('price.forRent')}: </span>
-            <span>${formatPrice(property.rental_price)}</span>
+            <span>${formatPrice(property.price)}</span>
             {frequency && <span className="text-sm text-muted-foreground">/{frequency}</span>}
           </div>
         </div>
@@ -130,8 +130,7 @@ export function FeaturedProperties() {
         .select('*')
         .eq('featured', true)
         .order('created_at', { ascending: false })
-        .order('sale_price', { ascending: true })
-        .order('rental_price', { ascending: true });
+        .order('price', { ascending: true });
 
       if (error) {
         console.error('Error fetching featured properties:', error);

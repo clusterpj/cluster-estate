@@ -57,16 +57,8 @@
 - Monitor bundle size
 - Implement proper caching strategies
 
-### Accessibility Standards
-- Follow WCAG 2.1 guidelines
-- Implement proper ARIA labels
-- Ensure keyboard navigation
-- Test with screen readers
-- Maintain color contrast ratios
-
 ### Internationalization
 - Use type-safe translation keys
-- Implement RTL support where needed
 - Follow locale-specific formatting
 - Document translation workflow
 - Handle dynamic content translation

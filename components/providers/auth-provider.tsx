@@ -65,11 +65,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const { data: { session }, error } = await supabase.auth.refreshSession()
       if (error) throw error
-      return session
+      if (session?.user) {
+        setUser(session.user)
+        await fetchUserProfile(session.user.id)
+      }
     } catch (error) {
       console.error('Error refreshing session:', error)
-      await signOut()
-      return null
     }
   }
 
@@ -186,7 +187,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, userProfile, loading, supabase, signIn, signUp, signOut, resetPassword }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      userProfile, 
+      loading, 
+      supabase, 
+      signIn, 
+      signUp, 
+      signOut, 
+      resetPassword,
+      refreshSession,
+      hasRole
+    }}>
       {children}
       <Toaster />
     </AuthContext.Provider>

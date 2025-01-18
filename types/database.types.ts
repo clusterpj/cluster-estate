@@ -21,7 +21,7 @@ export interface Database {
           square_feet: number
           images: string[]
           features: string[]
-          status: 'available' | 'sold' | 'pending'
+          status: 'available' | 'sold' | 'pending' | 'rented'
           user_id: string
           listing_type: 'sale' | 'rent' | 'both'
           sale_price: number | null
@@ -44,7 +44,7 @@ export interface Database {
           square_feet: number
           images?: string[]
           features?: string[]
-          status?: 'available' | 'sold' | 'pending'
+          status?: 'available' | 'sold' | 'pending' | 'rented'
           user_id: string
           listing_type?: 'sale' | 'rent' | 'both'
           sale_price?: number | null
@@ -66,7 +66,7 @@ export interface Database {
           square_feet?: number
           images?: string[]
           features?: string[]
-          status?: 'available' | 'sold' | 'pending'
+          status?: 'available' | 'sold' | 'pending' | 'rented'
           user_id?: string
           listing_type?: 'sale' | 'rent' | 'both'
           sale_price?: number | null

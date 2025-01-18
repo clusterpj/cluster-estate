@@ -434,7 +434,7 @@ export function PropertyManagement() {
                     {(property.listing_type === 'rent' || property.listing_type === 'both') && (
                       <>
                         <DropdownMenuItem
-                          onClick={() => updatePropertyStatus(property.id, 'rented')}
+                          onClick={() => updatePropertyStatus(property.id, 'rented' as PropertyStatus)}
                           disabled={property.status === 'rented'}
                         >
                           <Check className="mr-2 h-4 w-4" />

@@ -17,7 +17,7 @@ export const columns: ColumnDef<Booking>[] = [
     ),
     cell: ({ row }) => {
       const [copied, setCopied] = useState(false)
-      const fullId = row.getValue('id')
+      const fullId = row.getValue('id') as string
       const truncatedId = `#${fullId.slice(0, 6)}...`
 
       const handleCopy = () => {
@@ -69,7 +69,7 @@ export const columns: ColumnDef<Booking>[] = [
     ),
     cell: ({ row }) => {
       const [copied, setCopied] = useState(false)
-      const fullId = row.getValue('property_id')
+      const fullId = row.getValue('property_id') as string
       const truncatedId = `#${fullId.slice(0, 6)}...`
 
       const handleCopy = () => {
