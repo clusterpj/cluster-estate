@@ -46,9 +46,11 @@ export function ImagesSection({ form, onError }: ImagesSectionProps) {
                   type="file"
                   accept="image/jpeg,image/png"
                   multiple
-                  onChange={(e) => {
-                    handleImageUpload(e.target.files)
-                    field.onChange([...uploadedImages, ...(e.target.files ? Array.from(e.target.files) : [])])
+                  onChange={async (e) => {
+                    if (e.target.files) {
+                      await handleImageUpload(e.target.files)
+                      field.onChange([...uploadedImages])
+                    }
                   }}
                 />
                 <div className="grid grid-cols-3 gap-2">

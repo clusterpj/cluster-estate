@@ -31,7 +31,7 @@ export function useImageUpload(initialImages?: string[], onError?: (error: any) 
         uploadedUrls.push(publicUrl)
       }
 
-      setUploadedImages(prev => [...prev, ...uploadedImages])
+      setUploadedImages(prev => [...prev, ...uploadedUrls])
     } catch (error) {
       console.error('Error uploading images:', error)
       onError?.(error)
