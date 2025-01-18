@@ -9,13 +9,16 @@ interface PayPalButtonsProps {
   totalPrice: number
   currency?: string
   onApprove: (
-    data: { orderID: string; payerID?: string | null }, 
+    data: { orderID: string; payerID?: string | null | undefined }, 
     actions: {
-      order: {
+      order?: {
         capture: () => Promise<{
           status: string;
           id: string;
           payer: Record<string, unknown>;
+          create_time?: string;
+          update_time?: string;
+          payment_source?: Record<string, unknown>;
         }>;
       };
     }
@@ -108,7 +111,7 @@ export function PayPalButtonsWrapper({
             console.log('PayPal payment approved:', data)
             try {
               console.log('Capturing PayPal payment...')
-              const captureData = await actions.order?.capture()
+              const captureData = await actions.order?.capture?.()
               console.log('Payment captured successfully:', captureData)
               await onApprove(data, actions)
             } catch (error: unknown) {
