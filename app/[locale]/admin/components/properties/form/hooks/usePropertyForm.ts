@@ -61,18 +61,11 @@ export function usePropertyForm(initialData?: PropertyFormValues) {
         images: processedImages,
         available_from: availableFrom,
         available_to: availableTo,
-        updated_at: new Date().toISOString()
-      } : {
-        ...data,
-        sale_price: data.sale_price || null,
-        rental_price: data.rental_price || null,
-        features: Array.isArray(data.features) ? data.features : [],
-        images: processedImages,
-        user_id: user?.id,
-        property_type: data.property_type || 'house',
-        available_from: availableFrom,
-        available_to: availableTo,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
+        ...(isUpdate ? {} : {
+          user_id: user?.id,
+          property_type: data.property_type || 'house'
+        })
       }
 
       return processedData
