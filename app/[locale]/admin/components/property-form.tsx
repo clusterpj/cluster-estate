@@ -2,34 +2,20 @@
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import type { Database } from '@/types/supabase'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  FormDescription,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Badge } from '@/components/ui/badge'
-import { X } from 'lucide-react'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { Form } from '@/components/ui/form'
 import { useTranslations } from 'next-intl'
-import { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { useState, useEffect } from 'react'
+import { BasicInformation } from './components/properties/form/sections/BasicInformation'
+import { SaleInformation } from './components/properties/form/sections/SaleInformation'
+import { RentalInformation } from './components/properties/form/sections/RentalInformation'
+import { PetInformation } from './components/properties/form/sections/PetInformation'
+import { FeaturesSection } from './components/properties/form/sections/FeaturesSection'
+import { ImagesSection } from './components/properties/form/sections/ImagesSection'
+import { propertyFormSchema, PropertyFormValues } from './components/properties/form/schema'
 
 type PropertyInsert = Database['public']['Tables']['properties']['Insert']
 
