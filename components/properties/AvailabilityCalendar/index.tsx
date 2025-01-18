@@ -56,13 +56,13 @@ export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) 
     
     switch (day.status) {
       case 'available':
-        return `${baseClasses} bg-green-100 hover:bg-green-200 text-green-800`
+        return `${baseClasses} bg-green-100 hover:bg-green-200 text-green-800 text-lg font-medium`
       case 'booked':
-        return `${baseClasses} bg-red-100 hover:bg-red-200 text-red-800`
+        return `${baseClasses} bg-red-100 hover:bg-red-200 text-red-800 text-lg font-medium`
       case 'pending':
-        return `${baseClasses} bg-yellow-100 hover:bg-yellow-200 text-yellow-800`
+        return `${baseClasses} bg-yellow-100 hover:bg-yellow-200 text-yellow-800 text-lg font-medium`
       case 'maintenance':
-        return `${baseClasses} bg-gray-100 hover:bg-gray-200 text-gray-800`
+        return `${baseClasses} bg-gray-100 hover:bg-gray-200 text-gray-800 text-lg font-medium`
       default:
         return `${baseClasses} bg-background hover:bg-accent`
     }
@@ -74,7 +74,7 @@ export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) 
         <CardHeader>
           <CardTitle>{t('errorTitle')}</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <p className="text-destructive">{t('errorMessage')}</p>
         </CardContent>
       </Card>
@@ -107,7 +107,7 @@ export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) 
             mode="single"
             selected={selectedDate}
             onSelect={setSelectedDate}
-            className="rounded-md border"
+            className="rounded-md border w-full min-w-[800px]"
             classNames={{
               day: (date) => {
                 const dayData = getCalendarDays().find(d => 

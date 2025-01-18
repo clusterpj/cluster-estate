@@ -43,7 +43,7 @@ export default function AdminDashboard() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto py-10 px-4">
       <DashboardHeader />
       
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
