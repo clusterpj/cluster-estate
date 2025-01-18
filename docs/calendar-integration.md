@@ -20,9 +20,45 @@ The calendar system consists of several key components:
 
 ## Integration Steps
 
-### 1. Using AvailabilityCalendar
+### 1. Using AvailabilityCalendar with Booking System
 
-The `AvailabilityCalendar` component can be used to display availability for single or multiple properties.
+The `AvailabilityCalendar` component integrates directly with the booking system to ensure date consistency:
+
+- Automatically checks property availability
+- Validates date ranges against existing bookings
+- Shows real-time availability status
+- Prevents selection of unavailable dates
+- Highlights pending and confirmed bookings
+
+Example integration with booking form:
+
+```tsx
+function BookingForm({ property }) {
+  const [selectedDates, setSelectedDates] = useState({
+    start: null,
+    end: null
+  })
+
+  return (
+    <div>
+      <AvailabilityCalendar 
+        propertyId={property.id}
+        onDateSelect={(date) => {
+          // Handle date selection and validation
+          if (isDateAvailable(date)) {
+            setSelectedDates(prev => ({
+              ...prev,
+              start: date
+            }))
+          }
+        }}
+      />
+      
+      {/* Booking form fields */}
+    </div>
+  )
+}
+```
 
 ```tsx
 import { AvailabilityCalendar } from '@/components/properties/AvailabilityCalendar'

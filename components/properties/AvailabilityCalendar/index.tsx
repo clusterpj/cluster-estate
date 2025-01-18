@@ -103,19 +103,24 @@ export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) 
   const getDayClassName = (day: CalendarDay) => {
     const baseClasses = 'h-10 w-10 rounded-full flex items-center justify-center text-sm border-2'
     
+    // Additional classes for invalid rental periods
+    const invalidClasses = day.rentalPeriod === 'invalid'
+      ? 'line-through opacity-50 cursor-not-allowed'
+      : ''
+    
     switch (day.status) {
       case 'available':
-        return `${baseClasses} bg-green-100 hover:bg-green-200 text-green-800 border-green-300`
+        return `${baseClasses} bg-green-100 hover:bg-green-200 text-green-800 border-green-300 ${invalidClasses}`
       case 'booked':
-        return `${baseClasses} bg-red-100 hover:bg-red-200 text-red-800 border-red-300`
+        return `${baseClasses} bg-red-100 hover:bg-red-200 text-red-800 border-red-300 ${invalidClasses}`
       case 'pending':
-        return `${baseClasses} bg-yellow-100 hover:bg-yellow-200 text-yellow-800 border-yellow-300`
+        return `${baseClasses} bg-yellow-100 hover:bg-yellow-200 text-yellow-800 border-yellow-300 ${invalidClasses}`
       case 'maintenance':
-        return `${baseClasses} bg-gray-100 hover:bg-gray-200 text-gray-800 border-gray-300`
+        return `${baseClasses} bg-gray-100 hover:bg-gray-200 text-gray-800 border-gray-300 ${invalidClasses}`
       case 'partial':
-        return `${baseClasses} bg-blue-100 hover:bg-blue-200 text-blue-800 border-blue-300`
+        return `${baseClasses} bg-blue-100 hover:bg-blue-200 text-blue-800 border-blue-300 ${invalidClasses}`
       default:
-        return `${baseClasses} bg-background hover:bg-accent border-border`
+        return `${baseClasses} bg-background hover:bg-accent border-border ${invalidClasses}`
     }
   }
 

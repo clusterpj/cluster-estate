@@ -72,15 +72,37 @@ export async function GET(
         end: new Date(booking.check_out)
       })
       
+      // Check minimum rental period
+      const rentalPeriod = differenceInDays(
+        new Date(booking.check_out),
+        new Date(booking.check_in)
+      )
+      
       bookingDates.forEach(date => {
         const dateKey = format(date, 'yyyy-MM-dd')
+        const currentStatus = availabilityMap.get(dateKey)?.status || 'available'
+        
+        // Only update status if more restrictive
+        const newStatus = getMostRestrictiveStatus(currentStatus, booking.status)
+        
         availabilityMap.set(dateKey, {
           date: dateKey,
-          status: booking.status,
-          propertyId: params.id
+          status: newStatus,
+          propertyId: params.id,
+          rentalPeriod: rentalPeriod < (property.availability?.minimum_rental_period || 1) 
+            ? 'invalid' 
+            : 'valid'
         })
       })
     })
+
+    // Helper function to determine most restrictive status
+    function getMostRestrictiveStatus(current: string, incoming: string): string {
+      const statusPriority = ['booked', 'pending', 'partial', 'available']
+      const currentIndex = statusPriority.indexOf(current)
+      const incomingIndex = statusPriority.indexOf(incoming)
+      return statusPriority[Math.min(currentIndex, incomingIndex)]
+    }
 
     // Convert map to array
     const availability = Array.from(availabilityMap.values())

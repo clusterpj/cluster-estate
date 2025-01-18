@@ -90,10 +90,12 @@ pnpm supabase migration up
 
 ## Features
 
-- Property availability checking
-- Booking form with date selection
+- Property availability checking with calendar integration
+- Booking form with date selection powered by AvailabilityCalendar
+- Real-time availability updates
+- Date range validation against property availability
 - PayPal payment integration
-- Booking management
+- Booking management with calendar view
 - Email notifications (coming soon)
 
 ## Usage
