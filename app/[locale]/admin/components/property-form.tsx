@@ -3,7 +3,8 @@
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { useTranslations } from 'next-intl'
-import { useState } from 'react'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import type { Database } from '@/types/supabase'
 import { BasicInformation } from '@/app/[locale]/admin/components/properties/form/sections/BasicInformation'
 import { SaleInformation } from '@/app/[locale]/admin/components/properties/form/sections/SaleInformation'
 import { RentalInformation } from '@/app/[locale]/admin/components/properties/form/sections/RentalInformation'
@@ -23,7 +24,7 @@ export function PropertyForm({
   const t = useTranslations('auth.adminSection.properties')
   const { form, onSubmit } = usePropertyForm(initialData)
 
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data: PropertyFormValues) => {
     try {
       const processedData = await onSubmit(data)
       
@@ -45,7 +46,7 @@ export function PropertyForm({
           .single()
       }
 
-      const { data: savedProperty, error } = await dbOperation
+      const { error } = await dbOperation
 
       if (error) throw error
       
