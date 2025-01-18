@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase-client';
-import { Calendar } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -25,6 +24,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { AvailabilityCalendar } from '@/components/properties/AvailabilityCalendar';
 
 interface CalendarSource {
   id: string;
@@ -35,17 +35,8 @@ interface CalendarSource {
   is_active: boolean;
 }
 
-interface BlockedDate {
-  id: string;
-  start_date: string;
-  end_date: string;
-  summary: string;
-  property_id: string;
-}
-
 export function CalendarManagement() {
   const [sources, setSources] = useState<CalendarSource[]>([]);
-  const [blockedDates, setBlockedDates] = useState<BlockedDate[]>([]);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -62,16 +53,13 @@ export function CalendarManagement() {
     try {
       const [
         { data: sourcesData },
-        { data: datesData },
         { data: propertiesData }
       ] = await Promise.all([
         supabase.from('calendar_sources').select('*'),
-        supabase.from('blocked_dates').select('*'),
         supabase.from('properties').select('id, title')
       ]);
 
       setSources(sourcesData || []);
-      setBlockedDates(datesData || []);
       setProperties(propertiesData || []);
     } catch (error) {
       console.error('Error fetching calendar data:', error);
@@ -295,17 +283,10 @@ export function CalendarManagement() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Calendar View</CardTitle>
+            <CardTitle>Availability Calendar</CardTitle>
           </CardHeader>
           <CardContent>
-            <Calendar
-              mode="multiple"
-              selected={blockedDates.flatMap(date => [
-                new Date(date.start_date),
-                new Date(date.end_date)
-              ])}
-              className="rounded-md border"
-            />
+            <AvailabilityCalendar />
           </CardContent>
         </Card>
       </div>
