@@ -281,7 +281,66 @@ export function CalendarManagement() {
           </CardContent>
         </Card>
 
-        <AvailabilityCalendar />
+        <div className="grid gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Calendar Sources</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Property</TableHead>
+                    <TableHead>Last Synced</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {sources.map(source => (
+                    <TableRow key={source.id}>
+                      <TableCell>{source.name}</TableCell>
+                      <TableCell>
+                        {properties.find(p => p.id === source.property_id)?.title}
+                      </TableCell>
+                      <TableCell>
+                        {source.last_synced_at
+                          ? new Date(source.last_synced_at).toLocaleString()
+                          : 'Never'}
+                      </TableCell>
+                      <TableCell>
+                        {source.is_active ? (
+                          <Badge variant="default">Active</Badge>
+                        ) : (
+                          <Badge variant="secondary">Inactive</Badge>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => deleteSource(source.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Property Availability</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <AvailabilityCalendar />
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
