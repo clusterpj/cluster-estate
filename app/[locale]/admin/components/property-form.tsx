@@ -6,6 +6,7 @@ import * as z from 'zod'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import type { Database } from '@/types/supabase'
 import { Button } from '@/components/ui/button'
+import { Switch } from '@/components/ui/switch'
 import {
   Form,
   FormControl,
@@ -36,6 +37,9 @@ const propertyFormSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   description: z.string().min(1, 'Description is required'),
   sale_price: z.number().min(0, 'Sale price must be positive'),
+  pets_allowed: z.boolean().default(false),
+  pet_restrictions: z.array(z.string()).default([]),
+  pet_deposit: z.number().min(0, 'Pet deposit must be positive').optional(),
   location: z.string().min(1, 'Location is required'),
   bedrooms: z.number().min(0, 'Number of bedrooms must be positive'),
   bathrooms: z.number().min(0, 'Number of bathrooms must be positive'),
@@ -86,6 +90,9 @@ export function PropertyForm({
       title: '',
       description: '',
       sale_price: 0,
+      pets_allowed: false,
+      pet_restrictions: [],
+      pet_deposit: undefined,
       location: '',
       bedrooms: 1,
       bathrooms: 1,
@@ -469,6 +476,26 @@ export function PropertyForm({
               </div>
             )}
 
+            {/* Pets Allowed Switch */}
+            <FormField
+              control={form.control}
+              name="pets_allowed"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">{t('form.petsAllowed')}</FormLabel>
+                    <FormDescription>{t('form.petsAllowedDescription')}</FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
             {/* Rental Information */}
             {(form.watch('listing_type') === 'rent' || form.watch('listing_type') === 'both') && (
               <div className="space-y-6">
@@ -600,6 +627,81 @@ export function PropertyForm({
                     )}
                   />
                 </div>
+              </div>
+            )}
+
+            {/* Pet Information Section */}
+            {(form.watch('pets_allowed')) && (
+              <div className="space-y-6">
+                <div className="border-b pb-2">
+                  <h3 className="font-semibold text-lg">{t('form.petInformation')}</h3>
+                </div>
+                
+                <FormField
+                  control={form.control}
+                  name="pet_restrictions"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('form.petRestrictions')}</FormLabel>
+                      <FormDescription>{t('form.petRestrictionsDescription')}</FormDescription>
+                      <FormControl>
+                        <div className="space-y-2">
+                          <Input
+                            placeholder={t('form.petRestrictionsPlaceholder')}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' && e.currentTarget.value) {
+                                e.preventDefault()
+                                const newRestriction = e.currentTarget.value.trim()
+                                const currentRestrictions = form.getValues('pet_restrictions')
+                                
+                                if (newRestriction && !currentRestrictions.includes(newRestriction)) {
+                                  form.setValue('pet_restrictions', [...currentRestrictions, newRestriction])
+                                  e.currentTarget.value = ''
+                                }
+                              }
+                            }}
+                          />
+                          <div className="flex flex-wrap gap-2">
+                            {field.value.map((restriction, index) => (
+                              <Badge key={index} variant="secondary">
+                                {restriction}
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const currentRestrictions = form.getValues('pet_restrictions')
+                                    form.setValue('pet_restrictions', currentRestrictions.filter(r => r !== restriction))
+                                  }}
+                                  className="ml-1 hover:text-destructive"
+                                >
+                                  <X className="h-3 w-3" />
+                                </button>
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="pet_deposit"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('form.petDeposit')}</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          {...field}
+                          onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
             )}
 
