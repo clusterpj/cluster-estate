@@ -3,13 +3,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Bath, Bed, MapPin, Maximize } from "lucide-react"
-import Image from "next/image"
 import { FadeInView } from "@/components/animations/fade-in-view"
 import { useTranslations } from 'next-intl'
 import { Property } from "@/types/property"
 import { PriceDisplay } from "@/components/properties/PriceDisplay"
 import { PropertyBooking } from "@/components/properties/PropertyBooking/PropertyBooking"
 import { isPropertyAvailableForBooking } from "@/types/property"
+import { PropertyGallery } from "./PropertyGallery"
 
 export function PropertyDetails({ property }: { property: Property }) {
   const t = useTranslations('PropertyDetails')
@@ -19,15 +19,9 @@ export function PropertyDetails({ property }: { property: Property }) {
     <div className="py-8">
       <FadeInView>
         <Card className="overflow-hidden">
-          <CardHeader className="relative p-0 aspect-[16/9]">
-            <Image
-              src={property.images[0] || '/placeholder-property.jpg'}
-              alt={property.title}
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute top-4 right-4 flex gap-2">
+          <div className="relative">
+            <PropertyGallery property={property} />
+            <div className="absolute top-4 right-4 flex gap-2 z-10">
               <Badge className="bg-caribbean-600 hover:bg-caribbean-700">
                 {t(`FeaturedProperties.propertyType.${property.property_type}`)}
               </Badge>
@@ -40,7 +34,7 @@ export function PropertyDetails({ property }: { property: Property }) {
                 </Badge>
               )}
             </div>
-          </CardHeader>
+          </div>
           <CardContent className="p-6">
             <CardTitle className="text-3xl mb-4 text-caribbean-900 dark:text-caribbean-100">
               {property.title}
