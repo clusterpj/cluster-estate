@@ -8,8 +8,10 @@ import { logger } from '@/lib/logger'
 export async function GET(request: Request) {
   const supabase = createRouteHandlerClient({ cookies })
   const { searchParams } = new URL(request.url)
-  const startDate = searchParams.get('start')
-  const endDate = searchParams.get('end')
+  const startDate = searchParams.get('start') || format(new Date(), 'yyyy-MM-dd')
+  const endDate = searchParams.get('end') || format(addDays(new Date(), 60), 'yyyy-MM-dd')
+  
+  logger.info(`Fetching aggregate availability from ${startDate} to ${endDate} for ${request.headers.get('referer')}`)
   
   try {
     logger.info(`Fetching aggregate availability from ${startDate} to ${endDate}`)

@@ -30,11 +30,15 @@ export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) 
   const { data: availabilityData, isLoading, isError } = useQuery({
     queryKey: ['property-availability', propertyId, viewMode],
     queryFn: async () => {
-      const endpoint = viewMode === 'single' && propertyId 
-        ? `/api/properties/${propertyId}/availability`
-        : '/api/properties/availability'
+      const today = new Date()
+      const startDate = format(today, 'yyyy-MM-dd')
+      const endDate = format(addDays(today, 60), 'yyyy-MM-dd')
       
-      console.log(`Fetching availability data from: ${endpoint}`)
+      const endpoint = viewMode === 'single' && propertyId 
+        ? `/api/properties/${propertyId}/availability?start=${startDate}&end=${endDate}`
+        : `/api/properties/availability?start=${startDate}&end=${endDate}`
+      
+      logger.info(`Fetching availability data from: ${endpoint} in ${viewMode} view mode`)
       
       const response = await fetch(endpoint, {
         headers: {
@@ -77,12 +81,12 @@ export function AvailabilityCalendar({ propertyId }: AvailabilityCalendarProps) 
   // Generate calendar days with status
   const getCalendarDays = (): CalendarDay[] => {
     if (!availabilityData) {
-      console.log('No availability data available')
+      logger.info('No availability data available')
       return []
     }
     
     const days = availabilityData.map((day: any) => {
-      console.log(`Processing day ${day.date} with status ${day.status}`)
+      logger.info(`Processing day ${day.date} with status ${day.status} and ${day.propertyCount} properties available`)
       return {
         date: new Date(day.date),
         status: day.status,
