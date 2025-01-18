@@ -24,6 +24,11 @@ export function Sidebar({ locale }: SidebarProps) {
       icon: 'calendar',
     },
     {
+      name: 'Calendar',
+      href: `/${locale}/admin/calendar`,
+      icon: 'calendar-days',
+    },
+    {
       name: 'Properties',
       href: `/${locale}/admin/properties`,
       icon: 'home',
