@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Bath, Bed, MapPin, Maximize } from "lucide-react"
+import { Bath, Bed, MapPin, Maximize, PawPrint } from "lucide-react"
 import { FadeInView } from "@/components/animations/fade-in-view"
 import { useTranslations } from 'next-intl'
 import { Property } from "@/types/property"
@@ -46,6 +46,15 @@ export function PropertyDetails({ property }: { property: Property }) {
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+              {/* Pet Information */}
+              <div className="flex items-center gap-2">
+                <PawPrint className="h-5 w-5" />
+                <span>
+                  {property.pets_allowed 
+                    ? t('petsAllowed') 
+                    : t('petsNotAllowed')}
+                </span>
+              </div>
               <div className="flex items-center gap-2">
                 <Bed className="h-5 w-5" />
                 <span>{property.bedrooms} {t('beds')}</span>
@@ -61,6 +70,41 @@ export function PropertyDetails({ property }: { property: Property }) {
             </div>
 
             <PriceDisplay property={property} />
+
+            {/* Pet Details Section */}
+            {property.pets_allowed && (
+              <div className="mt-8">
+                <h3 className="text-xl font-semibold mb-4">
+                  {t('petInformation')}
+                </h3>
+                
+                {property.pet_restrictions?.length > 0 && (
+                  <div className="mb-4">
+                    <h4 className="font-medium mb-2">
+                      {t('petRestrictions')}
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {property.pet_restrictions.map((restriction, index) => (
+                        <Badge key={index} variant="secondary">
+                          {restriction}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {property.pet_deposit && (
+                  <div>
+                    <h4 className="font-medium mb-2">
+                      {t('petDeposit')}
+                    </h4>
+                    <p className="text-muted-foreground">
+                      ${property.pet_deposit.toLocaleString()}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
 
             <div className="mt-8">
               <h3 className="text-xl font-semibold mb-4">{t('description')}</h3>

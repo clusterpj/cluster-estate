@@ -476,6 +476,11 @@
   },
   "PropertyDetails": {
     "beds": "Beds",
+    "petsAllowed": "Pets Allowed",
+    "petsNotAllowed": "No Pets",
+    "petInformation": "Pet Information",
+    "petRestrictions": "Pet Restrictions",
+    "petDeposit": "Pet Deposit",
     "baths": "Baths",
     "sqft": "Sq Ft",
     "description": "Description",
