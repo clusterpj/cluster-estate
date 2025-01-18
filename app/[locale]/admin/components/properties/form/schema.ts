@@ -2,8 +2,8 @@ import * as z from 'zod'
 import type { Database } from '@/types/supabase'
 
 export const propertyFormSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  description: z.string().min(1, 'Description is required'),
+  title: z.string().min(1, 'Title is required').optional(),
+  description: z.string().min(1, 'Description is required').optional(),
   sale_price: z.number().min(0, 'Sale price must be positive'),
   pets_allowed: z.boolean().default(false),
   pet_restrictions: z.array(z.string()).default([]),

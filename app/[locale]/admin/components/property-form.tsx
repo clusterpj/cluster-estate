@@ -27,12 +27,11 @@ export function PropertyForm({
   const { form, onSubmit } = usePropertyForm(initialData)
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = async (data: PropertyFormValues) => {
-    console.log('Form submitted with data:', data)
+  const handleCreate = async (data: PropertyFormValues) => {
+    console.log('Creating new property...')
     setIsLoading(true)
     
     try {
-      // Validate form
       const isValid = await form.trigger()
       if (!isValid) {
         console.log('Form validation failed')
@@ -43,53 +42,61 @@ export function PropertyForm({
       console.log('Processed data:', processedData)
       
       const supabase = createClientComponentClient<Database>()
+      const { data: newProperty, error: insertError } = await supabase
+        .from('properties')
+        .insert([processedData])
+        .select()
+        .single()
+
+      if (insertError) throw insertError
       
-      if (mode === 'edit' && propertyId) {
-        console.log('Updating existing property...')
-        const { data: existingData, error: fetchError } = await supabase
-          .from('properties')
-          .select('*')
-          .eq('id', propertyId)
-          .single()
-
-        if (fetchError) throw fetchError
-        if (!existingData) throw new Error('Property not found')
-
-        const updatedData = {
-          ...existingData,
-          ...processedData,
-          updated_at: new Date().toISOString()
-        }
-
-        console.log('Updating with data:', updatedData)
-        
-        const { error: updateError } = await supabase
-          .from('properties')
-          .update(updatedData)
-          .eq('id', propertyId)
-
-        if (updateError) throw updateError
-        
-        console.log('Property updated successfully')
-        onSuccess?.()
-      } else {
-        console.log('Creating new property...')
-        const { data: newProperty, error: insertError } = await supabase
-          .from('properties')
-          .insert([processedData])
-          .select()
-          .single()
-
-        if (insertError) throw insertError
-        
-        console.log('Property created successfully:', newProperty)
-        onSuccess?.()
-      }
+      console.log('Property created successfully:', newProperty)
+      onSuccess?.()
     } catch (error) {
-      console.error('Error in form submission:', error)
+      console.error('Error creating property:', error)
       onError?.(error)
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const handleUpdate = async (data: PropertyFormValues) => {
+    console.log('Updating property...')
+    setIsLoading(true)
+    
+    try {
+      const isValid = await form.trigger()
+      if (!isValid) {
+        console.log('Form validation failed')
+        return
+      }
+
+      const processedData = await onSubmit(data)
+      console.log('Processed data:', processedData)
+      
+      const supabase = createClientComponentClient<Database>()
+      const { error: updateError } = await supabase
+        .from('properties')
+        .update(processedData)
+        .eq('id', propertyId!)
+
+      if (updateError) throw updateError
+      
+      console.log('Property updated successfully')
+      onSuccess?.()
+    } catch (error) {
+      console.error('Error updating property:', error)
+      onError?.(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleSubmit = async (data: PropertyFormValues) => {
+    if (mode === 'edit' && propertyId) {
+      await handleUpdate(data)
+    } else {
+      await handleCreate(data)
     }
   }
 
@@ -129,16 +136,20 @@ export function PropertyForm({
         </div>
 
         <div className="flex justify-end">
-          <Button type="submit" disabled={isLoading}>
-            {isLoading ? (
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                {t('form.saving')}
-              </div>
-            ) : (
-              t('form.submit')
-            )}
-          </Button>
+          {mode === 'edit' ? (
+            <UpdateButton isLoading={isLoading} />
+          ) : (
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  {t('form.saving')}
+                </div>
+              ) : (
+                t('form.submit')
+              )}
+            </Button>
+          )}
         </div>
       </form>
     </Form>

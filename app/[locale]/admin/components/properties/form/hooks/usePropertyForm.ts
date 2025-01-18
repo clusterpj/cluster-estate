@@ -35,7 +35,7 @@ export function usePropertyForm(initialData?: PropertyFormValues) {
     },
   })
 
-  const onSubmit = async (data: PropertyFormValues) => {
+  const onSubmit = async (data: PropertyFormValues, isUpdate = false) => {
     try {
       const { data: { user } } = await supabase.auth.getUser()
       
@@ -48,7 +48,31 @@ export function usePropertyForm(initialData?: PropertyFormValues) {
         data.images.filter(img => typeof img === 'string') : 
         []
 
-      const processedData = {
+      // For updates, only include changed fields
+      const processedData = isUpdate ? {
+        ...(data.title && { title: data.title }),
+        ...(data.description && { description: data.description }),
+        ...(data.sale_price && { sale_price: data.sale_price }),
+        ...(data.rental_price && { rental_price: data.rental_price }),
+        ...(data.pets_allowed && { pets_allowed: data.pets_allowed }),
+        ...(data.pet_restrictions && { pet_restrictions: data.pet_restrictions }),
+        ...(data.pet_deposit && { pet_deposit: data.pet_deposit }),
+        ...(data.location && { location: data.location }),
+        ...(data.bedrooms && { bedrooms: data.bedrooms }),
+        ...(data.bathrooms && { bathrooms: data.bathrooms }),
+        ...(data.square_feet && { square_feet: data.square_feet }),
+        ...(data.status && { status: data.status }),
+        ...(data.listing_type && { listing_type: data.listing_type }),
+        ...(data.property_type && { property_type: data.property_type }),
+        ...(data.rental_frequency && { rental_frequency: data.rental_frequency }),
+        ...(data.minimum_rental_period && { minimum_rental_period: data.minimum_rental_period }),
+        ...(data.deposit_amount && { deposit_amount: data.deposit_amount }),
+        ...(data.available_from && { available_from: availableFrom }),
+        ...(data.available_to && { available_to: availableTo }),
+        ...(data.features && { features: data.features }),
+        ...(data.images && { images: processedImages }),
+        updated_at: new Date().toISOString()
+      } : {
         ...data,
         sale_price: data.sale_price || null,
         rental_price: data.rental_price || null,
