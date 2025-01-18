@@ -261,7 +261,8 @@
       },
       "calendar": {
         "title": "Calendar Management",
-        "description": "Manage calendar sync and availability"
+        "description": "Manage calendar sync and availability",
+        "title": "Calendar"
       },
       "users": {
         "title": "User Management",
