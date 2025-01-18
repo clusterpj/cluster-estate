@@ -43,6 +43,7 @@ export function ImagesSection({ form, onError }: ImagesSectionProps) {
             <FormControl>
               <div className="space-y-2">
                 <Input
+                  id="images"
                   type="file"
                   accept="image/jpeg,image/png"
                   multiple

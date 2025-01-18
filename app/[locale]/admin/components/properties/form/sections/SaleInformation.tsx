@@ -33,6 +33,7 @@ export function SaleInformation({ form }: SaleInformationProps) {
             <FormLabel>{t('form.price')}</FormLabel>
             <FormControl>
               <Input
+                id="sale_price"
                 type="number"
                 {...field}
                 onChange={(e) => field.onChange(e.target.valueAsNumber)}

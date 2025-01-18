@@ -38,6 +38,7 @@ export function FeaturesSection({ form }: FeaturesSectionProps) {
             <FormControl>
               <div className="space-y-2">
                 <Input
+                  id="features"
                   placeholder={t('form.featuresPlaceholder')}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && e.currentTarget.value) {

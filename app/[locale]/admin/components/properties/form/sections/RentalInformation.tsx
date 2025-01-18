@@ -41,6 +41,7 @@ export function RentalInformation({ form }: RentalInformationProps) {
               <FormLabel>{t('form.rentalPrice')}</FormLabel>
               <FormControl>
                 <Input
+                  id="rental_price"
                   type="number"
                   {...field}
                   onChange={(e) => field.onChange(e.target.valueAsNumber)}
@@ -85,6 +86,7 @@ export function RentalInformation({ form }: RentalInformationProps) {
               <FormLabel>{t('form.minimumRentalPeriod')}</FormLabel>
               <FormControl>
                 <Input
+                  id="minimum_rental_period"
                   type="number"
                   {...field}
                   onChange={(e) => field.onChange(e.target.valueAsNumber)}
@@ -103,6 +105,7 @@ export function RentalInformation({ form }: RentalInformationProps) {
               <FormLabel>{t('form.depositAmount')}</FormLabel>
               <FormControl>
                 <Input
+                  id="deposit_amount"
                   type="number"
                   {...field}
                   onChange={(e) => field.onChange(e.target.valueAsNumber)}

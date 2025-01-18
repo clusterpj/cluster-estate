@@ -84,6 +84,7 @@ export function PetInformation({ form }: PetInformationProps) {
             <FormLabel>{t('form.petDeposit')}</FormLabel>
             <FormControl>
               <Input
+                id="pet_deposit"
                 type="number"
                 {...field}
                 onChange={(e) => field.onChange(e.target.valueAsNumber)}

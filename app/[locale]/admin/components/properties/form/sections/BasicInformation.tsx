@@ -37,7 +37,7 @@ export function BasicInformation({ form }: BasicInformationProps) {
             <FormItem className="col-span-2">
               <FormLabel>{t('form.title')}</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input id="title" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -51,7 +51,7 @@ export function BasicInformation({ form }: BasicInformationProps) {
             <FormItem>
               <FormLabel>{t('form.location')}</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input id="location" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -82,6 +82,7 @@ export function BasicInformation({ form }: BasicInformationProps) {
               <FormLabel>{t('form.bedrooms')}</FormLabel>
               <FormControl>
                 <Input
+                  id="bedrooms"
                   type="number"
                   {...field}
                   onChange={(e) => field.onChange(e.target.valueAsNumber)}
@@ -100,6 +101,7 @@ export function BasicInformation({ form }: BasicInformationProps) {
               <FormLabel>{t('form.bathrooms')}</FormLabel>
               <FormControl>
                 <Input
+                  id="bathrooms"
                   type="number"
                   {...field}
                   onChange={(e) => field.onChange(e.target.valueAsNumber)}
@@ -118,6 +120,7 @@ export function BasicInformation({ form }: BasicInformationProps) {
               <FormLabel>{t('form.squareFeet')}</FormLabel>
               <FormControl>
                 <Input
+                  id="square_feet"
                   type="number"
                   {...field}
                   onChange={(e) => field.onChange(e.target.valueAsNumber)}
