@@ -8,8 +8,8 @@ import { useState, useEffect } from 'react'
 interface PayPalButtonsProps {
   totalPrice: number
   currency?: string
-  onApprove: (data: any) => Promise<void>
-  onError: (error: any) => void
+  onApprove: (data: { orderID: string; payerID?: string }) => Promise<void>
+  onError: (error: { message?: string; details?: Record<string, unknown> }) => void
   onCancel?: () => void
   onInit?: () => void
 }
@@ -95,14 +95,14 @@ export function PayPalButtonsWrapper({
               setIsCreatingOrder(false)
             }
           }}
-          onApprove={async (data, actions) => {
+          onApprove={async (data: { orderID: string }, actions) => {
             console.log('PayPal payment approved:', data)
             try {
               console.log('Capturing PayPal payment...')
               const captureData = await actions.order?.capture()
               console.log('Payment captured successfully:', captureData)
               await onApprove(data)
-            } catch (error) {
+            } catch (error: unknown) {
               console.error('Error capturing payment:', error)
               setError('Payment processing failed')
               toast({
@@ -113,7 +113,7 @@ export function PayPalButtonsWrapper({
               onError(error)
             }
           }}
-          onError={(error) => {
+          onError={(error: { message?: string }) => {
             console.error('PayPal payment error:', error)
             setError('Payment system error')
             toast({
