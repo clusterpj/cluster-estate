@@ -3,6 +3,7 @@ import { Database } from './database.types'
 export type Property = Database['public']['Tables']['properties']['Row'] & {
   availability?: PropertyAvailability
   status: PropertyStatus
+  max_guests?: number
 }
 
 export interface PropertyAvailability {

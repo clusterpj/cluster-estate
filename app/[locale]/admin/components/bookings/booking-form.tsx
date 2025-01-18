@@ -69,10 +69,22 @@ export function BookingForm({ property, onSuccess }: BookingFormProps) {
     
     try {
       // Check property availability
+      const checkIn = data.checkIn;
+      const checkOut = data.checkOut;
+
+      if (!checkIn || !checkOut) {
+        toast({
+          variant: 'destructive',
+          title: t('form.errors.unavailable'),
+          description: t('form.errors.unavailableDescription'),
+        })
+        return;
+      }
+
       const isAvailable = await isPropertyAvailable(
         property.id,
-        data.checkIn,
-        data.checkOut
+        checkIn,
+        checkOut
       )
       
       if (!isAvailable) {
@@ -81,17 +93,17 @@ export function BookingForm({ property, onSuccess }: BookingFormProps) {
           title: t('form.errors.unavailable'),
           description: t('form.errors.unavailableDescription'),
         })
-        return
+        return;
       }
 
       // Create booking
-      const supabase = createClient()
+      const supabase = createClient();
       const { data: booking, error } = await supabase
         .from('bookings')
         .insert({
           property_id: property.id,
-          check_in: data.checkIn.toISOString(),
-          check_out: data.checkOut.toISOString(),
+          check_in: checkIn.toISOString(),
+          check_out: checkOut.toISOString(),
           guests: data.guests,
           total_price: totalPrice,
           status: 'pending' as BookingStatus,
@@ -116,7 +128,7 @@ export function BookingForm({ property, onSuccess }: BookingFormProps) {
         description: t('form.errors.description'),
       })
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   }
 
@@ -154,8 +166,11 @@ export function BookingForm({ property, onSuccess }: BookingFormProps) {
                       mode="single"
                       selected={field.value}
                       onSelect={(date) => {
-                        field.onChange(date)
-                        calculatePrice(date, form.getValues('checkOut'))
+                        field.onChange(date);
+                        const checkOut = form.getValues('checkOut');
+                        if (date && checkOut) {
+                          calculatePrice(date, checkOut);
+                        }
                       }}
                       disabled={(date) =>
                         date < new Date() || date > new Date('2100-01-01')
@@ -199,8 +214,11 @@ export function BookingForm({ property, onSuccess }: BookingFormProps) {
                       mode="single"
                       selected={field.value}
                       onSelect={(date) => {
-                        field.onChange(date)
-                        calculatePrice(form.getValues('checkIn'), date)
+                        field.onChange(date);
+                        const checkIn = form.getValues('checkIn');
+                        if (date && checkIn) {
+                          calculatePrice(checkIn, date);
+                        }
                       }}
                       disabled={(date) =>
                         date < form.getValues('checkIn') ||
