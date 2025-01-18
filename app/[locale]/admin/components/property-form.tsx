@@ -119,11 +119,12 @@ export function PropertyForm({
     try {
       if (mode === 'edit' && propertyId) {
         console.log('Attempting to update property...')
-        return handleUpdate(data)
+        await handleUpdate(data)
       } else {
         console.log('Attempting to create new property...')
-        return handleCreate(data)
+        await handleCreate(data)
       }
+      onSuccess?.()
     } catch (error) {
       console.error('Form submission error:', error)
       onError?.(error)
