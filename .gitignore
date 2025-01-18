@@ -31,12 +31,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-.aider*
 .env
 .env.local
-.aider.input.history
-.aider.conf.yml
-.aider.chat.history.md
-.aider.tags.cache.v3/cache.db
-.aider.tags.cache.v3/cache.db-shm
-.aider.tags.cache.v3/cache.db-wal
+
+# Aider
+.aider*
+!.aider.conf.yml
+!.aiderignore

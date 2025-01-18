@@ -1,0 +1,36 @@
+# Main model configuration
+model: deepseek/deepseek-coder-v3
+deepseek: true
+
+# Edit format
+edit-format: diff
+
+# Token and context settings
+map-tokens: 2024
+max-chat-history-tokens: 4024
+
+# Performance Settings
+cache-prompts: true
+stream: true
+
+# Git and commit settings
+auto-commits: true
+dirty-commits: true
+attribute-author: true
+show-diffs: false
+
+# History settings
+input-history-file: .aider.input.history
+chat-history-file: .aider.chat.history.md
+
+# Repository map settings
+map-refresh: auto
+
+# Theme settings
+dark-mode: true
+user-input-color: "#00cc00"
+assistant-output-color: "#0088ff"
+
+# Additional recommended settings
+show-model-warnings: true
+pretty: true

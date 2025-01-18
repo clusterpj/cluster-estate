@@ -7302,3 +7302,18 @@
 
 # 2025-01-17 22:37:54.139827
 +/run pnpm run dev
+
+# 2025-01-17 22:44:40.331013
++/drop
+
+# 2025-01-17 23:04:19.715619
++Please help me solve this issue Content-Security-Policy: The pages settings blocked the loading of a resource (img-src) at https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/ac8e1731-206d-440b-8879-ae89eb5d2be5.jpg because it violates the following directive: img-src 'self' https://www.paypal.com https://www.paypalobjects.com data:
+
+# 2025-01-17 23:04:25.251327
++n
+
+# 2025-01-17 23:36:10.563393
++y
+
+# 2025-01-17 23:36:41.691079
++n
