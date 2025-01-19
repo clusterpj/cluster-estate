@@ -1,220 +1,229 @@
-# Calendar Implementation Context
+# Real Estate Platform Development Guidelines
 
-## Current Implementation Status
+## CRITICAL REQUIREMENTS
 
-### Database Schema
-The following tables have been implemented in the database:
+Ensure proper implementation of the database schema, row-level security (RLS), and calendar synchronization!
 
-1. `calendar_sources`
-   - Stores iCal feed URLs and their metadata
-   - Contains fields: id, created_at, updated_at, property_id, name, url, last_synced_at, sync_frequency, is_active, sync_token, user_id
-   - Has RLS policies for user-specific access
-   - Indexed on property_id
+## Core Development Guidelines
 
-2. `blocked_dates`
-   - Stores synchronized calendar events
-   - Contains fields: id, created_at, updated_at, property_id, source_id, start_date, end_date, external_id, summary, description, is_conflict, conflict_details
-   - Has RLS policies for property-specific access
-   - Indexed on property_id, source_id, and date range
+### 1. Database Structure
 
-### Frontend Components
-The `CalendarManagement` component at `app/[locale]/admin/components/calendar-management.tsx` has been fully implemented with:
+#### Required Patterns
+- All tables need proper RLS policies
+- Use UUID for primary keys
+- Include created_at/updated_at timestamps for new tables or features
+- Implement proper foreign key relationships
+- Follow existing schema patterns
 
-1. Calendar source management UI
-   - Add new iCal feeds with validation
-   - Delete existing feeds with confirmation
-   - View sync status and history
-2. Calendar visualization using shadcn/ui Calendar component
-   - Color-coded conflict indicators
-   - Date range selection
-   - Event details on click
-3. Sync functionality
-   - Manual sync triggering
-   - Sync status monitoring
-   - Error reporting
-4. Conflict resolution
-   - Conflict detection and visualization
-   - Resolution strategies (keep existing, use new, split difference)
-   - Conflict history tracking
-5. Property-specific calendar management
-   - Property selection and filtering
-   - Multi-calendar support
-6. Error handling and loading states
-   - Loading indicators
-   - Error toasts
-   - Retry mechanisms
+### 2. Authentication & Authorization
 
-### Backend Implementation
-The following backend components have been implemented:
+#### Security Requirements
+- Implement user role checks
+- Use auth.uid() for user queries
+- Include RLS policies for CRUD operations
+- Follow existing auth patterns in properties/bookings
 
-1. Serverless functions for:
-   - iCal feed synchronization (`/api/cron/calendar-sync`)
-   - Manual sync triggering (`/api/calendars/sync`)
-   - Conflict resolution (`/api/calendars/conflicts/resolve`)
-   - Calendar data querying (`/api/calendar/query`)
+### 3. Calendar Synchronization (iCal)
 
-2. Cron job system:
-   - Scheduled syncs every 5 minutes
-   - Retry logic with exponential backoff
-   - Sync status tracking
-   - Error logging and monitoring
+#### CRITICAL CALENDAR REQUIREMENTS
+- Include timezone info in booking dates
+- Reflect property availability in iCal feeds
+- Support calendar data import/export
+- Handle recurring availability patterns
+- Detect booking conflicts
 
-3. Sync features:
-   - iCal feed parsing and validation
-   - Timezone handling
-   - Conflict detection and tracking
-   - Incremental sync using sync_token
-   - Batch processing for large feeds
-   - Sync result logging
+#### iCal Implementation Rules
+- Generate unique iCal feed URLs per property
+- Include booking details in VEVENT descriptions
+- Set proper status codes (CONFIRMED, TENTATIVE, CANCELLED)
+- Handle timezone conversions
+- Support external calendar imports (Airbnb, VRBO, etc.)
 
-### API Endpoints
-The following endpoints are implemented and tested:
+#### Required iCal Properties
+```
+DTSTART/DTEND: Include timezone
+UID: Unique event identifier
+SUMMARY: Clear event descriptions
+STATUS: Proper booking status
+LAST-MODIFIED: Accurate update tracking
+SEQUENCE: Version control for updates
+```
 
-1. `/api/calendars/sync`
-   - POST endpoint for manual sync
-   - Authentication required
-   - Returns sync status and results
+#### Calendar Sync Requirements
+- Real-time availability updates
+- Bidirectional sync support
+- Conflict resolution handling
+- Rate limiting for external syncs
+- Error logging and recovery
 
-2. `/api/calendars/sources`
-   - CRUD operations through Supabase client
-   - iCal URL validation
-   - Property ownership verification
+### 4. Property Management
 
-3. `/api/calendars/blocked-dates`
-   - CRUD operations through Supabase client
-   - Conflict checking
-   - Availability calculation
+#### Core Requirements
+- Handle sale and rental properties
+- Implement status transitions
+- Manage property images in storage bucket
+- Support multi-currency pricing (default USD)
+- Maintain calendar availability state
+- Handle timezone-specific pricing
+- Support booking blackout dates
+- Implement minimum stay rules
 
-4. `/api/calendars/conflicts/resolve`
-   - POST endpoint for conflict resolution
-   - Supports multiple resolution strategies
-   - Property ownership verification
+### 5. Booking System
 
-5. `/api/calendar/query`
-   - POST endpoint for querying calendar data
-   - Returns blocked dates and calendar sources
+#### Booking Requirements
+- Validate date ranges for availability
+- Calculate prices based on rental frequency
+- Handle timezone-aware booking dates
+- Implement payment status tracking
+- Validate against iCal availability
+- Handle cross-timezone bookings
+- Support recurring booking patterns
+- Implement buffer times between bookings
 
-## Required Next Steps
+### 6. UI/UX Excellence & Frontend Components
 
-### 1. Frontend Enhancements
-1. Calendar export functionality
-   - Generate iCal feeds for properties
-   - Create public URLs for calendar sharing
-   - Handle calendar subscription endpoints
+#### Core UI/UX Principles
+- Design for emotion and engagement
+- Maintain visual hierarchy and balance
+- Ensure smooth animations and transitions
+- Create delightful micro-interactions
+- Implement skeleton loading states
+- Design for accessibility (WCAG 2.1)
+- Support dark/light mode seamlessly
 
-2. Enhanced conflict visualization
-   - Visual indicators for different conflict types
-   - Conflict resolution history view
-   - Bulk conflict resolution
+#### Component Guidelines
+- Use shadcn/ui components consistently
+- Follow established Tailwind patterns
+- Avoid arbitrary values ([h-500px])
+- Maintain responsive design patterns
 
-3. Sync history dashboard
-   - Detailed sync performance metrics
-   - Error rate tracking
-   - Sync duration statistics
+#### Calendar-Specific Components
+- Interactive availability calendar
+- Timezone-aware date pickers
+- Visual booking conflict indicators
+- Calendar sync status indicators
 
-### 2. Backend Improvements
-1. Rate limiting
-   - Implement rate limiting for sync operations
-   - Add queueing system for high-volume syncs
+### Implementation Workflow
 
-2. Enhanced error handling
-   - Add error recovery mechanisms
-   - Implement dead letter queue for failed syncs
-   - Add detailed error logging
+#### New Features
+1. List required database changes
+2. Document RLS policies needed
+3. List required frontend components
+4. Get approval before implementation
 
-3. Performance optimization
-   - Add caching for frequently accessed calendar data
-   - Implement parallel processing for multiple sources
-   - Add database indexing for common queries
+#### Calendar Features
+1. List required calendar event types
+2. Document timezone handling
+3. Define sync frequency and methods
+4. Get approval before implementation
 
-### 3. Testing and Monitoring
-1. Add unit tests for:
-   - iCal parsing edge cases
-   - Timezone handling
-   - Conflict resolution logic
+### Code Review Requirements
 
-2. Add integration tests for:
-   - Sync process with various iCal formats
-   - Conflict detection scenarios
-   - API endpoint validation
+#### General Review Checks
+- RLS policies are complete
+- Auth checks are implemented
+- Frontend follows component patterns
+- Proper error handling exists
+- TypeScript types are defined
 
-3. Add monitoring:
-   - Sync success/failure rates
-   - Conflict resolution statistics
-   - Calendar source health monitoring
+#### Calendar-Specific Review Checks
+- Proper timezone handling
+- Accurate availability calculations
+- Correct iCal format implementation
+- Proper sync error handling
+- Buffer time implementation
 
-### 3. API Endpoints
-Need to implement:
-1. `/api/calendars/export/:propertyId`
-   - GET endpoint to generate iCal feed
-   - Public access with token
-   - Rate limiting
+### Technical Stack
 
-2. `/api/calendars/status`
-   - GET endpoint for sync status monitoring
-   - Returns sync statistics and health status
+#### Stack-Specific Rules
+- **Database:** PostgreSQL with PostgREST
+- **Auth:** Supabase Auth
+- **Frontend:** Next.js with React Server Components
+- **UI:** shadcn/ui + Tailwind CSS
+- **API:** Supabase + tRPC
+- **State:** React Query
+- **Forms:** React Hook Form + Zod
+- **Testing:** Jest + React Testing Library
 
-3. `/api/calendars/history`
-   - GET endpoint for sync history
-   - Returns detailed sync logs and metrics
+#### Calendar-Specific Stack Rules
+- Use ical-generator for feed creation
+- Implement caching for calendar feeds
+- Handle DST transitions correctly
+- Implement retry logic for syncs
+- Use ISO8601 for date handling
 
-### 4. Integration Requirements
-Need to integrate with:
-1. Existing booking system
-   - Prevent bookings on blocked dates
-   - Update calendar when bookings are made
-   - Handle booking cancellations
+### DO NOT
+- Skip UX considerations
+- Launch without UI testing
+- Use inconsistent design patterns
+- Skip RLS policies
+- Use arbitrary Tailwind values
+- Bypass auth checks
+- Mix component patterns
+- Leave TypeScript any types
+- Store dates without timezone info
+- Skip availability validation
+- Ignore calendar sync errors
+- Use local time for bookings
 
-2. Property availability system
-   - Update property status based on calendar
-   - Handle multiple calendar sources
-   - Manage overlapping blocks
+### ALWAYS
+- Create delightful user experiences
+- Test on multiple devices and browsers
+- Optimize for performance
+- Get user feedback
+- Follow existing patterns
+- Document database changes
+- Test auth flows
+- Validate form inputs
+- Handle loading/error states
+- Validate calendar feed format
+- Test cross-timezone bookings
+- Log sync operations
+- Handle calendar edge cases
+- Document timezone assumptions
 
-3. Notification system
-   - Alert on sync failures
-   - Notify of booking conflicts
-   - Send sync status updates
+### Testing Requirements
 
-### 5. Testing Requirements
-Need to implement:
-1. Unit tests for:
-   - iCal parsing functions
-   - Date conflict resolution
-   - Availability calculations
+#### UI/UX Testing Requirements
+- Cross-browser testing (Chrome, Firefox, Safari, Edge)
+- Mobile device testing
+- Accessibility testing (WCAG 2.1)
+- Performance and user flow testing
+- Animation and transition testing
+- Dark/light mode testing
+- Load testing with slow connections
+- Screen reader compatibility
+- Keyboard navigation testing
 
-2. Integration tests for:
-   - Calendar sync process
-   - Booking integration
-   - API endpoints
+#### Calendar Testing Requirements
+- Test DST transition dates
+- Verify cross-timezone bookings
+- Validate iCal feed format
+- Test sync conflict resolution
+- Verify booking buffer times
 
-3. E2E tests for:
-   - Calendar management UI
-   - Sync functionality
-   - Export features
+### Database Schema Considerations
 
-## Technical Constraints
-- Must use Supabase for database operations
-- Must follow existing RLS policies
-- Must use shadcn/ui components
-- Must support internationalization
-- Must handle timezone conversions
-- Must be compatible with existing booking system
+#### Calendar Integration Requirements
+1. Integrate with existing calendar_sync table
+2. Extend bookings schema for calendar support
+3. Implement calendar-specific RLS policies
+4. Add calendar-related property attributes
 
-## Performance Requirements
-- Calendar sync must complete within 30 seconds
-- UI must remain responsive during sync
-- Must handle large iCal feeds (1000+ events)
-- Must support multiple concurrent syncs
-- Must implement appropriate caching
+### Error Handling
 
-## Security Requirements
-- Validate iCal URLs before sync
-- Sanitize imported calendar data
-- Rate limit sync operations
-- Implement proper access controls
-- Handle sensitive booking data appropriately
+#### Calendar-Specific Error Handling
+- Handle sync failures gracefully
+- Implement retry mechanisms
+- Log all sync operations
+- Notify admins of critical sync failures
+- Maintain system consistency during failures
 
-This implementation is part of a property management system and needs to maintain compatibility with existing booking and property management features while adding robust calendar synchronization capabilities.
+### Performance Considerations
 
-## Request for Assistance
-When working with this system, please help with specific aspects of the implementation while keeping in mind the overall architecture and requirements. Specify which part of the system you're working on and any dependencies or constraints that need to be considered.
+#### Calendar Performance Requirements
+- Cache iCal feeds appropriately
+- Implement rate limiting for external syncs
+- Optimize calendar queries
+- Handle concurrent booking attempts
+- Manage sync queue efficiently

@@ -32,8 +32,6 @@
         "title": "Water Activities",
         "description": "Access to world-class sailing, diving, and water sports"
       }
-        }
-      }
     },
     "cta": {
       "title": "Your Dream Home Awaits",
@@ -261,9 +259,7 @@
         "bookings": "Bookings",
         "calendar": "Calendar"
       },
-      "auth": {
-        "adminSection": {
-          "calendar": {
+      "calendar": {
         "title": "Calendar Management",
         "description": "Manage calendar sync and availability",
         "legend": {

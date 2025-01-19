@@ -9845,3 +9845,571 @@
 
 # 2025-01-18 17:15:30.111020
 +/map-refresh
+
+# 2025-01-18 17:16:57.169695
++I am still having issue where the nre calendar is not showing under the Calendar part on the Calendar Management section
+
+# 2025-01-18 17:18:12.343668
++i don't see it where do i need to go to see the calendar
+
+# 2025-01-18 17:19:16.904474
++y
+
+# 2025-01-18 17:22:25.323964
++This sidedar is not beign used you can delete it. The navigation we are using is on [local]\admin\page.tsx you can see the tabs on the calendar tab is that awe need to add the new calendar component TabsList>
++          <TabsTrigger value="properties">{t('tabs.properties')}</TabsTrigger>
++          <TabsTrigger value="users">{t('tabs.users')}</TabsTrigger>
++          <TabsTrigger value="bookings">{t('tabs.bookings')}</TabsTrigger>
++          <TabsTrigger value="calendar">{t('tabs.calendar')}</TabsTrigger>
++        </TabsList>
+
+# 2025-01-18 17:23:54.129167
++y
+
+# 2025-01-18 17:23:54.134265
++/run del app\[locale]\admin\components\sidebar.tsx
+
+# 2025-01-18 17:23:54.135271
++/run del app\[locale]\admin\components\sidebar.tsx
+
+# 2025-01-18 17:25:39.987607
++please document the implementation of the new calendar which files uses and how developers can integarte it to other componets. Please create the docs on the docs folder 
+
+# 2025-01-18 17:27:05.377191
++y
+
+# 2025-01-18 17:29:05.892883
++/reset
+
+# 2025-01-18 17:29:19.663731
++/map-refresh
+
+# 2025-01-18 17:32:31.473506
++/add app\[locale]\admin\page.tsx
+
+# 2025-01-18 17:32:54.580653
++/add docs\calendar-integration.md
+
+# 2025-01-18 17:33:20.959300
++Please integrate the new calendar component inside the calendar tab on the AdminDashboard 
+
+# 2025-01-18 17:34:12.908648
++1 of 1 error
++Next.js (14.2.16) is outdated (learn more)
++
++Unhandled Runtime Error
++Error: No QueryClient set, use QueryClientProvider to set one
++
++Source
++components\properties\AvailabilityCalendar\index.tsx (29:67) @ AvailabilityCalendar
++
++  27 |
++  28 |   // Fetch availability data
++> 29 |   const { data: availabilityData, isLoading, isError } = useQuery({
++     |                                                                   ^
++  30 |     queryKey: ['property-availability', propertyId, viewMode],
++  31 |     queryFn: async () => {
++  32 |       const endpoint = viewMode === 'single' && propertyId 
+
+# 2025-01-18 17:34:17.444417
++y
+
+# 2025-01-18 17:39:00.126959
++n
+
+# 2025-01-18 17:40:24.948385
++I see th calendar now however jthe calendar i see is too small. this is not viable to display the properties that are booked. The calnder needs to be much bigger
+
+# 2025-01-18 17:42:10.811520
++I think that the calendar shacn provides is not gonna be enough for thiu, we can use as a base but we need a big calendar for this unless we can expand on the shadcb calendar then we are going to need to create a new calendar for the purpose we need
+
+# 2025-01-18 17:42:59.153948
++y
+
+# 2025-01-18 17:44:23.495393
++Build Error
++Failed to compile
++
++Next.js (14.2.16) is outdated (learn more)
++./app/[locale]/admin/components/calendar-management.tsx:5:1
++Module not found: Can't resolve '@radix-ui/react-icons'
++  3 | import { Button } from '@/components/ui/button';
++  4 | import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
++> 5 | import { CalendarIcon } from '@radix-ui/react-icons';
++    | ^
++  6 | import { format } from 'date-fns';
++  7 | import { Calendar } from '@/components/ui/calendar';
++  8 | import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
++
++https://nextjs.org/docs/messages/module-not-found
++
++Import trace for requested module:
++./app/[locale]/admin/page.tsx
+
+# 2025-01-18 17:44:25.956655
++n
+
+# 2025-01-18 17:50:50.402933
++On the calendat i see that hte properties it shows ont the dropdown are not the properties from the system these seem to be dummy conect we need to make sure this calendar is connected directly to out current booking system to show the properites availability corerclty on the calendar 
+
+# 2025-01-18 17:52:22.251524
++/paste
+
+# 2025-01-18 17:52:52.231572
++The calendar implementation is not working i still see the shadcn calendar instead of the new one you created. we need to change this 
+
+# 2025-01-18 17:54:07.904839
++n
+
+# 2025-01-18 17:56:34.513766
++Now on the calendar legend that is supposed to show on the calendar is not correct  don't think is fetching the correct booking data for the properties
+
+# 2025-01-18 17:58:09.332318
++yo mentioned earlier that we needed to create an api for this right?
+
+# 2025-01-18 17:59:09.302121
++y
+
+# 2025-01-18 18:00:16.051745
++/run /api/properties/[id]/availability?start=2025-01-01&end=2025-01-31
+
+# 2025-01-18 18:00:16.051745
++/run /api/properties/[id]/availability?start=2025-01-01&end=2025-01-31
+
+# 2025-01-18 18:00:16.508871
++/run /api/properties/availability?start=2025-01-01&end=2025-01-31
+
+# 2025-01-18 18:00:16.509378
++/run /api/properties/availability?start=2025-01-01&end=2025-01-31
+
+# 2025-01-18 18:01:38.128596
++y
+
+# 2025-01-18 18:11:04.175995
++Please add some detailed loggin to the new calendar implementation i belive we are still not getting the correct data i see a lot of pending but not sure where are these coming for, i don't se ehte booked dates that are on the system now either 
+
+# 2025-01-18 18:12:07.365589
++y
+
+# 2025-01-18 18:13:38.244700
++This is what i am getting on the logs Fetching availability data from: /api/properties/availability index.tsx:37:14
++Received availability data: 
++Array(31) [ {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, … ]
++​
++0: Object { date: "2025-01-18", status: "available", propertyCount: 4 }
++​
++1: Object { date: "2025-01-19", status: "available", propertyCount: 4 }
++​​
++date: "2025-01-19"
++​​
++propertyCount: 4
++​​
++status: "available"
++​​
++<prototype>: Object { … }
++​
++2: Object { date: "2025-01-20", status: "available", propertyCount: 4 }
++​
++3: Object { date: "2025-01-21", status: "available", propertyCount: 4 }
++​
++4: Object { date: "2025-01-22", status: "pending", propertyCount: 3 }
++​
++5: Object { date: "2025-01-23", status: "pending", propertyCount: 2 }
++​
++6: Object { date: "2025-01-24", status: "pending", propertyCount: 2 }
++​
++7: Object { date: "2025-01-25", status: "pending", propertyCount: 2 }
++​​
++date: "2025-01-25"
++​​
++propertyCount: 2
++​​
++status: "pending"
++​​
++<prototype>: Object { … }
++​
++8: Object { date: "2025-01-26", status: "pending", propertyCount: 2 }
++​
++9: Object { date: "2025-01-27", status: "pending", propertyCount: 2 }
++​
++10: Object { date: "2025-01-28", status: "pending", propertyCount: 2 }
++​
++11: Object { date: "2025-01-29", status: "pending", propertyCount: 2 }
++​
++12: Object { date: "2025-01-30", status: "pending", propertyCount: 3 }
++​
++13: Object { date: "2025-01-31", status: "pending", propertyCount: 3 }
++​
++14: Object { date: "2025-02-01", status: "available", propertyCount: 4 }
++​
++15: Object { date: "2025-02-02", status: "available", propertyCount: 4 }
++​
++16: Object { date: "2025-02-03", status: "available", propertyCount: 4 }
++​
++17: Object { date: "2025-02-04", status: "available", propertyCount: 4 }
++​
++18: Object { date: "2025-02-05", status: "available", propertyCount: 4 }
++​
++19: Object { date: "2025-02-06", status: "available", propertyCount: 4 }
++​
++20: Object { date: "2025-02-07", status: "available", propertyCount: 4 }
++​
++21: Object { date: "2025-02-08", status: "available", propertyCount: 4 }
++​
++22: Object { date: "2025-02-09", status: "available", propertyCount: 4 }
++​
++23: Object { date: "2025-02-10", status: "available", propertyCount: 4 }
++​
++24: Object { date: "2025-02-11", status: "available", propertyCount: 4 }
++​
++25: Object { date: "2025-02-12", status: "available", propertyCount: 4 }
++​
++26: Object { date: "2025-02-13", status: "available", propertyCount: 4 }
++​
++27: Object { date: "2025-02-14", status: "available", propertyCount: 4 }
++​
++28: Object { date: "2025-02-15", status: "available", propertyCount: 4 }
++​
++29: Object { date: "2025-02-16", status: "available", propertyCount: 4 }
++​
++30: Object { date: "2025-02-17", status: "available", propertyCount: 4 }
++​
++length: 31
++​
++<prototype>: Array []
++index.tsx:52:14
++Processing day 2025-01-18 with status available index.tsx:85:14
++Processing day 2025-01-19 with status available index.tsx:85:14
++Processing day 2025-01-20 with status available index.tsx:85:14
++Processing day 2025-01-21 with status available index.tsx:85:14
++Processing day 2025-01-22 with status pending index.tsx:85:14
++Processing day 2025-01-23 with status pending index.tsx:85:14
++Processing day 2025-01-24 with status pending index.tsx:85:14
++Processing day 2025-01-25 with status pending index.tsx:85:14
++Processing day 2025-01-26 with status pending index.tsx:85:14
++Processing day 2025-01-27 with status pending index.tsx:85:14
++Processing day 2025-01-28 with status pending index.tsx:85:14
++Processing day 2025-01-29 with status pending index.tsx:85:14
++Processing day 2025-01-30 with status pending index.tsx:85:14
++Processing day 2025-01-31 with status pending
+
+# 2025-01-18 18:15:41.959664
++On the server logs this is what i get [2025-01-18 18:12:26] INFO: Fetching aggregate availability from null to null undefined
++ GET /en/installHook.js.map 404 in 43ms
++[2025-01-18 18:12:26] INFO: Total properties found: 4 undefined
++[2025-01-18 18:12:26] INFO: Found 2 bookings across all properties: [
++  {
++    check_in: '2025-01-23T04:00:00+00:00',
++    check_out: '2025-01-29T04:00:00+00:00',
++    status: 'pending',
++    property_id: 'cf8c30ba-a068-4d41-a10b-2d13ecbbf395'
++  },
++  {
++    check_in: '2025-01-22T04:00:00+00:00',
++    check_out: '2025-01-31T04:00:00+00:00',
++    status: 'pending',
++    property_id: 'cf1b0ba3-a1dd-4c60-a5ff-5ae84cc89fa3'
++  }
++]
++[2025-01-18 18:12:26] INFO: Final aggregate availability data: [
++  { date: '2025-01-18', status: 'available', propertyCount: 4 },
++  { date: '2025-01-19', status: 'available', propertyCount: 4 },
++  { date: '2025-01-20', status: 'available', propertyCount: 4 },
++  { date: '2025-01-21', status: 'available', propertyCount: 4 },
++  { date: '2025-01-22', status: 'pending', propertyCount: 3 },
++  { date: '2025-01-23', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-24', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-25', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-26', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-27', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-28', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-29', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-30', status: 'pending', propertyCount: 3 },
++  { date: '2025-01-31', status: 'pending', propertyCount: 3 },
++  { date: '2025-02-01', status: 'available', propertyCount: 4 },
++  { date: '2025-02-02', status: 'available', propertyCount: 4 },
++  { date: '2025-02-03', status: 'available', propertyCount: 4 },
++  { date: '2025-02-04', status: 'available', propertyCount: 4 },
++  { date: '2025-02-05', status: 'available', propertyCount: 4 },
++  { date: '2025-02-06', status: 'available', propertyCount: 4 },
++  { date: '2025-02-07', status: 'available', propertyCount: 4 },
++  { date: '2025-02-08', status: 'available', propertyCount: 4 },
++  { date: '2025-02-09', status: 'available', propertyCount: 4 },
++  { date: '2025-02-10', status: 'available', propertyCount: 4 },
++  { date: '2025-02-11', status: 'available', propertyCount: 4 },
++  { date: '2025-02-12', status: 'available', propertyCount: 4 },
++  { date: '2025-02-13', status: 'available', propertyCount: 4 },
++  { date: '2025-02-14', status: 'available', propertyCount: 4 },
++  { date: '2025-02-15', status: 'available', propertyCount: 4 },
++  { date: '2025-02-16', status: 'available', propertyCount: 4 },
++  { date: '2025-02-17', status: 'available', propertyCount: 4 }
++]
++ GET /api/properties/availability 200 in 243ms
++[2025-01-18 18:12:57] INFO: Fetching aggregate availability from null to null undefined
++[2025-01-18 18:12:57] INFO: Total properties found: 4 undefined
++[2025-01-18 18:12:57] INFO: Found 2 bookings across all properties: [
++  {
++    check_in: '2025-01-23T04:00:00+00:00',
++    check_out: '2025-01-29T04:00:00+00:00',
++    status: 'pending',
++    property_id: 'cf8c30ba-a068-4d41-a10b-2d13ecbbf395'
++  },
++  {
++    check_in: '2025-01-22T04:00:00+00:00',
++    check_out: '2025-01-31T04:00:00+00:00',
++    status: 'pending',
++    property_id: 'cf1b0ba3-a1dd-4c60-a5ff-5ae84cc89fa3'
++  }
++]
++[2025-01-18 18:12:57] INFO: Final aggregate availability data: [
++  { date: '2025-01-18', status: 'available', propertyCount: 4 },
++  { date: '2025-01-19', status: 'available', propertyCount: 4 },
++  { date: '2025-01-20', status: 'available', propertyCount: 4 },
++  { date: '2025-01-21', status: 'available', propertyCount: 4 },
++  { date: '2025-01-22', status: 'pending', propertyCount: 3 },
++  { date: '2025-01-23', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-24', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-25', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-26', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-27', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-28', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-29', status: 'pending', propertyCount: 2 },
++  { date: '2025-01-30', status: 'pending', propertyCount: 3 },
++  { date: '2025-01-31', status: 'pending', propertyCount: 3 },
++  { date: '2025-02-01', status: 'available', propertyCount: 4 },
++  { date: '2025-02-02', status: 'available', propertyCount: 4 },
++  { date: '2025-02-03', status: 'available', propertyCount: 4 },
++  { date: '2025-02-04', status: 'available', propertyCount: 4 },
++  { date: '2025-02-05', status: 'available', propertyCount: 4 },
++  { date: '2025-02-06', status: 'available', propertyCount: 4 },
++  { date: '2025-02-07', status: 'available', propertyCount: 4 },
++  { date: '2025-02-08', status: 'available', propertyCount: 4 },
++  { date: '2025-02-09', status: 'available', propertyCount: 4 },
++  { date: '2025-02-10', status: 'available', propertyCount: 4 },
++  { date: '2025-02-11', status: 'available', propertyCount: 4 },
++  { date: '2025-02-12', status: 'available', propertyCount: 4 },
++  { date: '2025-02-13', status: 'available', propertyCount: 4 },
++  { date: '2025-02-14', status: 'available', propertyCount: 4 },
++  { date: '2025-02-15', status: 'available', propertyCount: 4 },
++  { date: '2025-02-16', status: 'available', propertyCount: 4 },
++  { date: '2025-02-17', status: 'available', propertyCount: 4 }
++]
++ GET /api/properties/availability 200 in 382ms
++Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
++ GET /en/admin 200 in 503ms
++(node:36800) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
++(Use `node --trace-deprecation ...` to show where the warning was created)
++ GET /en/installHook.js.map 404 in 35ms
++ GET /favicon.ico 200 in 20ms
++[2025-01-18 18:13:13] INFO: Fetching aggregate availability from null to null undefined
++ GET /en/installHook.js.map 404 in 58ms
++[2025-01-18 18:13:13] INFO: Total properties found: 4 undefined
++[2025-01-18 18:13:13] INFO: Found 2 bookings across all properties: [
+
+# 2025-01-18 18:17:37.500367
++ GET /api/properties/availability 200 in 2948ms
++Using the user object as returned from supabase.auth.getSession() or from some supabase.auth.onAuthStateChange() events could be insecure! This value comes directly from the storage medium (usually cookies on the server) and may not be authentic. Use supabase.auth.getUser() instead which authenticates the data by contacting the Supabase Auth server.
++ GET /en/admin?_rsc=13iza 200 in 2169ms
++ GET /en/properties/cf1b0ba3-a1dd-4c60-a5ff-5ae84cc89fa3?_rsc=e1fax 200 in 2219ms
++ GET /en/admin 200 in 389ms
++(node:34560) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
++(Use `node --trace-deprecation ...` to show where the warning was created)
++ GET /en/installHook.js.map 404 in 47ms
++(node:21284) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
++(Use `node --trace-deprecation ...` to show where the warning was created)
++ GET /favicon.ico 200 in 20ms
++[2025-01-18 18:16:36] INFO: Fetching aggregate availability from null to null undefined
++ GET /en/installHook.js.map 404 in 36ms
++[2025-01-18 18:16:36] INFO: Total properties found: 4 undefined
++[2025-01-18 18:16:36] INFO: Found 2 bookings across all properties: [
++  {
++    check_in: '2025-01-23T04:00:00+00:00',
++    check_out: '2025-01-29T04:00:00+00:00',
++    status: 'pending',
++    property_id: 'cf8c30ba-a068-4d41-a10b-2d13ecbbf395'
++  },
++  {
++    check_in: '2025-01-22T04:00:00+00:00',
++    check_out: '2025-01-31T04:00:00+00:00',
++    status: 'pending',
++    property_id: 'cf1b0ba3-a1dd-4c60-a5ff-5ae84cc89fa3'
++  }
++]
++[2025-01-18 18:16:36] INFO: Processing booking from 2025-01-23T04:00:00+00:00 to 2025-01-29T04:00:00+00:00 with status pending undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-23 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-24 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-25 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-26 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-27 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-28 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-29 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Processing booking from 2025-01-22T04:00:00+00:00 to 2025-01-31T04:00:00+00:00 with status pending undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-22 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-23 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-24 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-25 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-26 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-27 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-28 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-29 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-30 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Updating date 2025-01-31 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:36] INFO: Final aggregate availability data: [
++  { date: '2025-01-18', status: 'available', propertyCount: 4 },
++  { date: '2025-01-19', status: 'available', propertyCount: 4 },
++  { date: '2025-01-20', status: 'available', propertyCount: 4 },
++  { date: '2025-01-21', status: 'available', propertyCount: 4 },
++  { date: '2025-01-22', status: 'partial', propertyCount: 3 },
++  { date: '2025-01-23', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-24', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-25', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-26', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-27', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-28', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-29', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-30', status: 'partial', propertyCount: 3 },
++  { date: '2025-01-31', status: 'partial', propertyCount: 3 },
++  { date: '2025-02-01', status: 'available', propertyCount: 4 },
++  { date: '2025-02-02', status: 'available', propertyCount: 4 },
++  { date: '2025-02-03', status: 'available', propertyCount: 4 },
++  { date: '2025-02-04', status: 'available', propertyCount: 4 },
++  { date: '2025-02-05', status: 'available', propertyCount: 4 },
++  { date: '2025-02-06', status: 'available', propertyCount: 4 },
++  { date: '2025-02-07', status: 'available', propertyCount: 4 },
++  { date: '2025-02-08', status: 'available', propertyCount: 4 },
++  { date: '2025-02-09', status: 'available', propertyCount: 4 },
++  { date: '2025-02-10', status: 'available', propertyCount: 4 },
++  { date: '2025-02-11', status: 'available', propertyCount: 4 },
++  { date: '2025-02-12', status: 'available', propertyCount: 4 },
++  { date: '2025-02-13', status: 'available', propertyCount: 4 },
++  { date: '2025-02-14', status: 'available', propertyCount: 4 },
++  { date: '2025-02-15', status: 'available', propertyCount: 4 },
++  { date: '2025-02-16', status: 'available', propertyCount: 4 },
++  { date: '2025-02-17', status: 'available', propertyCount: 4 }
++]
++ GET /api/properties/availability 200 in 302ms
++[2025-01-18 18:16:51] INFO: Fetching aggregate availability from null to null undefined
++[2025-01-18 18:16:51] INFO: Total properties found: 4 undefined
++[2025-01-18 18:16:51] INFO: Found 2 bookings across all properties: [
++  {
++    check_in: '2025-01-23T04:00:00+00:00',
++    check_out: '2025-01-29T04:00:00+00:00',
++    status: 'pending',
++    property_id: 'cf8c30ba-a068-4d41-a10b-2d13ecbbf395'
++  },
++  {
++    check_in: '2025-01-22T04:00:00+00:00',
++    check_out: '2025-01-31T04:00:00+00:00',
++    status: 'pending',
++    property_id: 'cf1b0ba3-a1dd-4c60-a5ff-5ae84cc89fa3'
++  }
++]
++[2025-01-18 18:16:51] INFO: Processing booking from 2025-01-23T04:00:00+00:00 to 2025-01-29T04:00:00+00:00 with status pending undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-23 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-24 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-25 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-26 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-27 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-28 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-29 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Processing booking from 2025-01-22T04:00:00+00:00 to 2025-01-31T04:00:00+00:00 with status pending undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-22 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-23 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-24 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-25 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-26 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-27 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-28 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-29 from status partial to partial with 2/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-30 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Updating date 2025-01-31 from status available to partial with 3/4 properties available undefined
++[2025-01-18 18:16:51] INFO: Final aggregate availability data: [
++  { date: '2025-01-18', status: 'available', propertyCount: 4 },
++  { date: '2025-01-19', status: 'available', propertyCount: 4 },
++  { date: '2025-01-20', status: 'available', propertyCount: 4 },
++  { date: '2025-01-21', status: 'available', propertyCount: 4 },
++  { date: '2025-01-22', status: 'partial', propertyCount: 3 },
++  { date: '2025-01-23', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-24', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-25', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-26', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-27', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-28', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-29', status: 'partial', propertyCount: 2 },
++  { date: '2025-01-30', status: 'partial', propertyCount: 3 },
++  { date: '2025-01-31', status: 'partial', propertyCount: 3 },
++  { date: '2025-02-01', status: 'available', propertyCount: 4 },
++  { date: '2025-02-02', status: 'available', propertyCount: 4 },
++  { date: '2025-02-03', status: 'available', propertyCount: 4 },
++  { date: '2025-02-04', status: 'available', propertyCount: 4 },
++  { date: '2025-02-05', status: 'available', propertyCount: 4 },
++  { date: '2025-02-06', status: 'available', propertyCount: 4 },
++  { date: '2025-02-07', status: 'available', propertyCount: 4 },
++  { date: '2025-02-08', status: 'available', propertyCount: 4 },
++  { date: '2025-02-09', status: 'available', propertyCount: 4 },
++  { date: '2025-02-10', status: 'available', propertyCount: 4 },
++  { date: '2025-02-11', status: 'available', propertyCount: 4 },
++  { date: '2025-02-12', status: 'available', propertyCount: 4 },
++  { date: '2025-02-13', status: 'available', propertyCount: 4 },
++  { date: '2025-02-14', status: 'available', propertyCount: 4 },
++  { date: '2025-02-15', status: 'available', propertyCount: 4 },
++  { date: '2025-02-16', status: 'available', propertyCount: 4 },
++  { date: '2025-02-17', status: 'available', propertyCount: 4 }
++]
++ GET /api/properties/availability 200 in 322ms
+
+# 2025-01-18 18:18:49.403099
++/drop ..\..\..\..\..\AppData\Local\Temp\tmpky4yb_6l\clipboard_image.png
+
+# 2025-01-18 18:18:52.322334
++Uncaught ReferenceError: logger is not defined
++    days webpack-internal:///(app-pages-browser)/./components/properties/AvailabilityCalendar/index.tsx:85
++    getCalendarDays webpack-internal:///(app-pages-browser)/./components/properties/AvailabilityCalendar/index.tsx:84
++    DayContent webpack-internal:///(app-pages-browser)/./components/properties/AvailabilityCalendar/index.tsx:212
++    React 2
++
+
+# 2025-01-18 18:19:47.849969
++Now is not working AvailabilityCalendar.errorMessage
+
+# 2025-01-18 18:20:06.685269
++y
+
+# 2025-01-18 18:20:34.480969
++/undo
+
+# 2025-01-18 18:21:39.792572
++/add docs\booking-setup.md
+
+# 2025-01-18 18:22:03.371509
++Please check the booking setup and see if we arre integrating the calendar options correclty with the dates
+
+# 2025-01-18 18:22:52.298676
++y
+
+# 2025-01-18 18:22:52.304739
++/run pnpm add date-fns
+
+# 2025-01-18 18:22:52.305246
++/run pnpm add date-fns
+
+# 2025-01-18 18:22:58.021946
++y
+
+# 2025-01-18 18:24:23.595414
++/drop messages\es.json
+
+# 2025-01-18 18:24:39.033902
++/add messages\en.json
+
+# 2025-01-18 18:25:22.058119
++please add the correct key on the en.json for admin.calendar.title with proper nesting and sintax
+
+# 2025-01-18 18:26:52.289219
++I beilve thge setup of the keys is not correct anthey are not correclt5y nested the what i see is the key instead of the english word for this admin.calendar.title
+
+# 2025-01-18 18:33:23.380880
++I believe that all the keys on the vailability calendar section should be nested like this for rxamplr auth.adminSection.calendar.description instead of admin.calendar.description
+
+# 2025-01-18 18:42:33.656960
++Please sumarry all we have been done an then create a prompt and summary so we can continue this later 
