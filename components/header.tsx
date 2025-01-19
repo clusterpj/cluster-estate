@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
-import { Menu, Search, SlidersHorizontal, Home, Building2, Users, Info, Phone, User, LogOut } from "lucide-react";
+import { Menu, Home, Building2, Users, Info, Phone, User, LogOut } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "./ui/sheet";
@@ -45,57 +45,6 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 
-const SearchFilters = () => (
-  <div className="grid gap-3">
-    <div className="grid gap-1.5">
-      <Label htmlFor="price">Price Range</Label>
-      <Select>
-        <SelectTrigger>
-          <SelectValue placeholder="Select price range" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="0-250k">$0 - $250,000</SelectItem>
-          <SelectItem value="250k-500k">$250,000 - $500,000</SelectItem>
-          <SelectItem value="500k-750k">$500,000 - $750,000</SelectItem>
-          <SelectItem value="750k-1m">$750,000 - $1M</SelectItem>
-          <SelectItem value="1m+">$1M+</SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
-    <div className="grid gap-1.5">
-      <Label htmlFor="property-type">Property Type</Label>
-      <Select>
-        <SelectTrigger>
-          <SelectValue placeholder="Select type" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="house">House</SelectItem>
-          <SelectItem value="apartment">Apartment</SelectItem>
-          <SelectItem value="condo">Condo</SelectItem>
-          <SelectItem value="townhouse">Townhouse</SelectItem>
-          <SelectItem value="land">Land</SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
-    <div className="grid gap-1.5">
-      <Label htmlFor="beds">Bedrooms</Label>
-      <Select>
-        <SelectTrigger>
-          <SelectValue placeholder="Select bedrooms" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="1">1+</SelectItem>
-          <SelectItem value="2">2+</SelectItem>
-          <SelectItem value="3">3+</SelectItem>
-          <SelectItem value="4">4+</SelectItem>
-          <SelectItem value="5">5+</SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
-    <Separator />
-    <Button>Apply Filters</Button>
-  </div>
-);
 
 export function Header() {
   const { user, signOut, userProfile } = useAuth();
@@ -284,67 +233,6 @@ export function Header() {
 
           {/* Right Section: Search, Auth, Theme, Language */}
           <div className="flex items-center gap-4">
-            {/* Desktop Search */}
-            <div className="hidden sm:block">
-              <div className="relative">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder={t('search.placeholder')}
-                  className="w-[200px] pl-8 pr-4 md:w-[300px]"
-                />
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="ghost" size="icon" className="absolute right-0 top-0 h-full px-3 hover:bg-transparent">
-                      <SlidersHorizontal className="h-4 w-4" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[300px] p-4" align="end">
-                    <div className="grid gap-4">
-                      <div className="space-y-2">
-                        <h4 className="font-medium leading-none">{t('search.filters')}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          {t('search.filtersDesc')}
-                        </p>
-                      </div>
-                      <SearchFilters />
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              </div>
-            </div>
-
-            {/* Mobile Search Button */}
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="sm:hidden">
-                  <Search className="h-5 w-5" />
-                  <span className="sr-only">{t('search.open')}</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="bottom" className="h-[85%]">
-                <SheetHeader>
-                  <SheetTitle>{t('search.title')}</SheetTitle>
-                </SheetHeader>
-                <div className="mt-4 space-y-4">
-                  <div className="relative">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      type="search"
-                      placeholder={t('search.placeholder')}
-                      className="w-full pl-8"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <h4 className="font-medium leading-none">{t('search.filters')}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {t('search.filtersDesc')}
-                    </p>
-                  </div>
-                  <SearchFilters />
-                </div>
-              </SheetContent>
-            </Sheet>
 
             {/* Authentication */}
             {user ? (
