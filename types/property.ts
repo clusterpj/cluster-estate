@@ -4,6 +4,9 @@ export type Property = Database['public']['Tables']['properties']['Row'] & {
   availability?: PropertyAvailability
   status: PropertyStatus
   max_guests?: number
+  listing_type?: ListingType
+  available_from?: string
+  available_to?: string
 }
 
 export interface PropertyAvailability {
@@ -19,7 +22,7 @@ export interface PropertyAvailability {
 export type NewProperty = Database['public']['Tables']['properties']['Insert']
 export type UpdateProperty = Database['public']['Tables']['properties']['Update']
 
-export type PropertyStatus = 'available' | 'booked' | 'pending' | 'maintenance' | 'sold' | 'rented'
+export type PropertyStatus = 'available' | 'pending' | 'booked' | 'sold' // Added missing statuses
 
 export interface PropertyAvailability {
   date: string
@@ -30,9 +33,9 @@ export interface PropertyAvailability {
 
 export const PropertyStatus: Record<Uppercase<PropertyStatus>, PropertyStatus> = {
   AVAILABLE: 'available',
-  SOLD: 'sold',
   PENDING: 'pending',
-  RENTED: 'rented'
+  BOOKED: 'booked',
+  SOLD: 'sold'
 } as const
 export type ListingType = 'sale' | 'rent' | 'both'
 export type PropertyType = 'house' | 'villa' | 'condo' | 'lot'

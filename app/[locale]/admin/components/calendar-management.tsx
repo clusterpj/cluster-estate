@@ -17,7 +17,7 @@ export function CalendarManagement() {
   const [date, setDate] = useState<Date>(new Date());
 
   // Fetch properties from database
-  const { data: properties = [], isLoading: isLoadingProperties } = useQuery({
+  const { data: properties = [], isLoading: isLoadingProperties, error: propertiesError } = useQuery({
     queryKey: ['properties'],
     queryFn: async () => {
       const supabase = createClientComponentClient<Database>()
@@ -26,7 +26,9 @@ export function CalendarManagement() {
         .select('id, title')
         .order('title', { ascending: true })
       
-      if (error) throw error
+      if (error) {
+        throw new Error(t('auth.adminSection.properties.fetchError'))
+      }
       
       return [
         { id: 'all', name: t('allProperties') },
@@ -44,6 +46,11 @@ export function CalendarManagement() {
 
       {/* Filters and Controls */}
       <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
+        {propertiesError && (
+          <div className="text-red-500 text-sm">
+            {propertiesError.message}
+          </div>
+        )}
         <Select value={selectedProperty} onValueChange={setSelectedProperty}>
           <SelectTrigger className="w-[200px]">
             {isLoadingProperties ? (

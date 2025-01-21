@@ -278,16 +278,18 @@
           "pending": "Pending",
           "maintenance": "Maintenance",
           "partial": "Partial Availability",
-          "singleView": "Single View",
-          "singlePropertyTitle": "Single Property"
+          "singleView": "Single Property View",
+          "allProperties": "All Properties View",
+          "singlePropertyTitle": "Property Calendar",
+          "errorTitle": "Availability Error",
+          "errorDescription": "Failed to load calendar data"
         },
         "loading": "Loading calendar...",
         "selectProperty": "Select Property",
         "pickDate": "Pick a date",
         "allProperties": "All Properties",
-        "errorTitle": "Failed to load calendar data",
-        "errorMessage": "Failed to load calendar"
-      
+        "errorTitle": "Calendar Error",
+        "errorMessage": "Failed to load calendar data"
       },
       "users": {
         "title": "User Management",
