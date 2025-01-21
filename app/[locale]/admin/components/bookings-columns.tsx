@@ -1,4 +1,6 @@
-import { ColumnDef } from '@tanstack/react-table'
+'use client'
+
+import type { ColumnDef } from '@tanstack/react-table'
 import { Booking } from '@/types/booking'
 import { format } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
@@ -6,8 +8,53 @@ import { DataTableColumnHeader } from '../../../../components/ui/data-table-colu
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useState } from 'react'
 import { Check, Copy, ExternalLink } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import Link from 'next/link'
+
+const IdCell = ({ id }: { id: string }) => {
+  const [copied, setCopied] = useState(false)
+  const truncatedId = `#${id.slice(0, 6)}...`
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(id)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleCopy}
+              className="font-mono hover:bg-accent px-2 py-1 rounded-md transition-colors flex items-center gap-2"
+            >
+              <span>{truncatedId}</span>
+              {copied ? (
+                <Check className="h-4 w-4 text-green-500" />
+              ) : (
+                <Copy className="h-4 w-4 opacity-50 hover:opacity-100" />
+              )}
+            </button>
+            <Link 
+              href={`/properties/${id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1 hover:bg-accent rounded-md"
+              title="View property"
+            >
+              <ExternalLink className="h-4 w-4 opacity-50 hover:opacity-100" />
+            </Link>
+          </div>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Click to copy full ID</p>
+          <p className="text-xs text-muted-foreground">{id}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  )
+}
 
 export const columns: ColumnDef<Booking>[] = [
   {
@@ -15,93 +62,14 @@ export const columns: ColumnDef<Booking>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Booking ID" />
     ),
-    cell: ({ row }) => {
-      const [copied, setCopied] = useState(false)
-      const fullId = row.getValue('id') as string
-      const truncatedId = `#${fullId.slice(0, 6)}...`
-
-      const handleCopy = () => {
-        navigator.clipboard.writeText(fullId)
-        setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
-      }
-
-      return (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handleCopy}
-                  className="font-mono hover:bg-accent px-2 py-1 rounded-md transition-colors flex items-center gap-2"
-                >
-                  <span>{truncatedId}</span>
-                  {copied ? (
-                    <Check className="h-4 w-4 text-green-500" />
-                  ) : (
-                    <Copy className="h-4 w-4 opacity-50 hover:opacity-100" />
-                  )}
-                </button>
-                <Link 
-                  href={`/properties/${row.getValue('property_id')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-1 hover:bg-accent rounded-md"
-                  title="View property"
-                >
-                  <ExternalLink className="h-4 w-4 opacity-50 hover:opacity-100" />
-                </Link>
-              </div>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Click to copy full ID</p>
-              <p className="text-xs text-muted-foreground">{fullId}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      )
-    },
+    cell: ({ row }) => <IdCell id={row.getValue('id')} />,
   },
   {
     accessorKey: 'property_id',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Property ID" />
     ),
-    cell: ({ row }) => {
-      const [copied, setCopied] = useState(false)
-      const fullId = row.getValue('property_id') as string
-      const truncatedId = `#${fullId.slice(0, 6)}...`
-
-      const handleCopy = () => {
-        navigator.clipboard.writeText(fullId)
-        setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
-      }
-
-      return (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                onClick={handleCopy}
-                className="font-mono hover:bg-accent px-2 py-1 rounded-md transition-colors flex items-center gap-2"
-              >
-                <span>{truncatedId}</span>
-                {copied ? (
-                  <Check className="h-4 w-4 text-green-500" />
-                ) : (
-                  <Copy className="h-4 w-4 opacity-50 hover:opacity-100" />
-                )}
-              </button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Click to copy full ID</p>
-              <p className="text-xs text-muted-foreground">{fullId}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      )
-    },
+    cell: ({ row }) => <IdCell id={row.getValue('property_id')} />,
   },
   {
     accessorKey: 'check_in',
@@ -123,7 +91,7 @@ export const columns: ColumnDef<Booking>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => (
-      <Badge variant={row.getValue('status')}>
+      <Badge variant={row.getValue('status') === 'confirmed' ? 'default' : 'destructive'}>
         {row.getValue('status')}
       </Badge>
     ),
@@ -137,7 +105,7 @@ export const columns: ColumnDef<Booking>[] = [
       <DataTableColumnHeader column={column} title="Payment Status" />
     ),
     cell: ({ row }) => (
-      <Badge variant={row.getValue('payment_status')}>
+      <Badge variant={row.getValue('payment_status') === 'completed' ? 'default' : 'destructive'}>
         {row.getValue('payment_status')}
       </Badge>
     ),

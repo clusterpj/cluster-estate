@@ -1,42 +1,63 @@
-import { capturePayPalOrder, updateBookingPaymentStatus } from '@/lib/paypal'
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { createServerClient } from '@/lib/supabase-server'
 import { NextResponse } from 'next/server'
+import { capturePayPalOrder } from '@/lib/paypal'
+import { BookingStatus } from '@/types/booking-status'
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
+  const supabase = createServerClient()
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser()
+
+  if (authError || !user) {
+    return NextResponse.json(
+      { error: 'Authorization required' },
+      { status: 401 }
+    )
+  }
+
   try {
-    const { orderId, bookingId } = await request.json()
+    const { orderId, bookingId } = await req.json()
 
-    // Get authenticated user
-    const supabase = createRouteHandlerClient({ cookies })
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    // 1. Capture PayPal payment
+    const captureData = await capturePayPalOrder(orderId)
     
-    if (authError || !user) {
+    if (captureData.status !== 'COMPLETED') {
       return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
+        { error: 'Payment capture failed' },
+        { status: 402 }
       )
     }
 
-    // Capture PayPal payment
-    const captureData = await capturePayPalOrder(orderId)
+    // 2. Update booking status in Supabase
+    const { error: updateError } = await supabase
+      .from('bookings')
+      .update({
+        status: BookingStatus.CONFIRMED,
+        payment_id: captureData.id,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', bookingId)
+      .eq('user_id', user.id)
 
-    // Update booking status
-    await updateBookingPaymentStatus(
-      bookingId,
-      captureData.id,
-      captureData.status === 'COMPLETED' ? 'completed' : 'failed'
-    )
+    if (updateError) {
+      return NextResponse.json(
+        { error: 'Booking update failed' },
+        { status: 500 }
+      )
+    }
 
-    return NextResponse.json({
+    return NextResponse.json({ 
       success: true,
       bookingId,
-      paymentId: captureData.id
+      captureId: captureData.id
     })
+
   } catch (error) {
-    console.error('Error capturing payment:', error)
+    console.error('Capture error:', error)
     return NextResponse.json(
-      { error: 'Failed to capture payment' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

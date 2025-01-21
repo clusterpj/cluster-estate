@@ -3,7 +3,10 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { v4 as uuidv4 } from 'uuid'
 import type { Database } from '@/types/supabase'
 
-export function useImageUpload(initialImages?: string[], onError?: (error: any) => void) {
+export function useImageUpload(
+  initialImages: string[] = [],
+  onError?: (error: Error) => void
+) {
   const [uploadedImages, setUploadedImages] = useState<string[]>(initialImages || [])
   const supabase = createClientComponentClient<Database>()
 
@@ -18,7 +21,7 @@ export function useImageUpload(initialImages?: string[], onError?: (error: any) 
         const fileName = `${uuidv4()}.${fileExt}`
         const filePath = `properties/${fileName}`
         
-        const { data: uploadData, error: uploadError } = await supabase.storage
+        const { error: uploadError } = await supabase.storage
           .from('property-images')
           .upload(filePath, file)
 
@@ -32,9 +35,11 @@ export function useImageUpload(initialImages?: string[], onError?: (error: any) 
       }
 
       setUploadedImages(prev => [...prev, ...uploadedUrls])
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error uploading images:', error)
-      onError?.(error)
+      if (onError) {
+        onError(error instanceof Error ? error : new Error('Image upload failed', { cause: error }))
+      }
     }
   }
 

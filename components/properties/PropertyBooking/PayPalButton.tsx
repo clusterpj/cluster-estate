@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useToast } from '@/components/ui/use-toast'
 import { PayPalBookingData } from '@/types/booking'
 
@@ -8,10 +8,15 @@ interface PayPalButtonProps {
   onError: () => void
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const paypal: any;
 
 export function PayPalButton({ bookingData, onSuccess, onError }: PayPalButtonProps) {
   const { toast } = useToast()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const paypalButtonsRef = useRef<any>(null) // eslint-disable-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const scriptRef = useRef<HTMLScriptElement | null>(null)
 
   useEffect(() => {
     if (!process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID) {
@@ -20,13 +25,29 @@ export function PayPalButton({ bookingData, onSuccess, onError }: PayPalButtonPr
     }
 
     const loadPayPalScript = async () => {
-      const script = document.createElement('script')
-      script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=USD`
-      script.async = true
-      script.onload = () => {
-        initializePayPalButton()
+      // Check for existing script first
+      let script = document.querySelector('script[src*="paypal.com/sdk/js"]') as HTMLScriptElement | null
+      
+      if (!script) {
+        script = document.createElement('script') as HTMLScriptElement
+        script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=USD`
+        script.async = true
+        script.onerror = () => {
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: 'Failed to load PayPal payment system',
+          })
+        }
+        document.body.appendChild(script)
       }
-      document.body.appendChild(script)
+
+      // Handle both existing and new script
+      if ((script as HTMLScriptElement).onload) {
+        (script as HTMLScriptElement).onload = () => initializePayPalButton()
+      } else {
+        script.addEventListener('load', () => initializePayPalButton())
+      }
     }
 
     const initializePayPalButton = () => {
@@ -46,6 +67,9 @@ export function PayPalButton({ bookingData, onSuccess, onError }: PayPalButtonPr
             }
 
             const data = await response.json()
+            if (!data.paypalOrderId) {
+              throw new Error('Missing PayPal order ID in response')
+            }
             return data.paypalOrderId
           } catch (error) {
             console.error('Error creating order:', error)
@@ -110,6 +134,9 @@ export function PayPalButton({ bookingData, onSuccess, onError }: PayPalButtonPr
       const script = document.querySelector('script[src*="paypal.com/sdk/js"]')
       if (script && script.parentNode === document.body) {
         document.body.removeChild(script)
+      }
+      if (paypalButtonsRef.current) {
+        paypalButtonsRef.current.close()
       }
     }
   }, [bookingData, onSuccess, onError, toast])

@@ -1,4 +1,14 @@
 {
+  "BookingConfirmation": {
+    "title": "Booking Confirmation",
+    "status": "Status",
+    "property": "Property",
+    "total": "Total Amount",
+    "confirmed": "Confirmed",
+    "pending": "Pending",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
   "Hero": {
     "title": "Find Your Dream Home",
     "subtitle": "Discover luxury properties in prime locations",
@@ -267,16 +277,17 @@
           "booked": "Booked",
           "pending": "Pending",
           "maintenance": "Maintenance",
-          "partial": "Partial Availability"
+          "partial": "Partial Availability",
+          "singleView": "Single View",
+          "singlePropertyTitle": "Single Property"
         },
         "loading": "Loading calendar...",
         "selectProperty": "Select Property",
         "pickDate": "Pick a date",
         "allProperties": "All Properties",
-        "error": {
-          "title": "Error",
-          "message": "Failed to load calendar data"
-        }
+        "errorTitle": "Failed to load calendar data",
+        "errorMessage": "Failed to load calendar"
+      
       },
       "users": {
         "title": "User Management",

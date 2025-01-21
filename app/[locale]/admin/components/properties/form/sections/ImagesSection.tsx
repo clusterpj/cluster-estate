@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import { UseFormReturn } from 'react-hook-form'
 import { PropertyFormValues } from '../schema'
 import {
@@ -57,10 +58,13 @@ export function ImagesSection({ form, onError }: ImagesSectionProps) {
                 <div className="grid grid-cols-3 gap-2">
                   {uploadedImages.map((image, index) => (
                     <div key={index} className="relative group">
-                      <img
+                      <Image
                         src={image}
                         alt={`Property ${index + 1}`}
                         className="w-full h-24 object-cover rounded-md"
+                        width={96}
+                        height={96}
+                        loading="lazy"
                       />
                       <button
                         type="button"

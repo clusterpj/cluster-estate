@@ -10413,3 +10413,239 @@
 
 # 2025-01-18 18:42:33.656960
 +Please sumarry all we have been done an then create a prompt and summary so we can continue this later 
+
+# 2025-01-19 01:05:29.748069
++/add components\header.tsx
+
+# 2025-01-19 01:07:04.702152
++
++I'll help you remove the search functionality from the header component. Here are the specific edits needed for the `components/header.tsx` file:
++
++1. Remove the SearchFilters component entirely (you can delete the entire `const SearchFilters = () => (...)` section)
++
++2. Remove the search-related imports:
++```diff
++- import { Search, SlidersHorizontal /* ... other imports */ } from "lucide-react";
+++ import { /* ... keep other imports */ } from "lucide-react";
++```
++
++3. Remove these imports as they're only used for search:
++```diff
++- import { Input } from "./ui/input";
++- import { Label } from "./ui/label";
++- import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
++```
++
++4. In the header's right section JSX, remove the desktop and mobile search components:
++```diff
++{/* Right Section: Search, Auth, Theme, Language */}
++<div className="flex items-center gap-4">
++-  {/* Desktop Search */}
++-  <div className="hidden sm:block">
++-    <div className="relative">
++-      <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
++-      <Input
++-        type="search"
++-        placeholder={t('search.placeholder')}
++-        className="w-[200px] pl-8 pr-4 md:w-[300px]"
++-      />
++-      <Popover>
++-        <PopoverTrigger asChild>
++-          <Button variant="ghost" size="icon" className="absolute right-0 top-0 h-full px-3 hover:bg-transparent">
++-            <SlidersHorizontal className="h-4 w-4" />
++-          </Button>
++-        </PopoverTrigger>
++-        <PopoverContent className="w-[300px] p-4" align="end">
++-          <div className="grid gap-4">
++-            <div className="space-y-2">
++-              <h4 className="font-medium leading-none">{t('search.filters')}</h4>
++-              <p className="text-sm text-muted-foreground">
++-                {t('search.filtersDesc')}
++-              </p>
++-            </div>
++-            <SearchFilters />
++-          </div>
++-        </PopoverContent>
++-      </Popover>
++-    </div>
++-  </div>
++
++-  {/* Mobile Search Button */}
++-  <Sheet>
++-    <SheetTrigger asChild>
++-      <Button variant="ghost" size="icon" className="sm:hidden">
++-        <Search className="h-5 w-5" />
++-        <span className="sr-only">{t('search.open')}</span>
++-      </Button>
++-    </SheetTrigger>
++-    <SheetContent side="bottom" className="h-[85%]">
++-      <SheetHeader>
++-        <SheetTitle>{t('search.title')}</SheetTitle>
++-      </SheetHeader>
++-      <div className="mt-4 space-y-4">
++-        <div className="relative">
++-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
++-          <Input
++-            type="search"
++-            placeholder={t('search.placeholder')}
++-            className="w-full pl-8"
++-          />
++-        </div>
++-        <div className="space-y-2">
++-          <h4 className="font-medium leading-none">{t('search.filters')}</h4>
++-          <p className="text-sm text-muted-foreground">
++-            {t('search.filtersDesc')}
++-          </p>
++-        </div>
++-        <SearchFilters />
++-      </div>
++-    </SheetContent>
++-  </Sheet>
++```
++
++These changes will remove all search-related functionality from the header while keeping the authentication, theme toggle, and language switcher intact.
++
+
+# 2025-01-19 01:15:25.886142
++/add CONVENTIONS.md
+
+# 2025-01-19 01:15:33.262389
++/token
+
+# 2025-01-19 01:16:37.207047
++/add CONVENTIONS.md
+
+# 2025-01-19 01:17:26.072328
++/add components\properties\PropertyList\PropertyCard.tsx
+
+# 2025-01-19 01:19:41.503594
++
++import { useState, useEffect } from 'react'
++import { Card, CardContent } from "@/components/ui/card"
++import { Button } from "@/components/ui/button"
++import { Badge } from "@/components/ui/badge"
++import { Bed, Bath, ArrowUpRight, Heart, MapPin, Maximize } from "lucide-react"
++import Image from "next/image"
++import Link from "next/link"
++import { Database } from "@/types/database"
++import { useQuery } from '@tanstack/react-query'
++import { useParams } from 'next/navigation'
++import { useTranslations } from 'next-intl'
++
++type Property = Database["public"]["Tables"]["properties"]["Row"]
++
++interface PropertyCardProps {
++  property: Property
++}
++
++export function PropertyCard({ property }: PropertyCardProps) {
++  const [isFavorite, setIsFavorite] = useState(false)
++  const params = useParams()
++  const t = useTranslations('FeaturedProperties')
++  const mainImage = property.images?.[0] || "/placeholder.jpg"
++
++  const { data: favoriteStatus } = useQuery({
++    queryKey: ['property-favorite', property.id],
++    queryFn: async () => false,
++    staleTime: 1000 * 60 * 5
++  })
++
++  useEffect(() => {
++    if (favoriteStatus !== undefined) {
++      setIsFavorite(favoriteStatus)
++    }
++  }, [favoriteStatus])
++
++  return (
++    <Card className="group relative overflow-hidden bg-background transition-all hover:shadow-lg">
++      {/* Image Container */}
++      <div className="relative aspect-[4/3] w-full overflow-hidden">
++        <div className="absolute left-4 top-4 z-10 flex gap-2">
++          <Badge className="bg-background/90 hover:bg-background/95">
++            {property.property_type ? t(`propertyType.${property.property_type}`) : t('propertyType.unknown')}
++          </Badge>
++          {property.features?.includes('featured') && (
++            <Badge variant="secondary" className="bg-primary/90 text-primary-foreground">
++              Featured
++            </Badge>
++          )}
++        </div>
++        <Button
++          variant="ghost"
++          size="icon"
++          className="absolute right-4 top-4 z-10 bg-background/90 hover:bg-background/95"
++          onClick={() => setIsFavorite(!isFavorite)}
++        >
++          <Heart className={`h-4 w-4 ${isFavorite ? 'fill-primary text-primary' : ''}`} />
++        </Button>
++        <Image
++          src={mainImage}
++          alt={property.title}
++          fill
++          className="object-cover transition-transform duration-500 group-hover:scale-105"
++          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
++        />
++      </div>
++
++      <CardContent className="p-6">
++        {/* Location */}
++        <div className="mb-2 flex items-center gap-1 text-sm text-muted-foreground">
++          <MapPin className="h-4 w-4" />
++          <span className="truncate">{property.location}</span>
++        </div>
++
++        {/* Title */}
++        <Link 
++          href={`/${params.locale}/properties/${property.id}`}
++          className="group/link mb-4 block"
++        >
++          <h3 className="truncate text-xl font-semibold tracking-tight transition-colors group-hover/link:text-primary">
++            {property.title}
++          </h3>
++        </Link>
++
++        {/* Features */}
++        <div className="mb-6 flex gap-4 text-sm text-muted-foreground">
++          <div className="flex items-center gap-1">
++            <Bed className="h-4 w-4" />
++            <span>{property.bedrooms} Beds</span>
++          </div>
++          <div className="flex items-center gap-1">
++            <Bath className="h-4 w-4" />
++            <span>{property.bathrooms} Baths</span>
++          </div>
++          <div className="flex items-center gap-1">
++            <Maximize className="h-4 w-4" />
++            <span>{property.square_feet.toLocaleString()} sqft</span>
++          </div>
++        </div>
++
++        {/* Price and Action */}
++        <div className="flex items-center justify-between">
++          <div className="space-y-1">
++            {property.sale_price && (
++              <div className="text-2xl font-bold">
++                ${property.sale_price.toLocaleString()}
++              </div>
++            )}
++            {property.rental_price && (
++              <div className="text-sm text-muted-foreground">
++                ${property.rental_price.toLocaleString()}
++                {property.rental_frequency && (
++                  <span>/{property.rental_frequency}</span>
++                )}
++              </div>
++            )}
++          </div>
++          <Button asChild variant="default" size="sm" className="gap-2">
++            <Link href={`/${params.locale}/properties/${property.id}`}>
++              View Details
++              <ArrowUpRight className="h-4 w-4" />
++            </Link>
++          </Button>
++        </div>
++      </CardContent>
++    </Card>
++  )
++}
++
