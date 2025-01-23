@@ -77,7 +77,8 @@ export function PropertyManagement() {
     available: ['pending', 'sold', 'rented'],
     pending: ['available', 'sold', 'rented'],
     sold: ['available'],
-    rented: ['available']
+    rented: ['available'],
+    booked: ['available']
   } as const;
 
   async function updatePropertyStatus(id: string, status: PropertyStatus | { features?: string[] }) {

@@ -4,7 +4,7 @@ import type { Database } from '@/types/supabase'
 export interface PropertyFormProps {
   onSuccess?: () => void
   onError?: (error: any) => void
-  initialData?: PropertyFormValues
+  initialData?: Partial<PropertyFormValues>
   mode?: 'create' | 'edit'
   propertyId?: string
 }
