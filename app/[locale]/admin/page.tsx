@@ -20,7 +20,11 @@ const validStatuses = ['available', 'pending', 'booked', 'sold'] as const
 export default function AdminDashboard() {
   const t = useTranslations('auth.adminSection')
   interface PropertyStat {
-    status?: 'available' | 'pending' | 'booked' | 'sold'
+    status: 'available' | 'pending' | 'booked' | 'sold'
+  }
+
+  interface DatabaseProperty {
+    status: string | null
   }
   
   const [stats, setStats] = useState<PropertyStat[]>([])
@@ -32,11 +36,11 @@ export default function AdminDashboard() {
       try {
         const supabase = createClient()
         const { data } = await supabase.from('properties').select('status')
-        const filteredStats = (data || [])
-          .filter((p): p is { status: PropertyStat['status'] } => 
-            p.status !== null && validStatuses.includes(p.status as PropertyStat['status'])
+        const filteredStats = (data as DatabaseProperty[] || [])
+          .filter((p): p is DatabaseProperty & { status: string } => 
+            p.status !== null && validStatuses.includes(p.status)
           )
-          .map(p => ({ status: p.status }))
+          .map(p => ({ status: p.status as PropertyStat['status'] }))
         setStats(filteredStats)
       } catch (error) {
         console.error('Error fetching stats:', error)
