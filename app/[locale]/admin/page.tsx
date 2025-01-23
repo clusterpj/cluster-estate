@@ -37,8 +37,8 @@ export default function AdminDashboard() {
         const supabase = createClient()
         const { data } = await supabase.from('properties').select('status')
         const filteredStats = (data as DatabaseProperty[] || [])
-          .filter((p): p is DatabaseProperty & { status: string } => 
-            p.status !== null && validStatuses.includes(p.status)
+          .filter((p): p is DatabaseProperty & { status: typeof validStatuses[number] } => 
+            p.status !== null && validStatuses.includes(p.status as typeof validStatuses[number])
           )
           .map(p => ({ status: p.status as PropertyStat['status'] }))
         setStats(filteredStats)

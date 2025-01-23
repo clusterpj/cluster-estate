@@ -23,7 +23,24 @@ export function BookingsManagement() {
           .order('created_at', { ascending: false })
 
         if (error) throw error
-        setBookings(data || [])
+        const rawBookings = data ?? [];
+        const mappedBookings = rawBookings.map(booking => {
+          return {
+  
+            ...booking,
+              // Required fields with defaults
+              payment_status: booking.payment_status ?? "pending",
+              status: booking.status ?? "pending",
+              // Optional fields converted from null to undefined
+              payment_id: booking.payment_id ?? undefined,
+              special_requests: booking.special_requests ?? undefined,
+              calendar_event_id: booking.calendar_event_id ?? undefined,
+              external_source: booking.external_source ?? undefined,
+              external_id: booking.external_id ?? undefined,
+              is_external: booking.is_external ?? false
+          };
+        });
+        setBookings(mappedBookings);
       } catch (error) {
         console.error('Error fetching bookings:', error)
         setError(t('bookings.fetchError'))
