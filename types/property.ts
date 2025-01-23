@@ -49,7 +49,7 @@ export const PropertyStatus: Record<Uppercase<PropertyStatus>, PropertyStatus> =
   RENTED: 'rented'
 } as const
 export type ListingType = 'sale' | 'rent' | 'both'
-export type PropertyType = 'house' | 'villa' | 'apartment' | 'land' | 'condo' | 'lot'
+export type PropertyType = 'house' | 'villa' | 'apartment' | 'land' | 'condo' | 'lot' | null
 
 export interface PropertyTypes {
   house: string;

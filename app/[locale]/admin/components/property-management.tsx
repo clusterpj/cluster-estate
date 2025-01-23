@@ -389,7 +389,7 @@ export function PropertyManagement() {
                     
                     <DropdownMenuItem
                       onClick={() => updatePropertyStatus(property.id, 'available')}
-                      disabled={property.status === 'available' || property.status === 'pending'}
+                      disabled={property.status === 'available'}
                     >
                       <Check className="mr-2 h-4 w-4" />
                       {t('actions.markAvailable')}
@@ -397,7 +397,7 @@ export function PropertyManagement() {
                     
                     <DropdownMenuItem
                       onClick={() => updatePropertyStatus(property.id, 'pending')}
-                      disabled={property.status === 'pending' || property.status === 'sold' || property.status === 'rented'}
+                      disabled={property.status === 'pending'}
                     >
                       <Ban className="mr-2 h-4 w-4" />
                       {t('actions.markPending')}
@@ -434,9 +434,7 @@ export function PropertyManagement() {
                           title: propertyData.title || '',
                           description: propertyData.description || '',
                           status: isValidPropertyStatus(propertyData.status) ? propertyData.status : 'available',
-                          property_type: propertyData.property_type && ['house', 'villa', 'apartment', 'land', 'condo', 'lot'].includes(propertyData.property_type) 
-                            ? propertyData.property_type 
-                            : 'house',
+                          property_type: propertyData.property_type ?? 'house',
                           sale_price: propertyData.sale_price || 0,
                           rental_price: propertyData.rental_price || 0,
                           location: propertyData.location || '',
