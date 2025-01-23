@@ -1,8 +1,6 @@
 'use client'
 
-import type { Database } from '@/types/supabase'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { UserManagement } from './components/user-management'
 import { PropertyManagement } from './components/property-management'
@@ -20,8 +18,12 @@ const queryClient = new QueryClient()
 
 export default function AdminDashboard() {
   const t = useTranslations('auth.adminSection')
-  const [stats, setStats] = useState<any[]>([])
-  const { locale } = useParams()
+  interface PropertyStat {
+    status: 'available' | 'pending' | 'booked' | 'sold'
+  }
+  
+  const [stats, setStats] = useState<PropertyStat[]>([])
+  useParams() // We keep this to maintain the hook call but don't destructure unused variable
 
   useEffect(() => {
     async function fetchStats() {
