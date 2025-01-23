@@ -19,10 +19,12 @@ const queryClient = new QueryClient()
 export default function AdminDashboard() {
   const t = useTranslations('auth.adminSection')
   interface PropertyStat {
-    status: 'available' | 'pending' | 'booked' | 'sold'
+    status?: 'available' | 'pending' | 'booked' | 'sold'
   }
   
   const [stats, setStats] = useState<PropertyStat[]>([])
+
+  const validStatuses = ['available', 'pending', 'booked', 'sold']
   useParams() // We keep this to maintain the hook call but don't destructure unused variable
 
   useEffect(() => {
@@ -30,7 +32,10 @@ export default function AdminDashboard() {
       try {
         const supabase = createClient()
         const { data } = await supabase.from('properties').select('status')
-        setStats(data || [])
+        const filteredStats = (data || [])
+          .filter(p => p.status && validStatuses.includes(p.status))
+          .map(p => ({ status: p.status as PropertyStat['status'] }))
+        setStats(filteredStats)
       } catch (error) {
         console.error('Error fetching stats:', error)
       }
