@@ -33,8 +33,10 @@ export default function AdminDashboard() {
         const supabase = createClient()
         const { data } = await supabase.from('properties').select('status')
         const filteredStats = (data || [])
-          .filter(p => p.status && validStatuses.includes(p.status))
-          .map(p => ({ status: p.status as PropertyStat['status'] }))
+          .filter((p): p is { status: PropertyStat['status'] } => 
+            p.status !== null && validStatuses.includes(p.status as PropertyStat['status'])
+          )
+          .map(p => ({ status: p.status }))
         setStats(filteredStats)
       } catch (error) {
         console.error('Error fetching stats:', error)
