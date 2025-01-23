@@ -211,6 +211,19 @@
       }
     ]
   },
+  "BookingConfirmation": {
+    "title": "Confirmación de Reserva",
+    "status": "Estado",
+    "property": "Propiedad",
+    "total": "Total",
+    "check_in": "Fecha de entrada",
+    "check_out": "Fecha de salida",
+    "guests": "Huéspedes",
+    "special_requests": "Solicitudes especiales",
+    "confirmed": "Confirmada",
+    "pending": "Pendiente",
+    "cancelled": "Cancelada"
+  },
   "auth": {
     "loginTitle": "Iniciar sesión",
     "loginDescription": "¡Bienvenido de vuelta! Por favor, inicia sesión en tu cuenta.",

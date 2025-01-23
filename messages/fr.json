@@ -39,7 +39,7 @@
       "button": "Commencez votre voyage"
     }
   },
-"FeaturedProperties": {
+  "FeaturedProperties": {
     "title": "Propriétés en Vedette",
     "description": "Découvrez notre sélection soignée de propriétés haut de gamme dans les endroits les plus recherchés des Caraïbes.",
     "viewDetails": "Voir les Détails",
@@ -210,6 +210,19 @@
         "image": "/images/activities/spa.jpg"
       }
     ]
+  },
+  "BookingConfirmation": {
+    "title": "Confirmation de Réservation",
+    "status": "Statut",
+    "property": "Propriété",
+    "total": "Total",
+    "check_in": "Date d'arrivée",
+    "check_out": "Date de départ",
+    "guests": "Voyageurs",
+    "special_requests": "Demandes spéciales",
+    "confirmed": "Confirmée",
+    "pending": "En attente",
+    "cancelled": "Annulée"
   },
   "auth": {
     "loginTitle": "Connexion",
@@ -461,9 +474,9 @@
   },
   "PropertyDetails": {
     "beds": "Lits",
-    "baths": "Voici la traduction en français :\n\nBains",
+    "baths": "Bains",
     "sqft": "Pieds carrés",
-    "description": "Voici la traduction en français du texte donné :\n\nDescription",
+    "description": "Description",
     "forRent": "[object Object]",
     "forSale": "[object Object]",
     "rentalFrequency": {

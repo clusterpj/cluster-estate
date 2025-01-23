@@ -46,10 +46,32 @@ export default async function BookingConfirmation({
             <span className="font-medium">
               {new Intl.NumberFormat(params.locale, {
                 style: 'currency',
-                currency: booking.currency,
-              }).format(booking.total_amount)}
+                currency: 'USD',
+              }).format(booking.total_price)}
             </span>
           </div>
+
+          <div className="flex justify-between">
+            <span>{t('check_in')}:</span>
+            <span>{new Date(booking.check_in).toLocaleDateString(params.locale)}</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>{t('check_out')}:</span>
+            <span>{new Date(booking.check_out).toLocaleDateString(params.locale)}</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>{t('guests')}:</span>
+            <span>{booking.guests}</span>
+          </div>
+
+          {booking.special_requests && (
+            <div>
+              <h3 className="font-medium">{t('special_requests')}</h3>
+              <p className="text-sm text-gray-600">{booking.special_requests}</p>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

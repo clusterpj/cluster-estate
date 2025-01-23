@@ -4,10 +4,14 @@
     "status": "Status",
     "property": "Property",
     "total": "Total Amount",
+    "check_in": "Check-in Date",
+    "check_out": "Check-out Date",
+    "guests": "Guests",
+    "special_requests": "Special Requests",
     "confirmed": "Confirmed",
     "pending": "Pending",
-    "completed": "Completed",
-    "cancelled": "Cancelled"
+    "cancelled": "Cancelled",
+    "completed": "Completed"
   },
   "Hero": {
     "title": "Find Your Dream Home",
@@ -607,5 +611,3 @@
     }
   }
 }
-
-

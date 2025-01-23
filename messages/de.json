@@ -211,7 +211,20 @@
       }
     ]
   },
-"auth": {
+  "BookingConfirmation": {
+    "title": "Buchungsbestätigung",
+    "status": "Status",
+    "property": "Immobilie",
+    "total": "Gesamtbetrag",
+    "check_in": "Anreisedatum",
+    "check_out": "Abreisedatum",
+    "guests": "Gäste",
+    "special_requests": "Besondere Wünsche",
+    "confirmed": "Bestätigt",
+    "pending": "Ausstehend",
+    "cancelled": "Storniert"
+  },
+  "auth": {
     "loginTitle": "Anmelden",
     "loginDescription": "Willkommen zurück! Bitte melden Sie sich in Ihrem Konto an.",
     "registerTitle": "Konto erstellen",
