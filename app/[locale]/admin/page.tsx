@@ -15,6 +15,7 @@ import { useParams } from 'next/navigation'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const queryClient = new QueryClient()
+const validStatuses = ['available', 'pending', 'booked', 'sold'] as const
 
 export default function AdminDashboard() {
   const t = useTranslations('auth.adminSection')
@@ -24,7 +25,6 @@ export default function AdminDashboard() {
   
   const [stats, setStats] = useState<PropertyStat[]>([])
 
-  const validStatuses = ['available', 'pending', 'booked', 'sold']
   useParams() // We keep this to maintain the hook call but don't destructure unused variable
 
   useEffect(() => {
