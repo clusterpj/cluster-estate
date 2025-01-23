@@ -53,7 +53,10 @@ export function PayPalButtonsWrapper({
         <PayPalButtons
           style={{ layout: 'vertical', label: 'checkout' }}
           createOrder={(data, actions) => {
-            console.log('Creating PayPal order...')
+            console.log('Creating PayPal order...', {
+              totalPrice,
+              currency
+            })
             try {
               setIsCreatingOrder(true)
               return actions.order.create({
@@ -69,6 +72,7 @@ export function PayPalButtonsWrapper({
                       }
                     }
                   },
+                  description: 'Property Booking',
                   items: [{
                     name: 'Property Booking',
                     quantity: '1',
@@ -80,8 +84,18 @@ export function PayPalButtonsWrapper({
                 }]
               })
             } catch (err) {
-              console.error('Error creating PayPal order:', err)
+              console.error('Error creating PayPal order:', {
+                error: err,
+                totalPrice,
+                currency,
+                data
+              })
               setError('Failed to create payment order')
+              toast({
+                variant: "destructive",
+                title: "Payment Error",
+                description: "Failed to create payment order. Please try again."
+              })
               throw err
             } finally {
               setIsCreatingOrder(false)
@@ -96,13 +110,21 @@ export function PayPalButtonsWrapper({
 
               console.log('Capturing PayPal payment...')
               const captureData = await actions.order.capture()
-              
+              console.log('Payment captured successfully:', captureData)
+
               if (!captureData?.id) {
                 throw new Error('Payment capture failed - no transaction ID')
               }
 
-              console.log('Payment captured successfully:', captureData)
-              await onApprove(data, actions)
+              // Pass the PayPal data to the parent component
+              await onApprove({
+                orderID: captureData.id,
+                paymentStatus: captureData.status.toLowerCase(),
+                payerID: captureData.payer.payer_id,
+                paymentSource: 'paypal',
+                paymentDetails: captureData
+              })
+
             } catch (error: unknown) {
               console.error('Error capturing payment:', error)
               setError('Payment processing failed')
