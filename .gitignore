@@ -38,3 +38,6 @@ next-env.d.ts
 .aider*
 !.aider.conf.yml
 !.aiderignore
+.aider.tags.cache.v3/cache.db
+.aider.tags.cache.v3/cache.db-shm
+.aider.chat.history.md
