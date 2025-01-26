@@ -323,7 +323,7 @@
         }
       },
         "properties": {
-          "title": "Property Management",
+          "title": "Properties ",
           "loading": "Loading properties...",
           "error": "Error",
           "success": "Success",

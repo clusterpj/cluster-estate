@@ -160,6 +160,11 @@ export function PropertyForm({
 
             <FeaturesSection form={form} />
             <ImagesSection form={form} onError={onError} />
+            <input
+              type="text"
+              placeholder="Enter iCal Link..."
+              {...form.register('ical_url')}
+            />
           </div>
         </div>
 

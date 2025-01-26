@@ -17,6 +17,7 @@ export type Property = Database['public']['Tables']['properties']['Row'] & {
   minimum_rental_period?: number
   features?: string[]
   images?: string[]
+  ical_url?: string
 }
 
 export interface PropertyAvailability {
@@ -32,7 +33,7 @@ export interface PropertyAvailability {
 export type NewProperty = Database['public']['Tables']['properties']['Insert']
 export type UpdateProperty = Database['public']['Tables']['properties']['Update']
 
-export type PropertyStatus = 'available' | 'pending' | 'booked' | 'sold' | 'rented'
+export type PropertyStatus = 'available' | 'pending' | 'rented' | 'sold' | 'booked'
 
 export interface PropertyAvailability {
   date: string
@@ -49,13 +50,13 @@ export const PropertyStatus: Record<Uppercase<PropertyStatus>, PropertyStatus> =
   RENTED: 'rented'
 } as const
 export type ListingType = 'sale' | 'rent' | 'both'
-export type PropertyType = 'house' | 'villa' | 'apartment' | 'land' | 'condo' | 'lot' | null
+export type PropertyType = 'house' | 'apartment' | 'villa' | 'land' | null
 
 export interface PropertyTypes {
   house: string;
+  apartment: string;
   villa: string;
-  condo: string;
-  lot: string;
+  land: string;
 }
 export type RentalFrequency = 'daily' | 'weekly' | 'monthly' | 'yearly'
 

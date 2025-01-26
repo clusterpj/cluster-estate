@@ -166,6 +166,28 @@ export function PropertyManagement() {
     listingTypeFilter === 'all' ? true : property.listing_type === listingTypeFilter
   )
 
+  async function syncIcalCalendars() {
+    try {
+      const response = await fetch('/api/sync-ical', { method: 'POST' })
+      if (!response.ok) throw new Error('Failed to sync calendars.')
+
+      // Optionally re-fetch updated properties or bookings
+      await fetchProperties()
+      setToastMessage({
+        title: t('success'),
+        description: t('syncSuccess'),
+        type: 'success'
+      })
+    } catch (err) {
+      console.error(err)
+      setToastMessage({
+        title: t('error'),
+        description: t('syncError'),
+        type: 'error'
+      })
+    }
+  }
+
   if (loading) {
     return <div>{t('loading')}</div>
   }
@@ -231,6 +253,10 @@ export function PropertyManagement() {
           </DialogContent>
         </Dialog>
       </div>
+
+      <Button onClick={syncIcalCalendars}>
+        Sync with Airbnb
+      </Button>
 
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="max-w-[95vw] w-full lg:max-w-[1400px]" hideDefaultClose>
@@ -316,7 +342,16 @@ export function PropertyManagement() {
         <TableBody>
           {filteredProperties.map((property) => (
             <TableRow key={property.id}>
-              <TableCell>{property.title}</TableCell>
+              <TableCell>
+                <div className="flex flex-col">
+                  <span className="font-semibold">{property.title}</span>
+                  {property.ical_url && (
+                    <Badge variant="secondary" className="mt-1 break-all">
+                      iCal: {property.ical_url}
+                    </Badge>
+                  )}
+                </div>
+              </TableCell>
               <TableCell>
                 <Badge variant="outline">
                   {t(`listingType.${property.listing_type}`)}
@@ -346,10 +381,7 @@ export function PropertyManagement() {
               <TableCell>
                 <Badge variant={
                   property.status === 'available' ? 'default' :
-                  property.status === 'pending' ? 'secondary' :
-                  property.status === 'sold' ? 'destructive' :
-                  property.status === 'rented' ? 'secondary' :
-                  'outline'
+                  ['sold', 'pending'].includes(property.status) ? 'destructive' : 'secondary'
                 }>
                   {t(`status.${property.status}`)}
                 </Badge>
@@ -396,9 +428,8 @@ export function PropertyManagement() {
                     </DropdownMenuItem>
                     
                     <DropdownMenuItem
-                      onClick={() => updatePropertyStatus(property.id, 'pending')}
-                      disabled={property.status === 'pending'}
-                    >
+ onClick={() => updatePropertyStatus(property.id, 'pending')}
+                      disabled={['pending', 'sold', 'rented'].includes(property.status)}>
                       <Ban className="mr-2 h-4 w-4" />
                       {t('actions.markPending')}
                     </DropdownMenuItem>
@@ -452,7 +483,8 @@ export function PropertyManagement() {
                           rental_frequency: propertyData.rental_frequency || 'monthly',
                           pets_allowed: propertyData.pets_allowed || false,
                           pet_restrictions: Array.isArray(propertyData.pet_restrictions) ? propertyData.pet_restrictions : [],
-                          pet_deposit: propertyData.pet_deposit || 0
+                          pet_deposit: propertyData.pet_deposit || 0,
+                          ical_url: propertyData.ical_url || ''
                         }
                         setSelectedProperty(formattedData)
                         setIsEditDialogOpen(true)
