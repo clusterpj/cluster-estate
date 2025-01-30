@@ -1,9 +1,8 @@
-import axios from 'axios'
-
-const API_BASE = '/api/calendar-sync'
+import { supabase } from '@/lib/supabase'
 
 export type CalendarFeed = {
   id: string
+  property_id: string
   feed_url: string
   feed_type: "import" | "export"
   sync_frequency: number
@@ -15,23 +14,63 @@ export type CalendarFeed = {
     conflicts?: number
     warnings?: string[]
   }
-}
-
-export const createCalendarFeed = async (propertyId: string, feed: Omit<CalendarFeed, 'id'>) => {
-  const response = await axios.post(`${API_BASE}/${propertyId}/feeds`, feed)
-  return response.data
-}
-
-export const updateCalendarFeed = async (propertyId: string, feedId: string, updates: Partial<CalendarFeed>) => {
-  const response = await axios.patch(`${API_BASE}/${propertyId}/feeds/${feedId}`, updates)
-  return response.data
-}
-
-export const deleteCalendarFeed = async (propertyId: string, feedId: string) => {
-  await axios.delete(`${API_BASE}/${propertyId}/feeds/${feedId}`)
+  created_at: string
+  updated_at: string
 }
 
 export const getCalendarFeeds = async (propertyId: string) => {
-  const response = await axios.get(`${API_BASE}/${propertyId}/feeds`)
-  return response.data
+  const { data, error } = await supabase
+    .from('calendar_feeds')
+    .select('*')
+    .eq('property_id', propertyId)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.error('Error fetching calendar feeds:', error)
+    throw new Error('Failed to fetch calendar feeds')
+  }
+  return data
+}
+
+export const createCalendarFeed = async (propertyId: string, feed: Omit<CalendarFeed, 'id'>) => {
+  const { data, error } = await supabase
+    .from('calendar_feeds')
+    .insert({ ...feed, property_id: propertyId })
+    .select()
+    .single()
+
+  if (error) {
+    console.error('Error creating calendar feed:', error)
+    throw new Error('Failed to create calendar feed')
+  }
+  return data
+}
+
+export const updateCalendarFeed = async (propertyId: string, feedId: string, updates: Partial<CalendarFeed>) => {
+  const { data, error } = await supabase
+    .from('calendar_feeds')
+    .update(updates)
+    .eq('id', feedId)
+    .eq('property_id', propertyId)
+    .select()
+    .single()
+
+  if (error) {
+    console.error('Error updating calendar feed:', error)
+    throw new Error('Failed to update calendar feed')
+  }
+  return data
+}
+
+export const deleteCalendarFeed = async (propertyId: string, feedId: string) => {
+  const { error } = await supabase
+    .from('calendar_feeds')
+    .delete()
+    .eq('id', feedId)
+    .eq('property_id', propertyId)
+
+  if (error) {
+    console.error('Error deleting calendar feed:', error)
+    throw new Error('Failed to delete calendar feed')
+  }
 }
