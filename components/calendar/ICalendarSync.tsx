@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { createCalendarFeed, updateCalendarFeed, deleteCalendarFeed, getCalendarFeeds } from "@/services/calendarSync"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -39,6 +40,28 @@ type ICalendarSyncProps = {
 
 export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncProps) {
   const [feeds, setFeeds] = useState<CalendarFeed[]>(initialFeeds)
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    const fetchFeeds = async () => {
+      try {
+        setIsLoading(true)
+        const data = await getCalendarFeeds(propertyId)
+        setFeeds(data)
+      } catch (error) {
+        console.error("Failed to fetch calendar feeds:", error)
+        toast({
+          title: "Error",
+          description: "Failed to fetch calendar feeds",
+          variant: "destructive",
+        })
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    
+    fetchFeeds()
+  }, [propertyId])
   const { toast } = useToast()
   
   const form = useForm<z.infer<typeof formSchema>>({
@@ -52,12 +75,17 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      // TODO: Implement API call to create feed
-      const newFeed = {
-        id: Math.random().toString(),
-        property_id: propertyId,
+      setIsLoading(true)
+      const newFeed = await createCalendarFeed(propertyId, {
         ...values,
-      }
+        last_sync_at: new Date().toISOString(),
+        last_sync_status: 'success',
+        last_sync_result: {
+          eventsProcessed: 0,
+          conflicts: 0,
+          warnings: []
+        }
+      })
       setFeeds([...feeds, newFeed])
       form.reset()
       toast({
@@ -76,11 +104,11 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
 
   const toggleSync = async (feedId: string) => {
     try {
-      // TODO: Implement API call to toggle sync
+      const updatedFeed = await updateCalendarFeed(propertyId, feedId, {
+        sync_enabled: !feeds.find(f => f.id === feedId)?.sync_enabled
+      })
       setFeeds(feeds.map(feed => 
-        feed.id === feedId 
-          ? { ...feed, sync_enabled: !feed.sync_enabled }
-          : feed
+        feed.id === feedId ? updatedFeed : feed
       ))
       toast({
         title: "Success",
@@ -98,7 +126,7 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
 
   const deleteFeed = async (feedId: string) => {
     try {
-      // TODO: Implement API call to delete feed
+      await deleteCalendarFeed(propertyId, feedId)
       setFeeds(feeds.filter(feed => feed.id !== feedId))
       toast({
         title: "Success",
