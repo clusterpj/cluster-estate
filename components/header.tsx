@@ -6,12 +6,9 @@ import { usePathname } from 'next/navigation';
 import { Menu, Home, Building2, Users, Info, Phone, User, LogOut } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "./ui/sheet";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Separator } from "./ui/separator";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from './language-switcher';
 import { useAuth } from "@/components/providers/auth-provider";
@@ -53,73 +50,20 @@ export function Header() {
   const localizedHref = (path: string) => `/${currentLocale}${path}`;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="fixed top-0 z-50 w-full border-b border-transparent bg-gradient-to-b from-black/10 to-transparent backdrop-blur-sm">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          {/* Left Section: Logo and Mobile Menu */}
-          <div className="flex items-center gap-4">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" className="px-0 text-base hover:bg-transparent hover:text-accent-foreground md:hidden">
-                  <Menu className="h-6 w-6" />
-                  <span className="sr-only">Toggle Menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] sm:w-[400px] overflow-y-auto">
-                <nav className="flex flex-col space-y-6 mt-6">
-                  {/* Properties Section */}
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2 px-2 py-1.5 text-lg font-semibold rounded-lg bg-accent/50">
-                      <Building2 className="h-5 w-5" />
-                      {t('nav.properties')}
-                    </div>
-                    <div className="ml-4 flex flex-col space-y-3">
-                      <Link 
-                        href={localizedHref('/properties/buy')}
-                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-primary transition-colors">{t('nav.buyProperties')}</span>
-                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                        </div>
-                        <span className="text-sm text-muted-foreground">{t('nav.buyPropertiesDesc')}</span>
-                      </Link>
-                      <Link 
-                        href={localizedHref('/properties/rent')}
-                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-primary transition-colors">{t('nav.rentProperties')}</span>
-                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                        </div>
-                        <span className="text-sm text-muted-foreground">{t('nav.rentPropertiesDesc')}</span>
-                      </Link>
-                    </div>
-                  </div>
+          {/* Left Section: Logo */}
+          <div className="flex items-center">
+            <Link href={localizedHref('/')} className="flex items-center space-x-2">
+              {/* Add your logo here */}
+              <span className="font-bold text-xl">LOGO</span>
+            </Link>
+          </div>
 
-                  {/* Other Mobile Menu Items */}
-                  <Link href={localizedHref('/agents')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
-                    <Users className="h-5 w-5" />
-                    {t('nav.agents')}
-                  </Link>
-                  <Link href={localizedHref('/activities')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
-                    <Home className="h-5 w-5" />
-                    {t('nav.activities')}
-                  </Link>
-                  <Link href={localizedHref('/about')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
-                    <Info className="h-5 w-5" />
-                    {t('nav.about')}
-                  </Link>
-                  <Link href={localizedHref('/contact')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
-                    <Phone className="h-5 w-5" />
-                    {t('nav.contact')}
-                  </Link>
-                </nav>
-              </SheetContent>
-            </Sheet>
-
-            {/* Desktop Navigation */}
-            <NavigationMenu className="hidden md:flex">
+          {/* Center Section: Navigation Menu */}
+          <div className="hidden md:flex flex-1 justify-center">
+            <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>
@@ -229,10 +173,70 @@ export function Header() {
             </NavigationMenu>
           </div>
 
-          {/* Right Section: Search, Auth, Theme, Language */}
+          {/* Right Section: User Options */}
           <div className="flex items-center gap-4">
+            {/* Mobile Menu Button - Only show on mobile */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" className="px-0 text-base hover:bg-transparent hover:text-accent-foreground md:hidden">
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Toggle Menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[300px] sm:w-[400px] overflow-y-auto">
+                <nav className="flex flex-col space-y-6 mt-6">
+                  {/* Properties Section */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2 px-2 py-1.5 text-lg font-semibold rounded-lg bg-accent/50">
+                      <Building2 className="h-5 w-5" />
+                      {t('nav.properties')}
+                    </div>
+                    <div className="ml-4 flex flex-col space-y-3">
+                      <Link 
+                        href={localizedHref('/properties/buy')}
+                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium group-hover:text-primary transition-colors">{t('nav.buyProperties')}</span>
+                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                        </div>
+                        <span className="text-sm text-muted-foreground">{t('nav.buyPropertiesDesc')}</span>
+                      </Link>
+                      <Link 
+                        href={localizedHref('/properties/rent')}
+                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium group-hover:text-primary transition-colors">{t('nav.rentProperties')}</span>
+                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                        </div>
+                        <span className="text-sm text-muted-foreground">{t('nav.rentPropertiesDesc')}</span>
+                      </Link>
+                    </div>
+                  </div>
 
-            {/* Authentication */}
+                  {/* Other Mobile Menu Items */}
+                  <Link href={localizedHref('/agents')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
+                    <Users className="h-5 w-5" />
+                    {t('nav.agents')}
+                  </Link>
+                  <Link href={localizedHref('/activities')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
+                    <Home className="h-5 w-5" />
+                    {t('nav.activities')}
+                  </Link>
+                  <Link href={localizedHref('/about')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
+                    <Info className="h-5 w-5" />
+                    {t('nav.about')}
+                  </Link>
+                  <Link href={localizedHref('/contact')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
+                    <Phone className="h-5 w-5" />
+                    {t('nav.contact')}
+                  </Link>
+                </nav>
+              </SheetContent>
+            </Sheet>
+
+            {/* Auth, Theme, Language */}
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -287,7 +291,6 @@ export function Header() {
                 </Button>
               </div>
             )}
-
             <ModeToggle />
             <LanguageSwitcher />
           </div>

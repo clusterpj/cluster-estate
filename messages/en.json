@@ -95,7 +95,10 @@
         "condo": "Condo",
         "lot": "Lot",
         "unknown": "Unknown"
-      }
+      },
+      "loading": "Loading featured properties...",
+      "noProperties": "No featured properties available at the moment.",
+      "error": "Error loading properties"
     },
 
   "WhyChooseUs": {

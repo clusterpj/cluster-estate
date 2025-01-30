@@ -10649,3 +10649,520 @@
 +  )
 +}
 +
+
+# 2025-01-23 00:33:54.929340
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-unused-vars",
++"target": {
++"$mid": 1,
++"path": "/rules/no-unused-vars",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "'Database' is defined but never used.",
++"source": "eslint",
++"startLineNumber": 3,
++"startColumn": 15,
++"endLineNumber": 3,
++"endColumn": 23
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-unused-vars",
++"target": {
++"$mid": 1,
++"path": "/rules/no-unused-vars",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "'Button' is defined but never used.",
++"source": "eslint",
++"startLineNumber": 5,
++"startColumn": 10,
++"endLineNumber": 5,
++"endColumn": 16
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-explicit-any",
++"target": {
++"$mid": 1,
++"path": "/rules/no-explicit-any",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "Unexpected any. Specify a different type.",
++"source": "eslint",
++"startLineNumber": 23,
++"startColumn": 38,
++"endLineNumber": 23,
++"endColumn": 41
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-unused-vars",
++"target": {
++"$mid": 1,
++"path": "/rules/no-unused-vars",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "'locale' is assigned a value but never used.",
++"source": "eslint",
++"startLineNumber": 24,
++"startColumn": 11,
++"endLineNumber": 24,
++"endColumn": 17
++}]
+
+# 2025-01-23 00:34:46.944657
++/map-refresh
+
+# 2025-01-23 00:35:03.842517
++please fix this issue [{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-unused-vars",
++"target": {
++"$mid": 1,
++"path": "/rules/no-unused-vars",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "'Database' is defined but never used.",
++"source": "eslint",
++"startLineNumber": 3,
++"startColumn": 15,
++"endLineNumber": 3,
++"endColumn": 23
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-unused-vars",
++"target": {
++"$mid": 1,
++"path": "/rules/no-unused-vars",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "'Button' is defined but never used.",
++"source": "eslint",
++"startLineNumber": 5,
++"startColumn": 10,
++"endLineNumber": 5,
++"endColumn": 16
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-explicit-any",
++"target": {
++"$mid": 1,
++"path": "/rules/no-explicit-any",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "Unexpected any. Specify a different type.",
++"source": "eslint",
++"startLineNumber": 23,
++"startColumn": 38,
++"endLineNumber": 23,
++"endColumn": 41
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "eslint",
++"code": {
++"value": "@typescript-eslint/no-unused-vars",
++"target": {
++"$mid": 1,
++"path": "/rules/no-unused-vars",
++"scheme": "https",
++"authority": "typescript-eslint.io"
++}
++},
++"severity": 8,
++"message": "'locale' is assigned a value but never used.",
++"source": "eslint",
++"startLineNumber": 24,
++"startColumn": 11,
++"endLineNumber": 24,
++"endColumn": 17
++}]
+
+# 2025-01-23 00:35:27.202269
++y
+
+# 2025-01-23 00:35:48.554332
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "typescript",
++"code": "2345",
++"severity": 8,
++"message": "Argument of type '{ status: string | null; }[]' is not assignable to parameter of type 'SetStateAction<PropertyStat[]>'.\n  Type '{ status: string | null; }[]' is not assignable to type 'PropertyStat[]'.\n    Type '{ status: string | null; }' is not assignable to type 'PropertyStat'.\n      Types of property 'status' are incompatible.\n        Type 'string | null' is not assignable to type '\"pending\" | \"available\" | \"booked\" | \"sold\"'.\n          Type 'null' is not assignable to type '\"pending\" | \"available\" | \"booked\" | \"sold\"'.",
++"source": "ts",
++"startLineNumber": 33,
++"startColumn": 18,
++"endLineNumber": 33,
++"endColumn": 28
++}]
+
+# 2025-01-23 00:36:09.390811
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "eslint",
++"code": {
++"value": "react-hooks/exhaustive-deps",
++"target": {
++"$mid": 1,
++"path": "/facebook/react/issues/14920",
++"scheme": "https",
++"authority": "github.com"
++}
++},
++"severity": 4,
++"message": "React Hook useEffect has a missing dependency: 'validStatuses'. Either include it or remove the dependency array.",
++"source": "eslint",
++"startLineNumber": 44,
++"startColumn": 6,
++"endLineNumber": 44,
++"endColumn": 8
++}]
+
+# 2025-01-23 00:36:31.500135
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "typescript",
++"code": "2345",
++"severity": 8,
++"message": "Argument of type 'string' is not assignable to parameter of type '\"pending\" | \"available\" | \"booked\" | \"sold\"'.",
++"source": "ts",
++"startLineNumber": 36,
++"startColumn": 59,
++"endLineNumber": 36,
++"endColumn": 67
++}]
+
+# 2025-01-23 00:36:47.524431
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "typescript",
++"code": "2677",
++"severity": 8,
++"message": "A type predicate's type must be assignable to its parameter's type.\n  Type '{ status: \"pending\" | \"available\" | \"booked\" | \"sold\" | undefined; }' is not assignable to type '{ status: string | null; }'.\n    Types of property 'status' are incompatible.\n      Type '\"pending\" | \"available\" | \"booked\" | \"sold\" | undefined' is not assignable to type 'string | null'.\n        Type 'undefined' is not assignable to type 'string | null'.",
++"source": "ts",
++"startLineNumber": 36,
++"startColumn": 29,
++"endLineNumber": 36,
++"endColumn": 63
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "typescript",
++"code": "2345",
++"severity": 8,
++"message": "Argument of type '\"pending\" | \"available\" | \"booked\" | \"sold\" | undefined' is not assignable to parameter of type '\"pending\" | \"available\" | \"booked\" | \"sold\"'.\n  Type 'undefined' is not assignable to type '\"pending\" | \"available\" | \"booked\" | \"sold\"'.",
++"source": "ts",
++"startLineNumber": 37,
++"startColumn": 57,
++"endLineNumber": 37,
++"endColumn": 91
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/page.tsx",
++"owner": "typescript",
++"code": "2345",
++"severity": 8,
++"message": "Argument of type '{ status: string | null; }[]' is not assignable to parameter of type 'SetStateAction<PropertyStat[]>'.\n  Type '{ status: string | null; }[]' is not assignable to type 'PropertyStat[]'.\n    Type '{ status: string | null; }' is not assignable to type 'PropertyStat'.\n      Types of property 'status' are incompatible.\n        Type 'string | null' is not assignable to type '\"pending\" | \"available\" | \"booked\" | \"sold\" | undefined'.\n          Type 'null' is not assignable to type '\"pending\" | \"available\" | \"booked\" | \"sold\" | undefined'.",
++"source": "ts",
++"startLineNumber": 40,
++"startColumn": 18,
++"endLineNumber": 40,
++"endColumn": 31
++}]
+
+# 2025-01-23 00:37:36.431141
++/add types\supabase.ts
+
+# 2025-01-23 00:42:37.543743
++/map-refresh
+
+# 2025-01-23 00:42:40.262410
++/map
+
+# 2025-01-23 00:58:57.007612
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type '\"rented\"' is not assignable to type 'PropertyStatus'.",
++"source": "ts",
++"startLineNumber": 77,
++"startColumn": 36,
++"endLineNumber": 77,
++"endColumn": 44
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type '\"rented\"' is not assignable to type 'PropertyStatus'.",
++"source": "ts",
++"startLineNumber": 78,
++"startColumn": 36,
++"endLineNumber": 78,
++"endColumn": 44
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type 'Property' is not assignable to type '{ status: \"available\" | \"pending\" | \"sold\" | \"rented\"; bathrooms: number; bedrooms: number; features: string[]; images: string[]; listing_type: \"sale\" | \"rent\" | \"both\"; location: string; ... 13 more ...; title?: string | undefined; } | undefined'.\n  Type 'Property' is missing the following properties from type '{ status: \"available\" | \"pending\" | \"sold\" | \"rented\"; bathrooms: number; bedrooms: number; features: string[]; images: string[]; listing_type: \"sale\" | \"rent\" | \"both\"; location: string; pet_restrictions: string[]; ... 12 more ...; title?: string | undefined; }': pet_restrictions, pets_allowed, sale_price",
++"source": "ts",
++"startLineNumber": 253,
++"startColumn": 15,
++"endLineNumber": 253,
++"endColumn": 26,
++"relatedInformation": [
++{
++"startLineNumber": 7,
++"startColumn": 3,
++"endLineNumber": 7,
++"endColumn": 14,
++"message": "The expected type comes from property 'initialData' which is declared here on type 'IntrinsicAttributes & PropertyFormProps'",
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/properties/form/types.ts"
++}
++]
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2339",
++"severity": 8,
++"message": "Property 'sale_price' does not exist on type 'Property'.",
++"source": "ts",
++"startLineNumber": 330,
++"startColumn": 101,
++"endLineNumber": 330,
++"endColumn": 111
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2339",
++"severity": 8,
++"message": "Property 'sale_price' does not exist on type 'Property'.",
++"source": "ts",
++"startLineNumber": 331,
++"startColumn": 32,
++"endLineNumber": 331,
++"endColumn": 42
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"sold\"' and '\"pending\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 348,
++"startColumn": 19,
++"endLineNumber": 348,
++"endColumn": 48
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"sold\"' and '\"pending\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 399,
++"startColumn": 33,
++"endLineNumber": 399,
++"endColumn": 62
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"sold\"' and '\"rented\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 417,
++"startColumn": 37,
++"endLineNumber": 417,
++"endColumn": 65
++}]
+
+# 2025-01-23 00:59:33.328362
++y
+
+# 2025-01-23 00:59:39.092310
++a
+
+# 2025-01-23 01:00:13.175113
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type 'Property' is not assignable to type 'Partial<{ status: \"available\" | \"pending\" | \"sold\" | \"rented\"; bathrooms: number; bedrooms: number; features: string[]; images: string[]; listing_type: \"sale\" | \"rent\" | \"both\"; location: string; ... 13 more ...; title?: string | undefined; }> | undefined'.\n  Type 'Property' is not assignable to type 'Partial<{ status: \"available\" | \"pending\" | \"sold\" | \"rented\"; bathrooms: number; bedrooms: number; features: string[]; images: string[]; listing_type: \"sale\" | \"rent\" | \"both\"; location: string; ... 13 more ...; title?: string | undefined; }>'.\n    Types of property 'property_type' are incompatible.\n      Type '\"house\" | \"villa\" | \"apartment\" | \"land\" | null' is not assignable to type '\"house\" | \"villa\" | \"condo\" | \"lot\" | undefined'.\n        Type 'null' is not assignable to type '\"house\" | \"villa\" | \"condo\" | \"lot\" | undefined'.",
++"source": "ts",
++"startLineNumber": 254,
++"startColumn": 15,
++"endLineNumber": 254,
++"endColumn": 26,
++"relatedInformation": [
++{
++"startLineNumber": 7,
++"startColumn": 3,
++"endLineNumber": 7,
++"endColumn": 14,
++"message": "The expected type comes from property 'initialData' which is declared here on type 'IntrinsicAttributes & PropertyFormProps'",
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/properties/form/types.ts"
++}
++]
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"sold\" | \"rented\"' and '\"pending\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 349,
++"startColumn": 19,
++"endLineNumber": 349,
++"endColumn": 48
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"sold\" | \"rented\"' and '\"pending\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 400,
++"startColumn": 33,
++"endLineNumber": 400,
++"endColumn": 62
++}]
+
+# 2025-01-23 01:00:44.521150
++[{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2322",
++"severity": 8,
++"message": "Type 'Property' is not assignable to type 'Partial<{ status: \"available\" | \"pending\" | \"sold\" | \"rented\"; bathrooms: number; bedrooms: number; features: string[]; images: string[]; listing_type: \"sale\" | \"rent\" | \"both\"; location: string; ... 13 more ...; title?: string | undefined; }> | undefined'.\n  Type 'Property' is not assignable to type 'Partial<{ status: \"available\" | \"pending\" | \"sold\" | \"rented\"; bathrooms: number; bedrooms: number; features: string[]; images: string[]; listing_type: \"sale\" | \"rent\" | \"both\"; location: string; ... 13 more ...; title?: string | undefined; }>'.\n    Types of property 'property_type' are incompatible.\n      Type '\"house\" | \"villa\" | \"apartment\" | \"land\" | null' is not assignable to type '\"house\" | \"villa\" | \"condo\" | \"lot\" | undefined'.\n        Type 'null' is not assignable to type '\"house\" | \"villa\" | \"condo\" | \"lot\" | undefined'.",
++"source": "ts",
++"startLineNumber": 254,
++"startColumn": 15,
++"endLineNumber": 254,
++"endColumn": 26,
++"relatedInformation": [
++{
++"startLineNumber": 7,
++"startColumn": 3,
++"endLineNumber": 7,
++"endColumn": 14,
++"message": "The expected type comes from property 'initialData' which is declared here on type 'IntrinsicAttributes & PropertyFormProps'",
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/properties/form/types.ts"
++}
++]
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"sold\" | \"rented\"' and '\"pending\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 349,
++"startColumn": 19,
++"endLineNumber": 349,
++"endColumn": 48
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"sold\" | \"rented\"' and '\"pending\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 392,
++"startColumn": 68,
++"endLineNumber": 392,
++"endColumn": 97
++},{
++"resource": "/c:/Users/pjime/OneDrive/Documents/Repositories/real-estate/cluster-estate/app/[locale]/admin/components/property-management.tsx",
++"owner": "typescript",
++"code": "2367",
++"severity": 8,
++"message": "This comparison appears to be unintentional because the types '\"available\" | \"sold\" | \"rented\"' and '\"pending\"' have no overlap.",
++"source": "ts",
++"startLineNumber": 400,
++"startColumn": 33,
++"endLineNumber": 400,
++"endColumn": 62
++}]
+
+# 2025-01-26 18:55:55.191576
++I have a problem with the calendar implementation on the system so there is duplicated implemenetatios for this so we need to map these out properly. We need to search and investigate all to make sure we can understand what is going on 
+
+# 2025-01-26 18:56:26.052600
++a
+
+# 2025-01-26 19:06:59.295450
++I have a problem with the calendar implementation on the system so there is duplicated implemenetatios for this so we need to map these out properly. We need to search and investigate all to make sure we can understand what is going on 
+
+# 2025-01-26 19:17:32.181825
++please find any issues we might have on the calendar setup 
+
+# 2025-01-26 19:30:36.962522
++/drop
+
+# 2025-01-26 19:30:47.311666
++I have a problem with the calendar implementation on the system so there is duplicated implemenetatios for this so we need to map these out properly. We need to search and investigate all to make sure we can understand what is going on 
+
+# 2025-01-26 19:31:41.959093
++y
+
+# 2025-01-26 19:53:39.611751
++ijave added the files to the chat
+
+# 2025-01-27 21:31:44.987415
++We need to revise the auth system when the server is turned on is sending a bunch of auth requests and i am getting rate limited by the sevr
+
+# 2025-01-27 21:51:20.281193
++can you explain to me how is the auth system setup?
+
+# 2025-01-28 13:16:12.149783
++Can you help me check the auth implementation on this project?
+
+# 2025-01-29 21:53:06.561450
++I need you help implementing ical into my project
+
+# 2025-01-29 21:53:29.518569
++y
+
+# 2025-01-29 21:55:12.748134
++n
+
+# 2025-01-29 21:56:31.360359
++Where do i see this and how do i test it?
+
+# 2025-01-29 21:58:13.767925
++y

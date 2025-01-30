@@ -1,7 +1,7 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
-import { User } from '@supabase/supabase-js'
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react'
+import { User } from '@supabase/auth-helpers-nextjs'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import type { Database } from '@/types/supabase'
 import { Toaster } from '@/components/ui/toaster'
@@ -30,16 +30,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
   const [loading, setLoading] = useState(true)
 
-  // Fetch user profile data
-  // Cache user profiles to reduce database calls
+  // Enhanced profile caching system
   const profileCache = new Map<string, UserProfile>()
+  const profileCacheExpiry = new Map<string, number>()
+  const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes cache duration
+  const fetchInProgress = useRef<{[key: string]: boolean}>({})
 
-  const fetchUserProfile = async (userId: string) => {
-    // Check cache first
+  const fetchUserProfile = useCallback(async (userId: string) => {
+    // Prevent concurrent fetches for the same user
+    if (fetchInProgress.current[userId]) {
+      return null
+    }
+
+    // Check cache and expiry
+    const cacheExpiry = profileCacheExpiry.get(userId)
+    if (cacheExpiry && Date.now() < cacheExpiry) {
+      return profileCache.get(userId)
+    }
+
+    // Clear expired cache
+    if (cacheExpiry && Date.now() >= cacheExpiry) {
+      profileCache.delete(userId)
+      profileCacheExpiry.delete(userId)
+    }
+
+    // Return cached profile if available
     if (profileCache.has(userId)) {
       return profileCache.get(userId)!
     }
+
     try {
+      fetchInProgress.current[userId] = true
       const { data: profile, error } = await supabase
         .from('profiles')
         .select('*')
@@ -47,19 +68,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         .single()
 
       if (error) {
+        delete fetchInProgress.current[userId]
         console.error('Error fetching user profile:', error)
         return null
       }
 
       if (profile) {
+        // Cache the profile with expiration
         profileCache.set(userId, profile)
+        profileCacheExpiry.set(userId, Date.now() + CACHE_DURATION)
       }
+      
+      delete fetchInProgress.current[userId]
       return profile
     } catch (error) {
+      delete fetchInProgress.current[userId]
       console.error('Error fetching user profile:', error)
       return null
     }
-  }
+  }, [supabase])
 
   const refreshSession = async () => {
     try {
@@ -67,7 +94,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (error) throw error
       if (session?.user) {
         setUser(session.user)
-        await fetchUserProfile(session.user.id)
+        const profile = await fetchUserProfile(session.user.id)
+        if (profile) setUserProfile(profile)
       }
     } catch (error) {
       console.error('Error refreshing session:', error)
@@ -85,8 +113,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Clear any existing timer
       if (refreshTimer) clearTimeout(refreshTimer)
       
-      // Calculate time until refresh (5 minutes before expiry)
-      const refreshTime = expiresAt * 1000 - Date.now() - 5 * 60 * 1000
+      // Calculate time until refresh (15 minutes before expiry)
+      const refreshTime = expiresAt * 1000 - Date.now() - 15 * 60 * 1000
       
       if (refreshTime > 0) {
         refreshTimer = setTimeout(refreshSession, refreshTime)
@@ -108,22 +136,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
         setupSessionRefresh(session.expires_at)
       }
+      
       setUser(session?.user ?? null)
       if (session?.user) {
         const profile = await fetchUserProfile(session.user.id)
-        setUserProfile(profile)
+        if (profile) setUserProfile(profile)
       } else {
         setUserProfile(null)
       }
       setLoading(false)
     })
 
-    // Listen for changes on auth state (logged in, signed out, etc.)
+    // Listen for changes on auth state
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setUser(session?.user ?? null)
       if (session?.user) {
         const profile = await fetchUserProfile(session.user.id)
-        setUserProfile(profile)
+        if (profile) setUserProfile(profile)
       } else {
         setUserProfile(null)
       }
@@ -134,7 +163,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       subscription.unsubscribe()
       if (refreshTimer) clearTimeout(refreshTimer)
     }
-  }, [])
+  }, [fetchUserProfile])
 
   const signIn = async (email: string, password: string) => {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -145,7 +174,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     if (data.user) {
       const profile = await fetchUserProfile(data.user.id)
-      setUserProfile(profile)
+      if (profile) setUserProfile(profile)
     }
   }
 
@@ -164,13 +193,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (data.user) {
       const { error: profileError } = await supabase
         .from('profiles')
-        .insert([
-          {
-            id: data.user.id,
-            email: data.user.email,
-            role: 'user',
-          },
-        ])
+        .insert({
+          id: data.user.id,
+          email: data.user.email || '',
+          full_name: '',
+          role: 'user',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          avatar_url: null
+        })
+
       if (profileError) throw profileError
     }
   }
@@ -179,6 +211,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { error } = await supabase.auth.signOut()
     if (error) throw error
     setUserProfile(null)
+    // Clear cache on signout
+    profileCache.clear()
+    profileCacheExpiry.clear()
   }
 
   const resetPassword = async (email: string) => {
