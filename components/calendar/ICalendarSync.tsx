@@ -43,6 +43,8 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    if (!propertyId) return
+
     const fetchFeeds = async () => {
       try {
         setIsLoading(true)
@@ -67,6 +69,7 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      feed_url: "",
       feed_type: "import",
       sync_frequency: 60,
       sync_enabled: true,
@@ -74,6 +77,15 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    if (!propertyId) {
+      toast({
+        title: "Error",
+        description: "Property ID is missing",
+        variant: "destructive",
+      })
+      return
+    }
+
     try {
       setIsLoading(true)
       const newFeed = await createCalendarFeed(propertyId, {
@@ -96,9 +108,11 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
       console.error("Failed to add calendar feed:", error)
       toast({
         title: "Error",
-        description: "Failed to add calendar feed",
+        description: error instanceof Error ? error.message : "Failed to add calendar feed",
         variant: "destructive",
       })
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -222,7 +236,12 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
                 )}
               />
               
-              <Button type="submit">Add Feed</Button>
+              <Button 
+                type="submit"
+                disabled={isLoading}
+              >
+                {isLoading ? "Adding..." : "Add Feed"}
+              </Button>
             </form>
           </Form>
         </CardContent>
@@ -234,7 +253,14 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {feeds.map((feed) => (
+            {isLoading ? (
+              <p className="text-center text-muted-foreground">Loading feeds...</p>
+            ) : feeds.length === 0 ? (
+              <p className="text-center text-muted-foreground">
+                No calendar feeds added yet
+              </p>
+            ) : (
+              feeds.map((feed) => (
               <div 
                 key={feed.id}
                 className="flex items-center justify-between p-4 border rounded-lg"
@@ -273,12 +299,7 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
                   </Button>
                 </div>
               </div>
-            ))}
-            {feeds.length === 0 && (
-              <p className="text-center text-muted-foreground">
-                No calendar feeds added yet
-              </p>
-            )}
+            )))}
           </div>
         </CardContent>
       </Card>
