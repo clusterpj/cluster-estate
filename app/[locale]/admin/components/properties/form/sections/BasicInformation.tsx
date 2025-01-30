@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl'
 import { UseFormReturn } from 'react-hook-form'
 import { PropertyFormValues } from '../schema'
+import { ICalendarSync } from '@/components/calendar/ICalendarSync'
 import {
   FormField,
   FormItem,
@@ -22,9 +23,10 @@ import {
 
 interface BasicInformationProps {
   form: UseFormReturn<PropertyFormValues>
+  propertyId: string
 }
 
-export function BasicInformation({ form }: BasicInformationProps) {
+export function BasicInformation({ form, propertyId }: BasicInformationProps) {
   const t = useTranslations('auth.adminSection.properties')
 
   return (
@@ -215,6 +217,11 @@ export function BasicInformation({ form }: BasicInformationProps) {
             </FormItem>
           )}
         />
+      </div>
+
+      <div className="mt-8">
+        <h3 className="text-lg font-medium mb-4">Calendar Sync</h3>
+        <ICalendarSync propertyId={propertyId} />
       </div>
     </div>
   )
