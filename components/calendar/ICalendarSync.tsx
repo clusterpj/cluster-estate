@@ -24,6 +24,12 @@ type CalendarFeed = {
   sync_frequency: number
   sync_enabled: boolean
   last_sync_at?: string
+  last_sync_status?: 'success' | 'error'
+  last_sync_result?: {
+    eventsProcessed: number
+    conflicts?: number
+    warnings?: string[]
+  }
 }
 
 type ICalendarSyncProps = {
@@ -210,11 +216,20 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
                   <p className="text-sm text-muted-foreground">
                     {feed.feed_type} • Sync every {feed.sync_frequency} minutes
                   </p>
-                  {feed.last_sync_at && (
-                    <p className="text-sm text-muted-foreground">
-                      Last sync: {new Date(feed.last_sync_at).toLocaleString()}
-                    </p>
-                  )}
+                  <div className="text-sm text-muted-foreground">
+                    {feed.last_sync_at && (
+                      <p>
+                        Last sync: {new Date(feed.last_sync_at).toLocaleString()} • 
+                        Status: {feed.last_sync_status === 'success' ? '✅' : '❌'}
+                      </p>
+                    )}
+                    {feed.last_sync_result && (
+                      <p>
+                        Processed: {feed.last_sync_result.eventsProcessed} events • 
+                        Conflicts: {feed.last_sync_result.conflicts || 0}
+                      </p>
+                    )}
+                  </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <Switch 

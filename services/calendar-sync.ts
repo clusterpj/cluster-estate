@@ -7,6 +7,19 @@ export type CalendarEvent = {
   end: Date
   summary: string
   uid: string
+  status?: 'confirmed' | 'tentative' | 'cancelled'
+  description?: string
+  location?: string
+  organizer?: string
+  attendees?: string[]
+}
+
+export type SyncResult = {
+  success: boolean
+  eventsProcessed: number
+  conflicts?: CalendarEvent[]
+  warnings?: string[]
+  lastSync?: Date
 }
 
 export class CalendarSyncService {
@@ -15,17 +28,32 @@ export class CalendarSyncService {
   async parseICalFeed(feedUrl: string): Promise<CalendarEvent[]> {
     try {
       const response = await fetch(feedUrl)
+      if (!response.ok) {
+        throw new Error(`Failed to fetch calendar feed: ${response.status} ${response.statusText}`)
+      }
+      
       const data = await response.text()
       const events = ical.parseICS(data)
       
       return Object.values(events)
         .filter((event): event is CalendarComponent => event.type === 'VEVENT')
-        .map(event => ({
-          start: event.start as Date,
-          end: event.end as Date,
-          summary: event.summary as string,
-          uid: event.uid as string
-        }))
+        .map(event => {
+          if (!event.start || !event.end) {
+            throw new Error('Invalid calendar event: missing start/end dates')
+          }
+          
+          return {
+            start: event.start as Date,
+            end: event.end as Date,
+            summary: event.summary as string,
+            uid: event.uid as string,
+            status: event.status as 'confirmed' | 'tentative' | 'cancelled',
+            description: event.description as string,
+            location: event.location as string,
+            organizer: event.organizer?.val as string,
+            attendees: event.attendee?.map(a => a.val) as string[]
+          }
+        })
     } catch (error) {
       console.error('Failed to parse iCal feed:', error)
       throw new Error('Failed to parse iCal feed')

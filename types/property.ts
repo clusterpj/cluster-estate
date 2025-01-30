@@ -18,6 +18,15 @@ export type Property = Database['public']['Tables']['properties']['Row'] & {
   features?: string[]
   images?: string[]
   ical_url?: string
+  calendar_sync?: {
+    id: string
+    feed_url: string
+    feed_type: 'import' | 'export'
+    sync_frequency: number
+    sync_enabled: boolean
+    last_sync_at?: string
+    last_sync_status?: 'success' | 'error'
+  }[]
 }
 
 export interface PropertyAvailability {
