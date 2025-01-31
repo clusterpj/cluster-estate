@@ -151,6 +151,59 @@ export interface Database {
           created_by?: string
         }
       }
+      calendar_feeds: {
+        Row: {
+          id: string
+          property_id: string
+          feed_url: string
+          feed_type: "import" | "export"
+          sync_frequency: number
+          sync_enabled: boolean
+          last_sync_at?: string
+          last_sync_status?: 'success' | 'error'
+          last_sync_result?: {
+            eventsProcessed: number
+            conflicts?: number
+            warnings?: string[]
+          }
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          property_id: string
+          feed_url: string
+          feed_type: "import" | "export"
+          sync_frequency: number
+          sync_enabled: boolean
+          last_sync_at?: string
+          last_sync_status?: 'success' | 'error'
+          last_sync_result?: {
+            eventsProcessed: number
+            conflicts?: number
+            warnings?: string[]
+          }
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          property_id?: string
+          feed_url?: string
+          feed_type?: "import" | "export"
+          sync_frequency?: number
+          sync_enabled?: boolean
+          last_sync_at?: string
+          last_sync_status?: 'success' | 'error'
+          last_sync_result?: {
+            eventsProcessed?: number
+            conflicts?: number
+            warnings?: string[]
+          }
+          created_at?: string
+          updated_at?: string
+        }
+      },
       webhook_events: {
         Row: {
           id: string

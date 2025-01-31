@@ -11166,3 +11166,93 @@
 
 # 2025-01-29 21:58:13.767925
 +y
+
+# 2025-01-29 22:43:15.935559
++can you help me map out the way the icalendar feature works
++
+
+# 2025-01-29 22:44:17.415695
++y
+
+# 2025-01-29 23:08:27.622039
++I am having an issue please help me fix it
++
++Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components Component Stack: 
++    input unknown:0
++    _c webpack-internal:///(app-pages-browser)/./components/ui/input.tsx:13
++    SlotClone webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-slot@1.1.1_@types+react@18.3.18_react@18.3.1/node_modules/@radix-ui/react-slot/dist/index.mjs:34
++    Slot webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@radix-ui+react-slot@1.1.1_@types+react@18.3.18_react@18.3.1/node_modules/@radix-ui/react-slot/dist/index.mjs:15
++    _c5 webpack-internal:///(app-pages-browser)/./components/ui/form.tsx:124
++    div unknown:0
++    _c1 webpack-internal:///(app-pages-browser)/./components/ui/form.tsx:74
++    Controller webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-hook-form@7.54.2_react@18.3.1/node_modules/react-hook-form/dist/index.esm.mjs:576
++    FormField webpack-internal:///(app-pages-browser)/./components/ui/form.tsx:29
++    form unknown:0
++<anonymous code>:1:145535
++XHRGET
++http://localhost:3000/api/calendar-sync/undefined/feeds
++[HTTP/1.1 404 Not Found 20ms]
++
++XHRGET
++http://localhost:3000/api/calendar-sync/undefined/feeds
++[HTTP/1.1 404 Not Found 49ms]
++
++GET
++http://localhost:3000/_next/image?url=https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/11c88e61-1720-49f5-bf7a-92e01c0607a5.jpg&w=96&q=75
++[HTTP/1.1 200 OK 0ms]
++
++GET
++http://localhost:3000/_next/image?url=https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/6a7838be-536e-4730-9db9-d14cef41d20b.jpg&w=96&q=75
++[HTTP/1.1 200 OK 0ms]
++
++GET
++http://localhost:3000/_next/image?url=https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/d16284fa-24c5-404d-aa92-5a20b416c04f.jpg&w=96&q=75
++[HTTP/1.1 200 OK 0ms]
++
++GET
++http://localhost:3000/_next/image?url=https://ebydkdkayaukivmtljmo.supabase.co/storage/v1/object/public/property-images/properties/e8b49848-d509-42c6-b95e-eb1c7647011f.jpg&w=96&q=75
++[HTTP/1.1 200 OK 0ms]
++
++Failed to fetch calendar feeds: 
++Object { stack: "AxiosError@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/axios@1.7.9/node_modules/axios/lib/core/AxiosError.js:24:19\nsettle@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/axios@1.7.9/node_modules/axios/lib/core/settle.js:24:12\nonloadend@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/axios@1.7.9/node_modules/axios/lib/adapters/xhr.js:70:66\nEventHandlerNonNull*dispatchXhrRequest@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/axios@1.7.9/node_modules/axios/lib/adapters/xhr.js:84:7\n__webpack_exports__.default<@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/axios@1.7.9/node_modules/axios/lib/adapters/xhr.js:26:10\ndispatchRequest@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/axios@1.7.9/node_modules/axios/lib/core/dispatchRequest.js:61:10\n_request@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/axios@1.7.9/node_modules/axios/lib/core/Axios.js:187:77\nrequest@webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/axios@1.7.9/node_modules/axios/lib/core/
++
+
+# 2025-01-29 23:08:48.902863
++n
+
+# 2025-01-29 23:08:50.883618
++s
+
+# 2025-01-29 23:10:05.850132
++y
+
+# 2025-01-29 23:20:39.674684
++where in the database is this beign saved, ibeleive we hacent set that up yet
++
+
+# 2025-01-29 23:21:28.038204
++a
+
+# 2025-01-29 23:28:46.185423
++y
+
+# 2025-01-29 23:34:15.733159
++Supabase is already included on the project but please make sure is imported on the files needed
++
+
+# 2025-01-29 23:35:40.699423
++y
+
+# 2025-01-29 23:43:12.035022
++/code
++
+
+# 2025-01-29 23:47:03.399039
++when i add a ics link for testing https://horaro.org/vikingtv/test.ical nothing is happening the link is not getting saved and if it is there is not way for me to see it. Please add some console logs to debug this issue
++
+
+# 2025-01-29 23:47:07.219904
++s
+
+# 2025-01-29 23:47:14.423405
++n

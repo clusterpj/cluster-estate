@@ -1,0 +1,4 @@
+architect: true
+model: deepseek/deepseek-reasoner
+editor-model: deepseek/deepseek-coder
+multiline: true

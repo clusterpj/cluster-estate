@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { supabase } from "@/lib/supabaseClient"
 import { createCalendarFeed, updateCalendarFeed, deleteCalendarFeed, getCalendarFeeds } from "@/services/calendarSync"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
