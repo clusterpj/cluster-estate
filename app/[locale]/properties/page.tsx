@@ -10,7 +10,7 @@ export default async function PropertiesPage() {
   return (
     <Container>
       <QueryClientProviderWrapper>
-      <div className="space-y-6 pb-16 pt-6 md:pb-24 md:pt-10">
+      <div className="space-y-6 pb-16 pt-24 md:pb-24 md:pt-28">
         {/* Header Section */}
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">

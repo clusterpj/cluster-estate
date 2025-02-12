@@ -466,17 +466,55 @@
     "title": "Buscar propiedades"
   },
   "PropertyDetails": {
-    "beds": "Camas",
-    "baths": "Baños",
-    "sqft": "Pies cuadrados",
-    "description": "La descripción.",
-    "forRent": "[object Object]",
-    "forSale": "[object Object]",
+    "overview": {
+      "beds": "Habitaciones",
+      "baths": "Baños",
+      "sqft": "m²"
+    },
+    "pets": {
+      "allowed": "Se permiten mascotas",
+      "notAllowed": "No se permiten mascotas",
+      "information": "Información de mascotas",
+      "restrictions": "Restricciones para mascotas",
+      "deposit": "Depósito para mascotas"
+    },
+    "sections": {
+      "description": "Descripción",
+      "features": "Características y Comodidades",
+      "location": "Ubicación"
+    },
+    "features": {
+      "wifi": "Internet Inalámbrico",
+      "parking": "Estacionamiento Gratuito",
+      "tv": "Televisión",
+      "kitchen": "Cocina",
+      "pool": "Piscina",
+      "coffee": "Cafetera",
+      "ac": "Aire Acondicionado",
+      "security": "Sistema de Seguridad",
+      "fan": "Ventilador de Techo",
+      "garden": "Vista al Jardín"
+    },
+    "forRent": "En Alquiler",
+    "forSale": "En Venta",
+    "listing": {
+      "forRent": "En Alquiler",
+      "forSale": "En Venta"
+    },
     "rentalFrequency": {
-      "daily": "[object Object]",
-      "weekly": "[object Object]",
-      "monthly": "[object Object]",
-      "yearly": "[object Object]"
+      "daily": "día",
+      "weekly": "semana",
+      "monthly": "mes",
+      "yearly": "año"
+    },
+    "FeaturedProperties": {
+      "propertyType": {
+        "house": "Casa",
+        "villa": "Villa",
+        "condo": "Apartamento",
+        "lot": "Terreno",
+        "unknown": "Desconocido"
+      }
     }
   }
 }

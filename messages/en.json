@@ -512,17 +512,41 @@
     "title": "Search Properties"
   },
   "PropertyDetails": {
-    "beds": "Beds",
-    "petsAllowed": "Pets Allowed",
-    "petsNotAllowed": "No Pets",
-    "petInformation": "Pet Information",
-    "petRestrictions": "Pet Restrictions",
-    "petDeposit": "Pet Deposit",
-    "baths": "Baths",
-    "sqft": "Sq Ft",
-    "description": "Description",
+    "overview": {
+      "beds": "Beds",
+      "baths": "Baths",
+      "sqft": "Sq Ft"
+    },
+    "pets": {
+      "allowed": "Pets Allowed",
+      "notAllowed": "No Pets",
+      "information": "Pet Information",
+      "restrictions": "Pet Restrictions",
+      "deposit": "Pet Deposit Amount"
+    },
+    "sections": {
+      "description": "Description",
+      "features": "Property Features & Amenities",
+      "location": "Location"
+    },
+    "features": {
+      "wifi": "Wireless Internet",
+      "parking": "Free Parking",
+      "tv": "TV",
+      "kitchen": "Kitchen",
+      "pool": "Pool",
+      "coffee": "Coffee Maker",
+      "ac": "Air Conditioning",
+      "security": "Security System",
+      "fan": "Ceiling Fan",
+      "garden": "Garden View"
+    },
     "forRent": "For Rent",
     "forSale": "For Sale",
+    "listing": {
+      "forRent": "For Rent",
+      "forSale": "For Sale"
+    },
     "rentalFrequency": {
       "daily": "day",
       "weekly": "week",
@@ -611,6 +635,25 @@
     "error": {
       "createFailed": "Failed to create property",
       "updateFailed": "Failed to update property"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with us for any inquiries or assistance",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "officeHours": "Office Hours",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "What is this about?",
+      "message": "Message",
+      "messagePlaceholder": "Your message here...",
+      "submit": "Send Message"
     }
   }
 }

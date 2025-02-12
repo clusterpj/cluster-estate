@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -90,11 +90,11 @@ export function LifestylePreview() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
+    offset: ["start center", "end center"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0.8]);
 
   const lifestyleFeatures = [
     {
@@ -170,7 +170,7 @@ export function LifestylePreview() {
         className="pointer-events-none absolute inset-0 z-0"
       >
         <Image
-          src="/images/lifestyle-bg.jpg"
+          src="/lifestyle-hero.jpg"
           alt="Lifestyle background"
           fill
           className="object-cover"

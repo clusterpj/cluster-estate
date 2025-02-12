@@ -1,14 +1,15 @@
+"use client"
+
 import { useEffect, useState } from 'react'
 import { Calendar } from '@/components/ui/calendar'
 import { getBookedDates, calculateTotalPrice } from '@/lib/utils'
 import { Property } from '@/types/property'
-import { isSameDay, isWithinInterval, addDays } from 'date-fns'
+import { isSameDay, isAfter, isBefore } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { CalendarIcon, X } from 'lucide-react'
+import { CalendarIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { format } from 'date-fns'
-import { Badge } from '@/components/ui/badge'
 
 interface SelectedDates {
   start: Date | null
@@ -19,18 +20,11 @@ interface PropertyCalendarProps {
   property: Property
   onDateSelect?: (date: Date) => void
   selectedDates: SelectedDates
-  onClearSelection?: () => void
 }
-
-const PRESET_DURATIONS = [
-  { label: 'Weekend', days: 2 },
-  { label: 'Week', days: 7 },
-  { label: 'Month', days: 30 }
-]
 
 export function PropertyCalendar({ property, onDateSelect, selectedDates }: PropertyCalendarProps) {
   const [bookedDates, setBookedDates] = useState<Date[]>([])
-  const [loading, setLoading] = useState(true)
+  const [isSelectingCheckOut, setIsSelectingCheckOut] = useState(false)
 
   useEffect(() => {
     const fetchBookedDates = async () => {
@@ -39,8 +33,6 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
         setBookedDates(dates)
       } catch (error) {
         console.error('Failed to fetch booked dates:', error)
-      } finally {
-        setLoading(false)
       }
     }
 
@@ -48,13 +40,33 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
   }, [property.id])
 
   const isDateBooked = (date: Date) => {
+    // Check if the date is in any booked range
     return bookedDates.some(bookedDate => isSameDay(bookedDate, date))
+  }
+
+  const hasBookedDatesInRange = (start: Date, end: Date) => {
+    // Check if any date in the range is booked
+    const current = new Date(start)
+    while (current <= end) {
+      if (isDateBooked(current)) {
+        return true
+      }
+      current.setDate(current.getDate() + 1)
+    }
+    return false
   }
 
   const isDateDisabled = (date: Date) => {
     const now = new Date()
     const availableFrom = property.available_from ? new Date(property.available_from) : null
     const availableTo = property.available_to ? new Date(property.available_to) : null
+
+    if (isSelectingCheckOut && selectedDates.start) {
+      // When selecting checkout date, disable dates before check-in
+      if (isBefore(date, selectedDates.start)) {
+        return true
+      }
+    }
 
     return (
       date < now ||
@@ -64,52 +76,33 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
     )
   }
 
-  const getDateClassName = (date: Date) => {
-    return getCalendarDateClasses(
-      date,
-      selectedDates,
-      isDateBooked,
-      isDateDisabled
-    )
-  }
+  const handleDateSelect = (date: Date | undefined) => {
+    if (!date) return
 
-  const handlePresetSelection = (days: number) => {
-    if (!selectedDates.start) return
-    
-    const endDate = addDays(selectedDates.start, days - 1)
-    if (!isDateDisabled(endDate)) {
-      onDateSelect?.(endDate)
+    if (!selectedDates.start || !isSelectingCheckOut) {
+      // Selecting check-in date
+      onDateSelect?.(date)
+      setIsSelectingCheckOut(true)
+    } else {
+      // Selecting check-out date
+      if (isAfter(date, selectedDates.start)) {
+        // Check for booked dates in range before allowing selection
+        if (!hasBookedDatesInRange(selectedDates.start, date)) {
+          onDateSelect?.(date)
+          setIsSelectingCheckOut(false)
+        }
+      } else {
+        // If selected date is before check-in, make it the new check-in
+        onDateSelect?.(date)
+        setIsSelectingCheckOut(true)
+      }
     }
   }
 
-  const totalNights = selectedDates.start && selectedDates.end
-    ? Math.ceil(
-        (selectedDates.end.getTime() - selectedDates.start.getTime()) / 
-        (1000 * 60 * 60 * 24)
-      )
-    : 0;
-
   return (
     <div className="space-y-4">
-      {/* Date Selection Controls */}
-      <div className="grid gap-4 md:grid-cols-[1fr_1fr_300px]">
-        {/* Calendar Legend */}
-        <div className="md:col-span-3">
-          <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-            <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded-full bg-background border border-foreground/20" />
-              <span className="text-sm">Available</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded-full bg-primary" />
-              <span className="text-sm">Selected</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-4 w-4 rounded-full bg-muted/30 opacity-70" />
-              <span className="text-sm">Unavailable</span>
-            </div>
-          </div>
-        </div>
+      <div className="grid gap-4 md:grid-cols-2">
+        {/* Check-in Calendar */}
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -122,7 +115,7 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
               <CalendarIcon className="mr-2 h-4 w-4" />
               <div className="flex flex-col items-start">
                 <span className="text-sm font-medium">Check-in</span>
-                <span>{selectedDates.start ? format(selectedDates.start, "PPP") : "Select date"}</span>
+                <span>{selectedDates.start ? format(selectedDates.start, "MMM d, yyyy") : "Select date"}</span>
                 {selectedDates.start && (
                   <span className="text-xs text-muted-foreground">
                     3:00 PM
@@ -132,121 +125,21 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
-            <div className="p-4 border-b">
-              <div className="flex gap-2 mb-4">
-                {PRESET_DURATIONS.map((preset) => (
-                  <Button
-                    key={preset.label}
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handlePresetSelection(preset.days)}
-                    disabled={!selectedDates.start}
-                  >
-                    {preset.label}
-                  </Button>
-                ))}
-              </div>
-              <Calendar
-                mode="single"
-                selected={selectedDates.start || undefined}
-                onSelect={(date) => date && onDateSelect?.(date)}
-                disabled={(date) => isDateDisabled(date)}
-                initialFocus
-                classNames={{
-                  months: 'flex gap-4 sm:gap-8 w-full',
-                  month: 'space-y-4 w-full sm:w-[280px]',
-                  caption: 'flex justify-between items-center px-2 py-2',
-                  caption_label: 'text-lg font-semibold',
-                  nav: 'flex gap-1',
-                  nav_button: 'h-9 w-9 p-2 hover:bg-accent rounded-full transition-colors',
-                  table: 'w-full border-collapse space-y-1',
-                  head_row: 'flex',
-                  head_cell: 'text-muted-foreground rounded-md w-10 font-normal text-sm',
-                  row: 'flex w-full mt-2',
-                  cell: 'text-center p-0 relative focus-within:relative focus-within:z-20',
-                  day: (date) => {
-                    const isAvailable = !isDateDisabled(date) && !isDateBooked(date)
-                    const isSelected = isSameDay(date, selectedDates.start || new Date(0)) || 
-                                     isSameDay(date, selectedDates.end || new Date(0))
-                    const isInRange = selectedDates.start && selectedDates.end && 
-                                    isWithinInterval(date, { start: selectedDates.start, end: selectedDates.end })
-                    const isToday = isSameDay(date, new Date())
-                    const isBooked = isDateBooked(date)
-                    const isUnavailable = isDateDisabled(date) && !isDateBooked(date)
-
-                    return cn(
-                      'h-10 w-10 rounded-full flex items-center justify-center text-sm transition-colors font-medium',
-                      // Base hover state
-                      'hover:bg-accent/80 hover:text-accent-foreground',
-                      
-                      // Available dates - matches legend
-                      isAvailable && [
-                        'text-foreground bg-background border border-foreground/20',
-                        'hover:bg-accent hover:text-accent-foreground'
-                      ],
-                      
-                      // Selected dates - matches legend
-                      isSelected && [
-                        'bg-primary text-primary-foreground',
-                        'hover:bg-primary/90'
-                      ],
-                      
-                      // Within range - matches legend
-                      isInRange && [
-                        'bg-accent/70 text-accent-foreground',
-                        'hover:bg-accent/80'
-                      ],
-                      
-                      // Today's date
-                      isToday && [
-                        'border-2 border-primary',
-                        'font-bold'
-                      ],
-                      
-                      // Booked dates - matches legend
-                      isBooked && [
-                        'bg-destructive/20 text-destructive-foreground',
-                        'cursor-not-allowed',
-                        'line-through',
-                        'hover:bg-destructive/30'
-                      ],
-                      
-                      // Unavailable dates - matches legend
-                      isUnavailable && [
-                        'bg-muted/30 text-muted-foreground',
-                        'cursor-not-allowed',
-                        'opacity-70',
-                        'hover:bg-muted/40'
-                      ]
-                    )
-                  },
-                  day_outside: 'text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',
-                  day_hidden: 'invisible',
-                }}
-              />
-            </div>
-            <div className="p-4">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Price per night</span>
-                <span className="font-medium">
-                  {new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  }).format(property.rental_price || 0)}
-                </span>
-              </div>
-              {selectedDates.start && (
-                <div className="mt-2 flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Minimum stay</span>
-                  <span className="font-medium">
-                    {property.minimum_rental_period || 1} night(s)
-                  </span>
-                </div>
-              )}
-            </div>
+            <Calendar
+              mode="single"
+              selected={selectedDates.start || undefined}
+              onSelect={(date) => {
+                setIsSelectingCheckOut(false)
+                handleDateSelect(date)
+              }}
+              disabled={(date) => isDateDisabled(date)}
+              initialFocus
+              fixedWeeks
+            />
           </PopoverContent>
         </Popover>
 
+        {/* Check-out Calendar */}
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -255,11 +148,12 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
                 "w-full justify-start text-left font-normal h-14",
                 !selectedDates.end && "text-muted-foreground"
               )}
+              onClick={() => setIsSelectingCheckOut(true)}
             >
               <CalendarIcon className="mr-2 h-4 w-4" />
               <div className="flex flex-col items-start">
                 <span className="text-sm font-medium">Check-out</span>
-                <span>{selectedDates.end ? format(selectedDates.end, "PPP") : "Select date"}</span>
+                <span>{selectedDates.end ? format(selectedDates.end, "MMM d, yyyy") : "Select date"}</span>
                 {selectedDates.end && (
                   <span className="text-xs text-muted-foreground">
                     11:00 AM
@@ -269,218 +163,61 @@ export function PropertyCalendar({ property, onDateSelect, selectedDates }: Prop
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
-            <div className="p-4 border-b">
-              <Calendar
-                mode="single"
-                selected={selectedDates.end || undefined}
-                onSelect={(date) => date && onDateSelect?.(date)}
-                disabled={(date) => 
-                  date <= (selectedDates.start || new Date()) ||
-                  isDateDisabled(date)
+            <Calendar
+              mode="single"
+              selected={selectedDates.end || undefined}
+              onSelect={(date) => {
+                setIsSelectingCheckOut(true)
+                handleDateSelect(date)
+              }}
+              disabled={(date) => isDateDisabled(date)}
+              initialFocus
+              fixedWeeks
+              modifiers={
+                selectedDates.start ? {
+                  selected: [selectedDates.start]
+                } : undefined
+              }
+              modifiersStyles={{
+                selected: {
+                  backgroundColor: 'var(--primary)',
+                  color: 'white'
                 }
-                initialFocus
-                classNames={{
-                  months: 'flex gap-4 sm:gap-8 w-full',
-                  month: 'space-y-4 w-full sm:w-[280px]',
-                  caption: 'flex justify-between items-center px-2 py-2',
-                  caption_label: 'text-lg font-semibold',
-                  nav: 'flex gap-1',
-                  nav_button: 'h-9 w-9 p-2 hover:bg-accent rounded-full transition-colors',
-                  table: 'w-full border-collapse space-y-1',
-                  head_row: 'flex',
-                  head_cell: 'text-muted-foreground rounded-md w-10 font-normal text-sm',
-                  row: 'flex w-full mt-2',
-                  cell: 'text-center p-0 relative focus-within:relative focus-within:z-20',
-                  day: (date) => {
-                    const isAvailable = !isDateDisabled(date) && !isDateBooked(date)
-                    const isSelected = isSameDay(date, selectedDates.start || new Date(0)) || 
-                                     isSameDay(date, selectedDates.end || new Date(0))
-                    const isInRange = selectedDates.start && selectedDates.end && 
-                                    isWithinInterval(date, { start: selectedDates.start, end: selectedDates.end })
-                    const isToday = isSameDay(date, new Date())
-                    const isBooked = isDateBooked(date)
-                    const isUnavailable = isDateDisabled(date) && !isDateBooked(date)
-
-                    return cn(
-                      'h-10 w-10 rounded-full flex items-center justify-center text-sm transition-colors font-medium',
-                      // Base hover state
-                      'hover:bg-accent/80 hover:text-accent-foreground',
-                      
-                      // Available dates - matches legend
-                      isAvailable && [
-                        'text-foreground bg-background border border-foreground/20',
-                        'hover:bg-accent hover:text-accent-foreground'
-                      ],
-                      
-                      // Selected dates - matches legend
-                      isSelected && [
-                        'bg-primary text-primary-foreground',
-                        'hover:bg-primary/90'
-                      ],
-                      
-                      // Within range - matches legend
-                      isInRange && [
-                        'bg-accent/70 text-accent-foreground',
-                        'hover:bg-accent/80'
-                      ],
-                      
-                      // Today's date
-                      isToday && [
-                        'border-2 border-primary',
-                        'font-bold'
-                      ],
-                      
-                      // Booked dates - matches legend
-                      isBooked && [
-                        'bg-destructive/20 text-destructive-foreground',
-                        'cursor-not-allowed',
-                        'line-through',
-                        'hover:bg-destructive/30'
-                      ],
-                      
-                      // Unavailable dates - matches legend
-                      isUnavailable && [
-                        'bg-muted/30 text-muted-foreground',
-                        'cursor-not-allowed',
-                        'opacity-70',
-                        'hover:bg-muted/40'
-                      ]
-                    )
-                  },
-                  day_outside: 'text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',
-                  day_hidden: 'invisible',
-                }}
-              />
-            </div>
-            <div className="p-4">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Total nights</span>
-                <span className="font-medium">{totalNights}</span>
-              </div>
-              <div className="mt-2 flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Total price</span>
-                <span className="font-medium">
-                  {new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  }).format(
-                    calculateTotalPrice({
-                      checkIn: selectedDates.start || new Date(),
-                      checkOut: selectedDates.end || new Date(),
-                      rentalPrice: property.rental_price || 0,
-                      rentalFrequency: 'daily'
-                    })
-                  )}
-                </span>
-              </div>
-            </div>
+              }}
+            />
           </PopoverContent>
         </Popover>
       </div>
 
-      <div className="grid gap-4">
-        {/* Availability Overview */}
-        <div className="rounded-lg border p-4 space-y-4">
-          <h3 className="font-semibold text-lg">Availability Overview</h3>
-          <div className="space-y-2">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Listing Type</span>
-              <span className="font-medium capitalize">{property.listing_type}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Available From</span>
-              <span className="font-medium">
-                {property.available_from ? 
-                  format(new Date(property.available_from), "MMM d, yyyy") : 
-                  "Immediately"}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Available To</span>
-              <span className="font-medium">
-                {property.available_to ? 
-                  format(new Date(property.available_to), "MMM d, yyyy") : 
-                  "No end date"}
-              </span>
-            </div>
+      {selectedDates.start && selectedDates.end && (
+        <div className="rounded-lg border p-4 space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-muted-foreground">Duration</span>
+            <span className="font-medium">
+              {Math.ceil(
+                (selectedDates.end.getTime() - selectedDates.start.getTime()) /
+                (1000 * 60 * 60 * 24)
+              )} nights
+            </span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-muted-foreground">Total</span>
+            <span className="font-medium">
+              {new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              }).format(
+                calculateTotalPrice({
+                  checkIn: selectedDates.start,
+                  checkOut: selectedDates.end,
+                  rentalPrice: property.rental_price || 0,
+                  rentalFrequency: 'daily'
+                })
+              )}
+            </span>
           </div>
         </div>
-
-        {selectedDates.start && selectedDates.end && (
-          <div className="space-y-4 rounded-lg border p-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-sm text-muted-foreground">Check-in</p>
-                <p className="font-medium">
-                  {format(selectedDates.start, "MMM d, yyyy")}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Check-out</p>
-                <p className="font-medium">
-                  {format(selectedDates.end, "MMM d, yyyy")}
-                </p>
-              </div>
-            </div>
-            
-            <div className="border-t pt-4 space-y-3">
-              <h4 className="font-semibold">Pricing Breakdown</h4>
-              <div className="flex justify-between">
-                <p className="text-sm text-muted-foreground">Nights</p>
-                <p className="font-medium">
-                  {Math.ceil(
-                    (selectedDates.end.getTime() - selectedDates.start.getTime()) / 
-                    (1000 * 60 * 60 * 24)
-                  )}
-                </p>
-              </div>
-              <div className="flex justify-between">
-                <p className="text-sm text-muted-foreground">Price per night</p>
-                <p className="font-medium">
-                  {new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  }).format(property.rental_price || 0)}
-                </p>
-              </div>
-              <div className="flex justify-between border-t pt-2">
-                <p className="text-sm text-muted-foreground">Total</p>
-                <p className="font-medium">
-                  {new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  }).format(
-                    (property.rental_price || 0) * 
-                    Math.ceil(
-                      (selectedDates.end.getTime() - selectedDates.start.getTime()) / 
-                      (1000 * 60 * 60 * 24)
-                    )
-                  )}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-        
-        {/* Policies */}
-        <div className="space-y-4">
-
-          <div className="rounded-lg border p-4">
-            <h3 className="font-semibold text-lg mb-3">Cancellation Policy</h3>
-            <div className="space-y-2 text-sm">
-              <p className="text-muted-foreground">
-                Free cancellation up to {property.cancellation_days || 7} days before check-in
-              </p>
-              <p className="text-muted-foreground">
-                50% refund if canceled within {property.cancellation_days || 7} days of check-in
-              </p>
-              <p className="text-muted-foreground">
-                No refund for cancellations after check-in
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   )
 }

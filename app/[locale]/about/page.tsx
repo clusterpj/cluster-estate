@@ -7,7 +7,7 @@ export default function AboutPage() {
   const t = useTranslations('AboutUs');
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-7xl">
+    <div className="container mx-auto px-4 pt-24 pb-12 md:pt-28 md:pb-12 max-w-7xl">
       {/* Hero Section */}
       <div className="text-center mb-16">
         <h1 className="text-5xl font-bold mb-4 text-primary">{t('title')}</h1>

@@ -3,7 +3,8 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
-import { Menu, Home, Building2, Users, Info, Phone, User, LogOut } from "lucide-react";
+import { Menu, Home, Building2, Info, Phone, User, LogOut } from "lucide-react";
+import Image from "next/image";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -56,8 +57,14 @@ export function Header() {
           {/* Left Section: Logo */}
           <div className="flex items-center">
             <Link href={localizedHref('/')} className="flex items-center space-x-2">
-              {/* Add your logo here */}
-              <span className="font-bold text-xl">LOGO</span>
+              <Image
+                src="/cabarete-villas.png"
+                alt="Cabarete Villas Logo"
+                width={200}
+                height={40}
+                priority
+                className="h-8 w-auto"
+              />
             </Link>
           </div>
 
@@ -73,79 +80,23 @@ export function Header() {
                     </span>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
-                      <li className="row-span-3">
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href={localizedHref('/properties/featured')}
-                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                          >
-                            <Building2 className="h-6 w-6" />
-                            <div className="mb-2 mt-4 text-lg font-medium">
-                              {t('nav.featuredProperties')}
-                            </div>
-                            <p className="text-sm leading-tight text-muted-foreground">
-                              {t('nav.featuredPropertiesDesc')}
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
+                    <ul className="grid w-[400px] gap-3 p-4">
                       <ListItem
-                        href={localizedHref('/properties/buy')}
-                        title={t('nav.buyProperties')}
+                        href={localizedHref('/properties?type=villa')}
+                        title="Villas"
                       >
-                        {t('nav.buyPropertiesDesc')}
+                        Luxury villas with exclusive amenities and private spaces
                       </ListItem>
                       <ListItem
-                        href={localizedHref('/properties/rent')}
-                        title={t('nav.rentProperties')}
+                        href={localizedHref('/properties?type=condo')}
+                        title="Condos"
                       >
-                        {t('nav.rentPropertiesDesc')}
-                      </ListItem>
-                      <ListItem
-                        href={localizedHref('/properties/new')}
-                        title={t('nav.newDevelopments')}
-                      >
-                        {t('nav.newDevelopmentsDesc')}
+                        Modern condominiums with resort-style facilities
                       </ListItem>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
-                <NavigationMenuItem>
-                  <Link href={localizedHref('/agents')} legacyBehavior passHref>
-                    <NavigationMenuTrigger>
-                      <span className="flex items-center gap-2">
-                        <Users className="h-4 w-4" />
-                        {t('nav.agents')}
-                      </span>
-                    </NavigationMenuTrigger>
-                  </Link>
-                  <NavigationMenuContent>
-                    <ul className="grid gap-3 p-6 md:w-[400px]">
-                      <ListItem
-                        href={localizedHref('/agents/find')}
-                        title={t('nav.findAgent')}
-                      >
-                        {t('nav.findAgentDesc')}
-                      </ListItem>
-                      <ListItem
-                        href={localizedHref('/agents/join')}
-                        title={t('nav.joinTeam')}
-                      >
-                        {t('nav.joinTeamDesc')}
-                      </ListItem>
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <Link href={localizedHref('/properties')} legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      {t('nav.properties')}
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href={localizedHref('/activities')} legacyBehavior passHref>
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
@@ -178,7 +129,7 @@ export function Header() {
             {/* Mobile Menu Button - Only show on mobile */}
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" className="px-0 text-base hover:bg-transparent hover:text-accent-foreground md:hidden">
+                <Button variant="ghost" className="px-0 text-base hover:bg-transparent dark:hover:bg-transparent hover:text-accent-foreground md:hidden">
                   <Menu className="h-6 w-6" />
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
@@ -192,34 +143,30 @@ export function Header() {
                       {t('nav.properties')}
                     </div>
                     <div className="ml-4 flex flex-col space-y-3">
-                      <Link 
-                        href={localizedHref('/properties/buy')}
+                      <Link
+                        href={localizedHref('/properties?type=villa')}
                         className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-primary transition-colors">{t('nav.buyProperties')}</span>
+                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Villas</span>
                           <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
                         </div>
-                        <span className="text-sm text-muted-foreground">{t('nav.buyPropertiesDesc')}</span>
+                        <span className="text-sm text-muted-foreground">Luxury villas with exclusive amenities and private spaces</span>
                       </Link>
-                      <Link 
-                        href={localizedHref('/properties/rent')}
+                      <Link
+                        href={localizedHref('/properties?type=condo')}
                         className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-primary transition-colors">{t('nav.rentProperties')}</span>
+                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Condos</span>
                           <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
                         </div>
-                        <span className="text-sm text-muted-foreground">{t('nav.rentPropertiesDesc')}</span>
+                        <span className="text-sm text-muted-foreground">Modern condominiums with resort-style facilities</span>
                       </Link>
                     </div>
                   </div>
 
                   {/* Other Mobile Menu Items */}
-                  <Link href={localizedHref('/agents')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
-                    <Users className="h-5 w-5" />
-                    {t('nav.agents')}
-                  </Link>
                   <Link href={localizedHref('/activities')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
                     <Home className="h-5 w-5" />
                     {t('nav.activities')}
@@ -240,7 +187,7 @@ export function Header() {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" size="icon" className="hover:bg-transparent dark:hover:bg-transparent">
                     <User className="h-5 w-5" />
                     <span className="sr-only">{t('auth.userMenu')}</span>
                   </Button>
@@ -279,12 +226,12 @@ export function Header() {
               </DropdownMenu>
             ) : (
               <div className="flex items-center gap-2">
-                <Button variant="ghost" asChild>
+                <Button variant="ghost" className="hover:bg-transparent dark:hover:bg-transparent" asChild>
                   <Link href={localizedHref('/auth/login')}>
                     {t('auth.signIn')}
                   </Link>
                 </Button>
-                <Button asChild>
+                <Button variant="ghost" className="hover:bg-transparent dark:hover:bg-transparent" asChild>
                   <Link href={localizedHref('/auth/register')}>
                     {t('auth.signUp')}
                   </Link>
