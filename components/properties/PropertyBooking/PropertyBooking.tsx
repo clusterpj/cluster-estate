@@ -111,8 +111,8 @@ export function PropertyBooking({ property }: PropertyBookingProps) {
     setBookingStep('form')
     setBookingData(null)
     toast({
-      title: 'Payment Cancelled',
-      description: 'You have cancelled the payment process.',
+      title: 'Payment canceled',
+      description: 'You have canceled the payment process.',
     })
   }
 

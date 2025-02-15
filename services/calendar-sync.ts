@@ -7,7 +7,7 @@ export type CalendarEvent = {
   end: Date
   summary: string
   uid: string
-  status?: 'confirmed' | 'tentative' | 'cancelled'
+  status?: 'confirmed' | 'tentative' | 'canceled'
   description?: string
   location?: string
   organizer?: string
@@ -47,7 +47,7 @@ export class CalendarSyncService {
             end: event.end as Date,
             summary: event.summary as string,
             uid: event.uid as string,
-            status: event.status as 'confirmed' | 'tentative' | 'cancelled',
+            status: event.status as 'confirmed' | 'tentative' | 'canceled',
             description: event.description as string,
             location: event.location as string,
             organizer: event.organizer?.val as string,

@@ -59,11 +59,11 @@ export function Footer() {
             <nav>
               <ul className="space-y-2">
                 {[
-                  ['Properties', '/properties'],
-                  ['About Us', '/about'],
-                  ['Contact', '/contact'],
-                  ['Blog', '/blog'],
-                  ['Privacy Policy', '/privacy']
+                  ['Villas', 'http://localhost:3000/en/properties?type=villa'],
+                  ['Condos', 'http://localhost:3000/en/properties?type=condo'],
+                  ['Activities', 'http://localhost:3000/en/activities'],
+                  ['About Us', 'http://localhost:3000/en/about'],
+                  ['Contact', 'http://localhost:3000/en/contact']
                 ].map(([title, url]) => (
                   <li key={url}>
                     <Link 
@@ -84,15 +84,15 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm">
                 <MapPin className="h-4 w-4 text-stone-400 mt-1 shrink-0" />
-                <span>123 Real Estate Ave, City, State 12345</span>
+                <span>Cabarete</span>
               </li>
               <li className="flex items-center gap-2 text-sm">
                 <Phone className="h-4 w-4 text-stone-400 shrink-0" />
-                <span>(555) 123-4567</span>
+                <span>+1 (809) 571-0370</span>
               </li>
               <li className="flex items-center gap-2 text-sm">
                 <Mail className="h-4 w-4 text-stone-400 shrink-0" />
-                <span>contact@realtywest.com</span>
+                <span>reservecabaretevillas@gmail.com</span>
               </li>
             </ul>
           </div>

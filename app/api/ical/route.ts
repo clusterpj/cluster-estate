@@ -19,7 +19,7 @@ export async function GET() {
   DTSTART:20250210T120000Z
   DTEND:20250215T120000Z
   SUMMARY:Blocked Dates
-  STATUS:CANCELLED
+  STATUS:canceled
   DESCRIPTION:Maintenance period
   END:VEVENT
   END:VCALENDAR`;

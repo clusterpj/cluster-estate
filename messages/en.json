@@ -10,7 +10,7 @@
     "special_requests": "Special Requests",
     "confirmed": "Confirmed",
     "pending": "Pending",
-    "cancelled": "Cancelled",
+    "canceled": "canceled",
     "completed": "Completed"
   },
   "Hero": {
@@ -253,7 +253,7 @@
         "status": {
           "pending": "Pending",
           "confirmed": "Confirmed",
-          "cancelled": "Cancelled",
+          "canceled": "canceled",
           "completed": "Completed"
         },
         "paymentStatus": {

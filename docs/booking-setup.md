@@ -103,7 +103,7 @@ pnpm supabase migration up
 ### Booking Types
 
 ```typescript
-export type BookingStatus = 'pending' | 'confirmed' | 'cancelled' | 'completed';
+export type BookingStatus = 'pending' | 'confirmed' | 'canceled' | 'completed';
 
 export interface Booking {
   id: string;

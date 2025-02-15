@@ -153,8 +153,8 @@ export function PayPalButtonsWrapper({
             onError(error)
           }}
           onCancel={() => {
-            console.log('PayPal payment cancelled by user')
-            setError('Payment cancelled')
+            console.log('PayPal payment canceled by user')
+            setError('Payment canceled')
             onCancel?.()
           }}
           forceReRender={[totalPrice, currency]}

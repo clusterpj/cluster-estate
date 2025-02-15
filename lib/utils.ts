@@ -43,7 +43,7 @@ export async function isPropertyAvailable(
     .select('*', { count: 'exact' })
     .eq('property_id', propertyId)
     .or(`and(check_in.lte.${checkOut.toISOString()},check_out.gte.${checkIn.toISOString()})`)
-    .neq('status', 'cancelled')
+    .neq('status', 'canceled')
 
   return count === 0
 }
@@ -55,7 +55,7 @@ export async function getBookedDates(propertyId: string): Promise<Date[]> {
     .from('bookings')
     .select('check_in, check_out')
     .eq('property_id', propertyId)
-    .neq('status', 'cancelled')
+    .neq('status', 'canceled')
 
   if (!bookings) return []
 

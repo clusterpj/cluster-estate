@@ -35,7 +35,7 @@ Ensure proper implementation of the database schema, row-level security (RLS), a
 #### iCal Implementation Rules
 - Generate unique iCal feed URLs per property
 - Include booking details in VEVENT descriptions
-- Set proper status codes (CONFIRMED, TENTATIVE, CANCELLED)
+- Set proper status codes (CONFIRMED, TENTATIVE, canceled)
 - Handle timezone conversions
 - Support external calendar imports (Airbnb, VRBO, etc.)
 

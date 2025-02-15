@@ -26,7 +26,7 @@ The PayPal booking integration allows users to:
 #### Booking Statuses:
 - `pending`: Initial state, awaiting payment
 - `confirmed`: Payment completed successfully
-- `cancelled`: Payment failed or booking cancelled
+- `canceled`: Payment failed or booking canceled
 - `completed`: Stay completed
 
 #### Payment Statuses:
@@ -80,7 +80,7 @@ Common errors:
 2. Test different payment scenarios:
    - Successful payment
    - Failed payment
-   - Cancelled payment
+   - canceled payment
 3. Verify booking status updates
 
 ### 7. Implementation Notes

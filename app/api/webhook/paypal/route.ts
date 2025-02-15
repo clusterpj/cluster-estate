@@ -87,7 +87,7 @@ export async function POST(req: Request) {
       case 'PAYMENT.CAPTURE.DENIED':
         await updateBookingStatus(supabase, {
           bookingId,
-          status: BookingStatus.CANCELLED,
+          status: BookingStatus.canceled,
           paymentStatus: PaymentStatus.FAILED,
           paymentId: resourceId,
           reason: 'Payment was denied'
@@ -97,7 +97,7 @@ export async function POST(req: Request) {
       case 'PAYMENT.CAPTURE.REFUNDED':
         await updateBookingStatus(supabase, {
           bookingId,
-          status: BookingStatus.CANCELLED,
+          status: BookingStatus.canceled,
           paymentStatus: PaymentStatus.REFUNDED,
           paymentId: resourceId,
           refundId: payload.resource.refund_id,

@@ -222,7 +222,7 @@
     "special_requests": "Besondere Wünsche",
     "confirmed": "Bestätigt",
     "pending": "Ausstehend",
-    "cancelled": "Storniert"
+    "canceled": "Storniert"
   },
   "auth": {
     "loginTitle": "Anmelden",
@@ -247,7 +247,7 @@
         "status": {
           "pending": "Ausstehend",
           "confirmed": "Bestätigt",
-          "cancelled": "Storniert",
+          "canceled": "Storniert",
           "completed": "Abgeschlossen"
         },
         "paymentStatus": {

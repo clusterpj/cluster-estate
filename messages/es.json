@@ -222,7 +222,7 @@
     "special_requests": "Solicitudes especiales",
     "confirmed": "Confirmada",
     "pending": "Pendiente",
-    "cancelled": "Cancelada"
+    "canceled": "Cancelada"
   },
   "auth": {
     "loginTitle": "Iniciar sesión",
@@ -247,7 +247,7 @@
         "status": {
           "pending": "Pendiente",
           "confirmed": "Confirmado",
-          "cancelled": "Cancelado",
+          "canceled": "Cancelado",
           "completed": "Completado"
         },
         "paymentStatus": {

@@ -76,7 +76,7 @@ CREATE TYPE "public"."bookingstatus" AS ENUM (
     'pending',
     'confirmed',
     'modified',
-    'cancelled'
+    'canceled'
 );
 
 
@@ -303,7 +303,7 @@ CREATE TABLE IF NOT EXISTS "public"."bookings" (
     "external_source" "text",
     "external_id" "text",
     CONSTRAINT "bookings_payment_status_check" CHECK (("payment_status" = ANY (ARRAY['pending'::"text", 'completed'::"text", 'failed'::"text", 'refunded'::"text"]))),
-    CONSTRAINT "bookings_status_check" CHECK (("status" = ANY (ARRAY['pending'::"text", 'confirmed'::"text", 'cancelled'::"text", 'completed'::"text"]))),
+    CONSTRAINT "bookings_status_check" CHECK (("status" = ANY (ARRAY['pending'::"text", 'confirmed'::"text", 'canceled'::"text", 'completed'::"text"]))),
     CONSTRAINT "check_external_consistency" CHECK (((("is_external" = true) AND ("external_source" IS NOT NULL) AND ("external_id" IS NOT NULL)) OR (("is_external" = false) AND ("external_source" IS NULL) AND ("external_id" IS NULL)))),
     CONSTRAINT "valid_dates" CHECK (("check_out" > "check_in"))
 );

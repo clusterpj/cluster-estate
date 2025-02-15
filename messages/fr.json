@@ -222,7 +222,7 @@
     "special_requests": "Demandes spéciales",
     "confirmed": "Confirmée",
     "pending": "En attente",
-    "cancelled": "Annulée"
+    "canceled": "Annulée"
   },
   "auth": {
     "loginTitle": "Connexion",
@@ -247,7 +247,7 @@
         "status": {
           "pending": "En Attente",
           "confirmed": "Confirmée",
-          "cancelled": "Annulée",
+          "canceled": "Annulée",
           "completed": "Terminée"
         },
         "paymentStatus": {
