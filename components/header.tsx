@@ -25,7 +25,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-transparent hover:text-foreground dark:hover:text-foreground focus:bg-transparent focus:text-foreground",
             className
           )}
           {...props}
@@ -40,7 +40,6 @@ const ListItem = React.forwardRef<
   );
 });
 ListItem.displayName = "ListItem";
-
 
 export function Header() {
   const { user, signOut, userProfile } = useAuth();
@@ -73,7 +72,7 @@ export function Header() {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
                     <span className="flex items-center gap-2">
                       <Building2 className="h-4 w-4" />
                       {t('nav.properties')}
@@ -99,7 +98,7 @@ export function Header() {
 
                 <NavigationMenuItem>
                   <Link href={localizedHref('/activities')} legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground")}>
                       {t('nav.activities')}
                     </NavigationMenuLink>
                   </Link>
@@ -107,7 +106,7 @@ export function Header() {
 
                 <NavigationMenuItem>
                   <Link href={localizedHref('/about')} legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground")}>
                       {t('nav.about')}
                     </NavigationMenuLink>
                   </Link>
@@ -115,7 +114,7 @@ export function Header() {
 
                 <NavigationMenuItem>
                   <Link href={localizedHref('/contact')} legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground")}>
                       {t('nav.contact')}
                     </NavigationMenuLink>
                   </Link>
@@ -129,7 +128,7 @@ export function Header() {
             {/* Mobile Menu Button - Only show on mobile */}
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" className="px-0 text-base hover:bg-transparent dark:hover:bg-transparent hover:text-accent-foreground md:hidden">
+                <Button variant="ghost" className="px-0 text-base bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
                   <Menu className="h-6 w-6" />
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
@@ -138,28 +137,28 @@ export function Header() {
                 <nav className="flex flex-col space-y-6 mt-6">
                   {/* Properties Section */}
                   <div className="space-y-4">
-                    <div className="flex items-center gap-2 px-2 py-1.5 text-lg font-semibold rounded-lg bg-accent/50">
+                    <div className="flex items-center gap-2 px-2 py-1.5 text-lg font-semibold rounded-lg bg-transparent">
                       <Building2 className="h-5 w-5" />
                       {t('nav.properties')}
                     </div>
                     <div className="ml-4 flex flex-col space-y-3">
                       <Link
                         href={localizedHref('/properties?type=villa')}
-                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
+                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-transparent transition-all duration-300"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Villas</span>
-                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                          <span className="text-sm font-medium group-hover:text-foreground dark:group-hover:text-foreground transition-colors duration-300">Villas</span>
+                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
                         </div>
                         <span className="text-sm text-muted-foreground">Luxury villas with exclusive amenities and private spaces</span>
                       </Link>
                       <Link
                         href={localizedHref('/properties?type=condo')}
-                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-accent transition-all duration-200"
+                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-transparent transition-all duration-300"
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-primary transition-colors">Condos</span>
-                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
+                          <span className="text-sm font-medium group-hover:text-foreground dark:group-hover:text-foreground transition-colors duration-300">Condos</span>
+                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
                         </div>
                         <span className="text-sm text-muted-foreground">Modern condominiums with resort-style facilities</span>
                       </Link>
@@ -167,15 +166,15 @@ export function Header() {
                   </div>
 
                   {/* Other Mobile Menu Items */}
-                  <Link href={localizedHref('/activities')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
+                  <Link href={localizedHref('/activities')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
                     <Home className="h-5 w-5" />
                     {t('nav.activities')}
                   </Link>
-                  <Link href={localizedHref('/about')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
+                  <Link href={localizedHref('/about')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
                     <Info className="h-5 w-5" />
                     {t('nav.about')}
                   </Link>
-                  <Link href={localizedHref('/contact')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent">
+                  <Link href={localizedHref('/contact')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
                     <Phone className="h-5 w-5" />
                     {t('nav.contact')}
                   </Link>
@@ -187,7 +186,7 @@ export function Header() {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="hover:bg-transparent dark:hover:bg-transparent">
+                  <Button variant="ghost" size="icon" className="bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
                     <User className="h-5 w-5" />
                     <span className="sr-only">{t('auth.userMenu')}</span>
                   </Button>
@@ -226,12 +225,12 @@ export function Header() {
               </DropdownMenu>
             ) : (
               <div className="flex items-center gap-2">
-                <Button variant="ghost" className="hover:bg-transparent dark:hover:bg-transparent" asChild>
+                <Button variant="ghost" className="bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground" asChild>
                   <Link href={localizedHref('/auth/login')}>
                     {t('auth.signIn')}
                   </Link>
                 </Button>
-                <Button variant="ghost" className="hover:bg-transparent dark:hover:bg-transparent" asChild>
+                <Button variant="ghost" className="bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground" asChild>
                   <Link href={localizedHref('/auth/register')}>
                     {t('auth.signUp')}
                   </Link>

@@ -19,6 +19,7 @@ type AuthContextType = {
   signOut: () => Promise<void>
   resetPassword: (email: string) => Promise<void>
   refreshSession: () => Promise<void>
+  refreshProfile: () => Promise<void>
   hasRole: (role: UserRole) => boolean
 }
 
@@ -87,6 +88,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return null
     }
   }, [supabase])
+
+  const refreshProfile = async () => {
+    if (!user) return
+    const profile = await fetchUserProfile(user.id)
+    if (profile) setUserProfile(profile)
+  }
 
   const refreshSession = async () => {
     try {
@@ -232,6 +239,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       signOut, 
       resetPassword,
       refreshSession,
+      refreshProfile,
       hasRole
     }}>
       {children}

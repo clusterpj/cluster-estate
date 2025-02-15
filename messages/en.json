@@ -637,6 +637,58 @@
       "updateFailed": "Failed to update property"
     }
   },
+  "profile": {
+    "title": "Profile Settings",
+    "fullName": "Full Name",
+    "phone": "Phone Number",
+    "bio": "Bio",
+    "save": "Save Changes",
+    "updateSuccess": "Profile updated successfully",
+    "updateError": "Failed to update profile"
+  },
+  "dashboard": {
+    "overview": "Overview",
+    "settings": {
+      "title": "Settings",
+      "notifications": "Notification Settings",
+      "emailNotifications": "Email Notifications",
+      "emailNotificationsDescription": "Receive email notifications about your bookings and account activity",
+      "bookingReminders": "Booking Reminders",
+      "bookingRemindersDescription": "Get reminders about your upcoming stays and check-in/check-out times",
+      "marketingEmails": "Marketing Emails",
+      "marketingEmailsDescription": "Receive updates about special offers and new properties",
+      "saveChanges": "Save Changes",
+      "updateSuccess": "Settings updated successfully",
+      "updateError": "Failed to update settings"
+    },
+    "stats": {
+      "totalBookings": "Total Bookings",
+      "activeBookings": "Active Bookings",
+      "totalSpent": "Total Spent"
+    },
+    "recentBookings": "Recent Bookings",
+    "noBookings": "No bookings found",
+    "bookings": {
+      "title": "Your Bookings",
+      "searchPlaceholder": "Search properties...",
+      "statusFilter": "Filter by status",
+      "allStatuses": "All Statuses",
+      "noBookings": "No bookings found",
+      "loading": "Loading bookings...",
+      "status": {
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "canceled": "Canceled",
+        "completed": "Completed"
+      },
+      "paymentStatus": {
+        "pending": "Payment Pending",
+        "completed": "Payment Completed",
+        "failed": "Payment Failed",
+        "refunded": "Refunded"
+      }
+    }
+  },
   "contact": {
     "title": "Contact Us",
     "subtitle": "Get in touch with us for any inquiries or assistance",
