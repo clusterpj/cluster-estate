@@ -25,6 +25,69 @@ export type SyncResult = {
 export class CalendarSyncService {
   private supabase = createClientComponentClient<Database>()
 
+  async getCalendarFeeds(propertyId: string) {
+    const { data, error } = await this.supabase
+      .from('calendar_feeds')
+      .select('*')
+      .eq('property_id', propertyId)
+      .order('created_at', { ascending: false })
+
+    if (error) {
+      console.error('Error fetching calendar feeds:', error)
+      throw new Error('Failed to fetch calendar feeds')
+    }
+    return data
+  }
+
+  async createCalendarFeed(propertyId: string, feed: Omit<Database['public']['Tables']['calendar_feeds']['Insert'], 'id' | 'property_id'>) {
+    const { data, error } = await this.supabase
+      .from('calendar_feeds')
+      .insert({
+        ...feed,
+        property_id: propertyId,
+        sync_enabled: true,
+        last_sync_status: null,
+        last_sync_result: { eventsProcessed: 0 }
+      })
+      .select()
+      .single()
+
+    if (error) {
+      console.error('Error creating calendar feed:', error)
+      throw new Error('Failed to create calendar feed')
+    }
+    return data
+  }
+
+  async updateCalendarFeed(propertyId: string, feedId: string, updates: Database['public']['Tables']['calendar_feeds']['Update']) {
+    const { data, error } = await this.supabase
+      .from('calendar_feeds')
+      .update(updates)
+      .eq('id', feedId)
+      .eq('property_id', propertyId)
+      .select()
+      .single()
+
+    if (error) {
+      console.error('Error updating calendar feed:', error)
+      throw new Error('Failed to update calendar feed')
+    }
+    return data
+  }
+
+  async deleteCalendarFeed(propertyId: string, feedId: string) {
+    const { error } = await this.supabase
+      .from('calendar_feeds')
+      .delete()
+      .eq('id', feedId)
+      .eq('property_id', propertyId)
+
+    if (error) {
+      console.error('Error deleting calendar feed:', error)
+      throw new Error('Failed to delete calendar feed')
+    }
+  }
+
   async parseICalFeed(feedUrl: string): Promise<CalendarEvent[]> {
     try {
       const response = await fetch(feedUrl)
@@ -36,22 +99,24 @@ export class CalendarSyncService {
       const events = ical.parseICS(data)
       
       return Object.values(events)
-        .filter((event): event is CalendarComponent => event.type === 'VEVENT')
+        .filter((event): event is CalendarComponent => {
+          return event.type === 'VEVENT' && event.start instanceof Date && event.end instanceof Date
+        })
         .map(event => {
-          if (!event.start || !event.end) {
-            throw new Error('Invalid calendar event: missing start/end dates')
-          }
-          
           return {
-            start: event.start as Date,
-            end: event.end as Date,
-            summary: event.summary as string,
-            uid: event.uid as string,
-            status: event.status as 'confirmed' | 'tentative' | 'canceled',
-            description: event.description as string,
-            location: event.location as string,
-            organizer: event.organizer?.val as string,
-            attendees: event.attendee?.map(a => a.val) as string[]
+            start: event.start!,
+            end: event.end!,
+            summary: event.summary || '',
+            uid: event.uid || crypto.randomUUID(),
+            status: (event.status || 'confirmed') as 'confirmed' | 'tentative' | 'canceled',
+            description: event.description,
+            location: event.location,
+            organizer: typeof event.organizer === 'object' ? event.organizer.val : event.organizer,
+            attendees: Array.isArray(event.attendee) 
+              ? event.attendee.map(a => typeof a === 'object' ? a.val : String(a))
+              : event.attendee 
+                ? [typeof event.attendee === 'object' ? event.attendee.val : String(event.attendee)]
+                : undefined
           }
         })
     } catch (error) {
@@ -65,28 +130,45 @@ export class CalendarSyncService {
       // First, get existing bookings for conflict check
       const { data: existingBookings } = await this.supabase
         .from('bookings')
-        .select('start_date, end_date')
+        .select('start_date:check_in, end_date:check_out')
         .eq('property_id', propertyId)
-        .gte('end_date', new Date().toISOString())
+        .gte('check_out', new Date().toISOString())
 
       // Check for conflicts
       const conflicts = this.findBookingConflicts(events, existingBookings || [])
-      if (conflicts.length > 0) {
-        throw new Error(`Booking conflicts found: ${conflicts.length} overlapping events`)
+      
+      // Get existing availability entries for this property
+      const { data: existingAvailability } = await this.supabase
+        .from('property_availability')
+        .select('*')
+        .eq('property_id', propertyId)
+        .eq('source', 'calendar_sync')
+
+      // Delete old availability entries
+      if (existingAvailability?.length) {
+        await this.supabase
+          .from('property_availability')
+          .delete()
+          .eq('property_id', propertyId)
+          .eq('source', 'calendar_sync')
       }
 
-      // Update availability
-      await this.supabase.from('property_availability')
+      // Insert new availability entries
+      await this.supabase
+        .from('property_availability')
         .upsert(events.map(event => ({
           property_id: propertyId,
-          start_date: event.start,
-          end_date: event.end,
+          start_date: event.start.toISOString(),
+          end_date: event.end.toISOString(),
           status: 'unavailable',
           source: 'calendar_sync',
           external_id: event.uid
         })))
 
-      return { success: true }
+      return {
+        success: true,
+        conflicts: conflicts.length > 0 ? conflicts : undefined
+      }
     } catch (error) {
       console.error('Failed to update property availability:', error)
       throw error
@@ -96,7 +178,7 @@ export class CalendarSyncService {
   private findBookingConflicts(
     calendarEvents: CalendarEvent[],
     existingBookings: { start_date: string; end_date: string }[]
-  ) {
+  ): CalendarEvent[] {
     return calendarEvents.filter(event => 
       existingBookings.some(booking => 
         this.datesOverlap(
@@ -113,30 +195,41 @@ export class CalendarSyncService {
     return start1 <= end2 && start2 <= end1
   }
 
-  async processSyncJob(feedId: string) {
+  async processSyncJob(feedId: string): Promise<SyncResult> {
     try {
       // Get feed details
       const { data: feed } = await this.supabase
-        .from('calendar_sync')
-        .select('*, properties(*)')
+        .from('calendar_feeds')
+        .select('*')
         .eq('id', feedId)
         .single()
 
       if (!feed || !feed.sync_enabled) {
-        return { success: false, error: 'Feed not found or disabled' }
+        throw new Error('Feed not found or disabled')
       }
 
       // Parse and process events
       const events = await this.parseICalFeed(feed.feed_url)
-      await this.updatePropertyAvailability(feed.property_id, events)
+      const result = await this.updatePropertyAvailability(feed.property_id, events)
 
-      // Update last sync timestamp
-      await this.supabase
-        .from('calendar_sync')
-        .update({ last_sync_at: new Date().toISOString() })
-        .eq('id', feedId)
+      // Update last sync timestamp and status
+      const now = new Date()
+      await this.updateCalendarFeed(feed.property_id, feed.id, {
+        last_sync_at: now.toISOString(),
+        last_sync_status: result.success ? 'success' : 'error',
+        last_sync_result: {
+          eventsProcessed: events.length,
+          conflicts: result.conflicts?.length,
+          warnings: result.conflicts?.length ? [`Found ${result.conflicts.length} booking conflicts`] : undefined
+        }
+      })
 
-      return { success: true, eventsProcessed: events.length }
+      return {
+        success: result.success,
+        eventsProcessed: events.length,
+        conflicts: result.conflicts,
+        lastSync: now
+      }
     } catch (error) {
       console.error('Failed to process sync job:', error)
       throw error

@@ -1,0 +1,12 @@
+{
+  "cron_jobs": [
+    {
+      "name": "sync-calendars",
+      "schedule": "*/15 * * * *",
+      "http": {
+        "method": "POST",
+        "url": "https://<project-ref>.functions.supabase.co/sync-calendars"
+      }
+    }
+  ]
+}

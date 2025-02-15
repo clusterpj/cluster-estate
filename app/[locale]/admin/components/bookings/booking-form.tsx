@@ -98,7 +98,13 @@ export function BookingForm({ property, onSuccess }: BookingFormProps) {
 
       // Create booking
       const supabase = createClient();
-      const { data: booking, error } = await supabase
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        throw new Error(t('form.errors.userNotAuthenticated'));
+      }
+
+      const { error } = await supabase
         .from('bookings')
         .insert({
           property_id: property.id,
@@ -108,6 +114,7 @@ export function BookingForm({ property, onSuccess }: BookingFormProps) {
           total_price: totalPrice,
           status: 'pending' as BookingStatus,
           special_requests: data.specialRequests,
+          user_id: user.id
         })
         .select()
         .single()

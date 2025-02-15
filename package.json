@@ -9,7 +9,8 @@
     "lint": "next lint",
     "verify-env": "tsx scripts/verify-env.ts",
     "translate": "npm run verify-env && tsx scripts/translate-messages.ts",
-    "test-db": "npm run verify-env && tsx scripts/test-db-schema.ts"
+    "test-db": "npm run verify-env && tsx scripts/test-db-schema.ts",
+    "migrate-translations": "npm run verify-env && tsx scripts/migrate-translations.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
