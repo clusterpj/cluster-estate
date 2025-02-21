@@ -395,7 +395,9 @@
           "manageTitle": "Manage Calendar Feeds",
           "manage": "Sync and manage your property calendar",
           "description": "Manage calendar feeds for",
-          "manageDescription": "Manage calendar feeds for your property"
+          "manageDescription": "Manage calendar feeds for your property",
+          "syncSuccess": "Calendar Sync Complete",
+          "syncSuccessDescription": "The calendar has been successfully synchronized"
         },
         "title": "Properties ",
         "loading": "Loading properties...",

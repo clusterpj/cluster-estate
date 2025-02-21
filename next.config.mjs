@@ -17,6 +17,18 @@ const nextConfig = {
     ],
   },
   headers: async () => {
+    const isDevelopment = process.env.NODE_ENV === 'development';
+    const connectSrc = [
+      "'self'",
+      "https://www.paypal.com",
+      "https://*.paypal.com",
+      "https://api.sandbox.paypal.com",
+      "https://*.supabase.co",
+      "https://www.sandbox.paypal.com",
+      "https://www.paypalobjects.com",
+      ...(isDevelopment ? ["http://localhost:*"] : [])
+    ].join(' ');
+
     return [
       {
         source: '/:path*',
@@ -29,7 +41,7 @@ const nextConfig = {
               script-src-elem 'self' https://www.paypal.com https://www.paypalobjects.com 'unsafe-inline';
               style-src 'self' 'unsafe-inline' https://www.paypal.com https://www.paypalobjects.com;
               img-src 'self' https://www.paypal.com https://www.paypalobjects.com https://ebydkdkayaukivmtljmo.supabase.co data:;
-              connect-src 'self' https://www.paypal.com https://*.paypal.com https://api.sandbox.paypal.com https://*.supabase.co https://www.sandbox.paypal.com https://www.paypalobjects.com;
+              connect-src ${connectSrc};
               frame-src 'self' https://www.paypal.com https://*.paypal.com;
               object-src 'none';
               base-uri 'self';

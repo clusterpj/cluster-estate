@@ -116,19 +116,94 @@ export class CalendarSyncService {
       }
 
       const icalData = await response.text()
-      console.log('[CalendarSync] Received iCal data, length:', icalData.length)
+      console.log('[CalendarSync] Received iCal data:', icalData)
       
       const events = parseICalendarData(icalData)
-      console.log('[CalendarSync] Parsed events:', events.length)
+      console.log('[CalendarSync] Parsed events details:', events)
 
-      // Update sync status
+      // Save events to property_availability table
       const result: SyncResult = {
         success: true,
-        eventsProcessed: events.length,
+        eventsProcessed: 0,
         lastSync: new Date(),
         warnings: []
       }
 
+      for (const event of events) {
+        // Check if event already exists
+        const { data: existingEvents, error: queryError } = await this.supabase
+          .from('property_availability')
+          .select('*')
+          .eq('property_id', propertyId)
+          .eq('external_id', event.uid)
+
+        if (queryError) {
+          console.error('[CalendarSync] Error querying existing event:', queryError)
+          result.warnings.push(`Failed to query event: ${event.uid}`)
+          continue
+        }
+
+        // Only insert if no existing event found
+        if (!existingEvents || existingEvents.length === 0) {
+          console.log('[CalendarSync] Preparing to insert event:', {
+            property_id: propertyId,
+            external_id: event.uid,
+            start_date: event.start,
+            end_date: event.end,
+            status: 'unavailable',
+            source: 'calendar_sync'
+          });
+
+          // Map iCal status to our status
+          let status: 'available' | 'unavailable' = 'unavailable';
+          switch (event.status?.toLowerCase()) {
+            case 'canceled':
+            case 'cancelled':
+              status = 'available';
+              break;
+            case 'confirmed':
+            case 'tentative':
+            case 'booked':
+            default:
+              status = 'unavailable';
+          }
+
+          console.log('[CalendarSync] Mapped status:', {
+            originalStatus: event.status,
+            mappedStatus: status
+          });
+
+          const { error: insertError } = await this.supabase
+            .from('property_availability')
+            .insert({
+              property_id: propertyId,
+              external_id: event.uid,
+              start_date: event.start,
+              end_date: event.end,
+              status,
+              source: 'calendar_sync'
+            })
+
+          if (insertError) {
+            console.error('[CalendarSync] Error inserting event:', insertError);
+            console.log('[CalendarSync] Failed event data:', {
+              property_id: propertyId,
+              external_id: event.uid,
+              start_date: event.start,
+              end_date: event.end,
+              status,
+              source: 'calendar_sync'
+            });
+          } else {
+            console.log('[CalendarSync] Successfully inserted event:', event.uid)
+            result.eventsProcessed++
+          }
+        } else {
+          console.log('[CalendarSync] Event already exists:', event.uid)
+        }
+      }
+
+      // Update sync status
       console.log('[CalendarSync] Sync completed successfully:', result)
 
       await this.updateCalendarFeed(propertyId, feedId, {
@@ -218,8 +293,8 @@ export class CalendarSyncService {
         .from('property_availability')
         .upsert(events.map(event => ({
           property_id: propertyId,
-          start_date: event.start.toISOString(),
-          end_date: event.end.toISOString(),
+          start_date: event.start,
+          end_date: event.end,
           status: event.status || 'confirmed',
           external_id: event.uid
         })))
@@ -295,10 +370,10 @@ export class CalendarSyncService {
       }
 
       const icalData = await response.text()
-      console.log('[CalendarSync] Received iCal data, length:', icalData.length)
+      console.log('[CalendarSync] Received iCal data:', icalData)
       
       const events = parseICalendarData(icalData)
-      console.log('[CalendarSync] Parsed events:', events.length)
+      console.log('[CalendarSync] Parsed events details:', events)
 
       return events
     } catch (err) {
