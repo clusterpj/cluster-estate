@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react"
-import { supabase } from "@/lib/supabaseClient"
-import { createCalendarFeed, updateCalendarFeed, deleteCalendarFeed, getCalendarFeeds } from "@/services/calendarSync"
+import { calendarSyncService } from "@/services/calendar-sync"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 import { useToast } from "@/hooks/use-toast"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import { Loader2 } from "lucide-react"
 
 const formSchema = z.object({
   feed_url: z.string().url({ message: "Please enter a valid URL" }),
@@ -36,79 +36,75 @@ type CalendarFeed = {
 
 type ICalendarSyncProps = {
   propertyId: string
-  initialFeeds?: CalendarFeed[]
+  onSuccess?: () => void
 }
 
-export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncProps) {
-  const [feeds, setFeeds] = useState<CalendarFeed[]>(initialFeeds)
+export function ICalendarSync({ propertyId, onSuccess }: ICalendarSyncProps) {
+  const [feeds, setFeeds] = useState<CalendarFeed[]>([])
   const [isLoading, setIsLoading] = useState(false)
-
-  useEffect(() => {
-    if (!propertyId) return
-
-    const fetchFeeds = async () => {
-      try {
-        setIsLoading(true)
-        const data = await getCalendarFeeds(propertyId)
-        setFeeds(data)
-      } catch (error) {
-        console.error("Failed to fetch calendar feeds:", error)
-        toast({
-          title: "Error",
-          description: "Failed to fetch calendar feeds",
-          variant: "destructive",
-        })
-      } finally {
-        setIsLoading(false)
-      }
-    }
-    
-    fetchFeeds()
-  }, [propertyId])
   const { toast } = useToast()
-  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      feed_url: "",
-      feed_type: "import",
+      feed_url: '',
+      feed_type: 'import',
       sync_frequency: 60,
       sync_enabled: true,
     },
   })
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  useEffect(() => {
+    loadFeeds()
+  }, [propertyId])
+
+  const loadFeeds = async () => {
     if (!propertyId) {
-      toast({
-        title: "Error",
-        description: "Property ID is missing",
-        variant: "destructive",
-      })
+      console.log('[ICalendarSync] No property ID provided, skipping feed load')
       return
     }
-
+    
+    console.log('[ICalendarSync] Loading feeds for property:', propertyId)
     try {
       setIsLoading(true)
-      const newFeed = await createCalendarFeed(propertyId, {
-        ...values,
-        last_sync_at: new Date().toISOString(),
-        last_sync_status: 'success',
-        last_sync_result: {
-          eventsProcessed: 0,
-          conflicts: 0,
-          warnings: []
-        }
-      })
-      setFeeds([...feeds, newFeed])
-      form.reset()
+      const feeds = await calendarSyncService.getCalendarFeeds(propertyId)
+      console.log('[ICalendarSync] Successfully loaded feeds:', feeds)
+      setFeeds(feeds)
+    } catch (error) {
+      console.error('[ICalendarSync] Error loading feeds:', error)
       toast({
-        title: "Success",
-        description: "Calendar feed added successfully",
+        title: "Error loading calendar feeds",
+        description: error instanceof Error ? error.message : "Failed to load calendar feeds",
+        variant: "destructive",
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log('[ICalendarSync] Submitting new feed:', values)
+    try {
+      setIsLoading(true)
+      const newFeed = await calendarSyncService.createCalendarFeed(propertyId, {
+        feed_url: values.feed_url,
+        feed_type: values.feed_type,
+        sync_frequency: values.sync_frequency,
+        sync_enabled: values.sync_enabled,
+      })
+      
+      console.log('[ICalendarSync] Successfully created new feed:', newFeed)
+      form.reset()
+      await loadFeeds()
+      onSuccess?.()
+      
+      toast({
+        title: "Calendar feed added",
+        description: "The calendar feed has been successfully added",
       })
     } catch (error) {
-      console.error("Failed to add calendar feed:", error)
+      console.error('[ICalendarSync] Error creating feed:', error)
       toast({
-        title: "Error",
+        title: "Error adding calendar feed",
         description: error instanceof Error ? error.message : "Failed to add calendar feed",
         variant: "destructive",
       })
@@ -117,43 +113,68 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
     }
   }
 
-  const toggleSync = async (feedId: string) => {
+  const handleSyncNow = async (feedId: string) => {
+    console.log('[ICalendarSync] Starting manual sync for feed:', feedId)
     try {
-      const updatedFeed = await updateCalendarFeed(propertyId, feedId, {
-        sync_enabled: !feeds.find(f => f.id === feedId)?.sync_enabled
-      })
-      setFeeds(feeds.map(feed => 
-        feed.id === feedId ? updatedFeed : feed
-      ))
-      toast({
-        title: "Success",
-        description: "Sync status updated",
-      })
+      setIsLoading(true)
+      const result = await calendarSyncService.syncCalendarFeed(propertyId, feedId)
+      console.log('[ICalendarSync] Sync completed:', result)
+      
+      if (result.success) {
+        toast({
+          title: "Calendar sync complete",
+          description: `Successfully processed ${result.eventsProcessed} events`,
+        })
+        onSuccess?.()
+      } else {
+        console.warn('[ICalendarSync] Sync completed with warnings:', result.warnings)
+        toast({
+          title: "Calendar sync warning",
+          description: result.warnings?.join(", ") || "Sync completed with warnings",
+          variant: "warning",
+        })
+      }
+      
+      await loadFeeds()
     } catch (error) {
-      console.error("Failed to update sync status:", error)
+      console.error('[ICalendarSync] Sync failed:', error)
       toast({
-        title: "Error",
-        description: "Failed to update sync status",
+        title: "Sync failed",
+        description: error instanceof Error ? error.message : "Failed to sync calendar feed",
         variant: "destructive",
       })
+    } finally {
+      setIsLoading(false)
     }
   }
 
-  const deleteFeed = async (feedId: string) => {
+  const handleDelete = async (feedId: string) => {
+    console.log('[ICalendarSync] Attempting to delete feed:', feedId)
+    if (!confirm("Are you sure you want to delete this calendar feed?")) {
+      console.log('[ICalendarSync] Delete cancelled by user')
+      return
+    }
+    
     try {
-      await deleteCalendarFeed(propertyId, feedId)
-      setFeeds(feeds.filter(feed => feed.id !== feedId))
+      setIsLoading(true)
+      await calendarSyncService.deleteCalendarFeed(propertyId, feedId)
+      console.log('[ICalendarSync] Successfully deleted feed:', feedId)
+      await loadFeeds()
+      onSuccess?.()
+      
       toast({
-        title: "Success",
-        description: "Calendar feed deleted",
+        title: "Calendar feed deleted",
+        description: "The calendar feed has been successfully removed",
       })
     } catch (error) {
-      console.error("Failed to delete calendar feed:", error)
+      console.error('[ICalendarSync] Error deleting feed:', error)
       toast({
-        title: "Error",
-        description: "Failed to delete calendar feed",
+        title: "Error deleting feed",
+        description: error instanceof Error ? error.message : "Failed to delete calendar feed",
         variant: "destructive",
       })
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -171,24 +192,22 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
                 name="feed_url"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Feed URL</FormLabel>
+                    <FormLabel>Calendar Feed URL</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://" {...field} />
+                      <Input placeholder="https://..." {...field} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="feed_type"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Feed Type</FormLabel>
-                    <Select 
-                      onValueChange={field.onChange} 
-                      defaultValue={field.value}
-                    >
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select feed type" />
@@ -199,10 +218,11 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
                         <SelectItem value="export">Export</SelectItem>
                       </SelectContent>
                     </Select>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="sync_frequency"
@@ -210,25 +230,23 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
                   <FormItem>
                     <FormLabel>Sync Frequency (minutes)</FormLabel>
                     <FormControl>
-                      <Input 
-                        type="number" 
-                        min={15}
-                        {...field}
-                        onChange={e => field.onChange(parseInt(e.target.value))}
-                      />
+                      <Input type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="sync_enabled"
                 render={({ field }) => (
-                  <FormItem className="flex items-center justify-between">
-                    <FormLabel>Enable Sync</FormLabel>
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">Enable Sync</FormLabel>
+                    </div>
                     <FormControl>
-                      <Switch 
+                      <Switch
                         checked={field.value}
                         onCheckedChange={field.onChange}
                       />
@@ -236,12 +254,10 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
                   </FormItem>
                 )}
               />
-              
-              <Button 
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? "Adding..." : "Add Feed"}
+
+              <Button type="submit" disabled={isLoading}>
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Add Feed
               </Button>
             </form>
           </Form>
@@ -250,57 +266,51 @@ export function ICalendarSync({ propertyId, initialFeeds = [] }: ICalendarSyncPr
 
       <Card>
         <CardHeader>
-          <CardTitle>Calendar Feeds</CardTitle>
+          <CardTitle>Existing Calendar Feeds</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {isLoading ? (
-              <p className="text-center text-muted-foreground">Loading feeds...</p>
-            ) : feeds.length === 0 ? (
-              <p className="text-center text-muted-foreground">
-                No calendar feeds added yet
-              </p>
-            ) : (
-              feeds.map((feed) => (
-              <div 
-                key={feed.id}
-                className="flex items-center justify-between p-4 border rounded-lg"
-              >
-                <div className="space-y-1">
-                  <p className="font-medium">{feed.feed_url}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {feed.feed_type} • Sync every {feed.sync_frequency} minutes
-                  </p>
-                  <div className="text-sm text-muted-foreground">
-                    {feed.last_sync_at && (
-                      <p>
-                        Last sync: {new Date(feed.last_sync_at).toLocaleString()} • 
-                        Status: {feed.last_sync_status === 'success' ? '✅' : '❌'}
+            {feeds.map((feed) => (
+              <Card key={feed.id}>
+                <CardContent className="pt-6">
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="space-y-1">
+                      <p className="font-medium">{feed.feed_url}</p>
+                      <p className="text-sm text-muted-foreground">
+                        Type: {feed.feed_type} | Frequency: {feed.sync_frequency} minutes
                       </p>
-                    )}
-                    {feed.last_sync_result && (
-                      <p>
-                        Processed: {feed.last_sync_result.eventsProcessed} events • 
-                        Conflicts: {feed.last_sync_result.conflicts || 0}
-                      </p>
-                    )}
+                      {feed.last_sync_at && (
+                        <p className="text-sm text-muted-foreground">
+                          Last sync: {new Date(feed.last_sync_at).toLocaleString()}
+                          {feed.last_sync_result && ` (${feed.last_sync_result.eventsProcessed} events)`}
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        size="sm"
+                        onClick={() => handleSyncNow(feed.id)}
+                        disabled={isLoading}
+                      >
+                        {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                        Sync Now
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => handleDelete(feed.id)}
+                        disabled={isLoading}
+                      >
+                        Delete
+                      </Button>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Switch 
-                    checked={feed.sync_enabled}
-                    onCheckedChange={() => toggleSync(feed.id)}
-                  />
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => deleteFeed(feed.id)}
-                  >
-                    Delete
-                  </Button>
-                </div>
-              </div>
-            )))}
+                </CardContent>
+              </Card>
+            ))}
+            {feeds.length === 0 && (
+              <p className="text-center text-muted-foreground">No calendar feeds found</p>
+            )}
           </div>
         </CardContent>
       </Card>

@@ -278,25 +278,54 @@
       },
       "calendar": {
         "title": "Calendar Management",
-        "description": "Manage calendar sync and availability",
-        "legend": {
-          "available": "Available",
-          "booked": "Booked",
-          "pending": "Pending",
-          "maintenance": "Maintenance",
-          "partial": "Partial Availability",
-          "singleView": "Single Property View",
-          "allProperties": "All Properties View",
-          "singlePropertyTitle": "Property Calendar",
-          "errorTitle": "Availability Error",
-          "errorDescription": "Failed to load calendar data"
+        "manageTitle": "Manage Calendar Feeds",
+        "manageDescription": "Manage calendar feeds for",
+        "syncSuccess": "Calendar Sync Complete",
+        "syncSuccessDescription": "The calendar has been successfully synchronized",
+        "addFeed": "Add Calendar Feed",
+        "existingFeeds": "Existing Calendar Feeds",
+        "noFeeds": "No calendar feeds found",
+        "feedUrl": "Calendar Feed URL",
+        "feedType": "Feed Type",
+        "syncFrequency": "Sync Frequency (minutes)",
+        "enableSync": "Enable Sync",
+        "lastSync": "Last sync",
+        "syncNow": "Sync Now",
+        "delete": "Delete Feed",
+        "import": "Import",
+        "export": "Export",
+        "events": "events",
+        "feeds": {
+          "title": "Calendar Feeds",
+          "add": "Add Feed",
+          "edit": "Edit Feed",
+          "delete": "Delete Feed",
+          "sync": "Sync Now",
+          "lastSync": "Last Sync",
+          "status": {
+            "success": "Success",
+            "error": "Error",
+            "pending": "Pending"
+          }
         },
-        "loading": "Loading calendar...",
-        "selectProperty": "Select Property",
-        "pickDate": "Pick a date",
-        "allProperties": "All Properties",
-        "errorTitle": "Calendar Error",
-        "errorMessage": "Failed to load calendar data"
+        "form": {
+          "feedUrl": "Feed URL",
+          "feedType": "Feed Type",
+          "syncEnabled": "Enable Sync",
+          "syncFrequency": "Sync Frequency",
+          "description": "Description"
+        },
+        "errors": {
+          "invalidUrl": "Invalid feed URL",
+          "syncFailed": "Sync failed",
+          "fetchFailed": "Failed to fetch feed"
+        },
+        "success": {
+          "feedAdded": "Calendar feed added successfully",
+          "feedUpdated": "Calendar feed updated successfully",
+          "feedDeleted": "Calendar feed deleted successfully",
+          "syncComplete": "Calendar sync completed successfully"
+        }
       },
       "users": {
         "title": "User Management",
@@ -437,7 +466,8 @@
             "markRented": "Mark as Rented",
             "edit": "Edit Property",
             "delete": "Delete Property",
-            "status": "Change Status"
+            "status": "Change Status",
+            "manageCalendar": "Manage Calendar"
           },
           "deleteConfirmation": {
             "title": "Delete Property",
@@ -457,6 +487,25 @@
           "updateSuccess": "Property updated successfully",
           "createSuccess": "Property created successfully",
           "deleteSuccess": "Property deleted successfully"
+        },
+        "calendar": {
+          "manageTitle": "Manage Calendar Feeds",
+          "manageDescription": "Manage calendar feeds for",
+          "syncSuccess": "Calendar Sync Complete",
+          "syncSuccessDescription": "The calendar has been successfully synchronized",
+          "addFeed": "Add Calendar Feed",
+          "existingFeeds": "Existing Calendar Feeds",
+          "noFeeds": "No calendar feeds found",
+          "feedUrl": "Calendar Feed URL",
+          "feedType": "Feed Type",
+          "syncFrequency": "Sync Frequency (minutes)",
+          "enableSync": "Enable Sync",
+          "lastSync": "Last sync",
+          "syncNow": "Sync Now",
+          "delete": "Delete Feed",
+          "import": "Import",
+          "export": "Export",
+          "events": "events"
         }
       
     },

@@ -17,7 +17,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { PropertyForm } from './property-form'
 import { useTranslations } from 'next-intl'
 import { useToast } from '@/hooks/use-toast'
-import { X, MoreHorizontal, Check, Ban, Star, Edit, Trash } from 'lucide-react'
+import { X, MoreHorizontal, Check, Ban, Star, Edit, Trash, Calendar } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,6 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { ICalendarSync } from '@/components/calendar/ICalendarSync'
 
 export function PropertyManagement() {
   const [properties, setProperties] = useState<Property[]>([])
@@ -34,6 +35,7 @@ export function PropertyManagement() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+  const [isCalendarDialogOpen, setIsCalendarDialogOpen] = useState(false)
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
   const [listingTypeFilter, setListingTypeFilter] = useState<'all' | 'sale' | 'rent' | 'both'>('all')
   const supabase = createClientComponentClient()
@@ -325,6 +327,45 @@ export function PropertyManagement() {
         </DialogContent>
       </Dialog>
 
+      <Dialog open={isCalendarDialogOpen} onOpenChange={setIsCalendarDialogOpen}>
+        <DialogContent className="max-w-[95vw] w-full lg:max-w-[800px]" hideDefaultClose>
+          <DialogHeader>
+            <div className="flex justify-between items-center">
+              <DialogTitle>{t('calendar.manageTitle')}</DialogTitle>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsCalendarDialogOpen(false)}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <DialogDescription>
+              {selectedProperty && (
+                <span>
+                  {t('calendar.manageDescription')} {selectedProperty.title}
+                </span>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+          {selectedProperty && (
+            <div className="mt-4">
+              <ICalendarSync
+                propertyId={selectedProperty.id}
+                onSuccess={() => {
+                  setIsCalendarDialogOpen(false)
+                  fetchProperties()
+                  toast({
+                    title: t('calendar.syncSuccess'),
+                    description: t('calendar.syncSuccessDescription'),
+                  })
+                }}
+              />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
       <Table>
         <TableHeader>
           <TableRow>
@@ -399,9 +440,7 @@ export function PropertyManagement() {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>{t('actions.manage')}</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    
+                    <DropdownMenuLabel>{t('actions.title')}</DropdownMenuLabel>
                     <DropdownMenuItem
                       onClick={() => {
                         const features = property.features || [];
@@ -415,10 +454,8 @@ export function PropertyManagement() {
                       <Star className="mr-2 h-4 w-4" />
                       {property.features?.includes('featured') ? t('actions.unmarkFeatured') : t('actions.markFeatured')}
                     </DropdownMenuItem>
-                    
                     <DropdownMenuSeparator />
                     <DropdownMenuLabel>{t('actions.status')}</DropdownMenuLabel>
-                    
                     <DropdownMenuItem
                       onClick={() => updatePropertyStatus(property.id, 'available')}
                       disabled={property.status === 'available'}
@@ -426,14 +463,12 @@ export function PropertyManagement() {
                       <Check className="mr-2 h-4 w-4" />
                       {t('actions.markAvailable')}
                     </DropdownMenuItem>
-                    
                     <DropdownMenuItem
- onClick={() => updatePropertyStatus(property.id, 'pending')}
+                      onClick={() => updatePropertyStatus(property.id, 'pending')}
                       disabled={['pending', 'sold', 'rented'].includes(property.status)}>
                       <Ban className="mr-2 h-4 w-4" />
                       {t('actions.markPending')}
                     </DropdownMenuItem>
-                    
                     <DropdownMenuItem
                       onClick={() => updatePropertyStatus(property.id, 'sold')}
                       disabled={property.status === 'sold'}
@@ -441,7 +476,6 @@ export function PropertyManagement() {
                       <Check className="mr-2 h-4 w-4" />
                       {t('actions.markSold')}
                     </DropdownMenuItem>
-                    
                     {(property.listing_type === 'rent' || property.listing_type === 'both') && (
                       <>
                         <DropdownMenuItem
@@ -454,46 +488,24 @@ export function PropertyManagement() {
                         <DropdownMenuSeparator />
                       </>
                     )}
-                    
                     <DropdownMenuItem
                       onClick={() => {
-                        // Create a deep copy of the property data
-                        const propertyData = JSON.parse(JSON.stringify(property))
-                        // Ensure all required fields are present and properly formatted
-                        const formattedData = {
-                          ...propertyData,
-                          title: propertyData.title || '',
-                          description: propertyData.description || '',
-                          status: isValidPropertyStatus(propertyData.status) ? propertyData.status : 'available',
-                          property_type: propertyData.property_type ?? 'house',
-                          sale_price: propertyData.sale_price || 0,
-                          rental_price: propertyData.rental_price || 0,
-                          location: propertyData.location || '',
-                          bedrooms: propertyData.bedrooms || 0,
-                          bathrooms: propertyData.bathrooms || 0,
-                          square_feet: propertyData.square_feet || 0,
-                          deposit_amount: propertyData.deposit_amount || 0,
-                          minimum_rental_period: propertyData.minimum_rental_period || 0,
-                          available_from: propertyData.available_from ? 
-                            new Date(propertyData.available_from).toISOString().split('T')[0] : '',
-                          available_to: propertyData.available_to ? 
-                            new Date(propertyData.available_to).toISOString().split('T')[0] : '',
-                          features: Array.isArray(propertyData.features) ? propertyData.features : [],
-                          images: Array.isArray(propertyData.images) ? propertyData.images : [],
-                          rental_frequency: propertyData.rental_frequency || 'monthly',
-                          pets_allowed: propertyData.pets_allowed || false,
-                          pet_restrictions: Array.isArray(propertyData.pet_restrictions) ? propertyData.pet_restrictions : [],
-                          pet_deposit: propertyData.pet_deposit || 0,
-                          ical_url: propertyData.ical_url || ''
-                        }
-                        setSelectedProperty(formattedData)
+                        setSelectedProperty(property)
                         setIsEditDialogOpen(true)
                       }}
                     >
                       <Edit className="mr-2 h-4 w-4" />
                       {t('actions.edit')}
                     </DropdownMenuItem>
-                    
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setSelectedProperty(property)
+                        setIsCalendarDialogOpen(true)
+                      }}
+                    >
+                      <Calendar className="mr-2 h-4 w-4" />
+                      {t('actions.manageCalendar')}
+                    </DropdownMenuItem>
                     <DropdownMenuItem
                       className="text-red-600"
                       onClick={() => {
