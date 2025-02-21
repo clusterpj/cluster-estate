@@ -66,6 +66,22 @@ export async function POST(request: Request) {
     
     console.log('Creating booking with status:', { paymentStatus, bookingStatus })
     
+    // ** AVAILABILITY CHECK **
+    const { data: availability, error: availabilityError } = await supabase
+      .from('property_availability')
+      .select('*')
+      .eq('property_id', bookingData.propertyId)
+      .or(`and(start_date.lte.${new Date(bookingData.checkOut).toISOString()},end_date.gte.${new Date(bookingData.checkIn).toISOString()})`)
+      .single()
+
+    if (availabilityError || !availability) {
+      console.error('Availability check failed:', availabilityError)
+      return NextResponse.json(
+        { error: 'Property is not available for the selected dates.' },
+        { status: 400 }
+      )
+    }
+
     const { data: booking, error: bookingError } = await supabase
       .from('bookings')
       .insert({

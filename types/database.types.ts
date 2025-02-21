@@ -149,6 +149,40 @@ export interface Database {
           updated_at?: string
         }
       }
+      property_availability: {
+        Row: {
+          id: string
+          property_id: string
+          start_date: string
+          end_date: string
+          description: string | null
+          external_id: string | null
+          status: 'available' | 'booked' | 'blocked'
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          property_id: string
+          start_date: string
+          end_date: string
+          description?: string | null
+          external_id?: string | null
+          status?: 'available' | 'booked' | 'blocked'
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          property_id?: string
+          start_date?: string
+          end_date?: string
+          description?: string | null
+          external_id?: string | null
+          status?: 'available' | 'booked' | 'blocked'
+          updated_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
