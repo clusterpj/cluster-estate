@@ -66,16 +66,25 @@ export async function POST(request: Request) {
     
     console.log('Creating booking with status:', { paymentStatus, bookingStatus })
     
-    // ** AVAILABILITY CHECK **
-    const { data: availability, error: availabilityError } = await supabase
+    // Check for any conflicting unavailable dates
+    const { data: conflicts, error: availabilityError } = await supabase
       .from('property_availability')
       .select('*')
       .eq('property_id', bookingData.propertyId)
+      .eq('status', 'unavailable')
       .or(`and(start_date.lte.${new Date(bookingData.checkOut).toISOString()},end_date.gte.${new Date(bookingData.checkIn).toISOString()})`)
-      .single()
 
-    if (availabilityError || !availability) {
+    if (availabilityError) {
       console.error('Availability check failed:', availabilityError)
+      return NextResponse.json(
+        { error: 'Failed to check property availability.' },
+        { status: 500 }
+      )
+    }
+
+    // If there are any conflicting unavailable dates, reject the booking
+    if (conflicts && conflicts.length > 0) {
+      console.error('Date conflict found:', conflicts)
       return NextResponse.json(
         { error: 'Property is not available for the selected dates.' },
         { status: 400 }

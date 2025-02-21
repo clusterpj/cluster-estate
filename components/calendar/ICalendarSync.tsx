@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { Loader2 } from "lucide-react"
+import { FeedPrioritySelect } from './FeedPrioritySelect'
 
 const formSchema = z.object({
   feed_url: z.string().url({ message: "Please enter a valid URL" }),
@@ -32,6 +33,7 @@ type CalendarFeed = {
     conflicts?: number
     warnings?: string[]
   }
+  priority?: number
 }
 
 type ICalendarSyncProps = {
@@ -42,6 +44,7 @@ type ICalendarSyncProps = {
 export function ICalendarSync({ propertyId, onSuccess }: ICalendarSyncProps) {
   const [feeds, setFeeds] = useState<CalendarFeed[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [isSyncing, setIsSyncing] = useState(false)
   const { toast } = useToast()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -114,39 +117,26 @@ export function ICalendarSync({ propertyId, onSuccess }: ICalendarSyncProps) {
   }
 
   const handleSyncNow = async (feedId: string) => {
-    console.log('[ICalendarSync] Starting manual sync for feed:', feedId)
+    setIsSyncing(true);
     try {
-      setIsLoading(true)
-      const result = await calendarSyncService.syncCalendarFeed(propertyId, feedId)
-      console.log('[ICalendarSync] Sync completed:', result)
+      console.log('[ICalendarSync] Starting manual sync for feed:', feedId);
+      // Fix parameter order to match the service method signature
+      const result = await calendarSyncService.syncCalendarFeed(feedId, propertyId);
+      console.log('[ICalendarSync] Sync completed:', result);
       
-      if (result.success) {
-        toast({
-          title: "Calendar sync complete",
-          description: `Successfully processed ${result.eventsProcessed} events`,
-        })
-        onSuccess?.()
-      } else {
-        console.warn('[ICalendarSync] Sync completed with warnings:', result.warnings)
-        toast({
-          title: "Calendar sync warning",
-          description: result.warnings?.join(", ") || "Sync completed with warnings",
-          variant: "warning",
-        })
-      }
-      
-      await loadFeeds()
+      // Refresh feeds after sync
+      await loadFeeds();
     } catch (error) {
-      console.error('[ICalendarSync] Sync failed:', error)
+      console.error('[ICalendarSync] Error during sync:', error);
       toast({
-        title: "Sync failed",
-        description: error instanceof Error ? error.message : "Failed to sync calendar feed",
-        variant: "destructive",
-      })
+        title: "Sync Failed",
+        description: error instanceof Error ? error.message : "Failed to sync calendar",
+        variant: "destructive"
+      });
     } finally {
-      setIsLoading(false)
+      setIsSyncing(false);
     }
-  }
+  };
 
   const handleDelete = async (feedId: string) => {
     console.log('[ICalendarSync] Attempting to delete feed:', feedId)
@@ -287,10 +277,15 @@ export function ICalendarSync({ propertyId, onSuccess }: ICalendarSyncProps) {
                       )}
                     </div>
                     <div className="flex items-center gap-2">
+                      <FeedPrioritySelect
+                        feedId={feed.id}
+                        propertyId={propertyId}
+                        currentPriority={feed.priority || 1}
+                      />
                       <Button
                         size="sm"
                         onClick={() => handleSyncNow(feed.id)}
-                        disabled={isLoading}
+                        disabled={isLoading || isSyncing}
                       >
                         {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                         Sync Now

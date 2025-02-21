@@ -3,6 +3,32 @@ import { Database } from '@/types/database.types'
 import { CalendarEvent, SyncResult } from '@/types/calendar'
 import { parseICalendarData } from '@/lib/calendar'
 
+interface CalendarFeed {
+  id: string;
+  property_id: string;
+  feed_url: string;
+  feed_type: 'import' | 'export';
+  sync_frequency: number;
+  sync_enabled: boolean;
+  last_sync_at: string | null;
+  last_sync_status: string | null;
+  last_sync_result: any;
+  created_at: string;
+  priority: number;
+}
+
+interface PropertyAvailability {
+  id: string;
+  property_id: string;
+  external_id: string;
+  start_date: string;
+  end_date: string;
+  status: 'available' | 'unavailable';
+  source: 'calendar_sync' | 'manual';
+  feed_id: string;
+  feed_priority: number;
+}
+
 export class CalendarSyncService {
   private supabase = createClientComponentClient<Database>()
 
@@ -90,172 +116,209 @@ export class CalendarSyncService {
     }
   }
 
-  async syncCalendarFeed(propertyId: string, feedId: string): Promise<SyncResult> {
-    console.log('[CalendarSync] Starting sync for feed:', feedId, 'property:', propertyId)
+  private async findConflictingEvents(propertyId: string, startDate: string, endDate: string): Promise<PropertyAvailability[]> {
+    console.log('[CalendarSync] Checking for conflicting events:', { propertyId, startDate, endDate });
+    
+    const { data: conflicts, error } = await this.supabase
+      .from('property_availability')
+      .select('*')
+      .eq('property_id', propertyId)
+      .or(`start_date.lte.${endDate},end_date.gte.${startDate}`);
+
+    if (error) {
+      console.error('[CalendarSync] Error checking conflicts:', error);
+      return [];
+    }
+
+    return conflicts || [];
+  }
+
+  private async handleEventConflicts(
+    event: CalendarEvent,
+    feed: CalendarFeed,
+    conflicts: PropertyAvailability[]
+  ): Promise<boolean> {
+    console.log('[CalendarSync] Handling conflicts for event:', {
+      eventId: event.uid,
+      feedPriority: feed.priority,
+      conflicts: conflicts.length
+    });
+
+    // If no conflicts or current feed has higher priority, proceed with update
+    const canOverride = conflicts.every(conflict => 
+      !conflict.feed_priority || feed.priority >= conflict.feed_priority
+    );
+
+    if (canOverride) {
+      // Delete conflicting events with lower or equal priority
+      if (conflicts.length > 0) {
+        console.log('[CalendarSync] Overriding conflicting events with lower priority');
+        const { error: deleteError } = await this.supabase
+          .from('property_availability')
+          .delete()
+          .in('id', conflicts.map(c => c.id));
+
+        if (deleteError) {
+          console.error('[CalendarSync] Error deleting conflicts:', deleteError);
+          return false;
+        }
+      }
+      return true;
+    }
+
+    console.log('[CalendarSync] Cannot override - lower priority');
+    return false;
+  }
+
+  public async syncCalendarFeed(feedId: string, propertyId: string): Promise<SyncResult> {
+    console.log('[CalendarSync] Starting sync for feed:', feedId, 'property:', propertyId);
+    
+    const result: SyncResult = {
+      success: true,
+      eventsProcessed: 0,
+      lastSync: new Date(),
+      warnings: []
+    };
+
     try {
-      // Get the feed
+      // Get feed details including priority
       const { data: feed, error: feedError } = await this.supabase
         .from('calendar_feeds')
         .select('*')
         .eq('id', feedId)
         .eq('property_id', propertyId)
-        .single()
+        .single();
 
-      if (feedError || !feed) {
-        console.error('[CalendarSync] Feed not found:', feedError)
-        throw new Error('Feed not found')
+      if (feedError) {
+        console.error('[CalendarSync] Error fetching feed:', feedError);
+        throw new Error(`Failed to fetch feed: ${feedError.message}`);
       }
 
-      console.log('[CalendarSync] Found feed to sync:', feed)
+      if (!feed) {
+        console.error('[CalendarSync] Feed not found:', { feedId, propertyId });
+        throw new Error('Feed not found');
+      }
 
-      // Parse events from the feed
-      console.log('[CalendarSync] Fetching events from URL:', feed.feed_url)
-      const response = await fetch(feed.feed_url)
+      console.log('[CalendarSync] Found feed to sync:', feed);
+
+      // Fetch and parse events
+      const response = await fetch(feed.feed_url);
       if (!response.ok) {
-        throw new Error(`Failed to fetch iCal feed: ${response.statusText}`)
+        throw new Error(`Failed to fetch iCal feed: ${response.statusText}`);
       }
 
-      const icalData = await response.text()
-      console.log('[CalendarSync] Received iCal data:', icalData)
-      
-      const events = parseICalendarData(icalData)
-      console.log('[CalendarSync] Parsed events details:', events)
+      const icalData = await response.text();
+      console.log('[CalendarSync] Received iCal data:', icalData);
 
-      // Save events to property_availability table
-      const result: SyncResult = {
-        success: true,
-        eventsProcessed: 0,
-        lastSync: new Date(),
-        warnings: []
-      }
+      const events = parseICalendarData(icalData);
+      console.log('[CalendarSync] Parsed events details:', events);
 
+      // Process each event
       for (const event of events) {
-        // Check if event already exists
-        const { data: existingEvents, error: queryError } = await this.supabase
-          .from('property_availability')
-          .select('*')
-          .eq('property_id', propertyId)
-          .eq('external_id', event.uid)
+        try {
+          // Check for existing event by external_id
+          const { data: existingEvents, error: queryError } = await this.supabase
+            .from('property_availability')
+            .select('*')
+            .eq('property_id', propertyId)
+            .eq('external_id', event.uid);
 
-        if (queryError) {
-          console.error('[CalendarSync] Error querying existing event:', queryError)
-          result.warnings.push(`Failed to query event: ${event.uid}`)
-          continue
-        }
+          if (queryError) {
+            console.error('[CalendarSync] Error querying existing event:', queryError);
+            result.warnings.push(`Failed to query event ${event.uid}: ${queryError.message}`);
+            continue;
+          }
 
-        // Only insert if no existing event found
-        if (!existingEvents || existingEvents.length === 0) {
-          console.log('[CalendarSync] Preparing to insert event:', {
-            property_id: propertyId,
-            external_id: event.uid,
-            start_date: event.start,
-            end_date: event.end,
-            status: 'unavailable',
-            source: 'calendar_sync'
-          });
+          // Find any conflicting events in the date range
+          const conflicts = await this.findConflictingEvents(
+            propertyId,
+            event.start,
+            event.end
+          );
 
-          // Map iCal status to our status
+          // Handle conflicts based on priority
+          const canProceed = await this.handleEventConflicts(event, feed, conflicts);
+
+          if (!canProceed) {
+            result.warnings.push(`Skipped event ${event.uid} due to higher priority conflict`);
+            continue;
+          }
+
+          // Map status
           let status: 'available' | 'unavailable' = 'unavailable';
           switch (event.status?.toLowerCase()) {
             case 'canceled':
             case 'cancelled':
               status = 'available';
               break;
-            case 'confirmed':
-            case 'tentative':
-            case 'booked':
             default:
               status = 'unavailable';
           }
 
-          console.log('[CalendarSync] Mapped status:', {
-            originalStatus: event.status,
-            mappedStatus: status
-          });
+          // Insert or update event
+          const eventData = {
+            property_id: propertyId,
+            external_id: event.uid,
+            start_date: event.start,
+            end_date: event.end,
+            status,
+            source: 'calendar_sync' as const,
+            feed_id: feed.id,
+            feed_priority: feed.priority
+          };
 
-          const { error: insertError } = await this.supabase
-            .from('property_availability')
-            .insert({
-              property_id: propertyId,
-              external_id: event.uid,
-              start_date: event.start,
-              end_date: event.end,
-              status,
-              source: 'calendar_sync'
-            })
+          if (!existingEvents || existingEvents.length === 0) {
+            const { error: insertError } = await this.supabase
+              .from('property_availability')
+              .insert(eventData);
 
-          if (insertError) {
-            console.error('[CalendarSync] Error inserting event:', insertError);
-            console.log('[CalendarSync] Failed event data:', {
-              property_id: propertyId,
-              external_id: event.uid,
-              start_date: event.start,
-              end_date: event.end,
-              status,
-              source: 'calendar_sync'
-            });
+            if (insertError) {
+              console.error('[CalendarSync] Error inserting event:', insertError);
+              result.warnings.push(`Failed to insert event ${event.uid}: ${insertError.message}`);
+            } else {
+              console.log('[CalendarSync] Successfully inserted event:', event.uid);
+              result.eventsProcessed++;
+            }
           } else {
-            console.log('[CalendarSync] Successfully inserted event:', event.uid)
-            result.eventsProcessed++
+            const { error: updateError } = await this.supabase
+              .from('property_availability')
+              .update(eventData)
+              .eq('external_id', event.uid)
+              .eq('property_id', propertyId);
+
+            if (updateError) {
+              console.error('[CalendarSync] Error updating event:', updateError);
+              result.warnings.push(`Failed to update event ${event.uid}: ${updateError.message}`);
+            } else {
+              console.log('[CalendarSync] Successfully updated event:', event.uid);
+              result.eventsProcessed++;
+            }
           }
-        } else {
-          console.log('[CalendarSync] Event already exists:', event.uid)
+        } catch (eventError) {
+          console.error('[CalendarSync] Error processing event:', eventError);
+          result.warnings.push(`Failed to process event ${event.uid}: ${eventError instanceof Error ? eventError.message : 'Unknown error'}`);
         }
       }
 
-      // Update sync status
-      console.log('[CalendarSync] Sync completed successfully:', result)
+      // Update feed sync status
+      await this.updateFeedSyncStatus(feed.id, propertyId, result);
 
-      await this.updateCalendarFeed(propertyId, feedId, {
-        last_sync_at: result.lastSync.toISOString(),
-        last_sync_status: 'success',
-        last_sync_result: result
-      })
-
-      return result
-    } catch (err) {
-      console.error('[CalendarSync] Error during sync:', err)
-      const errorResult: SyncResult = {
-        success: false,
-        eventsProcessed: 0,
-        warnings: [err instanceof Error ? err.message : 'Unknown error occurred'],
-        lastSync: new Date()
-      }
-
-      await this.updateCalendarFeed(propertyId, feedId, {
-        last_sync_at: errorResult.lastSync.toISOString(),
-        last_sync_status: 'error',
-        last_sync_result: errorResult
-      })
-
-      throw err
+    } catch (error) {
+      console.error('[CalendarSync] Error during sync:', error);
+      result.success = false;
+      result.warnings.push(error instanceof Error ? error.message : 'Unknown error during sync');
+      throw error; // Re-throw to handle in the component
     }
+
+    return result;
   }
 
-  private datesOverlap(
-    start1: Date,
-    end1: Date,
-    start2: Date,
-    end2: Date
-  ): boolean {
-    return start1 < end2 && start2 < end1
-  }
-
-  private findBookingConflicts(
-    calendarEvents: CalendarEvent[],
-    existingBookings: { start_date: string; end_date: string }[]
-  ): CalendarEvent[] {
-    console.log('[CalendarSync] Checking for booking conflicts:', calendarEvents.length, existingBookings.length)
-    return calendarEvents.filter(event => 
-      existingBookings.some(booking => 
-        this.datesOverlap(
-          event.start,
-          event.end,
-          new Date(booking.start_date),
-          new Date(booking.end_date)
-        )
-      )
-    )
+  private async updateFeedSyncStatus(feedId: string, propertyId: string, result: SyncResult) {
+    await this.updateCalendarFeed(propertyId, feedId, {
+      last_sync_at: result.lastSync.toISOString(),
+      last_sync_status: result.success ? 'success' : 'error',
+      last_sync_result: result
+    });
   }
 
   async updatePropertyAvailability(propertyId: string, events: CalendarEvent[]) {
@@ -380,6 +443,32 @@ export class CalendarSyncService {
       console.error('[CalendarSync] Error parsing iCal feed:', err)
       throw new Error('Failed to parse iCal feed')
     }
+  }
+
+  private datesOverlap(
+    start1: Date,
+    end1: Date,
+    start2: Date,
+    end2: Date
+  ): boolean {
+    return start1 < end2 && start2 < end1
+  }
+
+  private findBookingConflicts(
+    calendarEvents: CalendarEvent[],
+    existingBookings: { start_date: string; end_date: string }[]
+  ): CalendarEvent[] {
+    console.log('[CalendarSync] Checking for booking conflicts:', calendarEvents.length, existingBookings.length)
+    return calendarEvents.filter(event => 
+      existingBookings.some(booking => 
+        this.datesOverlap(
+          event.start,
+          event.end,
+          new Date(booking.start_date),
+          new Date(booking.end_date)
+        )
+      )
+    )
   }
 }
 
