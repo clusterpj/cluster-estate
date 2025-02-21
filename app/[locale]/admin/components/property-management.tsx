@@ -76,8 +76,8 @@ export function PropertyManagement() {
   }
 
   const validStatusTransitions: Record<PropertyStatus, PropertyStatus[]> = {
-    available: ['pending', 'sold', 'rented'],
-    pending: ['available', 'sold', 'rented'],
+    available: ['pending', 'sold', 'rented', 'booked'],
+    pending: ['available', 'sold', 'rented', 'booked'],
     sold: ['available'],
     rented: ['available'],
     booked: ['available']
@@ -88,7 +88,7 @@ export function PropertyManagement() {
       // Get current property status
       const { data: currentProperty } = await supabase
         .from('properties')
-        .select('status')
+        .select('status, property_type')
         .eq('id', id)
         .single();
 
@@ -99,29 +99,38 @@ export function PropertyManagement() {
       // Validate status transition if it's a status change
       if (typeof status === 'string') {
         const currentStatus = currentProperty.status as PropertyStatus;
-        if (!validStatusTransitions[currentStatus]?.includes(status)) {
-          throw new Error(`Invalid status transition from ${currentStatus} to ${status}`);
+        if (!validStatusTransitions[currentStatus].includes(status)) {
+          throw new Error(t('invalidStatusTransition', { 
+            current: currentStatus, 
+            target: status 
+          }));
         }
+
+        const { error } = await supabase
+          .from('properties')
+          .update({ 
+            status,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', id);
+
+        if (error) throw error;
+
+        setProperties(prev => prev.map(p => 
+          p.id === id ? { ...p, status } : p
+        ));
+
+        setToastMessage({
+          title: t('success'),
+          description: t('statusUpdateSuccess'),
+          type: 'success'
+        });
       }
-
-      const { error } = await supabase
-        .from('properties')
-        .update(typeof status === 'string' ? { status } : status)
-        .eq('id', id);
-
-      if (error) throw error;
-
-      fetchProperties()
-      setToastMessage({
-        title: t('success'),
-        description: t('updateSuccess'),
-        type: 'success'
-      })
     } catch (err) {
-      console.error('Error updating property:', err);
+      console.error('Error updating property status:', err);
       setToastMessage({
         title: t('error'),
-        description: err instanceof Error ? err.message : t('updateError'),
+        description: t('statusUpdateError'),
         type: 'error'
       });
     }
@@ -164,9 +173,11 @@ export function PropertyManagement() {
     }
   }, [toastMessage, toast])
 
-  const filteredProperties = properties.filter(property => 
-    listingTypeFilter === 'all' ? true : property.listing_type === listingTypeFilter
-  )
+  const filteredProperties = properties.filter(property => {
+    if (listingTypeFilter === 'all') return true;
+    return property.listing_type === listingTypeFilter || 
+           (listingTypeFilter === 'both' && property.listing_type === 'both');
+  })
 
   async function syncIcalCalendars() {
     try {

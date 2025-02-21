@@ -53,7 +53,7 @@ export interface Database {
           bathrooms: number
           square_feet: number
           status: 'available' | 'pending' | 'rented' | 'sold' | 'booked'
-          type: 'house' | 'apartment' | 'villa' | 'land'
+          property_type: 'house' | 'apartment' | 'villa' | 'land'
           listing_type: 'sale' | 'rent' | 'both'
           features: string[]
           created_at: string
@@ -78,7 +78,7 @@ export interface Database {
           bathrooms: number
           square_feet: number
           status?: 'available' | 'pending' | 'rented' | 'sold' | 'booked'
-          type: 'house' | 'apartment' | 'villa' | 'land'
+          property_type: 'house' | 'apartment' | 'villa' | 'land'
           listing_type: 'sale' | 'rent' | 'both'
           features?: string[]
           created_at?: string
@@ -103,7 +103,7 @@ export interface Database {
           bathrooms?: number
           square_feet?: number
           status?: 'available' | 'pending' | 'rented' | 'sold' | 'booked'
-          type?: 'house' | 'apartment' | 'villa' | 'land'
+          property_type?: 'house' | 'apartment' | 'villa' | 'land'
           listing_type?: 'sale' | 'rent' | 'both'
           features?: string[]
           updated_at?: string
