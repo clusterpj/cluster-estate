@@ -83,7 +83,11 @@ export default function AdminDashboard() {
               <CardTitle>{t('properties.title')}</CardTitle>
             </CardHeader>
             <CardContent>
-              <PropertyManagement />
+              <div className="space-y-8">
+                <div className="flex-1 space-y-4">
+                  <PropertyManagement />
+                </div>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

@@ -285,7 +285,10 @@ export class CalendarSyncService {
   async parseICalFeed(feedUrl: string): Promise<CalendarEvent[]> {
     console.log('[CalendarSync] Starting to parse iCal feed from URL:', feedUrl)
     try {
-      const response = await fetch(feedUrl)
+      // Use our proxy API route instead of direct fetch
+      const proxyUrl = `/api/calendar/proxy?url=${encodeURIComponent(feedUrl)}`
+      const response = await fetch(proxyUrl)
+      
       if (!response.ok) {
         console.error('[CalendarSync] Failed to fetch feed:', response.status, response.statusText)
         throw new Error(`Failed to fetch iCal feed: ${response.statusText}`)

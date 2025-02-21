@@ -277,9 +277,10 @@
         "calendar": "Calendar"
       },
       "calendar": {
+        "allProperties": "All Properties",
         "title": "Calendar Management",
         "manageTitle": "Manage Calendar Feeds",
-        "manageDescription": "Manage calendar feeds for",
+        "description": "Manage calendar feeds for",
         "syncSuccess": "Calendar Sync Complete",
         "syncSuccessDescription": "The calendar has been successfully synchronized",
         "addFeed": "Add Calendar Feed",
@@ -308,13 +309,7 @@
             "pending": "Pending"
           }
         },
-        "form": {
-          "feedUrl": "Feed URL",
-          "feedType": "Feed Type",
-          "syncEnabled": "Enable Sync",
-          "syncFrequency": "Sync Frequency",
-          "description": "Description"
-        },
+
         "errors": {
           "invalidUrl": "Invalid feed URL",
           "syncFailed": "Sync failed",
@@ -325,6 +320,42 @@
           "feedUpdated": "Calendar feed updated successfully",
           "feedDeleted": "Calendar feed deleted successfully",
           "syncComplete": "Calendar sync completed successfully"
+        },
+        "sync": {
+          "button": "Sync with Airbnb",
+          "success": "Sync Successful",
+          "successDescription": "Successfully synced {imported} imported events and {exported} exported events",
+          "error": "Sync Failed",
+          "unknownError": "An unknown error occurred",
+          "conflictsFound": "Calendar Conflicts Found",
+          "conflictsDescription": "Found {count} conflicts that need manual resolution"
+        },
+        "form": {
+          "importUrl": "Import URL",
+          "importUrlDescription": "The URL to import your Airbnb calendar from",
+          "exportUrl": "Export URL",
+          "exportUrlDescription": "The URL to export your calendar to Airbnb",
+          "conflictResolution": "Conflict Resolution",
+          "conflictResolutionDescription": "How to handle conflicts between Airbnb and local calendars",
+          "selectResolution": "Select resolution strategy",
+          "keepAirbnb": "Keep Airbnb bookings",
+          "keepLocal": "Keep local bookings",
+          "manualResolution": "Resolve manually",
+          "feedUrl": "Feed URL",
+          "feedType": "Feed Type",
+          "syncEnabled": "Enable Sync",
+          "syncFrequency": "Sync Frequency",
+          "description": "Description"
+        },
+        "legend": {
+          "available": "Available",
+          "booked": "Booked",
+          "pending": "Pending",
+          "maintenance": "Maintenance",
+          "partial": "Partial",
+          "allProperties": "All Properties",
+          "singleView": "Single View",
+          "singlePropertyTitle": "Calendar for {property}"
         }
       },
       "users": {
@@ -354,160 +385,158 @@
           "changeRole": "Change Role"
         }
       },
-        "properties": {
-          "title": "Properties ",
-          "loading": "Loading properties...",
-          "error": "Error",
-          "success": "Success",
-          "filters": {
-            "all": "All Properties",
-            "selectListingType": "Filter by type"
-          },
-          "listingType": {
-            "sale": "For Sale",
-            "rent": "For Rent",
-            "both": "Sale & Rent",
-            "undefined": "Not Specified"
-          },
-          "propertyType": {
-            "house": "House",
-            "villa": "Villa",
-            "condo": "Condo",
-            "lot": "Lot"
-          },
-          "rentalFrequency": {
-            "daily": "per day",
-            "weekly": "per week",
-            "monthly": "per month",
-            "yearly": "per year"
-          },
-          "price": {
-            "forSale": "For Sale",
-            "forRent": "For Rent",
-            "rentalFrequency": {
-              "daily": "day",
-              "weekly": "week",
-              "monthly": "month",
-              "yearly": "year"
-            }
-          },
-          "status": {
-            "available": "Available",
-            "pending": "Pending",
-            "sold": "Sold",
-            "rented": "Rented",
-            "featured": "Featured",
-            "notFeatured": "Not Featured"
-          },
-          "table": {
-            "title": "Title",
-            "listingType": "Type",
-            "propertyType": "Property Type",
-            "price": "Price",
-            "rentalPrice": "Rental Price",
-            "location": "Location",
-            "status": "Status",
-            "featured": "Featured",
-            "actions": "Actions"
-          },
-          "form": {
-            "createProperty": "Create New Property",
-            "editProperty": "Edit Property",
-            "createPropertyDescription": "Add a new property to your listings",
-            "editPropertyDescription": "Modify property details",
-            "title": "Property Title",
-            "description": "Description",
-            "price": "Sale Price",
-            "salePrice": "Price",
-            "saleInformation": "Sale Information",
-            "rentalInformation": "Rental Information",
-            "additionalInformation": "Additional Information",
-            "location": "Location",
-            "bedrooms": "Bedrooms",
-            "bathrooms": "Bathrooms",
-            "squareFeet": "Square Feet",
-            "status": "Status",
-            "selectStatus": "Select property status",
-            "listingType": "Listing Type",
-            "propertyType": "Property Type",
-            "selectListingType": "Select listing type",
-            "selectPropertyType": "Select type",
-            "features": "Features",
-            "featuresDescription": "Press Enter to add a feature",
-            "featuresPlaceholder": "Add a feature...",
-            "images": "Images",
-            "imagesDescription": "Upload property images",
-            "rentalPrice": "Rental Price",
-            "rentalFrequency": "Rental Frequency",
-            "selectRentalFrequency": "Select frequency",
-            "minimumRentalPeriod": "Minimum Rental Period",
-            "depositAmount": "Security Deposit",
-            "availableFrom": "Available From",
-            "availableTo": "Available To",
-            "submit": "Save Property",
-            "petsAllowed": "Pets Allowed",
-            "petsAllowedDescription": "Whether pets are allowed at this property",
-            "petInformation": "Pet Information",
-            "petRestrictions": "Pet Restrictions",
-            "petRestrictionsDescription": "List any restrictions for pets (e.g. size, breed)",
-            "petRestrictionsPlaceholder": "Add a restriction...",
-            "petDeposit": "Pet Deposit",
-            "update": "Update",
-            "updating": "Updating"
-          },
-          "actions": {
-            "createProperty": "Add Property",
-            "manage": "Manage Property",
-            "markFeatured": "Mark as Featured",
-            "unmarkFeatured": "Remove Featured",
-            "markAvailable": "Mark as Available",
-            "markPending": "Mark as Pending",
-            "markSold": "Mark as Sold",
-            "markRented": "Mark as Rented",
-            "edit": "Edit Property",
-            "delete": "Delete Property",
-            "status": "Change Status",
-            "manageCalendar": "Manage Calendar"
-          },
-          "deleteConfirmation": {
-            "title": "Delete Property",
-            "description": "Are you sure you want to delete this property? This action cannot be undone.",
-            "cancel": "Cancel",
-            "confirm": "Delete"
-          },
-          "sectionHeaders": {
-            "saleInformation": "Sale Information",
-            "rentalInformation": "Rental Information",
-            "additionalInformation": "Additional Information"
-          },
-          "fetchError": "Failed to fetch properties",
-          "updateError": "Failed to update property",
-          "createError": "Failed to create property",
-          "deleteError": "Failed to delete property",
-          "updateSuccess": "Property updated successfully",
-          "createSuccess": "Property created successfully",
-          "deleteSuccess": "Property deleted successfully"
-        },
+      "properties": {
+        "allListings": "All Listings",
+        "selectListingType": "Filter by type",
+        "forSale": "For Sale",
+        "forRent": "For Rent",
+        "saleAndRent": "Sale & Rent",
         "calendar": {
           "manageTitle": "Manage Calendar Feeds",
-          "manageDescription": "Manage calendar feeds for",
-          "syncSuccess": "Calendar Sync Complete",
-          "syncSuccessDescription": "The calendar has been successfully synchronized",
-          "addFeed": "Add Calendar Feed",
-          "existingFeeds": "Existing Calendar Feeds",
-          "noFeeds": "No calendar feeds found",
-          "feedUrl": "Calendar Feed URL",
-          "feedType": "Feed Type",
-          "syncFrequency": "Sync Frequency (minutes)",
-          "enableSync": "Enable Sync",
-          "lastSync": "Last sync",
-          "syncNow": "Sync Now",
-          "delete": "Delete Feed",
-          "import": "Import",
-          "export": "Export",
-          "events": "events"
+          "manage": "Sync and manage your property calendar",
+          "description": "Manage calendar feeds for",
+          "manageDescription": "Manage calendar feeds for your property"
+        },
+        "title": "Properties ",
+        "loading": "Loading properties...",
+        "error": "Error",
+        "success": "Success",
+        "filters": {
+          "all": "All Properties",
+          "selectListingType": "Filter by type"
+        },
+        "listingType": {
+          "sale": "For Sale",
+          "rent": "For Rent",
+          "both": "Sale & Rent",
+          "undefined": "Not Specified"
+        },
+        "propertyType": {
+          "house": "House",
+          "villa": "Villa",
+          "condo": "Condo",
+          "lot": "Lot"
+        },
+        "rentalFrequency": {
+          "daily": "per day",
+          "weekly": "per week",
+          "monthly": "per month",
+          "yearly": "per year"
+        },
+        "price": {
+          "forSale": "For Sale",
+          "forRent": "For Rent",
+          "rentalFrequency": {
+            "daily": "day",
+            "weekly": "week",
+            "monthly": "month",
+            "yearly": "year"
+          }
+        },
+        "status": {
+          "available": "Available",
+          "pending": "Pending",
+          "sold": "Sold",
+          "rented": "Rented",
+          "featured": "Featured",
+          "notFeatured": "Not Featured"
+        },
+        "table": {
+          "title": "Title",
+          "listingType": "Type",
+          "propertyType": "Property Type",
+          "price": "Price",
+          "rentalPrice": "Rental Price",
+          "location": "Location",
+          "status": "Status",
+          "featured": "Featured",
+          "actions": "Actions"
+        },
+        "form": {
+          "createProperty": "Create New Property",
+          "editProperty": "Edit Property",
+          "createPropertyDescription": "Add a new property to your listings",
+          "editPropertyDescription": "Modify property details",
+          "title": "Property Title",
+          "description": "Description",
+          "price": "Sale Price",
+          "salePrice": "Price",
+          "saleInformation": "Sale Information",
+          "rentalInformation": "Rental Information",
+          "additionalInformation": "Additional Information",
+          "location": "Location",
+          "bedrooms": "Bedrooms",
+          "bathrooms": "Bathrooms",
+          "squareFeet": "Square Feet",
+          "status": "Status",
+          "selectStatus": "Select property status",
+          "listingType": "Listing Type",
+          "propertyType": "Property Type",
+          "selectListingType": "Select listing type",
+          "selectPropertyType": "Select type",
+          "features": "Features",
+          "featuresDescription": "Press Enter to add a feature",
+          "featuresPlaceholder": "Add a feature...",
+          "images": "Images",
+          "imagesDescription": "Upload property images",
+          "rentalPrice": "Rental Price",
+          "rentalFrequency": "Rental Frequency",
+          "selectRentalFrequency": "Select frequency",
+          "minimumRentalPeriod": "Minimum Rental Period",
+          "depositAmount": "Security Deposit",
+          "availableFrom": "Available From",
+          "availableTo": "Available To",
+          "submit": "Save Property",
+          "petsAllowed": "Pets Allowed",
+          "petsAllowedDescription": "Whether pets are allowed at this property",
+          "petInformation": "Pet Information",
+          "petRestrictions": "Pet Restrictions",
+          "petRestrictionsDescription": "List any restrictions for pets (e.g. size, breed)",
+          "petRestrictionsPlaceholder": "Add a restriction...",
+          "petDeposit": "Pet Deposit",
+          "update": "Update",
+          "updating": "Updating"
+        },
+        "actions": {
+          "title": "Property Actions",
+          "createProperty": "Add Property",
+          "manage": "Manage Property",
+          "markFeatured": "Mark as Featured",
+          "unmarkFeatured": "Remove Featured",
+          "markAvailable": "Mark as Available",
+          "markPending": "Mark as Pending",
+          "markSold": "Mark as Sold",
+          "markRented": "Mark as Rented",
+          "edit": "Edit Property",
+          "delete": "Delete Property",
+          "status": "Change Status",
+          "manageCalendar": "Manage Calendar"
+        },
+        "deleteConfirmation": {
+          "title": "Delete Property",
+          "description": "Are you sure you want to delete this property? This action cannot be undone.",
+          "cancel": "Cancel",
+          "confirm": "Delete"
+        },
+        "sectionHeaders": {
+          "saleInformation": "Sale Information",
+          "rentalInformation": "Rental Information",
+          "additionalInformation": "Additional Information"
+        },
+        "fetchError": "Failed to fetch properties",
+        "updateError": "Failed to update property",
+        "createError": "Failed to create property",
+        "deleteError": "Failed to delete property",
+        "updateSuccess": "Property updated successfully",
+        "createSuccess": "Property created successfully",
+        "deleteSuccess": "Property deleted successfully",
+        "type": {
+          "house": "House",
+          "apartment": "Apartment",
+          "villa": "Villa",
+          "land": "Land"
         }
-      
+      }
     },
     "email": "Email",
     "password": "Password",

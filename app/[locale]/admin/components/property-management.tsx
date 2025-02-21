@@ -198,20 +198,20 @@ export function PropertyManagement() {
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <div className="space-y-1">
-          <h2 className="text-2xl font-bold">{t('title')}</h2>
-          <div className="flex gap-2">
-            <Select value={listingTypeFilter} onValueChange={(value: typeof listingTypeFilter) => setListingTypeFilter(value)}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder={t('filters.selectListingType')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t('filters.all')}</SelectItem>
-                <SelectItem value="sale">{t('listingType.sale')}</SelectItem>
-                <SelectItem value="rent">{t('listingType.rent')}</SelectItem>
-                <SelectItem value="both">{t('listingType.both')}</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          <Select
+            value={listingTypeFilter}
+            onValueChange={(value) => setListingTypeFilter(value as typeof listingTypeFilter)}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder={t('selectListingType')} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{t('allListings')}</SelectItem>
+              <SelectItem value="sale">{t('forSale')}</SelectItem>
+              <SelectItem value="rent">{t('forRent')}</SelectItem>
+              <SelectItem value="both">{t('saleAndRent')}</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         <Dialog open={isDialogOpen} onOpenChange={(open) => {
           if (!open) return;
@@ -418,7 +418,12 @@ export function PropertyManagement() {
                   </div>
                 )}
               </TableCell>
-              <TableCell>{property.location}</TableCell>
+              <TableCell>
+                <div className="flex flex-col">
+                  <span>{property.city}</span>
+                  <span className="text-sm text-muted-foreground">{property.country}</span>
+                </div>
+              </TableCell>
               <TableCell>
                 <Badge variant={
                   property.status === 'available' ? 'default' :
