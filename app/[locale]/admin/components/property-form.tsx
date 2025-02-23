@@ -39,7 +39,7 @@ export function PropertyForm({
         return
       }
 
-      const processedData = await onSubmit(data)
+      const processedData = await processFormData(data, false)
       console.log('Processed data:', processedData)
       
       const supabase = createClientComponentClient<Database>()

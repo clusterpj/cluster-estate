@@ -50,8 +50,10 @@ export function ImagesSection({ form, onError }: ImagesSectionProps) {
                   multiple
                   onChange={async (e) => {
                     if (e.target.files) {
-                      await handleImageUpload(e.target.files)
-                      field.onChange([...uploadedImages])
+                      const newImages = await handleImageUpload(e.target.files)
+                      if (newImages) {
+                        field.onChange(newImages)
+                      }
                     }
                   }}
                 />
@@ -69,8 +71,8 @@ export function ImagesSection({ form, onError }: ImagesSectionProps) {
                       <button
                         type="button"
                         onClick={() => {
-                          handleImageRemove(image)
-                          field.onChange(uploadedImages.filter(img => img !== image))
+                          const newImages = handleImageRemove(image)
+                          field.onChange(newImages)
                         }}
                         className="absolute top-1 right-1 p-1 bg-background/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                       >

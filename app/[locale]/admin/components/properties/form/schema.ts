@@ -14,7 +14,7 @@ export const propertyFormSchema = z.object({
   square_feet: z.number().min(0, 'Square feet must be positive'),
   status: z.enum(['available', 'pending', 'rented', 'sold', 'booked']).default('available'),
   listing_type: z.enum(['sale', 'rent', 'both']).default('sale'),
-  property_type: z.enum(['house', 'apartment', 'villa', 'land']).nullable().default('house'),
+  property_type: z.enum(['house', 'apartment', 'villa', 'land', 'condo']).nullable().default('house'),
   rental_price: z.number().min(0, 'Rental price must be positive').optional(),
   rental_frequency: z.enum(['daily', 'weekly', 'monthly', 'yearly']).optional(),
   minimum_rental_period: z.number().min(0, 'Minimum rental period must be positive').optional(),

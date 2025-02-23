@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { v4 as uuidv4 } from 'uuid'
 import type { Database } from '@/types/supabase'
@@ -7,8 +7,13 @@ export function useImageUpload(
   initialImages: string[] = [],
   onError?: (error: Error) => void
 ) {
-  const [uploadedImages, setUploadedImages] = useState<string[]>(initialImages || [])
+  const [uploadedImages, setUploadedImages] = useState<string[]>([])
   const supabase = createClientComponentClient<Database>()
+
+  // Sync with initialImages whenever they change
+  useEffect(() => {
+    setUploadedImages(initialImages || [])
+  }, [initialImages])
 
   const handleImageUpload = async (files: FileList | null) => {
     if (!files || files.length === 0) return
@@ -34,17 +39,22 @@ export function useImageUpload(
         uploadedUrls.push(publicUrl)
       }
 
-      setUploadedImages(prev => [...prev, ...uploadedUrls])
+      const newImages = [...uploadedImages, ...uploadedUrls]
+      setUploadedImages(newImages)
+      return newImages // Return the new array for the form to use
     } catch (error: unknown) {
       console.error('Error uploading images:', error)
       if (onError) {
         onError(error instanceof Error ? error : new Error('Image upload failed', { cause: error }))
       }
+      return uploadedImages // Return current images if upload fails
     }
   }
 
-  const handleImageRemove = (image: string) => {
-    setUploadedImages(prev => prev.filter(img => img !== image))
+  const handleImageRemove = (imageUrl: string) => {
+    const newImages = uploadedImages.filter(img => img !== imageUrl)
+    setUploadedImages(newImages)
+    return newImages // Return the new array for the form to use
   }
 
   return {

@@ -35,9 +35,9 @@ export function SaleInformation({ form }: SaleInformationProps) {
               <Input
                 id="sale_price"
                 type="number"
-                value={isNaN(field.value) ? '' : field.value}
+                value={field.value ?? ''}
                 onChange={(e) => {
-                  const value = parseFloat(e.target.value)
+                  const value = e.target.valueAsNumber
                   field.onChange(isNaN(value) ? 0 : value)
                 }}
               />

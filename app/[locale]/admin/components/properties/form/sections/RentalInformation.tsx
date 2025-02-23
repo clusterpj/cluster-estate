@@ -43,9 +43,9 @@ export function RentalInformation({ form }: RentalInformationProps) {
                 <Input
                   id="rental_price"
                   type="number"
-                  value={isNaN(field.value) ? '' : field.value}
+                  value={field.value ?? ''}
                   onChange={(e) => {
-                    const value = parseFloat(e.target.value)
+                    const value = e.target.valueAsNumber
                     field.onChange(isNaN(value) ? 0 : value)
                   }}
                 />
@@ -91,8 +91,11 @@ export function RentalInformation({ form }: RentalInformationProps) {
                 <Input
                   id="minimum_rental_period"
                   type="number"
-                  {...field}
-                  onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  value={field.value ?? ''}
+                  onChange={(e) => {
+                    const value = e.target.valueAsNumber
+                    field.onChange(isNaN(value) ? 0 : value)
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -110,8 +113,11 @@ export function RentalInformation({ form }: RentalInformationProps) {
                 <Input
                   id="deposit_amount"
                   type="number"
-                  {...field}
-                  onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  value={field.value ?? ''}
+                  onChange={(e) => {
+                    const value = e.target.valueAsNumber
+                    field.onChange(isNaN(value) ? 0 : value)
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -130,15 +136,8 @@ export function RentalInformation({ form }: RentalInformationProps) {
               <FormControl>
                 <Input
                   type="date"
-                  value={field.value || ''}
-                  onChange={(e) => {
-                    const date = e.target.value
-                    console.log('Date input changed:', {
-                      rawValue: date,
-                      isoString: date
-                    })
-                    field.onChange(date)
-                  }}
+                  value={field.value ?? ''}
+                  onChange={(e) => field.onChange(e.target.value)}
                 />
               </FormControl>
               <FormMessage />
@@ -155,7 +154,8 @@ export function RentalInformation({ form }: RentalInformationProps) {
               <FormControl>
                 <Input
                   type="date"
-                  {...field}
+                  value={field.value ?? ''}
+                  onChange={(e) => field.onChange(e.target.value)}
                 />
               </FormControl>
               <FormMessage />

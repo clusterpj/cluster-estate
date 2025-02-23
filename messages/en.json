@@ -277,85 +277,35 @@
         "calendar": "Calendar"
       },
       "calendar": {
-        "allProperties": "All Properties",
         "title": "Calendar Management",
-        "manageTitle": "Manage Calendar Feeds",
-        "description": "Manage calendar feeds for",
-        "syncSuccess": "Calendar Sync Complete",
-        "syncSuccessDescription": "The calendar has been successfully synchronized",
+        "description": "Manage property availability and synchronize external calendars",
+        "selectProperty": "Select Property",
+        "allProperties": "All Properties",
+        "pickDate": "Pick a date",
         "addFeed": "Add Calendar Feed",
-        "existingFeeds": "Existing Calendar Feeds",
-        "noFeeds": "No calendar feeds found",
+        "addNewFeed": "Add New Calendar Feed",
         "feedUrl": "Calendar Feed URL",
-        "feedType": "Feed Type",
-        "syncFrequency": "Sync Frequency (minutes)",
-        "enableSync": "Enable Sync",
-        "lastSync": "Last sync",
-        "syncNow": "Sync Now",
-        "delete": "Delete Feed",
-        "import": "Import",
-        "export": "Export",
-        "events": "events",
-        "feeds": {
-          "title": "Calendar Feeds",
-          "add": "Add Feed",
-          "edit": "Edit Feed",
-          "delete": "Delete Feed",
-          "sync": "Sync Now",
-          "lastSync": "Last Sync",
-          "status": {
-            "success": "Success",
-            "error": "Error",
-            "pending": "Pending"
-          }
-        },
-
-        "errors": {
-          "invalidUrl": "Invalid feed URL",
-          "syncFailed": "Sync failed",
-          "fetchFailed": "Failed to fetch feed"
-        },
-        "success": {
-          "feedAdded": "Calendar feed added successfully",
-          "feedUpdated": "Calendar feed updated successfully",
-          "feedDeleted": "Calendar feed deleted successfully",
-          "syncComplete": "Calendar sync completed successfully"
-        },
-        "sync": {
-          "button": "Sync with Airbnb",
-          "success": "Sync Successful",
-          "successDescription": "Successfully synced {imported} imported events and {exported} exported events",
-          "error": "Sync Failed",
-          "unknownError": "An unknown error occurred",
-          "conflictsFound": "Calendar Conflicts Found",
-          "conflictsDescription": "Found {count} conflicts that need manual resolution"
-        },
-        "form": {
-          "importUrl": "Import URL",
-          "importUrlDescription": "The URL to import your Airbnb calendar from",
-          "exportUrl": "Export URL",
-          "exportUrlDescription": "The URL to export your calendar to Airbnb",
-          "conflictResolution": "Conflict Resolution",
-          "conflictResolutionDescription": "How to handle conflicts between Airbnb and local calendars",
-          "selectResolution": "Select resolution strategy",
-          "keepAirbnb": "Keep Airbnb bookings",
-          "keepLocal": "Keep local bookings",
-          "manualResolution": "Resolve manually",
-          "feedUrl": "Feed URL",
-          "feedType": "Feed Type",
-          "syncEnabled": "Enable Sync",
-          "syncFrequency": "Sync Frequency",
-          "description": "Description"
-        },
+        "priority": "Priority",
+        "calendarFeeds": "Calendar Feeds",
+        "calendarFeedsDescription": "Manage and synchronize external calendar feeds",
+        "loadingFeeds": "Loading calendar feeds...",
+        "noFeeds": "No calendar feeds added yet",
+        "sync": "Sync Now",
+        "lastSync": "Last Sync",
+        "never": "Never",
+        "feedAdded": "Calendar Feed Added",
+        "feedAddedDescription": "The calendar feed has been added successfully",
+        "syncComplete": "Sync Complete",
+        "syncCompleteDescription": "Calendar has been synchronized successfully",
+        "syncError": "Sync Failed",
+        "error": "Error",
+        "unknownError": "An unknown error occurred",
+        "selectPropertyFirst": "Please select a property first",
         "legend": {
           "available": "Available",
           "booked": "Booked",
           "pending": "Pending",
-          "maintenance": "Maintenance",
-          "partial": "Partial",
-          "allProperties": "All Properties",
-          "singleView": "Single View",
-          "singlePropertyTitle": "Calendar for {property}"
+          "maintenance": "Maintenance"
         }
       },
       "users": {
@@ -455,6 +405,8 @@
           "actions": "Actions"
         },
         "form": {
+          "saving": "Saving...",
+          "submit": "Create Property",
           "createProperty": "Create New Property",
           "editProperty": "Edit Property",
           "createPropertyDescription": "Add a new property to your listings",

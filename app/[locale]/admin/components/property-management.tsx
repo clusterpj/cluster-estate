@@ -74,6 +74,7 @@ export function PropertyManagement() {
       setLoading(false)
     }
   }
+  
 
   const validStatusTransitions: Record<PropertyStatus, PropertyStatus[]> = {
     available: ['pending', 'sold', 'rented', 'booked'],
@@ -266,10 +267,6 @@ export function PropertyManagement() {
           </DialogContent>
         </Dialog>
       </div>
-
-      <Button onClick={syncIcalCalendars}>
-        Sync with Airbnb
-      </Button>
 
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="max-w-[95vw] w-full lg:max-w-[1400px]" hideDefaultClose>
