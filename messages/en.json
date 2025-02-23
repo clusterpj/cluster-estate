@@ -406,7 +406,6 @@
         },
         "form": {
           "saving": "Saving...",
-          "submit": "Create Property",
           "createProperty": "Create New Property",
           "editProperty": "Edit Property",
           "createPropertyDescription": "Add a new property to your listings",
@@ -681,46 +680,96 @@
     "updateError": "Failed to update profile"
   },
   "dashboard": {
+    "title": "Dashboard",
+    "description": "Manage your bookings and view your activity",
     "overview": "Overview",
-    "settings": {
-      "title": "Settings",
-      "notifications": "Notification Settings",
-      "emailNotifications": "Email Notifications",
-      "emailNotificationsDescription": "Receive email notifications about your bookings and account activity",
-      "bookingReminders": "Booking Reminders",
-      "bookingRemindersDescription": "Get reminders about your upcoming stays and check-in/check-out times",
-      "marketingEmails": "Marketing Emails",
-      "marketingEmailsDescription": "Receive updates about special offers and new properties",
-      "saveChanges": "Save Changes",
-      "updateSuccess": "Settings updated successfully",
-      "updateError": "Failed to update settings"
-    },
+    "viewAll": "View All",
+    "upcomingBookings": "Upcoming Bookings",
+    "noUpcomingBookings": "No upcoming bookings",
+    "exploreProperties": "Explore available properties",
+    "browseProperties": "Browse Properties",
+    "bookingCalendar": "Booking Calendar",
+    "bookingCalendarDescription": "View and manage your upcoming and past stays",
+    "upcomingStays": "Upcoming Stays",
+    "pastStays": "Past Stays",
+    "noPastBookings": "No past bookings found",
     "stats": {
       "totalBookings": "Total Bookings",
       "activeBookings": "Active Bookings",
+      "upcomingBookings": "Upcoming Bookings",
       "totalSpent": "Total Spent"
     },
-    "recentBookings": "Recent Bookings",
-    "noBookings": "No bookings found",
     "bookings": {
       "title": "Your Bookings",
-      "searchPlaceholder": "Search properties...",
-      "statusFilter": "Filter by status",
-      "allStatuses": "All Statuses",
+      "upcomingBookings": "Upcoming Bookings",
+      "noUpcomingBookings": "No upcoming bookings found",
       "noBookings": "No bookings found",
-      "loading": "Loading bookings...",
+      "exploreProperties": "Explore our available properties to plan your next stay",
+      "browseProperties": "Browse Properties",
+      "searchPlaceholder": "Search bookings...",
+      "allStatuses": "All Statuses",
+      "statusFilter": "Filter by status",
+      "pagination": {
+        "previous": "Previous",
+        "next": "Next",
+        "page": "Page {number}",
+        "of": "of {total}"
+      },
       "status": {
-        "pending": "Pending",
         "confirmed": "Confirmed",
+        "pending": "Pending",
+        "cancelled": "Cancelled",
         "canceled": "Canceled",
         "completed": "Completed"
       },
       "paymentStatus": {
-        "pending": "Payment Pending",
-        "completed": "Payment Completed",
-        "failed": "Payment Failed",
+        "completed": "Payment completed",
+        "pending": "Payment pending",
+        "failed": "Payment failed",
         "refunded": "Refunded"
+      },
+      "timeLabels": {
+        "ago": "ago",
+        "in": "in",
+        "day": "day",
+        "days": "days",
+        "hour": "hour",
+        "hours": "hours",
+        "minute": "minute",
+        "minutes": "minutes"
       }
+    },
+    "calendar": {
+      "title": "Booking Calendar",
+      "description": "View your upcoming and past stays",
+      "today": "Today",
+      "month": "Month",
+      "week": "Week",
+      "days": {
+        "sun": "Sun",
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "notifications": "Notifications",
+      "emailNotifications": "Email Notifications",
+      "emailNotificationsDescription": "Receive important updates and information about your bookings via email",
+      "bookingReminders": "Booking Reminders",
+      "bookingRemindersDescription": "Get reminded about your upcoming stays and check-in/check-out times",
+      "marketingEmails": "Marketing Emails",
+      "marketingEmailsDescription": "Stay updated with our latest properties, special offers, and travel tips",
+      "saveChanges": "Save Changes"
+    },
+    "navigation": {
+      "overview": "Overview",
+      "bookings": "Your Bookings",
+      "settings": "Settings"
     }
   },
   "contact": {
@@ -740,6 +789,27 @@
       "message": "Message",
       "messagePlaceholder": "Your message here...",
       "submit": "Send Message"
+    }
+  },
+  "bookings": {
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "canceled": "Canceled",
+      "expired": "Expired",
+      "payment_failed": "Payment Failed"
+    }
+  },
+  "admin": {
+    "bookings": {
+      "title": "Bookings Management",
+      "searchPlaceholder": "Search by guest name, email or property...",
+      "statusFilter": "Filter by status",
+      "allStatuses": "All statuses",
+      "noResults": "No bookings found",
+      "noBookings": "No bookings found",
+      "loading": "Loading bookings...",
+      "fetchError": "Error loading bookings"
     }
   }
 }

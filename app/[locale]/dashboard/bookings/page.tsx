@@ -158,8 +158,10 @@ export default function BookingsPage() {
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
                 className="gap-2"
+                aria-label={t("dashboard.bookings.pagination.previous")}
               >
                 <PaginationPrevious />
+                {t("dashboard.bookings.pagination.previous")}
               </Button>
             </PaginationItem>
             {[...Array(totalPages)].map((_, i) => (
@@ -167,6 +169,7 @@ export default function BookingsPage() {
                 <Button
                   variant={page === i + 1 ? "default" : "outline"}
                   onClick={() => setPage(i + 1)}
+                  aria-label={t("dashboard.bookings.pagination.page", { number: i + 1 })}
                 >
                   {i + 1}
                 </Button>
@@ -178,7 +181,9 @@ export default function BookingsPage() {
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
                 className="gap-2"
+                aria-label={t("dashboard.bookings.pagination.next")}
               >
+                {t("dashboard.bookings.pagination.next")}
                 <PaginationNext />
               </Button>
             </PaginationItem>
