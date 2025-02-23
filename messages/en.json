@@ -489,7 +489,9 @@
           "apartment": "Apartment",
           "villa": "Villa",
           "land": "Land"
-        }
+        },
+        "featuresUpdateSuccess": "Property features updated successfully",
+        "featuresUpdateError": "Error updating property features"
       }
     },
     "email": "Email",

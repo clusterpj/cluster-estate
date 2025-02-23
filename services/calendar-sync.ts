@@ -119,11 +119,13 @@ export class CalendarSyncService {
   private async findConflictingEvents(propertyId: string, startDate: string, endDate: string): Promise<PropertyAvailability[]> {
     console.log('[CalendarSync] Checking for conflicting events:', { propertyId, startDate, endDate });
     
+    // Use PostgREST's and() filter for checking date range overlaps
     const { data: conflicts, error } = await this.supabase
       .from('property_availability')
       .select('*')
       .eq('property_id', propertyId)
-      .or(`start_date.lte.${endDate},end_date.gte.${startDate}`);
+      .lte('start_date', endDate)
+      .gte('end_date', startDate);
 
     if (error) {
       console.error('[CalendarSync] Error checking conflicts:', error);
@@ -144,29 +146,38 @@ export class CalendarSyncService {
       conflicts: conflicts.length
     });
 
-    // If no conflicts or current feed has higher priority, proceed with update
-    const canOverride = conflicts.every(conflict => 
-      !conflict.feed_priority || feed.priority >= conflict.feed_priority
+    if (conflicts.length === 0) {
+      return true;
+    }
+
+    // Check for direct booking conflicts first
+    const directBookingConflicts = conflicts.filter(c => c.source === 'manual');
+    if (directBookingConflicts.length > 0) {
+      console.log('[CalendarSync] Found direct booking conflicts - cannot override');
+      return false;
+    }
+
+    // For calendar sync conflicts, check priority
+    const calendarConflicts = conflicts.filter(c => c.source === 'calendar_sync');
+    const canOverride = calendarConflicts.every(conflict => 
+      feed.priority > (conflict.feed_priority || 0)
     );
 
     if (canOverride) {
-      // Delete conflicting events with lower or equal priority
-      if (conflicts.length > 0) {
-        console.log('[CalendarSync] Overriding conflicting events with lower priority');
-        const { error: deleteError } = await this.supabase
-          .from('property_availability')
-          .delete()
-          .in('id', conflicts.map(c => c.id));
+      console.log('[CalendarSync] Overriding conflicting events with lower priority');
+      const { error: deleteError } = await this.supabase
+        .from('property_availability')
+        .delete()
+        .in('id', calendarConflicts.map(c => c.id));
 
-        if (deleteError) {
-          console.error('[CalendarSync] Error deleting conflicts:', deleteError);
-          return false;
-        }
+      if (deleteError) {
+        console.error('[CalendarSync] Error deleting conflicts:', deleteError);
+        return false;
       }
       return true;
     }
 
-    console.log('[CalendarSync] Cannot override - lower priority');
+    console.log('[CalendarSync] Cannot override - lower or equal priority');
     return false;
   }
 

@@ -50,27 +50,46 @@ export async function isPropertyAvailable(
 
 export async function getBookedDates(propertyId: string): Promise<Date[]> {
   const supabase = createClient()
+  const bookedDates: Date[] = []
   
+  // Get dates from bookings table
   const { data: bookings } = await supabase
     .from('bookings')
     .select('check_in, check_out')
     .eq('property_id', propertyId)
     .neq('status', 'canceled')
 
-  if (!bookings) return []
+  if (bookings) {
+    bookings.forEach(booking => {
+      const start = new Date(booking.check_in)
+      const end = new Date(booking.check_out)
+      
+      for (let d = start; d <= end; d.setDate(d.getDate() + 1)) {
+        bookedDates.push(new Date(d))
+      }
+    })
+  }
 
-  const bookedDates: Date[] = []
-  
-  bookings.forEach(booking => {
-    const start = new Date(booking.check_in)
-    const end = new Date(booking.check_out)
-    
-    for (let d = start; d <= end; d.setDate(d.getDate() + 1)) {
-      bookedDates.push(new Date(d))
-    }
-  })
+  // Get dates from property_availability table (iCal events)
+  const { data: availability } = await supabase
+    .from('property_availability')
+    .select('start_date, end_date')
+    .eq('property_id', propertyId)
 
-  return bookedDates
+  if (availability) {
+    availability.forEach(period => {
+      const start = new Date(period.start_date)
+      const end = new Date(period.end_date)
+      
+      for (let d = start; d <= end; d.setDate(d.getDate() + 1)) {
+        bookedDates.push(new Date(d))
+      }
+    })
+  }
+
+  // Remove duplicate dates
+  return [...new Set(bookedDates.map(date => date.toISOString()))]
+    .map(dateStr => new Date(dateStr))
 }
 
 interface PriceCalculationParams {

@@ -84,12 +84,12 @@ export function PropertyManagement() {
     booked: ['available']
   } as const;
 
-  async function updatePropertyStatus(id: string, status: PropertyStatus | { features?: string[] }) {
+  async function updatePropertyStatus(id: string, update: PropertyStatus | { features?: string[] }) {
     try {
-      // Get current property status
+      // Get current property status and features
       const { data: currentProperty } = await supabase
         .from('properties')
-        .select('status, property_type')
+        .select('status, property_type, features')
         .eq('id', id)
         .single();
 
@@ -97,41 +97,46 @@ export function PropertyManagement() {
         throw new Error('Property not found');
       }
 
-      // Validate status transition if it's a status change
-      if (typeof status === 'string') {
+      let updateData: any = {};
+
+      // Handle status update
+      if (typeof update === 'string') {
         const currentStatus = currentProperty.status as PropertyStatus;
-        if (!validStatusTransitions[currentStatus].includes(status)) {
+        if (!validStatusTransitions[currentStatus].includes(update)) {
           throw new Error(t('invalidStatusTransition', { 
             current: currentStatus, 
-            target: status 
+            target: update 
           }));
         }
-
-        const { error } = await supabase
-          .from('properties')
-          .update({ 
-            status,
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', id);
-
-        if (error) throw error;
-
-        setProperties(prev => prev.map(p => 
-          p.id === id ? { ...p, status } : p
-        ));
-
-        setToastMessage({
-          title: t('success'),
-          description: t('statusUpdateSuccess'),
-          type: 'success'
-        });
+        updateData.status = update;
+      } 
+      // Handle features update
+      else if ('features' in update) {
+        updateData.features = update.features;
       }
+
+      const { error } = await supabase
+        .from('properties')
+        .update(updateData)
+        .eq('id', id);
+
+      if (error) throw error;
+
+      // Update local state
+      setProperties(prev => prev.map(p => 
+        p.id === id ? { ...p, ...updateData } : p
+      ));
+
+      setToastMessage({
+        title: t('success'),
+        description: typeof update === 'string' ? t('statusUpdateSuccess') : t('featuresUpdateSuccess'),
+        type: 'success'
+      });
     } catch (err) {
-      console.error('Error updating property status:', err);
+      console.error('Error updating property:', err);
       setToastMessage({
         title: t('error'),
-        description: t('statusUpdateError'),
+        description: typeof update === 'string' ? t('statusUpdateError') : t('featuresUpdateError'),
         type: 'error'
       });
     }

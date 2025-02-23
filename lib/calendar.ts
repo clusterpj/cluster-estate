@@ -68,17 +68,39 @@ function normalizeEventStatus(status: string | null): 'available' | 'unavailable
     return 'unavailable';
   }
   
-  const normalizedStatus = status.toLowerCase();
+  const normalizedStatus = status.toLowerCase().trim();
   console.log('[Calendar] Normalized status:', normalizedStatus);
   
-  switch (normalizedStatus) {
-    case 'cancelled':
-    case 'canceled':
-      return 'available';
-    case 'confirmed':
-    case 'tentative':
-    case 'booked':
-    default:
-      return 'unavailable';
+  // Status values that indicate the property is available
+  const availableStatuses = [
+    'cancelled',
+    'canceled',
+    'free',
+    'available',
+    'deleted'
+  ];
+
+  // Status values that indicate the property is unavailable
+  const unavailableStatuses = [
+    'confirmed',
+    'tentative',
+    'booked',
+    'busy',
+    'unavailable',
+    'occupied'
+  ];
+
+  if (availableStatuses.includes(normalizedStatus)) {
+    console.log('[Calendar] Status matches available pattern');
+    return 'available';
   }
+
+  if (unavailableStatuses.includes(normalizedStatus)) {
+    console.log('[Calendar] Status matches unavailable pattern');
+    return 'unavailable';
+  }
+
+  // Default to unavailable for unknown status values
+  console.log('[Calendar] Unknown status, defaulting to unavailable');
+  return 'unavailable';
 }
