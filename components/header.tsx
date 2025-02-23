@@ -81,6 +81,12 @@ export function Header() {
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-3 p-4">
                       <ListItem
+                        href={localizedHref('/properties')}
+                        title="All Properties"
+                      >
+                        Browse our complete collection of luxury properties
+                      </ListItem>
+                      <ListItem
                         href={localizedHref('/properties?type=villa')}
                         title="Villas"
                       >

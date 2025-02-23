@@ -59,8 +59,9 @@ export function Footer() {
             <nav>
               <ul className="space-y-2">
                 {[
-                  ['Villas', 'http://localhost:3000/en/properties?type=villa'],
-                  ['Condos', 'http://localhost:3000/en/properties?type=condo'],
+                  ['All Properties', `http://localhost:3000/en/properties`],
+                  ['Villas', `http://localhost:3000/en/properties?type=villa`],
+                  ['Condos', `http://localhost:3000/en/properties?type=condo`],
                   ['Activities', 'http://localhost:3000/en/activities'],
                   ['About Us', 'http://localhost:3000/en/about'],
                   ['Contact', 'http://localhost:3000/en/contact']

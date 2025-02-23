@@ -10,26 +10,31 @@ import { useSearchParams } from "next/navigation"
 
 import type { Database } from '@/types/supabase';
 
-export function PropertyList() {
-  const searchParams = useSearchParams()
-  const search = searchParams.get("search") || ""
-  const sort = searchParams.get("sort") || "created_at.desc"
+export function PropertyList({ searchParams }: { searchParams: { type?: string } }) {
+  const search = searchParams?.search || ""
+  const sort = searchParams?.sort || "created_at.desc"
+  const type = searchParams?.type || ""
 
   const query = React.useMemo(() => {
     const queryBuilder = getSupabaseClient()
       .from("properties")
       .select("*")
       .ilike("title", `%${search}%`)
+    
+    // Only apply type filter if type is specified
+    if (type) {
+      queryBuilder.eq("property_type", type)
+    }
 
     // Handle multiple sort fields
     const sortFields = sort.split(",")
     sortFields.forEach((field) => {
-      const [fieldName, direction] = field.split(".")
-      queryBuilder.order(fieldName, { ascending: direction === "asc", nullsFirst: true })
+      const [column, order] = field.split(".")
+      queryBuilder.order(column, { ascending: order === "asc" })
     })
 
     return queryBuilder
-  }, [search, sort])
+  }, [search, sort, type])
 
   const { data: properties, isLoading } = useQuery(query, {
     staleTime: 1000 * 60 * 5 // 5 minutes

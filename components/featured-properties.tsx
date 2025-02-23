@@ -5,10 +5,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Bath, Bed, MapPin, Maximize } from "lucide-react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { FadeInView } from "./animations/fade-in-view";
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from './providers/auth-provider';
 import Link from "next/link";
 
@@ -72,111 +72,43 @@ function PriceDisplay({ property }: { property: Property }) {
   );
 }
 
-const dummyProperties = [
-  {
-    id: 1,
-    image: "/property1.jpg",
-    beds: 4,
-    baths: 3,
-    sqft: 3200,
-    type: "Villa",
-    price: "$2,500,000"
-  },
-  {
-    id: 2,
-    image: "/property2.jpg",
-    beds: 3,
-    baths: 2,
-    sqft: 1800,
-    type: "Condo",
-    price: "$1,200,000"
-  },
-  {
-    id: 3,
-    image: "/property3.jpg",
-    beds: 5,
-    baths: 4,
-    sqft: 4100,
-    type: "Penthouse",
-    price: "$3,100,000"
-  }
-];
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
 function PropertyImage({ images, title }: { images: string[], title: string }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
 
-  // Add debug logs
-  useEffect(() => {
-    console.log('Images array:', images);
-    console.log('Current image index:', currentImageIndex);
-    console.log('Is hovering:', isHovering);
-  }, [images, currentImageIndex, isHovering]);
-
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-
-    if (isHovering && images && images.length > 1) {
-      console.log('Starting image rotation');
-      intervalId = setInterval(() => {
-        setCurrentImageIndex((prev) => {
-          const nextIndex = (prev + 1) % images.length;
-          console.log('Changing to image index:', nextIndex);
-          return nextIndex;
-        });
-      }, 2000); // Increased to 2 seconds for easier debugging
-    }
-
-    return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-        console.log('Clearing interval');
-      }
-    };
-  }, [isHovering, images]);
-
-  // Ensure we have valid images array
-  const validImages = Array.isArray(images) && images.length > 0 ? images : ['/placeholder-property.jpg'];
+  const handleHover = useCallback(() => {
+    setCurrentImageIndex(prevIndex => {
+      // Move to next image, or back to first if at end
+      return (prevIndex + 1) % images.length;
+    });
+  }, [images.length]);
 
   return (
     <div 
-      className="relative aspect-[4/3] overflow-hidden"
-      onMouseEnter={() => {
-        console.log('Mouse enter');
-        setIsHovering(true);
-      }}
-      onMouseLeave={() => {
-        console.log('Mouse leave');
-        setIsHovering(false);
-        setCurrentImageIndex(0);
-      }}
+      className="relative w-full h-full aspect-[4/3] overflow-hidden"
+      onMouseEnter={handleHover}
     >
-      {validImages.map((src, index) => (
-        <Image
-          key={`${src}-${index}`}
-          src={src || '/placeholder-property.jpg'}
-          alt={`${title} - Image ${index + 1}`}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          priority={index === 0}
-          className={`
-            absolute top-0 left-0
-            object-cover transition-opacity duration-700
-            ${currentImageIndex === index ? 'opacity-100 z-10' : 'opacity-0 z-0'}
-            group-hover:scale-105
-          `}
-        />
-      ))}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentImageIndex}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={images[currentImageIndex]}
+            alt={`${title} - Image ${currentImageIndex + 1}`}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            priority={currentImageIndex === 0}
+          />
+        </motion.div>
+      </AnimatePresence>
+      <div className="absolute bottom-2 right-2 bg-black/50 rounded-full px-2 py-1 text-xs text-white">
+        {currentImageIndex + 1}/{images.length}
+      </div>
     </div>
   );
 }
@@ -192,14 +124,51 @@ export function FeaturedProperties() {
   useEffect(() => {
     async function fetchFeaturedProperties() {
       try {
-        // Simple query to get only featured properties
+        // First, let's check what properties are actually marked as featured
+        const { data: featuredCheck, error: checkError } = await supabase
+          .from('properties')
+          .select('id, title, featured')
+          .eq('featured', true);
+
+        console.log('All featured properties check:', featuredCheck);
+
+        if (checkError) {
+          console.error('Error checking featured properties:', checkError);
+          return;
+        }
+
+        // Now fetch the full property details
         const { data, error } = await supabase
           .from('properties')
-          .select('*')
+          .select(`
+            id,
+            title,
+            location,
+            sale_price,
+            rental_price,
+            rental_frequency,
+            bedrooms,
+            bathrooms,
+            square_feet,
+            images,
+            listing_type,
+            status,
+            property_type,
+            featured
+          `)
           .eq('featured', true)
-          .limit(3);
+          .eq('status', 'available')  // Only show available properties
+          .order('created_at', { ascending: false });
 
-        console.log('Raw query result:', data); // Debug log to see what we're getting
+        console.log('Featured properties detailed query result:', {
+          dataCount: data?.length,
+          properties: data?.map(p => ({
+            id: p.id,
+            title: p.title,
+            featured: p.featured,
+            status: p.status
+          }))
+        });
 
         if (error) {
           console.error('Error fetching featured properties:', error);
@@ -207,33 +176,27 @@ export function FeaturedProperties() {
           return;
         }
 
-        // If we have no featured properties or less than 3, use dummy data
-        if (!data || data.length === 0) {
-          console.log('No featured properties found, using dummy data');
-          const dummyData = dummyProperties.map(dummy => ({
-            id: `dummy-${dummy.id}`,
-            title: `Luxury ${dummy.type}`,
-            location: "Cabarete, Dominican Republic",
-            sale_price: parseInt(dummy.price.replace(/[$,]/g, '')),
-            rental_price: null,
-            rental_frequency: null,
-            bedrooms: dummy.beds,
-            bathrooms: dummy.baths,
-            square_feet: dummy.sqft,
-            images: [dummy.image],
-            listing_type: 'sale' as const,
-            status: 'available',
-            property_type: dummy.type.toLowerCase() as 'villa' | 'condo' | 'house' | 'lot',
-            featured: true
-          }));
-          setProperties(dummyData);
+        if (data) {
+          // Additional validation
+          const validProperties = data.filter(p => 
+            p.featured === true && 
+            p.status === 'available' &&
+            p.images?.length > 0  // Ensure we have images
+          );
+
+          console.log('Filtered valid featured properties:', 
+            validProperties.map(p => ({
+              id: p.id,
+              title: p.title,
+              featured: p.featured,
+              status: p.status,
+              hasImages: p.images?.length > 0
+            }))
+          );
+
+          setProperties(validProperties);  
         } else {
-          console.log('Property images:', data.map(p => ({
-            id: p.id,
-            imageCount: p.images?.length,
-            images: p.images
-          })));
-          setProperties(data);
+          setProperties([]);
         }
       } catch (err) {
         console.error('Failed to fetch properties:', err);
@@ -277,7 +240,7 @@ export function FeaturedProperties() {
   }
 
   return (
-    <section className="relative py-16 bg-background" style={{ position: 'relative' }}>
+    <section className="relative py-16 bg-background">
       <div className="container mx-auto px-4">
         <FadeInView>
           <h2 className="text-3xl md:text-4xl font-bold text-caribbean-900 dark:text-caribbean-100 mb-4 text-center">
@@ -285,10 +248,8 @@ export function FeaturedProperties() {
           </h2>
         </FadeInView>
 
-
-        
         <FadeInView delay={0.2}>
-          <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
             {t('description')}
           </p>
         </FadeInView>
@@ -298,7 +259,7 @@ export function FeaturedProperties() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr max-w-7xl mx-auto"
         >
           {properties.map((property, index) => (
             <motion.div
@@ -307,10 +268,11 @@ export function FeaturedProperties() {
                 scale: 1.02,
                 transition: { type: "spring", stiffness: 300 }
               }}
+              className="h-full"
             >
-              <Card className="group hover:shadow-lg transition-shadow duration-300 dark:bg-caribbean-900/40 dark:border-caribbean-700/50 overflow-hidden">
-                <Link href={`/properties/${property.id}`} className="block">
-                  <CardHeader className="p-0 relative">
+              <Card className="group hover:shadow-lg transition-shadow duration-300 dark:bg-caribbean-900/40 dark:border-caribbean-700/50 overflow-hidden h-full flex flex-col">
+                <Link href={`/properties/${property.id}`} className="block flex-none">
+                  <CardHeader className="p-0 relative aspect-[4/3]">
                     <PropertyImage 
                       images={property.images} 
                       title={property.title} 
@@ -327,15 +289,15 @@ export function FeaturedProperties() {
                     </div>
                   </CardHeader>
                 </Link>
-                <CardContent className="p-6">
+                <CardContent className="p-6 flex-grow flex flex-col">
                   <CardTitle className="text-xl mb-2 text-caribbean-900 dark:text-caribbean-100">
                     {property.title}
                   </CardTitle>
                   <CardDescription className="flex items-center text-muted-foreground mb-4 dark:text-caribbean-300">
-                    <MapPin className="h-4 w-4 mr-1" />
-                    {property.location}
+                    <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
+                    <span className="line-clamp-1">{property.location}</span>
                   </CardDescription>
-                  <div className="flex justify-between items-center text-sm text-muted-foreground dark:text-caribbean-300 mb-4">
+                  <div className="flex justify-between items-center text-sm text-muted-foreground dark:text-caribbean-300 mb-4 mt-auto">
                     <div className="flex items-center">
                       <Bed className="h-4 w-4 mr-1" />
                       <span>{property.bedrooms} {t('propertyDetails.beds')}</span>
@@ -368,3 +330,13 @@ export function FeaturedProperties() {
     </section>
   );
 }
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};

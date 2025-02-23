@@ -142,6 +142,35 @@ export function PropertyManagement() {
     }
   }
 
+  async function updatePropertyFeatured(id: string, featured: boolean) {
+    try {
+      const { error } = await supabase
+        .from('properties')
+        .update({ featured })
+        .eq('id', id);
+
+      if (error) throw error;
+
+      // Update local state
+      setProperties(prev => prev.map(p => 
+        p.id === id ? { ...p, featured } : p
+      ));
+
+      setToastMessage({
+        title: t('success'),
+        description: featured ? t('markFeaturedSuccess') : t('unmarkFeaturedSuccess'),
+        type: 'success'
+      });
+    } catch (err) {
+      console.error('Error updating property featured status:', err);
+      setToastMessage({
+        title: t('error'),
+        description: t('featuredUpdateError'),
+        type: 'error'
+      });
+    }
+  }
+
   async function handleDeleteProperty(id: string) {
     try {
       const { error } = await supabase
@@ -446,8 +475,8 @@ export function PropertyManagement() {
                 </Badge>
               </TableCell>
               <TableCell>
-                <Badge variant={property.features?.includes('featured') ? 'default' : 'outline'}>
-                  {property.features?.includes('featured') ? t('status.featured') : t('status.notFeatured')}
+                <Badge variant={property.featured ? 'default' : 'outline'}>
+                  {property.featured ? t('status.featured') : t('status.notFeatured')}
                 </Badge>
               </TableCell>
               <TableCell>
@@ -461,16 +490,11 @@ export function PropertyManagement() {
                     <DropdownMenuLabel>{t('actions.title')}</DropdownMenuLabel>
                     <DropdownMenuItem
                       onClick={() => {
-                        const features = property.features || [];
-                        const isFeatured = features.includes('featured');
-                        const updatedFeatures = isFeatured 
-                          ? features.filter(f => f !== 'featured')
-                          : [...features, 'featured'];
-                        updatePropertyStatus(property.id, { features: updatedFeatures });
+                        updatePropertyFeatured(property.id, !property.featured);
                       }}
                     >
                       <Star className="mr-2 h-4 w-4" />
-                      {property.features?.includes('featured') ? t('actions.unmarkFeatured') : t('actions.markFeatured')}
+                      {property.featured ? t('actions.unmarkFeatured') : t('actions.markFeatured')}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuLabel>{t('actions.status')}</DropdownMenuLabel>
