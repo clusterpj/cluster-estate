@@ -105,10 +105,25 @@ export function CalendarManagement() {
   const syncFeedMutation = useMutation({
     mutationFn: async (feedId: string) => {
       const calendarSync = new CalendarSyncService(supabase);
-      await calendarSync.syncCalendarFeed(feedId, selectedProperty);
+      const result = await calendarSync.syncCalendarFeed(feedId, selectedProperty);
+
+      // Update the feed's sync status
+      await supabase
+        .from('calendar_feeds')
+        .update({
+          last_sync_at: new Date().toISOString(),
+          last_sync_status: result.success ? 'success' : 'error',
+          last_sync_result: result
+        })
+        .eq('id', feedId)
+        .eq('property_id', selectedProperty);
+
+      return result;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['calendar-feeds'] });
+      queryClient.invalidateQueries({ queryKey: ['calendar-feeds', selectedProperty] });
+      queryClient.invalidateQueries({ queryKey: ['bookings', selectedProperty] });
+      queryClient.invalidateQueries({ queryKey: ['property_availability', selectedProperty] });
       toast({
         title: t('syncComplete'),
         description: t('syncCompleteDescription'),
@@ -292,11 +307,12 @@ export function CalendarManagement() {
       </div>
 
       {/* Calendar View */}
-      <div className="w-full overflow-x-auto">
-        <AvailabilityCalendar 
-          propertyId={selectedProperty === 'all' ? undefined : selectedProperty}
+      <div className="mt-8">
+        <AvailabilityCalendar
+          propertyId={selectedProperty !== 'all' ? selectedProperty : undefined}
           initialDate={date}
-          className="min-w-[1000px]"
+          onDateChange={setDate}
+          className="mt-4"
         />
       </div>
     </div>
