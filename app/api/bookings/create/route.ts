@@ -1,9 +1,6 @@
-import { config } from '@/lib/config'
-import { createPayPalOrder } from '@/lib/paypal'
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
-import { PayPalBookingData } from '@/types/booking'
 import { 
   PaymentStatus,
   BookingStatus
