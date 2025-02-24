@@ -793,23 +793,52 @@
   },
   "bookings": {
     "status": {
+      "awaiting_approval": "Awaiting Approval",
       "pending": "Pending",
       "confirmed": "Confirmed",
       "canceled": "Canceled",
       "expired": "Expired",
       "payment_failed": "Payment Failed"
+    },
+    "payment_status": {
+      "pending": "Pending",
+      "authorized": "Authorized",
+      "completed": "Completed",
+      "failed": "Failed",
+      "refunded": "Refunded"
     }
   },
   "admin": {
     "bookings": {
-      "title": "Bookings Management",
+      "title": "Manage Bookings",
       "searchPlaceholder": "Search by guest name, email or property...",
       "statusFilter": "Filter by status",
-      "allStatuses": "All statuses",
+      "allStatuses": "All Statuses",
       "noResults": "No bookings found",
-      "noBookings": "No bookings found",
+      "actions": "Actions",
+      "approve": "Approve Booking",
+      "approving": "Approving...",
+      "reject": "Reject Booking",
+      "rejecting": "Rejecting...",
+      "capture": "Capture Payment",
+      "capturing": "Capturing...",
+      "updatePaymentStatus": "Update Payment Status",
+      "markCompleted": "Mark as Completed",
+      "markFailed": "Mark as Failed",
+      "markPending": "Mark as Pending",
       "loading": "Loading bookings...",
-      "fetchError": "Error loading bookings"
+      "noBookings": "No bookings found",
+      "fetchError": "Error loading bookings",
+      "approvalNote": "Approving will capture payment, rejecting will void payment",
+      "paymentCaptured": "Payment successfully captured and marked as completed",
+      "statusUpdated": "Status updated successfully",
+      "errors": {
+        "forbidden": "You don't have permission to perform this action",
+        "unauthorized": "Please log in to continue",
+        "bookingNotFound": "Booking not found",
+        "paymentError": "Failed to process payment",
+        "updateError": "Failed to update booking status"
+      }
     }
   }
 }

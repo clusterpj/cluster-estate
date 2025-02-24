@@ -23,8 +23,8 @@ export function PayPalProvider({ children }: PayPalProviderProps) {
   const paypalOptions = {
     'client-id': clientId,
     currency: 'USD',
-    intent: 'capture',
-    components: 'buttons',
+    intent: 'authorize',
+    components: 'buttons,hosted-fields',
     'disable-funding': 'credit,card',
     'enable-funding': 'paypal',
   }

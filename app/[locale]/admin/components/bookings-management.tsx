@@ -34,6 +34,7 @@ type BookingWithDetails = {
       full_name: string
     }
   }
+  payment_details: any
 }
 
 const ITEMS_PER_PAGE = 10
@@ -79,7 +80,7 @@ export function BookingsManagement() {
         // If RPC fails, fallback to direct query
         if (rpcError?.code === '42883' || rpcError?.code === '404') {
           console.warn('RPC function not available, falling back to direct query')
-          const { data: bookings, error } = await supabase
+          let query = supabase
             .from('bookings')
             .select(`
               *,
@@ -91,9 +92,24 @@ export function BookingsManagement() {
               guest_details:users!bookings_user_id_fkey(
                 email,
                 raw_user_meta_data
-              )
+              ),
+              payment_details
             `)
             .order('created_at', { ascending: false })
+
+          if (status !== 'all') {
+            query = query.eq('status', status)
+          }
+
+          if (search) {
+            query = query.or(`
+              property.title.ilike.%${search}%,
+              guest_details.raw_user_meta_data->>'full_name'.ilike.%${search}%,
+              guest_details.email.ilike.%${search}%
+            `)
+          }
+
+          const { data: bookings, error } = await query
             .range((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE - 1)
 
           if (error) {
@@ -101,43 +117,15 @@ export function BookingsManagement() {
             throw error
           }
 
-          // Filter results by search term if provided
-          let filteredData = bookings || []
-          if (search) {
-            const searchLower = search.toLowerCase()
-            filteredData = filteredData.filter((booking) => {
-              const propertyTitle = booking.property?.title?.toLowerCase() || ''
-              const guestName = booking.guest_details?.raw_user_meta_data?.full_name?.toLowerCase() || ''
-              const guestEmail = booking.guest_details?.email?.toLowerCase() || ''
-              
-              return (
-                propertyTitle.includes(searchLower) ||
-                guestName.includes(searchLower) ||
-                guestEmail.includes(searchLower)
-              )
-            })
-          }
-
-          return {
-            bookings: filteredData as BookingWithDetails[],
-            total: search ? filteredData.length : (total || 0),
-          }
+          return { bookings, total: total || 0 }
         }
 
-        if (rpcError) {
-          console.error('Error fetching bookings:', rpcError)
-          throw rpcError
-        }
-
-        return {
-          bookings: rpcData as BookingWithDetails[],
-          total: total || 0,
-        }
+        return { bookings: rpcData, total: total || 0 }
       } catch (error) {
-        console.error('Query error:', error)
+        console.error('Error in bookings query:', error)
         throw error
       }
-    },
+    }
   })
 
   if (isLoading) {
@@ -168,6 +156,7 @@ export function BookingsManagement() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">{t('admin.bookings.allStatuses')}</SelectItem>
+                <SelectItem value="awaiting_approval">{t('bookings.status.awaiting_approval')}</SelectItem>
                 <SelectItem value="pending">{t('bookings.status.pending')}</SelectItem>
                 <SelectItem value="confirmed">{t('bookings.status.confirmed')}</SelectItem>
                 <SelectItem value="canceled">{t('bookings.status.canceled')}</SelectItem>

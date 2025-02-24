@@ -6,12 +6,14 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import type { Database } from '@/types/supabase'
 import { Toaster } from '@/components/ui/toaster'
 
-type UserProfile = Database['public']['Tables']['profiles']['Row']
-type UserRole = UserProfile['role']
-
 type AuthContextType = {
   user: User | null
-  userProfile: UserProfile | null
+  userProfile: {
+    id: string;
+    full_name: string | null;
+    role: string | null;
+    avatar_url: string | null;
+  } | null
   loading: boolean
   supabase: ReturnType<typeof createClientComponentClient<Database>>
   signIn: (email: string, password: string) => Promise<void>
@@ -20,7 +22,7 @@ type AuthContextType = {
   resetPassword: (email: string) => Promise<void>
   refreshSession: () => Promise<void>
   refreshProfile: () => Promise<void>
-  hasRole: (role: UserRole) => boolean
+  hasRole: (role: string) => boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -28,71 +30,51 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const supabase = createClientComponentClient<Database>()
   const [user, setUser] = useState<User | null>(null)
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
+  const [userProfile, setUserProfile] = useState<{
+    id: string;
+    full_name: string | null;
+    role: string | null;
+    avatar_url: string | null;
+  } | null>(null)
   const [loading, setLoading] = useState(true)
 
-  // Enhanced profile caching system
-  const profileCache = new Map<string, UserProfile>()
-  const profileCacheExpiry = new Map<string, number>()
-  const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes cache duration
-  const fetchInProgress = useRef<{[key: string]: boolean}>({})
+  useEffect(() => {
+    if (user) {
+      const fetchProfile = async () => {
+        const { data: profile, error } = await supabase
+          .from('profiles')
+          .select('id, full_name, role, avatar_url')
+          .eq('id', user.id)
+          .single()
 
-  const fetchUserProfile = useCallback(async (userId: string) => {
-    // Prevent concurrent fetches for the same user
-    if (fetchInProgress.current[userId]) {
-      return null
-    }
+        if (error) {
+          console.error('Error fetching user profile:', error)
+          return
+        }
 
-    // Check cache and expiry
-    const cacheExpiry = profileCacheExpiry.get(userId)
-    if (cacheExpiry && Date.now() < cacheExpiry) {
-      return profileCache.get(userId)
-    }
-
-    // Clear expired cache
-    if (cacheExpiry && Date.now() >= cacheExpiry) {
-      profileCache.delete(userId)
-      profileCacheExpiry.delete(userId)
-    }
-
-    // Return cached profile if available
-    if (profileCache.has(userId)) {
-      return profileCache.get(userId)!
-    }
-
-    try {
-      fetchInProgress.current[userId] = true
-      const { data: profile, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single()
-
-      if (error) {
-        delete fetchInProgress.current[userId]
-        console.error('Error fetching user profile:', error)
-        return null
+        setUserProfile(profile)
       }
 
-      if (profile) {
-        // Cache the profile with expiration
-        profileCache.set(userId, profile)
-        profileCacheExpiry.set(userId, Date.now() + CACHE_DURATION)
-      }
-      
-      delete fetchInProgress.current[userId]
-      return profile
-    } catch (error) {
-      delete fetchInProgress.current[userId]
-      console.error('Error fetching user profile:', error)
-      return null
+      fetchProfile()
+    } else {
+      setUserProfile(null)
     }
-  }, [supabase])
+  }, [user, supabase])
 
   const refreshProfile = async () => {
     if (!user) return
-    const profile = await fetchUserProfile(user.id)
-    if (profile) setUserProfile(profile)
+    const { data: profile, error } = await supabase
+      .from('profiles')
+      .select('id, full_name, role, avatar_url')
+      .eq('id', user.id)
+      .single()
+
+    if (error) {
+      console.error('Error refreshing user profile:', error)
+      return
+    }
+
+    setUserProfile(profile)
   }
 
   const refreshSession = async () => {
@@ -101,15 +83,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (error) throw error
       if (session?.user) {
         setUser(session.user)
-        const profile = await fetchUserProfile(session.user.id)
-        if (profile) setUserProfile(profile)
+        const { data: profile, error } = await supabase
+          .from('profiles')
+          .select('id, full_name, role, avatar_url')
+          .eq('id', session.user.id)
+          .single()
+
+        if (error) {
+          console.error('Error refreshing user profile:', error)
+          return
+        }
+
+        setUserProfile(profile)
       }
     } catch (error) {
       console.error('Error refreshing session:', error)
     }
   }
 
-  const hasRole = (role: UserRole): boolean => {
+  const hasRole = (role: string): boolean => {
     return userProfile?.role === role
   }
 
@@ -146,8 +138,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       setUser(session?.user ?? null)
       if (session?.user) {
-        const profile = await fetchUserProfile(session.user.id)
-        if (profile) setUserProfile(profile)
+        const { data: profile, error } = await supabase
+          .from('profiles')
+          .select('id, full_name, role, avatar_url')
+          .eq('id', session.user.id)
+          .single()
+
+        if (error) {
+          console.error('Error fetching user profile:', error)
+          return
+        }
+
+        setUserProfile(profile)
       } else {
         setUserProfile(null)
       }
@@ -158,8 +160,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setUser(session?.user ?? null)
       if (session?.user) {
-        const profile = await fetchUserProfile(session.user.id)
-        if (profile) setUserProfile(profile)
+        const { data: profile, error } = await supabase
+          .from('profiles')
+          .select('id, full_name, role, avatar_url')
+          .eq('id', session.user.id)
+          .single()
+
+        if (error) {
+          console.error('Error fetching user profile:', error)
+          return
+        }
+
+        setUserProfile(profile)
       } else {
         setUserProfile(null)
       }
@@ -170,7 +182,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       subscription.unsubscribe()
       if (refreshTimer) clearTimeout(refreshTimer)
     }
-  }, [fetchUserProfile])
+  }, [supabase])
 
   const signIn = async (email: string, password: string) => {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -180,8 +192,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (error) throw error
 
     if (data.user) {
-      const profile = await fetchUserProfile(data.user.id)
-      if (profile) setUserProfile(profile)
+      const { data: profile, error } = await supabase
+        .from('profiles')
+        .select('id, full_name, role, avatar_url')
+        .eq('id', data.user.id)
+        .single()
+
+      if (error) {
+        console.error('Error fetching user profile:', error)
+        return
+      }
+
+      setUserProfile(profile)
     }
   }
 
@@ -218,9 +240,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { error } = await supabase.auth.signOut()
     if (error) throw error
     setUserProfile(null)
-    // Clear cache on signout
-    profileCache.clear()
-    profileCacheExpiry.clear()
   }
 
   const resetPassword = async (email: string) => {

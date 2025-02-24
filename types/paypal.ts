@@ -86,3 +86,51 @@ export interface PayPalCaptureResponse {
     method: string;
   }>;
 }
+
+export interface PayPalAuthorizationResponse {
+  id: string;
+  status: string;
+  payment_source: {
+    paypal?: {
+      email_address?: string;
+      account_id?: string;
+      name?: {
+        given_name?: string;
+        surname?: string;
+      };
+      address?: {
+        country_code?: string;
+      };
+    };
+  };
+  purchase_units: Array<{
+    reference_id?: string;
+    amount: {
+      currency_code: string;
+      value: string;
+    };
+    payee?: {
+      email_address?: string;
+      merchant_id?: string;
+    };
+  }>;
+  create_time: string;
+  update_time: string;
+  links: Array<{
+    href: string;
+    rel: string;
+    method: string;
+  }>;
+}
+
+export interface PayPalCaptureResult {
+  success: boolean;
+  data?: PayPalCaptureResponse;
+  error?: string;
+}
+
+export interface PayPalVoidResult {
+  success: boolean;
+  data?: Record<string, unknown>;
+  error?: string;
+}

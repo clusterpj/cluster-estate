@@ -1,16 +1,16 @@
-export enum BookingStatus {
-  PENDING = 'pending',
-  CONFIRMED = 'confirmed',
-  canceled = 'canceled',
-  COMPLETED = 'completed'
-}
+export type BookingStatus = 
+  | 'pending'
+  | 'awaiting-approval'
+  | 'confirmed'
+  | 'canceled'
+  | 'completed'
 
-export enum PaymentStatus {
-  PENDING = 'pending',
-  COMPLETED = 'completed',
-  FAILED = 'failed',
-  REFUNDED = 'refunded'
-}
+export type PaymentStatus = 
+  | 'pending'
+  | 'authorized'
+  | 'completed'
+  | 'failed'
+  | 'refunded'
 
 export interface StatusUpdate {
   bookingId: string

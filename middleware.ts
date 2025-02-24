@@ -70,15 +70,6 @@ export default async function middleware(req: NextRequest) {
     pathWithoutLocale.startsWith(route)
   );
 
-  // Get user role from session
-  const userRole = session?.user?.user_metadata?.role || 'user';
-
-  // If user is logged in and trying to access auth pages, redirect to home
-  if (session && isAuthPage) {
-    const locale = pathnameHasLocale ? pathname.split('/')[1] : defaultLocale;
-    return NextResponse.redirect(new URL(`/${locale}`, req.url));
-  }
-
   // Enhanced access control with role verification
   const hasAccess = async () => {
     // Allow access to auth pages without session
@@ -90,24 +81,33 @@ export default async function middleware(req: NextRequest) {
     // Check protected pages - require authentication
     if (isProtectedPage && !session) return false;
     
-    // Check admin pages - require admin role
-    if (isAdminPage && userRole !== 'admin') return false;
+    // Check admin pages - require admin role and session
+    if (isAdminPage) {
+      if (!session) return false;
+      
+      // Get user role from profiles table
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+      
+      if (!profile || profile.role !== 'admin') return false;
+    }
     
     // Default behavior: allow access
     return true;
   }
 
-  if (!(await hasAccess())) {
-    // Get locale from pathname
+  // If user is logged in and trying to access auth pages, redirect to home
+  if (session && isAuthPage) {
     const locale = pathnameHasLocale ? pathname.split('/')[1] : defaultLocale;
-    
-    // Store the attempted URL as the callback URL, but only if it's not an auth page
-    const callbackUrl = !isAuthPage ? pathname : `/${locale}`;
-    
-    // Redirect to login page with callback URL
-    const redirectUrl = new URL(`/${locale}/auth/login`, req.url);
-    redirectUrl.searchParams.set('callbackUrl', callbackUrl);
-    return NextResponse.redirect(redirectUrl);
+    return NextResponse.redirect(new URL(`/${locale}`, req.url));
+  }
+
+  if (!(await hasAccess())) {
+    const locale = pathnameHasLocale ? pathname.split('/')[1] : defaultLocale;
+    return NextResponse.redirect(new URL(`/${locale}/auth/login`, req.url));
   }
 
   // For all other routes, proceed normally

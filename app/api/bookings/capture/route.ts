@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     const { error: updateError } = await supabase
       .from('bookings')
       .update({
-        status: BookingStatus.CONFIRMED,
+        status: BookingStatus.AWAITING_APPROVAL,
         payment_id: captureData.id,
         updated_at: new Date().toISOString()
       })

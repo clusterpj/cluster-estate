@@ -48,6 +48,21 @@ export function PropertyBooking({ property }: PropertyBookingProps) {
     setIsProcessing(true)
 
     try {
+      console.log('Creating booking with data:', {
+        checkIn: bookingData.checkIn,
+        checkOut: bookingData.checkOut,
+        guests: bookingData.guests,
+        propertyId: bookingData.propertyId,
+        totalPrice: bookingData.totalPrice,
+        paymentId: paypalData.orderID,
+        paymentStatus: paypalData.status === 'COMPLETED' ? 'completed' : 'authorized',
+        payerDetails: {
+          id: paypalData.payerID,
+          source: paypalData.paymentSource,
+          details: paypalData.paymentDetails
+        }
+      })
+
       // Create the booking in your database
       const response = await fetch('/api/bookings/create', {
         method: 'POST',
@@ -61,16 +76,22 @@ export function PropertyBooking({ property }: PropertyBookingProps) {
           propertyId: bookingData.propertyId,
           totalPrice: bookingData.totalPrice,
           paymentId: paypalData.orderID,
-          paymentStatus: paypalData.paymentStatus,
+          paymentStatus: paypalData.status === 'COMPLETED' ? 'completed' : 'authorized',
           payerDetails: {
             id: paypalData.payerID,
-            source: paypalData.paymentSource
+            source: paypalData.paymentSource,
+            details: paypalData.paymentDetails
           }
         }),
       })
 
       if (!response.ok) {
         const errorData = await response.json()
+        console.error('Booking creation failed:', {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorData
+        })
         throw new Error(errorData.message || errorData.error || 'Failed to create booking')
       }
 
@@ -80,8 +101,8 @@ export function PropertyBooking({ property }: PropertyBookingProps) {
       router.push(`/en/bookings/${booking.id}`)
       
       toast({
-        title: 'Booking Confirmed',
-        description: 'Your booking has been successfully confirmed.',
+        title: 'Booking Submitted',
+        description: 'Your booking is awaiting admin approval. We will notify you once it is confirmed.',
       })
     } catch (error) {
       console.error('Error creating booking:', error)

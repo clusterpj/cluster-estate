@@ -52,16 +52,18 @@ export async function POST(request: Request) {
     console.log('Authenticated user:', user.id)
 
     // Set payment status based on PayPal response
-    const paymentStatus = bookingData.paymentStatus === 'completed' 
-      ? PaymentStatus.COMPLETED 
-      : PaymentStatus.PENDING
+    const paymentStatus = bookingData.payerDetails?.details?.status?.toLowerCase() === 'completed' 
+      ? 'completed' 
+      : 'authorized'
 
-    // Set booking status based on payment status
-    const bookingStatus = paymentStatus === PaymentStatus.COMPLETED 
-      ? BookingStatus.CONFIRMED 
-      : BookingStatus.PENDING
+    // Set booking status to awaiting approval when payment is authorized
+    const bookingStatus = 'awaiting-approval'
     
-    console.log('Creating booking with status:', { paymentStatus, bookingStatus })
+    console.log('Creating booking with status:', {
+      paymentStatus,
+      bookingStatus,
+      paymentDetails: bookingData.payerDetails?.details
+    })
     
     // Check for any conflicting unavailable dates
     const { data: conflicts, error: availabilityError } = await supabase
@@ -88,6 +90,18 @@ export async function POST(request: Request) {
       )
     }
 
+    // Extract authorization ID from PayPal response
+    const authorizationId = bookingData.payerDetails?.details?.purchase_units?.[0]?.payments?.authorizations?.[0]?.id ||
+                          bookingData.payerDetails?.details?.id;
+
+    if (!authorizationId) {
+      console.error('No authorization ID found in payment details:', bookingData.payerDetails?.details);
+      return NextResponse.json(
+        { error: 'No payment authorization ID found' },
+        { status: 400 }
+      );
+    }
+
     const { data: booking, error: bookingError } = await supabase
       .from('bookings')
       .insert({
@@ -99,37 +113,52 @@ export async function POST(request: Request) {
         property_id: bookingData.propertyId,
         total_price: bookingData.totalPrice,
         payment_id: bookingData.paymentId,
+        status: bookingStatus,
         payment_status: paymentStatus,
-        status: bookingStatus
+        payment_details: {
+          order_id: bookingData.payerDetails?.details?.id,
+          payer_id: bookingData.payerDetails?.id,
+          status: bookingData.payerDetails?.details?.status,
+          intent: bookingData.payerDetails?.details?.intent,
+          purchase_units: bookingData.payerDetails?.details?.purchase_units,
+          authorization_id: authorizationId
+        },
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       })
-      .select('*')
+      .select()
       .single()
 
     if (bookingError) {
-      console.error('Database error details:', {
-        code: bookingError.code,
-        message: bookingError.message,
-        details: bookingError.details,
-        hint: bookingError.hint,
-        statusValues: { paymentStatus, bookingStatus },
-        bookingData
+      console.error('Failed to create booking:', {
+        error: bookingError,
+        data: {
+          checkIn: new Date(bookingData.checkIn),
+          checkOut: new Date(bookingData.checkOut),
+          guests: bookingData.guests,
+          userId: user.id,
+          propertyId: bookingData.propertyId,
+          totalPrice: bookingData.totalPrice,
+          paymentId: bookingData.paymentId,
+          status: bookingStatus,
+          paymentStatus
+        }
       })
-      
       return NextResponse.json(
-        { error: 'Failed to create booking', details: bookingError.message },
+        { error: `Failed to create booking: ${bookingError.message}` },
         { status: 500 }
       )
     }
 
     if (!booking) {
-      console.error('No booking returned after insert')
+      console.error('No booking returned after creation')
       return NextResponse.json(
-        { error: 'Failed to create booking - no data returned' },
+        { error: 'Failed to create booking: No booking returned' },
         { status: 500 }
       )
     }
 
-    console.log('Booking created successfully:', booking)
+    console.log('Successfully created booking:', booking)
     return NextResponse.json({ booking })
 
   } catch (error) {

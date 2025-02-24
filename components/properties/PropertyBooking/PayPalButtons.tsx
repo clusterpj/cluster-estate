@@ -26,7 +26,8 @@ export function PayPalButtonsWrapper({
         currency,
         'disable-funding': 'credit,card',
         'enable-funding': 'paypal',
-        components: 'buttons,hosted-fields'
+        components: 'buttons,hosted-fields',
+        intent: 'authorize'
       }
     })
   }, [currency, dispatch])
@@ -60,7 +61,7 @@ export function PayPalButtonsWrapper({
             try {
               setIsCreatingOrder(true)
               return actions.order.create({
-                intent: "CAPTURE",
+                intent: "authorize",
                 purchase_units: [{
                   amount: {
                     value: totalPrice.toString(),
@@ -72,7 +73,7 @@ export function PayPalButtonsWrapper({
                       }
                     }
                   },
-                  description: 'Property Booking',
+                  description: 'Property Booking (Pending Approval)',
                   items: [{
                     name: 'Property Booking',
                     quantity: '1',
@@ -108,21 +109,22 @@ export function PayPalButtonsWrapper({
                 throw new Error('Payment actions not available')
               }
 
-              console.log('Capturing PayPal payment...')
-              const captureData = await actions.order.capture()
-              console.log('Payment captured successfully:', captureData)
+              console.log('Authorizing PayPal payment...')
+              const authorizationData = await actions.order.authorize()
+              console.log('Payment authorized successfully:', authorizationData)
 
-              if (!captureData?.id) {
-                throw new Error('Payment capture failed - no transaction ID')
+              if (!authorizationData?.purchase_units?.[0]?.payments?.authorizations?.[0]?.id) {
+                throw new Error('Payment authorization failed - no authorization ID')
               }
 
               // Pass the PayPal data to the parent component
               await onApprove({
-                orderID: captureData.id,
-                paymentStatus: captureData.status.toLowerCase(),
-                payerID: captureData.payer.payer_id,
+                orderID: data.orderID,
+                status: 'AUTHORIZED',
+                authorizationID: authorizationData.purchase_units[0].payments.authorizations[0].id,
+                payerID: data.payerID,
                 paymentSource: 'paypal',
-                paymentDetails: captureData
+                paymentDetails: authorizationData
               })
 
             } catch (error: unknown) {
