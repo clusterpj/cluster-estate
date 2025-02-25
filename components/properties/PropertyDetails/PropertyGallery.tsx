@@ -45,6 +45,7 @@ export function PropertyGallery({ property }: PropertyGalleryProps) {
           src="/placeholder-property.jpg"
           alt={t('gallery.placeholder')}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover rounded-lg"
         />
       </div>
@@ -64,6 +65,7 @@ export function PropertyGallery({ property }: PropertyGalleryProps) {
             src={images[0]}
             alt={`${property.title} - ${t('gallery.mainImage')}`}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
             priority
           />
@@ -91,6 +93,7 @@ export function PropertyGallery({ property }: PropertyGalleryProps) {
                 src={image}
                 alt={`${property.title} - ${t('gallery.image')} ${index + 2}`}
                 fill
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
                 className="object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200" />
@@ -161,6 +164,7 @@ export function PropertyGallery({ property }: PropertyGalleryProps) {
               src={images[currentIndex]}
               alt={`${property.title} - ${t('gallery.image')} ${currentIndex + 1}`}
               fill
+              sizes="100vw"
               className="object-contain"
               priority
             />

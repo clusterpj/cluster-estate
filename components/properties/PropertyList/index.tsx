@@ -10,6 +10,8 @@ import { useTranslations } from 'next-intl'
 
 import type { Database } from '@/types/supabase'
 
+type Property = Database["public"]["Tables"]["properties"]["Row"]
+
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -47,9 +49,25 @@ export function PropertyList({ searchParams }: { searchParams: { type?: string, 
     return queryBuilder
   }, [search, sort, type])
 
-  const { data: properties, isLoading } = useQuery(query, {
+  const { data: fetchedProperties, isLoading } = useQuery(query, {
     staleTime: 1000 * 60 * 5 // 5 minutes
   })
+
+  // Sort properties to ensure featured properties are always on top
+  const properties = React.useMemo(() => {
+    if (!fetchedProperties) return []
+    
+    // Create a copy of the properties array to avoid mutating the original data
+    return [...fetchedProperties].sort((a, b) => {
+      // Featured properties come first
+      if (a.featured && !b.featured) return -1
+      if (!a.featured && b.featured) return 1
+      
+      // If both are featured or both are not featured, maintain the original sort order
+      // by comparing their indices in the original array
+      return fetchedProperties.indexOf(a) - fetchedProperties.indexOf(b)
+    })
+  }, [fetchedProperties])
 
   if (isLoading) {
     return (

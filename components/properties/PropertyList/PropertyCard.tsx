@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { MapPin } from "lucide-react"
+import { MapPin, Star } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
@@ -143,6 +143,14 @@ export function PropertyCard({ property }: PropertyCardProps) {
             {property.status !== 'available' && (
               <Badge variant="secondary" className="absolute top-3 left-3 z-10">
                 {property.status}
+              </Badge>
+            )}
+            
+            {/* Featured badge */}
+            {property.featured && (
+              <Badge className="absolute top-3 right-3 z-10 bg-amber-500 hover:bg-amber-600 text-white flex items-center gap-1">
+                <Star className="h-3 w-3" />
+                {t('featured')}
               </Badge>
             )}
           </CardHeader>
