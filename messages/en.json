@@ -555,12 +555,16 @@
       "notAllowed": "No Pets",
       "information": "Pet Information",
       "restrictions": "Pet Restrictions",
-      "deposit": "Pet Deposit Amount"
+      "deposit": "Pet Deposit Amount",
+      "petsAllowed": "Pets are welcome"
     },
     "sections": {
       "description": "Description",
       "features": "Property Features & Amenities",
-      "location": "Location"
+      "location": "Location",
+      "featuresSubtitle": "Amenities and features included with this property",
+      "trustSafety": "Trust & Safety",
+      "trustSafetyDesc": "We prioritize your safety and satisfaction"
     },
     "features": {
       "wifi": "Wireless Internet",
@@ -573,6 +577,53 @@
       "security": "Security System",
       "fan": "Ceiling Fan",
       "garden": "Garden View"
+    },
+    "favorites": {
+      "add": "Add to Favorites",
+      "remove": "Remove from Favorites",
+      "added": "Added to Favorites",
+      "removed": "Removed from Favorites",
+      "addedDescription": "Property added to your favorites",
+      "removedDescription": "Property removed from your favorites"
+    },
+    "share": {
+      "property": "Share Property",
+      "copied": "Link Copied",
+      "linkCopied": "Property link copied to clipboard"
+    },
+    "booking": {
+      "noChargeYet": "You won't be charged yet",
+      "viewAvailability": "View Availability",
+      "checkAvailability": "Check Availability",
+      "bookNow": "Book Now",
+      "contactAgent": "Contact Agent",
+      "contactHost": "Contact Host"
+    },
+    "contactHost": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "message": "Message",
+      "submit": "Send Message",
+      "success": "Message sent successfully!",
+      "error": "Failed to send message. Please try again."
+    },
+    "gallery": {
+      "mainImage": "Main Property Image",
+      "viewLarger": "View Larger Image",
+      "viewImage": "View Image",
+      "of": "of",
+      "image": "Property Image",
+      "morePhotos": "See More Photos",
+      "close": "Close Gallery",
+      "previous": "Previous Image",
+      "next": "Next Image"
+    },
+    "calendar": {
+      "today": "Today",
+      "month": "Month",
+      "week": "Week",
+      "available": "Available",
+      "unavailable": "Unavailable"
     },
     "forRent": "For Rent",
     "forSale": "For Sale",
