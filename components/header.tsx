@@ -46,8 +46,25 @@ export function Header() {
   const t = useTranslations();
   const pathname = usePathname();
   const currentLocale = pathname.split('/')[1];
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const localizedHref = (path: string) => `/${currentLocale}${path}`;
+  
+  // Function to close the mobile menu
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+  
+  // Custom Link component that closes the menu when clicked
+  const MenuLink = ({ href, className, children }: { href: string, className?: string, children: React.ReactNode }) => (
+    <Link 
+      href={href} 
+      className={className} 
+      onClick={closeMenu}
+    >
+      {children}
+    </Link>
+  );
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-transparent bg-gradient-to-b from-black/10 to-transparent backdrop-blur-sm">
@@ -62,7 +79,7 @@ export function Header() {
                 width={200}
                 height={40}
                 priority
-                className="h-8 w-auto"
+                className="h-8 w-auto object-contain"
               />
             </Link>
           </div>
@@ -132,69 +149,82 @@ export function Header() {
           {/* Right Section: User Options */}
           <div className="flex items-center gap-4">
             {/* Mobile Menu Button - Only show on mobile */}
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" className="px-0 text-base bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
-                  <Menu className="h-6 w-6" />
-                  <span className="sr-only">Toggle Menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] sm:w-[400px] overflow-y-auto">
-                <nav className="flex flex-col space-y-6 mt-6">
-                  {/* Properties Section */}
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2 px-2 py-1.5 text-lg font-semibold rounded-lg bg-transparent">
-                      <Building2 className="h-5 w-5" />
-                      {t('nav.properties')}
-                    </div>
-                    <div className="ml-4 flex flex-col space-y-3">
-                      <Link
-                        href={localizedHref('/properties?type=villa')}
-                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-transparent transition-all duration-300"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-foreground dark:group-hover:text-foreground transition-colors duration-300">Villas</span>
-                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
-                        </div>
-                        <span className="text-sm text-muted-foreground">Luxury villas with exclusive amenities and private spaces</span>
-                      </Link>
-                      <Link
-                        href={localizedHref('/properties?type=condo')}
-                        className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-transparent transition-all duration-300"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium group-hover:text-foreground dark:group-hover:text-foreground transition-colors duration-300">Condos</span>
-                          <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
-                        </div>
-                        <span className="text-sm text-muted-foreground">Modern condominiums with resort-style facilities</span>
-                      </Link>
-                    </div>
-                  </div>
+            <div className="md:hidden">
+              <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" className="px-0 text-base bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
+                    <Menu className="h-6 w-6" />
+                    <span className="sr-only">Toggle Menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[300px] sm:w-[400px] overflow-y-auto">
+                  <nav className="flex flex-col space-y-6 mt-6">
+                    {/* Properties Section */}
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2 px-2 py-1.5 text-lg font-semibold rounded-lg bg-transparent">
+                        <Building2 className="h-5 w-5" />
+                        {t('nav.properties')}
+                      </div>
+                      <div className="ml-4 flex flex-col space-y-3">
+                        <MenuLink
+                          href={localizedHref('/properties')}
+                          className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-transparent transition-all duration-300"
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium group-hover:text-foreground dark:group-hover:text-foreground transition-colors duration-300">All Properties</span>
+                            <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
+                          </div>
+                          <span className="text-sm text-muted-foreground">Browse our complete collection of luxury properties</span>
+                        </MenuLink>
+                        <MenuLink
+                          href={localizedHref('/properties?type=villa')}
+                          className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-transparent transition-all duration-300"
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium group-hover:text-foreground dark:group-hover:text-foreground transition-colors duration-300">Villas</span>
+                            <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
+                          </div>
+                          <span className="text-sm text-muted-foreground">Luxury villas with exclusive amenities and private spaces</span>
+                        </MenuLink>
+                        <MenuLink
+                          href={localizedHref('/properties?type=condo')}
+                          className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-transparent transition-all duration-300"
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium group-hover:text-foreground dark:group-hover:text-foreground transition-colors duration-300">Condos</span>
+                            <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
+                          </div>
+                          <span className="text-sm text-muted-foreground">Modern condominiums with resort-style facilities</span>
+                        </MenuLink>
+                      </div>
 
-                  {/* Other Mobile Menu Items */}
-                  <Link href={localizedHref('/activities')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
-                    <Home className="h-5 w-5" />
-                    {t('nav.activities')}
-                  </Link>
-                  <Link href={localizedHref('/about')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
-                    <Info className="h-5 w-5" />
-                    {t('nav.about')}
-                  </Link>
-                  <Link href={localizedHref('/contact')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
-                    <Phone className="h-5 w-5" />
-                    {t('nav.contact')}
-                  </Link>
-                </nav>
-              </SheetContent>
-            </Sheet>
+                    </div>
 
-            {/* Auth, Theme, Language */}
+                    {/* Other Mobile Menu Items */}
+                    <MenuLink href={localizedHref('/activities')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
+                      <Home className="h-5 w-5" />
+                      {t('nav.activities')}
+                    </MenuLink>
+                    <MenuLink href={localizedHref('/about')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
+                      <Info className="h-5 w-5" />
+                      {t('nav.about')}
+                    </MenuLink>
+                    <MenuLink href={localizedHref('/contact')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
+                      <Phone className="h-5 w-5" />
+                      {t('nav.contact')}
+                    </MenuLink>
+                  </nav>
+                </SheetContent>
+              </Sheet>
+            </div>
+
+            {/* User Account Options */}
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
+                  <Button variant="ghost" className="hidden sm:flex gap-2 bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
                     <User className="h-5 w-5" />
-                    <span className="sr-only">{t('auth.userMenu')}</span>
+                    <span className="hidden sm:inline">{t('auth.account')}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -230,7 +260,7 @@ export function Header() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <div className="flex items-center gap-2">
+              <div className="hidden sm:flex items-center gap-2">
                 <Button variant="ghost" className="bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground" asChild>
                   <Link href={localizedHref('/auth/login')}>
                     {t('auth.signIn')}
@@ -243,8 +273,10 @@ export function Header() {
                 </Button>
               </div>
             )}
-            <ModeToggle />
-            <LanguageSwitcher />
+            <div className="flex items-center">
+              <ModeToggle />
+              <LanguageSwitcher />
+            </div>
           </div>
         </div>
       </div>
