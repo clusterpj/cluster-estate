@@ -13,11 +13,11 @@ import { PriceDisplay } from "@/components/properties/PriceDisplay"
 import { PropertyBooking } from "@/components/properties/PropertyBooking/PropertyBooking"
 import { isPropertyAvailableForBooking, Property } from "@/types/property"
 import { PropertyGallery } from "./PropertyGallery"
-import { PropertyAmenityItem } from "./PropertyAmenityItem"
 import { PropertyBadge } from "./PropertyBadge"
 import { SectionHeading } from "./SectionHeading"
 import { toast } from "@/components/ui/use-toast"
 import { PublicAvailabilityCalendar } from "../PublicAvailabilityCalendar"
+import { PropertyAmenityItem } from "./PropertyAmenityItem"
 
 export function PropertyDetails({ property }: { property: Property }) {
   const t = useTranslations('PropertyDetails')
