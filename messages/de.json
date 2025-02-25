@@ -474,17 +474,61 @@
     "title": "Immobilien suchen"
   },
   "PropertyDetails": {
-    "beds": "Betten",
-    "baths": "Bäder",
-    "sqft": "Quadratmeter",
-    "description": "Beschreibung",
-    "forRent": "Zu Vermieten",
-    "forSale": "Zum Verkauf",
-    "rentalFrequency": {
-      "daily": "pro Tag",
-      "weekly": "pro Woche",
-      "monthly": "pro Monat",
-      "yearly": "pro Jahr"
+    "overview": {
+      "beds": "Betten",
+      "baths": "Bäder",
+      "sqft": "Quadratmeter"
+    },
+    "pets": {
+      "allowed": "Haustiere Erlaubt",
+      "notAllowed": "Keine Haustiere",
+      "information": "Haustier Informationen",
+      "restrictions": "Haustier Einschränkungen",
+      "deposit": "Haustier Kaution",
+      "petsAllowed": "Haustiere sind willkommen"
+    },
+    "sections": {
+      "description": "Beschreibung",
+      "features": "Eigenschaften & Ausstattung",
+      "location": "Lage",
+      "featuresSubtitle": "Annehmlichkeiten und Eigenschaften dieser Immobilie",
+      "trustSafety": "Vertrauen & Sicherheit",
+      "trustSafetyDesc": "Wir priorisieren Ihre Sicherheit und Zufriedenheit",
+      "showMore": "Mehr Anzeigen",
+      "showLess": "Weniger Anzeigen"
+    },
+    "features": {
+      "wifi": "WLAN",
+      "parking": "Kostenlose Parkplätze",
+      "tv": "Fernseher",
+      "kitchen": "Küche",
+      "pool": "Pool",
+      "coffee": "Kaffeemaschine",
+      "ac": "Klimaanlage",
+      "security": "Sicherheitssystem",
+      "fan": "Deckenventilator",
+      "garden": "Gartenblick"
+    },
+    "favorites": {
+      "add": "Zu Favoriten hinzufügen",
+      "remove": "Aus Favoriten entfernen",
+      "added": "Zu Favoriten hinzugefügt",
+      "removed": "Aus Favoriten entfernt",
+      "addedDescription": "Immobilie zu Ihren Favoriten hinzugefügt",
+      "removedDescription": "Immobilie aus Ihren Favoriten entfernt"
+    },
+    "share": {
+      "property": "Immobilie teilen",
+      "copied": "Link kopiert",
+      "linkCopied": "Immobilienlink in die Zwischenablage kopiert"
+    },
+    "booking": {
+      "noChargeYet": "Sie werden noch nicht belastet",
+      "viewAvailability": "Verfügbarkeit anzeigen",
+      "checkAvailability": "Verfügbarkeit prüfen",
+      "bookNow": "Jetzt buchen",
+      "contactAgent": "Makler kontaktieren",
+      "contactHost": "Gastgeber kontaktieren"
     }
   }
 }

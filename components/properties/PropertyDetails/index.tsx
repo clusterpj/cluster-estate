@@ -24,6 +24,7 @@ export function PropertyDetails({ property }: { property: Property }) {
   const [isFavorite, setIsFavorite] = useState(false)
   const propertyWithAvailability = isPropertyAvailableForBooking(property)
   const [isViewAvailabilityDialogOpen, setIsViewAvailabilityDialogOpen] = useState(false)
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false)
   const router = useRouter()
 
   // Feature mapping with icons and translation keys
@@ -179,11 +180,27 @@ export function PropertyDetails({ property }: { property: Property }) {
             
             {/* Description Section */}
             <div>
-              <SectionHeading title={t('sections.description')} />
+              <SectionHeading 
+                title={t('sections.description')} 
+                rightContent={
+                  <div className="md:hidden">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+                      className="text-sm font-medium rounded-full"
+                    >
+                      {isDescriptionExpanded ? t('sections.showLess') : t('sections.showMore')}
+                    </Button>
+                  </div>
+                }
+              />
               <div className="prose prose-gray dark:prose-invert max-w-none">
-                <p className="text-gray-600 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
-                  {property.description}
-                </p>
+                <div className={`md:block ${isDescriptionExpanded ? 'block' : 'hidden'}`}>
+                  <p className="text-gray-600 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
+                    {property.description}
+                  </p>
+                </div>
               </div>
             </div>
             

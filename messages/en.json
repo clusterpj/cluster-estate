@@ -565,7 +565,9 @@
       "location": "Location",
       "featuresSubtitle": "Amenities and features included with this property",
       "trustSafety": "Trust & Safety",
-      "trustSafetyDesc": "We prioritize your safety and satisfaction"
+      "trustSafetyDesc": "We prioritize your safety and satisfaction",
+      "showMore": "Show More",
+      "showLess": "Show Less"
     },
     "features": {
       "wifi": "Wireless Internet",

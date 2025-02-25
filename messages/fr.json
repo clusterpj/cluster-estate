@@ -474,17 +474,38 @@
     "title": "Rechercher des propriétés"
   },
   "PropertyDetails": {
-    "beds": "Lits",
-    "baths": "Bains",
-    "sqft": "Pieds carrés",
-    "description": "Description",
-    "forRent": "[object Object]",
-    "forSale": "[object Object]",
-    "rentalFrequency": {
-      "daily": "[object Object]",
-      "weekly": "[object Object]",
-      "monthly": "[object Object]",
-      "yearly": "[object Object]"
+    "overview": {
+      "beds": "Lits",
+      "baths": "Salles de bain",
+      "sqft": "M²"
+    },
+    "pets": {
+      "allowed": "Animaux Autorisés",
+      "notAllowed": "Animaux Non Autorisés",
+      "information": "Informations sur les Animaux",
+      "restrictions": "Restrictions pour les Animaux",
+      "deposit": "Caution pour Animaux",
+      "petsAllowed": "Les animaux sont bienvenus"
+    },
+    "sections": {
+      "description": "Description",
+      "features": "Caractéristiques et Commodités",
+      "location": "Emplacement",
+      "featuresSubtitle": "Commodités et caractéristiques incluses avec cette propriété",
+      "trustSafety": "Confiance et Sécurité",
+      "trustSafetyDesc": "Nous priorisons votre sécurité et satisfaction",
+      "showMore": "Afficher Plus",
+      "showLess": "Afficher Moins"
     }
+  },
+  "sections": {
+    "description": "Description",
+    "features": "Caractéristiques et Commodités",
+    "location": "Emplacement",
+    "featuresSubtitle": "Commodités et caractéristiques incluses avec cette propriété",
+    "trustSafety": "Confiance et Sécurité",
+    "trustSafetyDesc": "Nous priorisons votre sécurité et satisfaction",
+    "showMore": "Afficher Plus",
+    "showLess": "Afficher Moins"
   }
 }

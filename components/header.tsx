@@ -25,12 +25,12 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-transparent hover:text-foreground dark:hover:text-foreground focus:bg-transparent focus:text-foreground",
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-transparent hover:text-gray-900 dark:hover:text-white",
             className
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
+          <div className="text-sm font-medium leading-none text-gray-800 dark:text-gray-200">{title}</div>
           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
           </p>
@@ -89,7 +89,7 @@ export function Header() {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
+                  <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white">
                     <span className="flex items-center gap-2">
                       <Building2 className="h-4 w-4" />
                       {t('nav.properties')}
@@ -121,7 +121,7 @@ export function Header() {
 
                 <NavigationMenuItem>
                   <Link href={localizedHref('/activities')} legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground")}>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white")}>
                       {t('nav.activities')}
                     </NavigationMenuLink>
                   </Link>
@@ -129,7 +129,7 @@ export function Header() {
 
                 <NavigationMenuItem>
                   <Link href={localizedHref('/about')} legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground")}>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white")}>
                       {t('nav.about')}
                     </NavigationMenuLink>
                   </Link>
@@ -137,7 +137,7 @@ export function Header() {
 
                 <NavigationMenuItem>
                   <Link href={localizedHref('/contact')} legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground")}>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white")}>
                       {t('nav.contact')}
                     </NavigationMenuLink>
                   </Link>
@@ -152,7 +152,7 @@ export function Header() {
             <div className="md:hidden">
               <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" className="px-0 text-base bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
+                  <Button variant="ghost" className="px-0 text-base bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white">
                     <Menu className="h-6 w-6" />
                     <span className="sr-only">Toggle Menu</span>
                   </Button>
@@ -168,30 +168,30 @@ export function Header() {
                       <div className="ml-4 flex flex-col space-y-3">
                         <MenuLink
                           href={localizedHref('/properties')}
-                          className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-transparent transition-all duration-300"
+                          className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-transparent transition-all duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
                         >
                           <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium group-hover:text-foreground dark:group-hover:text-foreground transition-colors duration-300">All Properties</span>
+                            <span className="text-sm font-medium group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">All Properties</span>
                             <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
                           </div>
                           <span className="text-sm text-muted-foreground">Browse our complete collection of luxury properties</span>
                         </MenuLink>
                         <MenuLink
                           href={localizedHref('/properties?type=villa')}
-                          className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-transparent transition-all duration-300"
+                          className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-transparent transition-all duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
                         >
                           <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium group-hover:text-foreground dark:group-hover:text-foreground transition-colors duration-300">Villas</span>
+                            <span className="text-sm font-medium group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">Villas</span>
                             <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
                           </div>
                           <span className="text-sm text-muted-foreground">Luxury villas with exclusive amenities and private spaces</span>
                         </MenuLink>
                         <MenuLink
                           href={localizedHref('/properties?type=condo')}
-                          className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-transparent transition-all duration-300"
+                          className="group relative flex flex-col space-y-1.5 rounded-lg p-3 hover:bg-transparent transition-all duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
                         >
                           <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium group-hover:text-foreground dark:group-hover:text-foreground transition-colors duration-300">Condos</span>
+                            <span className="text-sm font-medium group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">Condos</span>
                             <span className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
                           </div>
                           <span className="text-sm text-muted-foreground">Modern condominiums with resort-style facilities</span>
@@ -201,15 +201,15 @@ export function Header() {
                     </div>
 
                     {/* Other Mobile Menu Items */}
-                    <MenuLink href={localizedHref('/activities')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
+                    <MenuLink href={localizedHref('/activities')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white">
                       <Home className="h-5 w-5" />
                       {t('nav.activities')}
                     </MenuLink>
-                    <MenuLink href={localizedHref('/about')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
+                    <MenuLink href={localizedHref('/about')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white">
                       <Info className="h-5 w-5" />
                       {t('nav.about')}
                     </MenuLink>
-                    <MenuLink href={localizedHref('/contact')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
+                    <MenuLink href={localizedHref('/contact')} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white">
                       <Phone className="h-5 w-5" />
                       {t('nav.contact')}
                     </MenuLink>
@@ -222,7 +222,7 @@ export function Header() {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="hidden sm:flex gap-2 bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground">
+                  <Button variant="ghost" className="hidden sm:flex gap-2 bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white">
                     <User className="h-5 w-5" />
                     <span className="hidden sm:inline">{t('auth.account')}</span>
                   </Button>
@@ -261,12 +261,12 @@ export function Header() {
               </DropdownMenu>
             ) : (
               <div className="hidden sm:flex items-center gap-2">
-                <Button variant="ghost" className="bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground" asChild>
+                <Button variant="ghost" className="bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white" asChild>
                   <Link href={localizedHref('/auth/login')}>
                     {t('auth.signIn')}
                   </Link>
                 </Button>
-                <Button variant="ghost" className="bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 hover:text-foreground dark:hover:text-foreground" asChild>
+                <Button variant="ghost" className="bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white" asChild>
                   <Link href={localizedHref('/auth/register')}>
                     {t('auth.signUp')}
                   </Link>

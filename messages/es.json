@@ -482,7 +482,12 @@
     "sections": {
       "description": "Descripción",
       "features": "Características y Comodidades",
-      "location": "Ubicación"
+      "location": "Ubicación",
+      "featuresSubtitle": "Comodidades y características incluidas con esta propiedad",
+      "trustSafety": "Confianza y Seguridad",
+      "trustSafetyDesc": "Priorizamos su seguridad y satisfacción",
+      "showMore": "Mostrar Más",
+      "showLess": "Mostrar Menos"
     },
     "features": {
       "wifi": "Internet Inalámbrico",
