@@ -154,9 +154,7 @@ export function PropertyForm({
               <RentalInformation form={form} />
             )}
 
-            {form.watch('pets_allowed') && (
-              <PetInformation form={form} />
-            )}
+            <PetInformation form={form} />
 
             <FeaturesSection form={form} />
             <ImagesSection form={form} onError={onError} />

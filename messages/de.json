@@ -80,6 +80,14 @@
       "condo": "Eigentumswohnung",
       "lot": "Grundstück",
       "unknown": "Unbekannt"
+    },
+    "loading": "Immobilien werden geladen...",
+    "noProperties": "Derzeit sind keine ausgewählten Immobilien verfügbar.",
+    "error": "Fehler beim Laden der Immobilien",
+    "featured": "Ausgezeichnet",
+    "pets": {
+      "allowed": "Haustiere Erlaubt",
+      "notAllowed": "Keine Haustiere"
     }
   },
   "WhyChooseUs": {

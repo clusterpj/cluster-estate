@@ -1,4 +1,4 @@
-import { Bed, Bath, Maximize } from "lucide-react";
+import { Bed, Bath, PawPrint } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import { Database } from "@/types/supabase";
 
@@ -8,6 +8,7 @@ export interface PropertyMetricsProps {
     bedrooms: number;
     bathrooms: number;
     square_feet: number;
+    pets_allowed: boolean | null;
   };
 }
 
@@ -67,12 +68,9 @@ export function PropertyMetrics({ property }: PropertyMetricsProps) {
       </div>
       <div className="flex flex-col items-center justify-center p-1.5 relative">
         <div className="relative">
-          <Maximize className="h-5 w-5 mb-1" />
-          <span className={getBadgeClass(formatSquareFeet())}>
-            {formatSquareFeet()}
-          </span>
+          <PawPrint className="h-5 w-5 mb-1" />
         </div>
-        <span>{t('propertyDetails.sqft')}</span>
+        <span>{property.pets_allowed ? t('pets.allowed') : t('pets.notAllowed')}</span>
       </div>
     </div>
   );

@@ -80,6 +80,14 @@
       "condo": "Appartement",
       "lot": "Terrain",
       "unknown": "Inconnu"
+    },
+    "loading": "Chargement des propriétés en vedette...",
+    "noProperties": "Aucune propriété en vedette disponible pour le moment.",
+    "error": "Erreur lors du chargement des propriétés",
+    "featured": "En Vedette",
+    "pets": {
+      "allowed": "Animaux Autorisés",
+      "notAllowed": "Animaux Non Autorisés"
     }
   },
   "WhyChooseUs": {

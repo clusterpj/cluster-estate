@@ -98,7 +98,12 @@
       },
       "loading": "Loading featured properties...",
       "noProperties": "No featured properties available at the moment.",
-      "error": "Error loading properties"
+      "error": "Error loading properties",
+      "featured": "Featured",
+      "pets": {
+        "allowed": "Pets Allowed",
+        "notAllowed": "No Pets"
+      }
     },
 
   "WhyChooseUs": {

@@ -80,6 +80,14 @@
       "condo": "Apartamento",
       "lot": "Terreno",
       "unknown": "Desconocido"
+    },
+    "loading": "Cargando propiedades destacadas...",
+    "noProperties": "No hay propiedades destacadas disponibles en este momento.",
+    "error": "Error al cargar propiedades",
+    "featured": "Destacada",
+    "pets": {
+      "allowed": "Se permiten mascotas",
+      "notAllowed": "No se permiten mascotas"
     }
   },
   "WhyChooseUs": {
@@ -477,7 +485,8 @@
       "notAllowed": "No se permiten mascotas",
       "information": "Información de mascotas",
       "restrictions": "Restricciones para mascotas",
-      "deposit": "Depósito para mascotas"
+      "deposit": "Depósito para mascotas",
+      "petsAllowed": "Las mascotas son bienvenidas"
     },
     "sections": {
       "description": "Descripción",

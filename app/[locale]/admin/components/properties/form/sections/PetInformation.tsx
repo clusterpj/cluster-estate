@@ -14,6 +14,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { X } from 'lucide-react'
+import { Switch } from '@/components/ui/switch'
 
 interface PetInformationProps {
   form: UseFormReturn<PropertyFormValues>
@@ -21,6 +22,7 @@ interface PetInformationProps {
 
 export function PetInformation({ form }: PetInformationProps) {
   const t = useTranslations('auth.adminSection.properties')
+  const petsAllowed = form.watch('pets_allowed')
 
   return (
     <div className="space-y-6">
@@ -30,73 +32,98 @@ export function PetInformation({ form }: PetInformationProps) {
       
       <FormField
         control={form.control}
-        name="pet_restrictions"
+        name="pets_allowed"
         render={({ field }) => (
-          <FormItem>
-            <FormLabel>{t('form.petRestrictions')}</FormLabel>
-            <FormDescription>{t('form.petRestrictionsDescription')}</FormDescription>
+          <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+            <div className="space-y-0.5">
+              <FormLabel className="text-base">{t('form.petsAllowed')}</FormLabel>
+              <FormDescription>
+                {t('form.petsAllowedDescription')}
+              </FormDescription>
+            </div>
             <FormControl>
-              <div className="space-y-2">
-                <Input
-                  placeholder={t('form.petRestrictionsPlaceholder')}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && e.currentTarget.value) {
-                      e.preventDefault()
-                      const newRestriction = e.currentTarget.value.trim()
-                      const currentRestrictions = form.getValues('pet_restrictions')
-                      
-                      if (newRestriction && !currentRestrictions.includes(newRestriction)) {
-                        form.setValue('pet_restrictions', [...currentRestrictions, newRestriction])
-                        e.currentTarget.value = ''
-                      }
-                    }
-                  }}
-                />
-                <div className="flex flex-wrap gap-2">
-                  {field.value.map((restriction, index) => (
-                    <Badge key={index} variant="secondary">
-                      {restriction}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const currentRestrictions = form.getValues('pet_restrictions')
-                          form.setValue('pet_restrictions', currentRestrictions.filter(r => r !== restriction))
-                        }}
-                        className="ml-1 hover:text-destructive"
-                      >
-                        <X className="h-3 w-3" />
-                      </button>
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
-        name="pet_deposit"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>{t('form.petDeposit')}</FormLabel>
-            <FormControl>
-              <Input
-                id="pet_deposit"
-                type="number"
-                value={isNaN(field.value) ? '' : field.value}
-                onChange={(e) => {
-                  const value = parseFloat(e.target.value)
-                  field.onChange(isNaN(value) ? 0 : value)
-                }}
+              <Switch
+                checked={field.value}
+                onCheckedChange={field.onChange}
               />
             </FormControl>
-            <FormMessage />
           </FormItem>
         )}
       />
+      
+      {petsAllowed && (
+        <>
+          <FormField
+            control={form.control}
+            name="pet_restrictions"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('form.petRestrictions')}</FormLabel>
+                <FormDescription>{t('form.petRestrictionsDescription')}</FormDescription>
+                <FormControl>
+                  <div className="space-y-2">
+                    <Input
+                      placeholder={t('form.petRestrictionsPlaceholder')}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && e.currentTarget.value) {
+                          e.preventDefault()
+                          const newRestriction = e.currentTarget.value.trim()
+                          const currentRestrictions = form.getValues('pet_restrictions')
+                          
+                          if (newRestriction && !currentRestrictions.includes(newRestriction)) {
+                            form.setValue('pet_restrictions', [...currentRestrictions, newRestriction])
+                            e.currentTarget.value = ''
+                          }
+                        }
+                      }}
+                    />
+                    <div className="flex flex-wrap gap-2">
+                      {field.value.map((restriction, index) => (
+                        <Badge key={index} variant="secondary">
+                          {restriction}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const currentRestrictions = form.getValues('pet_restrictions')
+                              form.setValue('pet_restrictions', currentRestrictions.filter(r => r !== restriction))
+                            }}
+                            className="ml-1 hover:text-destructive"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="pet_deposit"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('form.petDeposit')}</FormLabel>
+                <FormControl>
+                  <Input
+                    id="pet_deposit"
+                    type="number"
+                    value={isNaN(field.value) ? '' : field.value}
+                    onChange={(e) => {
+                      const value = parseFloat(e.target.value)
+                      field.onChange(isNaN(value) ? 0 : value)
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </>
+      )}
     </div>
   )
 }
