@@ -2,13 +2,14 @@ import { useState, useEffect, useCallback } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Bed, Bath, MapPin, Maximize } from "lucide-react"
+import { MapPin } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Database } from "@/types/supabase"
 import { useParams } from "next/navigation"
 import { useTranslations } from 'next-intl'
+import { PropertyMetrics } from "../PropertyMetrics" // Import the shared component with the new name
 
 type Property = Database["public"]["Tables"]["properties"]["Row"]
 
@@ -119,27 +120,6 @@ function PropertyImage({ images, title }: { images: string[], title: string }) {
   );
 }
 
-function PropertyDetails({ property }: { property: Property }) {
-  const t = useTranslations('FeaturedProperties');
-  
-  return (
-    <div className="grid grid-cols-3 gap-2 text-sm text-muted-foreground dark:text-caribbean-300 mt-4 mb-4 p-2 bg-muted/50 rounded-md">
-      <div className="flex flex-col items-center justify-center p-1.5">
-        <Bed className="h-5 w-5 mb-1" />
-        <span>{property.bedrooms} {t('propertyDetails.beds')}</span>
-      </div>
-      <div className="flex flex-col items-center justify-center p-1.5">
-        <Bath className="h-5 w-5 mb-1" />
-        <span>{property.bathrooms} {t('propertyDetails.baths')}</span>
-      </div>
-      <div className="flex flex-col items-center justify-center p-1.5">
-        <Maximize className="h-5 w-5 mb-1" />
-        <span>{property.square_feet} {t('propertyDetails.sqft')}</span>
-      </div>
-    </div>
-  );
-}
-
 export function PropertyCard({ property }: PropertyCardProps) {
   const params = useParams()
   const t = useTranslations('FeaturedProperties')
@@ -181,8 +161,8 @@ export function PropertyCard({ property }: PropertyCardProps) {
             <span className="line-clamp-1">{property.location}</span>
           </CardDescription>
           
-          {/* Property details in grid layout */}
-          <PropertyDetails property={property} />
+          {/* Use the shared PropertyMetrics component */}
+          <PropertyMetrics property={property} />
         </CardContent>
       </Card>
     </motion.div>
