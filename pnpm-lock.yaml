@@ -159,7 +159,7 @@ importers:
         specifier: ^8.5.2
         version: 8.5.2(react@18.3.1)
       framer-motion:
-        specifier: ^11.13.5
+        specifier: ^11.18.2
         version: 11.18.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       ical.js:
         specifier: ^2.1.0

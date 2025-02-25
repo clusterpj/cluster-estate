@@ -4,16 +4,27 @@ import React from "react"
 import { PropertyCard } from "./PropertyCard"
 import { useQuery } from "@supabase-cache-helpers/postgrest-react-query"
 import { getSupabaseClient } from "@/lib/supabase"
-import { Database } from '@/types/supabase';
 import { Skeleton } from "@/components/ui/skeleton"
-import { useSearchParams } from "next/navigation"
+import { motion } from "framer-motion"
+import { useTranslations } from 'next-intl'
 
-import type { Database } from '@/types/supabase';
+import type { Database } from '@/types/supabase'
 
-export function PropertyList({ searchParams }: { searchParams: { type?: string } }) {
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+}
+
+export function PropertyList({ searchParams }: { searchParams: { type?: string, search?: string, sort?: string } }) {
   const search = searchParams?.search || ""
   const sort = searchParams?.sort || "created_at.desc"
   const type = searchParams?.type || ""
+  const t = useTranslations('FeaturedProperties')
 
   const query = React.useMemo(() => {
     const queryBuilder = getSupabaseClient()
@@ -44,7 +55,7 @@ export function PropertyList({ searchParams }: { searchParams: { type?: string }
     return (
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
-          <Skeleton key={i} className="h-[400px] w-full rounded-lg" />
+          <Skeleton key={i} className="h-[500px] w-full rounded-lg" />
         ))}
       </div>
     )
@@ -53,16 +64,22 @@ export function PropertyList({ searchParams }: { searchParams: { type?: string }
   if (!properties || properties.length === 0) {
     return (
       <div className="flex h-[400px] items-center justify-center">
-        <p className="text-muted-foreground">No properties found</p>
+        <p className="text-muted-foreground">{t('noProperties', { fallback: 'No properties found' })}</p>
       </div>
     )
   }
 
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <motion.div 
+      variants={container}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true }}
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr"
+    >
       {properties.map((property) => (
         <PropertyCard key={property.id} property={property} />
       ))}
-    </div>
+    </motion.div>
   )
 }
