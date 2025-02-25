@@ -1,4 +1,4 @@
-# Next.js Development Guidelines
+# Coding Guidelines for Cluster Estate Project
 
 ## Technology Stack
 - Frontend Framework: Next.js (App Router)
@@ -13,87 +13,111 @@
 - State Management: Zustand
 - ical.js for calendar synchronization
 
-## Architecture Requirements
+## TypeScript Best Practices
 
-### Component Structure
-- Implement atomic design principles
-- Create modular, reusable components
-- Maintain clear component hierarchy
-- Use TypeScript interfaces for props
-- Document component APIs
+- Enable strict mode in tsconfig.json for all files
+- Use explicit return types for all functions, especially API routes and hooks
+- Create dedicated type files for complex data structures
+- For React components:
+  - Define prop interfaces with required/optional properties clearly marked
+  - Use React.FC type sparingly; prefer explicit prop interfaces
+  - Use React.PropsWithChildren when components accept children
+- For API functions:
+  - Define request and response type interfaces
+  - Use zod schemas to validate incoming data
+  - Provide type guards for conditional logic
+- Avoid type assertions (as Type) when possible; use proper type narrowing
+- Use discriminated unions for complex state management
+- Leverage TypeScript utility types (Partial, Pick, Omit, etc.)
+- Use generics for reusable components and functions
+- Properly type asynchronous code (Promise<T>)
+- Create index.ts files to export and re-export types
+- Use readonly modifiers for arrays and objects that shouldn't be modified
 
-### Type Safety
-- Strict TypeScript configuration
-- No `any` types without justification
-- Type all API responses and requests
-- Maintain central types directory
+## Code Organization
 
-### Styling Guidelines
-- Follow tailwind.config.ts theme configuration
-- Use CSS variables for dynamic theming
-- Maintain consistent spacing scale
-- Implement responsive design patterns
-- Follow component-specific style modules
+### Project Structure
+- Follow Next.js app router pattern with `[locale]` parameter
+- Organize components by feature within route directories
+- Keep common UI components in `@/components/ui`
+- Group API routes by feature in `/app/api`
+- Store TypeScript interfaces in `/types` directory
 
-## Development Standards
+### Component Guidelines
+- Create smaller, focused components
+- Separate logic from presentation when appropriate
+- Use custom hooks for complex logic
+- Follow established naming conventions
+- Export page components as default, use named exports for others
 
-### Code Quality
-- Run type checking before commits
-- Implement proper error boundaries
-- Add error handling for async operations
-- Include loading states
-- Write unit tests for critical paths
+## Internationalization
 
-### Documentation Requirements
-- JSDoc comments for functions/components
-- README files for complex features
-- API documentation with examples
-- Update changelog for significant changes
-- Document state management patterns
+- Store all user-facing text in locale files
+- Never hardcode text in components
+- When creating new components, all new translation keys must be added to the `messages/en.json` file
+- Use `useTranslations` for client components, `getTranslations` for server components
+- Document context for translators when adding strings
+- Maintain hierarchical organization of translation keys that match component structure
 
-### Performance Optimization
-- Implement code splitting
+## Styling
+
+- Use Tailwind CSS utility classes
+- Follow project's design system
+- Use `cn` utility for conditional classes
+- Utilize shadcn/ui and Radix UI components
+
+## API and Data Handling
+
+- Use React Query for data fetching and mutations
+- Type API request/response payloads
+- Use appropriate Supabase client (server vs client)
+- Implement proper error handling
+- Follow RESTful patterns for endpoints
+
+## State Management
+
+- React Query for server state
+- React's useState/useReducer for local state
+- Context providers for shared state
+- Type all state properly
+
+## Error Handling
+
+- Use discriminated union types for error states
+- Implement error boundaries where needed
+- Provide user-friendly error messages
+- Handle edge cases and potential failures
+
+## Forms
+
+- Use React Hook Form with zod validation
+- Define schema types for form values
+- Validate all form inputs
+- Provide clear error messages
+
+## Performance Considerations
+
+- Optimize expensive computations
+- Use proper loading states
+- Follow React best practices
 - Use Next.js Image component
-- Optimize API calls with SWR/React Query
-- Monitor bundle size
-- Implement proper caching strategies
 
-### Internationalization
-- Use type-safe translation keys
-- Follow locale-specific formatting
-- Document translation workflow
-- Handle dynamic content translation
+## Database Guidelines
 
-## Code Review Process
-- Review against these guidelines
-- Verify TypeScript compliance
-- Check accessibility standards
-- Validate internationalization
-- Ensure proper documentation
-- Verify test coverage
+- Use parameterized queries
+- Implement proper error handling
+- Follow established data model
+- Use transactions for multiple operations
 
-## Version Control
-- Use meaningful commit messages
-- Follow branch naming convention
-- No direct commits to main branch
-- Create detailed PR descriptions
-- Link issues to PRs
+## Accessibility
 
-## Code Modification Rules
-1. Never modify existing code without:
-   - Documentation of changes
-   - Test coverage
-   - Team review
-   - Performance impact assessment
+- Use semantic HTML
+- Implement ARIA attributes
+- Ensure proper focus management
+- Maintain sufficient color contrast
 
-2. Code Validation Steps:
-   - Type check: `tsc --noEmit`
-   - Lint: `eslint`
-   - Test: `jest`
-   - Build: `next build`
+## Security
 
-3. New Implementation Requirements:
-   - Research existing solutions
-   - Document design decisions
-   - Create technical specification
-   - Consider scalability impact
+- Validate all user inputs
+- Implement proper authentication checks
+- Protect against common vulnerabilities
