@@ -4,61 +4,32 @@ import { getTranslations } from 'next-intl/server'
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { BookingStatus, PaymentStatus } from '@/types/booking'
-import { Calendar, CheckCircle, Clock, Ban, ArrowLeft } from 'lucide-react'
+import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
+import { BookingStatus } from '@/types/booking'
+import { Calendar, MapPin, Users, CreditCard, FileText, } from 'lucide-react'
 
 // Helper function to get the appropriate badge variant based on status
 const getStatusVariant = (status: BookingStatus): "default" | "destructive" | "secondary" | "outline" => {
   switch (status) {
     case 'confirmed':
-      return 'default' // green
-    case 'pending':
-      return 'secondary' // neutral/waiting
+      return 'default' 
+    case 'awaiting-approval':
+      return 'secondary'
     case 'completed':
-      return 'default' // green
+      return 'default'
     case 'canceled':
-      return 'destructive' // red
-    case 'payment_failed':
-      return 'destructive' // red
-    case 'expired':
-      return 'outline' // neutral
-    default:
-      return 'outline' // fallback for unknown states
-  }
-}
-
-// Helper function to get the appropriate payment badge variant
-const getPaymentStatusVariant = (status: PaymentStatus): "default" | "destructive" | "secondary" | "outline" => {
-  switch (status) {
-    case 'completed':
-      return 'default'
-    case 'captured':
-      return 'default'
-    case 'failed':
       return 'destructive'
-    case 'refunded':
-      return 'outline'
+    case 'payment_failed':
+      return 'destructive'
     default:
-      return 'secondary' // pending
+      return 'outline'
   }
 }
 
-// Helper function to get the appropriate icon based on status
-const getStatusIcon = (status: BookingStatus) => {
-  switch (status) {
-    case 'confirmed':
-      return <CheckCircle className="h-5 w-5" />
-    case 'completed':
-      return <CheckCircle className="h-5 w-5" />
-    case 'pending':
-      return <Clock className="h-5 w-5" />
-    case 'canceled':
-      return <Ban className="h-5 w-5" />
-    default:
-      return <Clock className="h-5 w-5" />
-  }
+// Strategic mapping function that transforms database values to translation-friendly keys
+const getTranslationKey = (status: string): string => {
+  return status.replace(/-/g, '_');
 }
 
 export default async function BookingConfirmation({
@@ -79,141 +50,158 @@ export default async function BookingConfirmation({
     notFound()
   }
 
-  // Check if we should show the pending approval alert
-  const showPendingAlert = booking.status === 'pending'
+  // Format dates for better readability
+  const checkInDate = new Date(booking.check_in)
+  const checkOutDate = new Date(booking.check_out)
+  
+  const formattedCheckIn = checkInDate.toLocaleDateString(params.locale, {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  })
+  
+  const formattedCheckOut = checkOutDate.toLocaleDateString(params.locale, {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  })
+  
+  // Calculate number of nights for stay duration
+  const nightsCount = Math.round((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24))
 
   return (
-    <div className="container max-w-2xl py-8">
-      <div className="mb-4">
-        <Link href="/bookings" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          {t('back_to_bookings')}
-        </Link>
-      </div>
-      
-      <Card>
-        <CardHeader className="pb-4">
-          <div className="flex items-center justify-between">
-            <CardTitle>{t('title')}</CardTitle>
-            <Badge variant={getStatusVariant(booking.status as BookingStatus)}>
-              {t(`status.${booking.status}`)}
-            </Badge>
-          </div>
-          <p className="text-sm text-muted-foreground mt-1">
-            {t('booking_id')}: {booking.id}
-          </p>
-        </CardHeader>
-        
-        {showPendingAlert && (
-          <div className="px-6">
-            <Alert>
-              <Clock className="h-4 w-4" />
-              <AlertTitle>{t('awaiting_approval.title')}</AlertTitle>
-              <AlertDescription>
-                {t('awaiting_approval.description')}
-              </AlertDescription>
-            </Alert>
-          </div>
-        )}
-        
-        <CardContent className="space-y-5 pt-4">
-          <div className="rounded-lg bg-muted/50 p-4">
-            <h3 className="font-medium text-lg mb-3">{t('property')}</h3>
-            <p className="text-xl font-semibold mb-1">{booking.property?.title}</p>
-            {booking.property?.location && (
-              <p className="text-muted-foreground">{booking.property.location}</p>
-            )}
-          </div>
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center py-8">
+      <div className="container max-w-2xl">
+        <Card className="overflow-hidden border-none shadow-md">
+          <div className="bg-primary h-1 w-full" />
           
-          <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-lg bg-muted/30 p-3">
-              <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                <Calendar className="h-4 w-4" />
-                {t('check_in')}
+          <CardHeader className="pb-2 pt-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <CardTitle className="text-xl">{t('title')}</CardTitle>
+              <Badge variant={getStatusVariant(booking.status as BookingStatus)} className="self-start sm:self-auto">
+                {t(`status.${getTranslationKey(booking.status)}`)}
+              </Badge>
+            </div>
+            <p className="text-sm text-muted-foreground mt-1">
+              {t('booking_id')}: <span className="font-mono">{booking.id}</span>
+            </p>
+          </CardHeader>
+          
+          <CardContent className="space-y-6">
+            {/* Payment Info Alert */}
+            <div className="bg-blue-50 border border-blue-200 text-blue-800 rounded-xl p-4">
+              <div className="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p className="text-sm">
+                  {t('payment_authorization_notice')}
+                </p>
               </div>
-              <p className="font-medium">
-                {new Date(booking.check_in).toLocaleDateString(params.locale, {
-                  weekday: 'short',
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                })}
-              </p>
             </div>
             
-            <div className="rounded-lg bg-muted/30 p-3">
-              <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                <Calendar className="h-4 w-4" />
-                {t('check_out')}
-              </div>
-              <p className="font-medium">
-                {new Date(booking.check_out).toLocaleDateString(params.locale, {
-                  weekday: 'short',
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                })}
-              </p>
-            </div>
-          </div>
-          
-          <div className="rounded-lg bg-muted/30 p-4">
-            <h3 className="font-medium mb-3">{t('payment_info')}</h3>
-            
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-muted-foreground">{t('payment_status_label')}:</span>
-                <Badge variant={getPaymentStatusVariant(booking.payment_status as PaymentStatus)}>
-                  {t(`payment_status.${booking.payment_status}`)}
-                </Badge>
-              </div>
-              
-              {booking.payment_id && (
-                <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">{t('payment_id')}:</span>
-                  <span className="font-mono text-sm">{booking.payment_id}</span>
-                </div>
+            {/* Property Section */}
+            <div className="bg-muted/40 rounded-xl p-4">
+              <h3 className="text-base font-medium mb-2 flex items-center">
+                <MapPin className="h-4 w-4 mr-2 text-primary" />
+                {t('property')}
+              </h3>
+              <p className="text-lg font-semibold mb-1">{booking.property?.title}</p>
+              {booking.property?.location && (
+                <p className="text-muted-foreground text-sm">{booking.property.location}</p>
               )}
+            </div>
+            
+            {/* Stay Details Section */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-muted/30 rounded-xl p-4">
+                <h4 className="text-sm font-medium text-muted-foreground mb-1 flex items-center">
+                  <Calendar className="h-4 w-4 mr-2 text-primary" />
+                  {t('check_in')}
+                </h4>
+                <p className="font-medium">{formattedCheckIn}</p>
+              </div>
               
-              <div className="flex justify-between items-center pt-2 border-t">
-                <span className="font-medium">{t('total')}:</span>
-                <span className="text-xl font-bold">
-                  {new Intl.NumberFormat(params.locale, {
-                    style: 'currency',
-                    currency: 'USD',
-                  }).format(booking.total_price)}
-                </span>
+              <div className="bg-muted/30 rounded-xl p-4">
+                <h4 className="text-sm font-medium text-muted-foreground mb-1 flex items-center">
+                  <Calendar className="h-4 w-4 mr-2 text-primary" />
+                  {t('check_out')}
+                </h4>
+                <p className="font-medium">{formattedCheckOut}</p>
               </div>
             </div>
-          </div>
-          
-          <div className="flex justify-between items-center">
-            <span className="text-muted-foreground">{t('guests')}:</span>
-            <span className="font-medium">{booking.guests}</span>
-          </div>
-
-          {booking.special_requests && (
-            <div className="rounded-lg bg-muted/30 p-4">
-              <h3 className="font-medium mb-2">{t('special_requests')}</h3>
-              <p className="text-muted-foreground">{booking.special_requests}</p>
+            
+            <div className="flex justify-between items-center bg-muted/30 rounded-xl p-4">
+              <div className="flex items-center">
+                <Users className="h-4 w-4 mr-2 text-primary" />
+                <span className="text-sm font-medium text-muted-foreground">{t('guests')}</span>
+              </div>
+              <span className="font-medium">{booking.guests}</span>
             </div>
-          )}
-        </CardContent>
-        
-        <CardFooter className="flex justify-between gap-4 flex-wrap">
-          <Button variant="outline" asChild>
-            <Link href="/dashboard">
-              {t('go_to_dashboard')}
-            </Link>
-          </Button>
+            
+            {/* Payment Section */}
+            <div className="bg-muted/30 rounded-xl p-4">
+              <h3 className="text-base font-medium mb-3 flex items-center">
+                <CreditCard className="h-4 w-4 mr-2 text-primary" />
+                {t('payment_info')}
+              </h3>
+              
+              <div className="space-y-2">
+                {booking.payment_id && (
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-muted-foreground">{t('payment_id')}</span>
+                    <span className="font-mono">{booking.payment_id}</span>
+                  </div>
+                )}
+                
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-muted-foreground">{t('status_label')}</span>
+                  <Badge variant={booking.payment_status === 'completed' ? 'default' : 'outline'}>
+                    {t(`payment_status.${booking.payment_status}`)}
+                  </Badge>
+                </div>
+                
+                <Separator className="my-2" />
+                
+                <div className="flex justify-between items-center">
+                  <div>
+                    <span className="text-muted-foreground text-sm">
+                      {nightsCount} {nightsCount === 1 ? 'night' : 'nights'}
+                    </span>
+                  </div>
+                  <span className="text-xl font-bold">
+                    {new Intl.NumberFormat(params.locale, {
+                      style: 'currency',
+                      currency: 'USD',
+                    }).format(booking.total_price)}
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Special Requests Section */}
+            {booking.special_requests && (
+              <div className="bg-muted/30 rounded-xl p-4">
+                <h3 className="text-base font-medium mb-2 flex items-center">
+                  <FileText className="h-4 w-4 mr-2 text-primary" />
+                  {t('special_requests')}
+                </h3>
+                <p className="text-sm text-muted-foreground">{booking.special_requests}</p>
+              </div>
+            )}
+          </CardContent>
           
-          {booking.status !== 'canceled' && booking.status !== 'completed' && (
-            <Button variant="secondary">
-              {t('cancel_booking')}
+          <CardFooter className="flex justify-center pt-2 pb-6">
+            <Button variant="outline" asChild className="w-full sm:w-auto">
+              <Link href="/dashboard">
+                {t('go_to_dashboard')}
+              </Link>
             </Button>
-          )}
-        </CardFooter>
-      </Card>
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   )
 }

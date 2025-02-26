@@ -4,7 +4,7 @@ export type Booking = Database['public']['Tables']['bookings']['Row']
 export type NewBooking = Database['public']['Tables']['bookings']['Insert']
 export type UpdateBooking = Database['public']['Tables']['bookings']['Update']
 
-export type BookingStatus = 'pending' | 'confirmed' | 'canceled' | 'expired' | 'payment_failed' 
+export type BookingStatus = 'pending' | 'confirmed' | 'canceled' | 'expired' | 'payment_failed' | 'awaiting-approval'
 export type PaymentStatus = 'pending' | 'captured' | 'completed' | 'failed' | 'refunded'
 
 export interface BookingFormData {

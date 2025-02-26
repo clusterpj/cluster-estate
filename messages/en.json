@@ -15,6 +15,7 @@
   "cancel_booking": "Cancel Booking",
   "payment_status_label": "Payment Status",
   "status_label": "Status",
+  "payment_authorization_notice": "IMPORTANT: Your payment has been authorized but not yet processed. We will confirm your booking shortly.",
   "payment_status": {
     "captured": "Captured",
     "outline": "Outline",
@@ -38,6 +39,7 @@
     "pending": "Pending",
     "canceled": "Canceled",
     "completed": "Completed",
+    "awaiting_approval": "Awaiting Approval",
     "payment_failed": "Payment Failed",
     "expired": "Expired"
   }
