@@ -33,7 +33,6 @@
   "status": {
     "confirmed": "Confirmed",
     "pending": "Pending",
-    "awaiting-approval": "Awaiting Approval", 
     "canceled": "Canceled",
     "completed": "Completed"
   }
