@@ -1,7 +1,6 @@
 import { createServerClient } from '@/lib/supabase-server'
 import { NextResponse } from 'next/server'
 import { capturePayPalOrder } from '@/lib/paypal'
-import { BookingStatus } from '@/types/booking-status'
 
 export async function POST(req: Request) {
   const supabase = createServerClient()
@@ -34,7 +33,7 @@ export async function POST(req: Request) {
     const { error: updateError } = await supabase
       .from('bookings')
       .update({
-        status: BookingStatus.AWAITING_APPROVAL,
+        status: "confirmed", // replaced BookingStatus.CONFIRMED with a valid string literal
         payment_id: captureData.id,
         updated_at: new Date().toISOString()
       })

@@ -10,6 +10,7 @@
     "special_requests": "Special Requests",
     "confirmed": "Confirmed",
     "pending": "Pending",
+    "awaiting-approval": "Awaiting Approval",
     "canceled": "canceled",
     "completed": "Completed"
   },
