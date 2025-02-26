@@ -19,7 +19,10 @@
     "captured": "Captured",
     "outline": "Outline",
     "completed": "Completed",
-    "authorized": "Authorized" 
+    "authorized": "Authorized",
+    "pending": "Pending",
+    "failed": "Payment Failed",
+    "refunded": "Refunded"
   },
   "awaiting_approval": {
     "title": "Awaiting Approval",
@@ -34,7 +37,9 @@
     "confirmed": "Confirmed",
     "pending": "Pending",
     "canceled": "Canceled",
-    "completed": "Completed"
+    "completed": "Completed",
+    "payment_failed": "Payment Failed",
+    "expired": "Expired"
   }
 },
   "Hero": {
