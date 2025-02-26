@@ -1,19 +1,43 @@
 {
-  "BookingConfirmation": {
-    "title": "Booking Confirmation",
-    "status": "Status",
-    "property": "Property",
-    "total": "Total Amount",
-    "check_in": "Check-in Date",
-    "check_out": "Check-out Date",
-    "guests": "Guests",
-    "special_requests": "Special Requests",
+"BookingConfirmation": {
+  "title": "Booking Confirmation",
+  "booking_id": "Booking ID", 
+  "property": "Property",
+  "check_in": "Check-in Date",
+  "check_out": "Check-out Date",
+  "guests": "Guests",
+  "total": "Total Amount",
+  "payment_info": "Payment Information",
+  "payment_id": "Payment ID",
+  "special_requests": "Special Requests",
+  "back_to_bookings": "Back to My Bookings",
+  "go_to_dashboard": "Go to Dashboard",
+  "cancel_booking": "Cancel Booking",
+  "payment_status_label": "Payment Status",
+  "status_label": "Status",
+  "payment_status": {
+    "captured": "Captured",
+    "outline": "Outline",
+    "completed": "Completed",
+    "authorized": "Authorized" 
+  },
+  "awaiting_approval": {
+    "title": "Awaiting Approval",
+    "description": "This booking requires owner approval. We'll notify you once confirmed."
+  },
+  "errors": {
+    "fetch_failed": "Failed to load booking details",
+    "title": "Booking Error", 
+    "unknown": "An unexpected error occurred"
+  },
+  "status": {
     "confirmed": "Confirmed",
     "pending": "Pending",
-    "awaiting-approval": "Awaiting Approval",
-    "canceled": "canceled",
+    "awaiting-approval": "Awaiting Approval", 
+    "canceled": "Canceled",
     "completed": "Completed"
-  },
+  }
+},
   "Hero": {
     "title": "Find Your Dream Home",
     "subtitle": "Discover luxury properties in prime locations",
