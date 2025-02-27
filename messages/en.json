@@ -44,18 +44,33 @@
     "expired": "Expired"
   }
 },
-  "Hero": {
+  "HeroSection": {
     "title": "Find Your Dream Home",
     "subtitle": "Discover luxury properties in prime locations",
     "searchPlaceholder": "Enter location, property type, or keywords...",
     "searchButton": "Search Properties",
     "backgroundAlt": "Luxury Home",
     "description": "Discover exceptional properties that match your lifestyle in the Caribbean's most sought-after locations.",
+    "features": {
+      "location": "Prime Locations",
+      "availability": "Immediate Availability",
+      "search": "Search properties"
+    },
     "stats": {
       "properties": "Properties",
       "clients": "Happy Clients",
       "locations": "Locations"
-    }
+    },
+    "ariaLabel": "Property search section",
+    "search": {
+      "locationPlaceholder": "Where are you going?",
+      "locationAriaLabel": "Enter destination location",
+      "datePlaceholder": "Select dates",
+      "dateAriaLabel": "Select stay dates",
+      "button": "Search"
+    },
+    "browsePropertiesAriaLabel": "Browse all properties",
+    "browseProperties": "Browse All Properties"
   },
   "ParadiseLiving": {
     "title": "Experience Paradise Living",
