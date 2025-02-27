@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import { Loader2 } from 'lucide-react'
+import { BookingsColumnProvider } from './bookings-columns'
 
 type BookingWithDetails = {
   id: string
@@ -105,7 +106,7 @@ export function BookingsManagement() {
             query = query.or(`
               property.title.ilike.%${search}%,
               guest_details.raw_user_meta_data->>'full_name'.ilike.%${search}%,
-              guest_details.email.ilike.%${search}%
+              guest_details.email.ilike.%${search}%,
             `)
           }
 
@@ -137,47 +138,49 @@ export function BookingsManagement() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t('admin.bookings.title')}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
-          <div className="flex flex-1 items-center gap-4">
-            <Input
-              placeholder={t('admin.bookings.searchPlaceholder')}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="max-w-[300px]"
-            />
-            <Select value={status} onValueChange={setStatus}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder={t('admin.bookings.statusFilter')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t('admin.bookings.allStatuses')}</SelectItem>
-                <SelectItem value="awaiting_approval">{t('bookings.status.awaiting_approval')}</SelectItem>
-                <SelectItem value="pending">{t('bookings.status.pending')}</SelectItem>
-                <SelectItem value="confirmed">{t('bookings.status.confirmed')}</SelectItem>
-                <SelectItem value="canceled">{t('bookings.status.canceled')}</SelectItem>
-                <SelectItem value="expired">{t('bookings.status.expired')}</SelectItem>
-                <SelectItem value="payment_failed">{t('bookings.status.payment_failed')}</SelectItem>
-              </SelectContent>
-            </Select>
+    <BookingsColumnProvider>
+      <Card>
+        <CardHeader>
+          <CardTitle>{t('admin.bookings.title')}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
+            <div className="flex flex-1 items-center gap-4">
+              <Input
+                placeholder={t('admin.bookings.searchPlaceholder')}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="max-w-[300px]"
+              />
+              <Select value={status} onValueChange={setStatus}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder={t('admin.bookings.statusFilter')} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t('admin.bookings.allStatuses')}</SelectItem>
+                  <SelectItem value="awaiting_approval">{t('bookings.status.awaiting_approval')}</SelectItem>
+                  <SelectItem value="pending">{t('bookings.status.pending')}</SelectItem>
+                  <SelectItem value="confirmed">{t('bookings.status.confirmed')}</SelectItem>
+                  <SelectItem value="canceled">{t('bookings.status.canceled')}</SelectItem>
+                  <SelectItem value="expired">{t('bookings.status.expired')}</SelectItem>
+                  <SelectItem value="payment_failed">{t('bookings.status.payment_failed')}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
-        </div>
 
-        <DataTable
-          columns={columns}
-          data={bookingsData?.bookings || []}
-          pageCount={Math.ceil((bookingsData?.total || 0) / ITEMS_PER_PAGE)}
-          pageSize={ITEMS_PER_PAGE}
-          page={page}
-          onPageChange={setPage}
-          searchKey="id"
-          emptyMessage={t('admin.bookings.noResults')}
-        />
-      </CardContent>
-    </Card>
+          <DataTable
+            columns={columns}
+            data={bookingsData?.bookings || []}
+            pageCount={Math.ceil((bookingsData?.total || 0) / ITEMS_PER_PAGE)}
+            pageSize={ITEMS_PER_PAGE}
+            page={page}
+            onPageChange={setPage}
+            searchKey="id"
+            emptyMessage={t('admin.bookings.noResults')}
+          />
+        </CardContent>
+      </Card>
+    </BookingsColumnProvider>
   )
 }
