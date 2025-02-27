@@ -29,6 +29,9 @@ import {
   formatPaymentStatus, 
   getAvailableActions 
 } from '@/lib/booking-status-utils'
+// Import error handling utilities
+import { AppError, ErrorType } from '@/lib/error-handling-utils'
+import { useErrorHandler } from '@/lib/use-error-handler'
 
 type BookingWithDetails = Omit<Database['public']['Tables']['bookings']['Row'], 'user'> & {
   property: Pick<
@@ -270,6 +273,8 @@ export const columns: ColumnDef<BookingWithDetails>[] = [
       const { toast } = useToast()
       const t = useTranslations()
       const queryClient = useQueryClient()
+      // Use the error handler hook
+      const { withErrorHandling } = useErrorHandler()
       
       // Log the actual status for debugging
       console.log('Booking status:', booking.status, 'Payment status:', booking.payment_status)
@@ -281,7 +286,8 @@ export const columns: ColumnDef<BookingWithDetails>[] = [
       // Log available actions for debugging
       console.log('Available actions:', availableActions)
 
-      const handleAction = async (action: 'approve' | 'reject' | 'capture' | 'mark_completed' | 'mark_failed' | 'mark_pending') => {
+      // Wrap the handleAction with error handling
+      const handleAction = withErrorHandling(async (action: 'approve' | 'reject' | 'capture' | 'mark_completed' | 'mark_failed' | 'mark_pending') => {
         try {
           setIsLoading(true)
           let endpoint = ''
@@ -342,7 +348,12 @@ export const columns: ColumnDef<BookingWithDetails>[] = [
           console.log('Response:', data)
 
           if (!response.ok) {
-            throw new Error(data.error || 'Failed to process request')
+            // Use AppError with appropriate error type
+            throw new AppError(
+              data.error || 'Failed to process request',
+              ErrorType.API_ERROR,
+              { endpoint, statusCode: response.status, details: data }
+            )
           }
 
           toast({
@@ -355,19 +366,27 @@ export const columns: ColumnDef<BookingWithDetails>[] = [
 
           // Refresh the data without page reload
           await queryClient.invalidateQueries(['admin-bookings'])
-        } catch (error) {
-          console.error('Error:', error)
-          toast({
-            title: t('Error'),
-            description: error instanceof Error 
-              ? t(`admin.bookings.errors.${error.message.toLowerCase()}`, { defaultValue: t('admin.bookings.errors.updateError') }) 
-              : t('admin.bookings.errors.updateError'),
-            variant: 'destructive',
-          })
         } finally {
           setIsLoading(false)
         }
-      }
+      }, {
+        // Error handling options
+        toastConfig: {
+          title: t('Error'),
+          getTitleFromError: (error) => {
+            return error instanceof AppError ? error.message : t('admin.bookings.errors.updateError')
+          },
+          getDescriptionFromError: (error) => {
+            if (error instanceof AppError) {
+              return t(`admin.bookings.errors.${error.code.toLowerCase()}`, { 
+                defaultValue: t('admin.bookings.errors.updateError') 
+              })
+            }
+            return t('admin.bookings.errors.updateError')
+          }
+        },
+        logError: true
+      })
 
       return (
         <DropdownMenu>
