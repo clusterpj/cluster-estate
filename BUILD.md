@@ -81,6 +81,27 @@ This configuration tells Vercel to:
 2. Recognize the project as a Next.js application
 3. Look for build output in the `.next` directory
 
+### Required Environment Variables
+
+The following environment variables must be set in your Vercel project settings:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+These variables are required for the application to connect to your Supabase backend. Without them, the build will fail with the error:
+
+```
+Error: either NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY env variables or supabaseUrl and supabaseKey are required!
+```
+
+To add these variables:
+1. Go to your Vercel project dashboard
+2. Navigate to Settings > Environment Variables
+3. Add each variable with its corresponding value
+4. Redeploy your application
+
 ### TypeScript and ESLint Error Handling
 
 The `next.config.mjs` file is configured to ignore TypeScript and ESLint errors during build:
