@@ -5,10 +5,8 @@ import { Database } from '@/types/database.types'
 import { format } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { useState } from 'react'
-import { Check, Copy, ExternalLink, Info, Mail, User, MoreHorizontal } from 'lucide-react'
-import Link from 'next/link'
+import { useState, createContext, useContext, ReactNode } from 'react'
+import { Check, MoreHorizontal, Mail, User, ExternalLink, X, Loader2 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { formatPrice } from '@/lib/utils'
 import {
@@ -18,13 +16,32 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuGroup
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { useToast } from '@/components/ui/use-toast'
-import { useTranslations } from 'next-intl'
 import { useQueryClient } from '@tanstack/react-query'
+import { 
+  BookingStatus, 
+  formatBookingStatus, 
+  getAvailableActions 
+} from '@/lib/booking-status-utils'
+// Import error handling utilities
+import { AppError, ErrorType } from '@/lib/error-handling-utils'
+import { useErrorHandler } from '@/lib/use-error-handler'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+import { useTranslations } from 'next-intl'
 
-type BookingWithDetails = Omit<Database['public']['Tables']['bookings']['Row'], 'user'> & {
+export type BookingWithDetails = Omit<Database['public']['Tables']['bookings']['Row'], 'user'> & {
   property: Pick<
     Database['public']['Tables']['properties']['Row'],
     'title' | 'location' | 'images'
@@ -43,41 +60,24 @@ type BookingWithDetails = Omit<Database['public']['Tables']['bookings']['Row'], 
   }
 }
 
-const IdCell = ({ id }: { id: string }) => {
-  const [copied, setCopied] = useState(false)
-  const truncatedId = `#${id.slice(0, 6)}...`
+// Create a context for the booking columns
+const BookingsColumnContext = createContext<{
+  columns: ColumnDef<BookingWithDetails>[]
+}>({ columns: [] })
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(id)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
+// Export the provider component that was missing
+export function BookingsColumnProvider({ children }: { children: ReactNode }) {
+  // Use the columns defined below
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleCopy}
-              className="font-mono hover:bg-accent px-2 py-1 rounded-md transition-colors flex items-center gap-2"
-            >
-              <span>{truncatedId}</span>
-              {copied ? (
-                <Check className="h-4 w-4 text-green-500" />
-              ) : (
-                <Copy className="h-4 w-4 opacity-50 hover:opacity-100" />
-              )}
-            </button>
-          </div>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Click to copy full ID</p>
-          <p className="text-xs text-muted-foreground">{id}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <BookingsColumnContext.Provider value={{ columns }}>
+      {children}
+    </BookingsColumnContext.Provider>
   )
+}
+
+// Export a hook to consume the columns
+export function useBookingsColumns() {
+  return useContext(BookingsColumnContext)
 }
 
 const PropertyCell = ({ property }: { property: BookingWithDetails['property'] }) => {
@@ -121,14 +121,208 @@ const GuestCell = ({ guest_details }: { guest_details: BookingWithDetails['guest
   )
 }
 
+// Component for actions cell
+function ActionsCell({ row }: { row: { original: BookingWithDetails } }) {
+  const booking = row.original
+  const [isLoading, setIsLoading] = useState(false)
+  const { toast } = useToast()
+  const queryClient = useQueryClient()
+  const t = useTranslations()
+  // Use the error handler hook
+  const { withErrorHandling } = useErrorHandler()
+  
+  // Log booking details for debugging
+  console.log('Booking status:', booking.status)
+  
+  const bookingStatus = booking.status as BookingStatus
+  const availableActions = getAvailableActions(bookingStatus)
+  
+  // Log available actions for debugging
+  console.log('Available actions:', availableActions)
+
+  const handleAction = withErrorHandling(async (action: string) => {
+    setIsLoading(true)
+    try {
+      let endpoint = ''
+      const method = 'POST'
+      let payload: Record<string, unknown> = {}
+      let successMessage = ''
+      
+      switch (action) {
+        case 'approve':
+          endpoint = '/api/admin/approve-booking'
+          payload = {
+            bookingId: booking.id,
+            approved: true
+          }
+          successMessage = t('admin.bookings.statusUpdated')
+          break
+        case 'reject':
+          endpoint = '/api/admin/approve-booking'
+          payload = {
+            bookingId: booking.id,
+            approved: false,
+            reason: 'Admin rejected'
+          }
+          successMessage = t('admin.bookings.statusUpdated')
+          break
+        default:
+          throw new AppError(
+            t('admin.bookings.errors.updateError'),
+            ErrorType.VALIDATION
+          )
+      }
+      
+      console.log('Sending request to:', endpoint, 'with payload:', payload)
+      
+      // Make the API request
+      const response = await fetch(endpoint, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        console.error('API error response:', {
+          status: response.status,
+          statusText: response.statusText,
+          errorData
+        })
+        throw new AppError(
+          errorData.error || errorData.message || t('admin.bookings.errors.updateError'),
+          ErrorType.SERVER,
+          response.status
+        )
+      }
+      
+      // Parse the response
+      const responseData = await response.json()
+      console.log('API success response:', responseData)
+      
+      // Show success message
+      toast({
+        title: t('Success'),
+        description: successMessage,
+      })
+      
+      // Invalidate the bookings query to refresh the data
+      queryClient.invalidateQueries({ queryKey: ['bookings'] })
+    } catch (error) {
+      // Error will be handled by withErrorHandling
+      throw error
+    } finally {
+      setIsLoading(false)
+    }
+  })
+
+  const [isRejectDialogOpen, setIsRejectDialogOpen] = useState(false)
+
+  const handleReject = () => {
+    setIsRejectDialogOpen(true)
+  }
+
+  const handleConfirmReject = () => {
+    handleAction('reject')
+    setIsRejectDialogOpen(false)
+  }
+
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon" className="h-8 w-8 p-0 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+            <span className="sr-only">{t('admin.bookings.actions')}</span>
+            <MoreHorizontal className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuLabel className="font-semibold">
+            <div className="flex flex-col space-y-1">
+              <span>{t('admin.bookings.actions')}</span>
+              <span className="text-xs font-normal text-muted-foreground">Booking #{booking.id.substring(0, 8)}</span>
+            </div>
+          </DropdownMenuLabel>
+          
+          <DropdownMenuSeparator />
+          
+          <DropdownMenuGroup>
+            <DropdownMenuItem
+              onClick={() => window.open(`/admin/bookings/${booking.id}`, '_blank')}
+            >
+              <ExternalLink className="mr-2 h-4 w-4" />
+              {t('View Details')}
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+          
+          <DropdownMenuSeparator />
+          
+          <DropdownMenuGroup>
+            {/* Booking approval actions */}
+            {(availableActions.canApprove || availableActions.canReject) && (
+              <DropdownMenuLabel className="text-xs font-normal text-muted-foreground px-2 py-1">
+                Approval Actions
+              </DropdownMenuLabel>
+            )}
+            
+            {availableActions.canApprove && (
+              <DropdownMenuItem
+                onClick={() => handleAction('approve')}
+                disabled={isLoading}
+                className="text-green-600 focus:text-green-600 focus:bg-green-50 dark:focus:bg-green-950/50"
+              >
+                {isLoading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <Check className="mr-2 h-4 w-4" />
+                )}
+                {isLoading ? t('admin.bookings.approving') : t('admin.bookings.approve')}
+              </DropdownMenuItem>
+            )}
+            
+            {availableActions.canReject && (
+              <DropdownMenuItem
+                onClick={handleReject}
+                disabled={isLoading}
+                className="text-red-600 focus:text-red-600 focus:bg-red-50 dark:focus:bg-red-950/50"
+              >
+                {isLoading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <X className="mr-2 h-4 w-4" />
+                )}
+                {isLoading ? t('admin.bookings.rejecting') : t('admin.bookings.reject')}
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      
+      <AlertDialog open={isRejectDialogOpen} onOpenChange={setIsRejectDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t('admin.bookings.rejectBooking')}</AlertDialogTitle>
+          </AlertDialogHeader>
+          <AlertDialogDescription>
+            {t('admin.bookings.rejectBookingConfirmation')}
+          </AlertDialogDescription>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={handleConfirmReject}>
+              {t('admin.bookings.reject')}
+            </AlertDialogAction>
+            <AlertDialogCancel onClick={() => setIsRejectDialogOpen(false)}>
+              {t('auth.Cancel')}
+            </AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
+  )
+}
+
 export const columns: ColumnDef<BookingWithDetails>[] = [
-  {
-    accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Booking ID" />
-    ),
-    cell: ({ row }) => <IdCell id={row.getValue('id')} />,
-  },
   {
     accessorKey: 'property',
     header: ({ column }) => (
@@ -163,81 +357,13 @@ export const columns: ColumnDef<BookingWithDetails>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
-      const status = row.getValue('status') as string
-      const colors: Record<string, string> = {
-        pending: 'bg-yellow-100 text-yellow-800',
-        confirmed: 'bg-green-100 text-green-800',
-        canceled: 'bg-red-100 text-red-800',
-        awaiting_approval: 'bg-blue-100 text-blue-800',
-        completed: 'bg-gray-100 text-gray-800'
-      }
-
+      const status = row.getValue('status') as BookingStatus
+      const formattedStatus = formatBookingStatus(status)
+      
       return (
-        <Badge className={colors[status] || 'bg-gray-100'}>
-          {status.charAt(0).toUpperCase() + status.slice(1).replace('_', ' ')}
+        <Badge className={formattedStatus.className}>
+          {formattedStatus.label}
         </Badge>
-      )
-    }
-  },
-  {
-    accessorKey: 'payment_status',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Payment Status" />
-    ),
-    cell: ({ row }) => {
-      const t = useTranslations()
-      const status = row.getValue('payment_status') as string
-      const paymentDetails = row.original.payment_details
-
-      let variant: 'default' | 'secondary' | 'destructive' | 'outline' = 'outline'
-      switch (status) {
-        case 'completed':
-          variant = 'default'
-          break
-        case 'failed':
-          variant = 'destructive'
-          break
-        case 'authorized':
-          variant = 'secondary'
-          break
-        default:
-          variant = 'outline'
-      }
-
-      return (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <Badge variant={variant} className="capitalize">
-                {t(`bookings.payment_status.${status}`)}
-              </Badge>
-            </TooltipTrigger>
-            {paymentDetails && (
-              <TooltipContent>
-                <div className="space-y-1">
-                  {paymentDetails.orderID && (
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">Order ID:</span>
-                      <span className="text-sm">{paymentDetails.orderID}</span>
-                    </div>
-                  )}
-                  {paymentDetails.authorizationId && (
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">Auth ID:</span>
-                      <span className="text-sm">{paymentDetails.authorizationId}</span>
-                    </div>
-                  )}
-                  {paymentDetails.payerID && (
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">Payer ID:</span>
-                      <span className="text-sm">{paymentDetails.payerID}</span>
-                    </div>
-                  )}
-                </div>
-              </TooltipContent>
-            )}
-          </Tooltip>
-        </TooltipProvider>
       )
     }
   },
@@ -258,172 +384,6 @@ export const columns: ColumnDef<BookingWithDetails>[] = [
   {
     id: 'actions',
     enableHiding: false,
-    cell: ({ row }) => {
-      const booking = row.original
-      const [isLoading, setIsLoading] = useState(false)
-      const { toast } = useToast()
-      const t = useTranslations()
-      const queryClient = useQueryClient()
-
-      const handleAction = async (action: 'approve' | 'reject' | 'capture' | 'mark_completed' | 'mark_failed' | 'mark_pending') => {
-        try {
-          setIsLoading(true)
-          let endpoint = ''
-          let payload = {}
-
-          switch (action) {
-            case 'capture':
-              endpoint = '/api/admin/capture-payment'
-              payload = {
-                bookingId: booking.id,
-                authorizationId: booking.payment_details?.authorizationId
-              }
-              break
-            case 'approve':
-            case 'reject':
-              endpoint = '/api/admin/approve-booking'
-              payload = {
-                bookingId: booking.id,
-                approved: action === 'approve',
-                reason: action === 'approve' ? 'Admin approved' : 'Admin rejected'
-              }
-              break
-            case 'mark_completed':
-              if (booking.payment_status === 'authorized' && booking.payment_details?.orderID) {
-                endpoint = '/api/admin/capture-payment'
-                payload = {
-                  bookingId: booking.id,
-                  orderId: booking.payment_details.orderID
-                }
-              } else {
-                endpoint = '/api/admin/update-payment-status'
-                payload = {
-                  bookingId: booking.id,
-                  status: 'completed'
-                }
-              }
-              break
-            case 'mark_failed':
-            case 'mark_pending':
-              endpoint = '/api/admin/update-payment-status'
-              payload = {
-                bookingId: booking.id,
-                status: action === 'mark_failed' ? 'failed' : 'pending'
-              }
-              break
-          }
-
-          console.log('Sending request to:', endpoint, 'with payload:', payload)
-          const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-          })
-
-          const data = await response.json()
-          console.log('Response:', data)
-
-          if (!response.ok) {
-            throw new Error(data.error || 'Failed to process request')
-          }
-
-          toast({
-            title: t('Success'),
-            description: action === 'mark_completed' && payload.orderId 
-              ? t('admin.bookings.paymentCaptured')
-              : t('admin.bookings.statusUpdated'),
-            variant: 'default',
-          })
-
-          // Refresh the data without page reload
-          await queryClient.invalidateQueries(['admin-bookings'])
-        } catch (error) {
-          console.error('Error:', error)
-          toast({
-            title: t('Error'),
-            description: t(`admin.bookings.errors.${error.message.toLowerCase()}`) || t('admin.bookings.errors.updateError'),
-            variant: 'destructive',
-          })
-        } finally {
-          setIsLoading(false)
-        }
-      }
-
-      const showPaymentActions = booking.status === 'confirmed'
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>{t('admin.bookings.actions')}</DropdownMenuLabel>
-            
-            {/* Booking Status Actions */}
-            {booking.status === 'awaiting-approval' && (
-              <>
-                <DropdownMenuItem
-                  onClick={() => handleAction('approve')}
-                  disabled={isLoading}
-                >
-                  {isLoading ? t('admin.bookings.approving') : t('admin.bookings.approve')}
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => handleAction('reject')}
-                  disabled={isLoading}
-                  className="text-red-600"
-                >
-                  {isLoading ? t('admin.bookings.rejecting') : t('admin.bookings.reject')}
-                </DropdownMenuItem>
-                <DropdownMenuLabel className="text-xs text-muted-foreground">
-                  {t('admin.bookings.approvalNote')}
-                </DropdownMenuLabel>
-              </>
-            )}
-
-            {/* Payment Status Actions - Only shown for confirmed bookings */}
-            {showPaymentActions && (
-              <>
-                <DropdownMenuSeparator />
-                <DropdownMenuLabel>{t('admin.bookings.updatePaymentStatus')}</DropdownMenuLabel>
-                
-                {booking.payment_status !== 'completed' && (
-                  <DropdownMenuItem
-                    onClick={() => handleAction('mark_completed')}
-                    disabled={isLoading}
-                  >
-                    {isLoading ? t('admin.bookings.updating') : t('admin.bookings.markCompleted')}
-                  </DropdownMenuItem>
-                )}
-                
-                {booking.payment_status !== 'failed' && (
-                  <DropdownMenuItem
-                    onClick={() => handleAction('mark_failed')}
-                    disabled={isLoading}
-                    className="text-red-600"
-                  >
-                    {isLoading ? t('admin.bookings.updating') : t('admin.bookings.markFailed')}
-                  </DropdownMenuItem>
-                )}
-                
-                {booking.payment_status !== 'pending' && (
-                  <DropdownMenuItem
-                    onClick={() => handleAction('mark_pending')}
-                    disabled={isLoading}
-                  >
-                    {isLoading ? t('admin.bookings.updating') : t('admin.bookings.markPending')}
-                  </DropdownMenuItem>
-                )}
-              </>
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
-    }
+    cell: ({ row }) => <ActionsCell row={row} />
   },
 ]

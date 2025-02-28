@@ -4,7 +4,7 @@ import { propertyFormSchema, PropertyFormValues } from '../schema'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import type { Database } from '@/types/supabase'
 
-export function usePropertyForm(initialData?: PropertyFormValues) {
+export function usePropertyForm(initialData?: Partial<PropertyFormValues>) {
   const supabase = createClientComponentClient<Database>()
   
   const form = useForm<PropertyFormValues>({
@@ -35,7 +35,7 @@ export function usePropertyForm(initialData?: PropertyFormValues) {
     },
   })
 
-  const processFormData = async (data: PropertyFormValues, isUpdate = false) => {
+  const processFormData = async (data: PropertyFormValues, isUpdate = false): Promise<Database['public']['Tables']['properties']['Insert']> => {
     console.log('Processing form data...')
     try {
       console.log('Getting current user...')
@@ -52,35 +52,30 @@ export function usePropertyForm(initialData?: PropertyFormValues) {
         []
 
       console.log('Creating processed data...')
-      // Create base data object
-      const processedData: any = {
+      // Create base data object with complete required fields
+      const processedData: Database['public']['Tables']['properties']['Insert'] = {
         title: data.title || '',
         description: data.description || '',
-        sale_price: data.sale_price || 0,
-        pets_allowed: data.pets_allowed || false,
+        sale_price: data.sale_price || null,
+        pets_allowed: data.pets_allowed,
         pet_restrictions: Array.isArray(data.pet_restrictions) ? data.pet_restrictions : [],
-        pet_deposit: data.pet_deposit || 0,
-        location: data.location || '',
-        bedrooms: data.bedrooms || 0,
-        bathrooms: data.bathrooms || 0,
-        square_feet: data.square_feet || 0,
-        status: data.status || 'available',
-        listing_type: data.listing_type || 'sale',
-        property_type: data.property_type || 'house',
-        rental_price: data.rental_price || 0,
-        rental_frequency: data.rental_frequency || 'monthly',
-        minimum_rental_period: data.minimum_rental_period || 0,
-        deposit_amount: data.deposit_amount || 0,
+        pet_deposit: data.pet_deposit || null,
+        location: data.location,
+        bedrooms: data.bedrooms,
+        bathrooms: data.bathrooms,
+        square_feet: data.square_feet,
+        status: data.status,
+        listing_type: data.listing_type,
+        property_type: data.property_type,
+        rental_price: data.rental_price || null,
+        rental_frequency: data.rental_frequency || null,
+        minimum_rental_period: data.minimum_rental_period || null,
+        deposit_amount: data.deposit_amount || null,
         available_from: availableFrom,
         available_to: availableTo,
         features: Array.isArray(data.features) ? data.features : [],
         images: processedImages,
-        // Removed updated_at since it doesn't exist in the schema
-      }
-
-      // Only add user_id for new properties
-      if (!isUpdate) {
-        processedData.user_id = user.id
+        user_id: user.id
       }
 
       console.log('Processed data:', processedData)

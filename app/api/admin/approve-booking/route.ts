@@ -1,7 +1,7 @@
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
-import { BookingStatus, PaymentStatus } from '@/types/booking-status'
+// Remove unused imports
 import { capturePayPalPayment, voidPayPalPayment } from '@/lib/paypal'
 
 export async function POST(request: Request) {
@@ -95,7 +95,7 @@ export async function POST(request: Request) {
     }
 
     // Begin transaction to update booking status
-    const { data: updateData, error: updateError } = await supabase.rpc('update_booking_status', {
+    const { error: updateError } = await supabase.rpc('update_booking_status', {
       p_booking_id: bookingId,
       p_new_status: newStatus,
       p_reason: reason || (approved ? 'Admin approved' : 'Admin rejected'),

@@ -7,7 +7,8 @@ export async function POST(request: Request) {
     const translation = await translateText(text, targetLanguage);
     
     return NextResponse.json({ translation });
-  } catch (error) {
+  } catch (err) {
+    console.error('Translation error:', err);
     return NextResponse.json(
       { error: 'Translation failed' },
       { status: 500 }

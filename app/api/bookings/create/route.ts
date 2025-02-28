@@ -1,10 +1,7 @@
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
-import { 
-  PaymentStatus,
-  BookingStatus
-} from '@/types/booking-status'
+// Remove unused imports - PaymentStatus and BookingStatus are not actually used
 
 export async function POST(request: Request) {
   try {

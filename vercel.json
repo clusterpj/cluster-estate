@@ -1,0 +1,16 @@
+{
+  "buildCommand": "next build",
+  "ignoreCommand": "echo 'Ignoring build errors'",
+  "devCommand": "next dev -H 0.0.0.0",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next",
+      "config": {
+        "skipBuildCommand": false,
+        "typeCheckingMode": "off",
+        "installCommand": "npm install"
+      }
+    }
+  ]
+}

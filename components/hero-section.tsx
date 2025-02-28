@@ -1,18 +1,15 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence, Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Search, MapPin, Calendar, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-// Define types for animation variants
-interface AnimationVariants {
-  hidden: object;
-  visible: object;
-}
+// Import Variants type instead of defining our own interface
+// Remove the AnimationVariants interface
 
 export function HeroSection() {
   const t = useTranslations('HeroSection');
@@ -31,7 +28,7 @@ export function HeroSection() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
 
   // Animation variants
-  const titleVariants: AnimationVariants = {
+  const titleVariants: Variants = {
     hidden: { 
       opacity: 0,
       y: 20 
@@ -46,7 +43,7 @@ export function HeroSection() {
     }
   };
 
-  const subtitleVariants: AnimationVariants = {
+  const subtitleVariants: Variants = {
     hidden: { 
       opacity: 0,
       y: 20 
@@ -62,7 +59,7 @@ export function HeroSection() {
     }
   };
 
-  const searchBarVariants: AnimationVariants = {
+  const searchBarVariants: Variants = {
     hidden: { 
       opacity: 0,
       y: 30,
@@ -80,7 +77,7 @@ export function HeroSection() {
     }
   };
 
-  const featureItemVariants: AnimationVariants = {
+  const featureItemVariants: Variants = {
     hidden: { 
       opacity: 0,
       x: -20 

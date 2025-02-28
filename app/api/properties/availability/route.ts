@@ -1,9 +1,15 @@
 import { NextResponse } from 'next/server'
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-import { PropertyAvailability } from '@/types/property'
 import { addDays, eachDayOfInterval, format } from 'date-fns'
 import { logger } from '@/lib/logger'
+
+// Define a simpler interface for our aggregate availability data
+interface AggregateAvailability {
+  date: string;
+  status: 'available' | 'booked' | 'pending' | 'limited';
+  propertyCount: number;
+}
 
 export async function GET(request: Request) {
   const supabase = createRouteHandlerClient({ cookies })
@@ -50,7 +56,7 @@ export async function GET(request: Request) {
     })
 
     // Create availability map
-    const availabilityMap = new Map<string, PropertyAvailability>()
+    const availabilityMap = new Map<string, AggregateAvailability>()
     
     // Initialize all dates with available status
     dateRange.forEach(date => {
@@ -88,7 +94,7 @@ export async function GET(request: Request) {
         if (booking.status === 'confirmed') {
           newStatus = 'booked'
         } else if (availabilityPercentage < 100 && availabilityPercentage > 0) {
-          newStatus = 'partial'
+          newStatus = 'limited' // Changed from 'partial' to 'limited' which is in our type
         } else if (availabilityPercentage === 0) {
           newStatus = 'booked'
         } else if (booking.status === 'pending') {
@@ -111,7 +117,8 @@ export async function GET(request: Request) {
     logger.info('Final aggregate availability data:', availability)
     
     return NextResponse.json(availability)
-  } catch (error) {
+  } catch (err) { // Renamed 'error' to 'err' to avoid eslint warning
+    logger.error('Failed to fetch availability data:', err)
     return NextResponse.json(
       { error: 'Failed to fetch availability data' },
       { status: 500 }

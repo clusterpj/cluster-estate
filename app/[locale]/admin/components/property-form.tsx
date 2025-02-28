@@ -45,7 +45,7 @@ export function PropertyForm({
       const supabase = createClientComponentClient<Database>()
       const { data: newProperty, error: insertError } = await supabase
         .from('properties')
-        .insert([processedData])
+        .insert(processedData)
         .select()
         .single()
 
@@ -141,7 +141,7 @@ export function PropertyForm({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 lg:gap-x-12 gap-y-8 px-4">
           {/* Left Column */}
           <div className="space-y-6">
-            <BasicInformation form={form} />
+            <BasicInformation form={form} propertyId={propertyId || ''} />
           </div>
 
           {/* Right Column */}

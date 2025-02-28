@@ -1,11 +1,44 @@
-import { Database } from './database.types'
+import { BookingStatus, PaymentStatus } from './booking-status';
+import { Database } from './database.types';
 
-export type Booking = Database['public']['Tables']['bookings']['Row']
+// Define the Booking type based on the database schema
+export type Booking = Database['public']['Tables']['bookings']['Row'];
+
+// Extended booking type with additional properties that might be joined from other tables
+export interface ExtendedBooking extends Booking {
+  property_name?: string;
+  user_email?: string;
+  total_nights?: number;
+}
+
+// Booking creation payload
+export interface CreateBookingPayload {
+  property_id: string;
+  user_id: string;
+  check_in: string;
+  check_out: string;
+  guests: number;
+  total_amount: number;
+  currency: string;
+  status: BookingStatus;
+  payment_status: PaymentStatus;
+  payment_method?: string;
+}
+
+// Booking update payload
+export interface UpdateBookingPayload {
+  check_in?: string;
+  check_out?: string;
+  guests?: number;
+  total_amount?: number;
+  status?: BookingStatus;
+  payment_status?: PaymentStatus;
+  cancellation_reason?: string;
+  cancellation_date?: string;
+}
+
 export type NewBooking = Database['public']['Tables']['bookings']['Insert']
 export type UpdateBooking = Database['public']['Tables']['bookings']['Update']
-
-export type BookingStatus = 'pending' | 'confirmed' | 'canceled' | 'expired' | 'payment_failed' | 'awaiting-approval'
-export type PaymentStatus = 'pending' | 'captured' | 'completed' | 'failed' | 'refunded'
 
 export interface BookingFormData {
   checkIn: Date
