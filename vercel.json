@@ -1,6 +1,5 @@
 {
   "buildCommand": "next build",
-  "ignoreCommand": "echo 'Ignoring build errors'",
   "devCommand": "next dev -H 0.0.0.0",
   "builds": [
     {
