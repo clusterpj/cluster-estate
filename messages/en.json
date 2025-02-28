@@ -322,6 +322,7 @@
         "approvalNote": "Approving will capture payment, rejecting will void payment",
         "paymentCaptured": "Payment successfully captured and marked as completed",
         "statusUpdated": "Status updated successfully",
+        "search":"Search Bookings",
         "errors": {
           "forbidden": "You don't have permission to perform this action",
           "unauthorized": "Please log in to continue",

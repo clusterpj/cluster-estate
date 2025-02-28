@@ -5,7 +5,6 @@ import { Database } from '@/types/database.types'
 import { format } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useState, createContext, useContext, ReactNode } from 'react'
 import { Check, MoreHorizontal, Mail, User, ExternalLink, X, Loader2 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -42,7 +41,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { useTranslations } from 'next-intl'
 
-type BookingWithDetails = Omit<Database['public']['Tables']['bookings']['Row'], 'user'> & {
+export type BookingWithDetails = Omit<Database['public']['Tables']['bookings']['Row'], 'user'> & {
   property: Pick<
     Database['public']['Tables']['properties']['Row'],
     'title' | 'location' | 'images'
@@ -123,7 +122,7 @@ const GuestCell = ({ guest_details }: { guest_details: BookingWithDetails['guest
 }
 
 // Component for actions cell
-function ActionsCell({ row }: { row: any }) {
+function ActionsCell({ row }: { row: { original: BookingWithDetails } }) {
   const booking = row.original
   const [isLoading, setIsLoading] = useState(false)
   const { toast } = useToast()
@@ -145,8 +144,8 @@ function ActionsCell({ row }: { row: any }) {
     setIsLoading(true)
     try {
       let endpoint = ''
-      let method = 'POST'
-      let payload: any = {}
+      const method = 'POST'
+      let payload: Record<string, unknown> = {}
       let successMessage = ''
       
       switch (action) {
