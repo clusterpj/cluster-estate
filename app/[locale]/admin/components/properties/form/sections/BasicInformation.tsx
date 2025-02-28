@@ -22,10 +22,10 @@ import {
 
 interface BasicInformationProps {
   form: UseFormReturn<PropertyFormValues>
-  propertyId: string
+  propertyId?: string
 }
 
-export function BasicInformation({ form, propertyId }: BasicInformationProps) {
+export function BasicInformation({ form, propertyId = '' }: BasicInformationProps) {
   const t = useTranslations('auth.adminSection.properties')
 
   return (

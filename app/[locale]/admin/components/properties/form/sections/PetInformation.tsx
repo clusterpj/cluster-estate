@@ -111,7 +111,7 @@ export function PetInformation({ form }: PetInformationProps) {
                   <Input
                     id="pet_deposit"
                     type="number"
-                    value={isNaN(field.value) ? '' : field.value}
+                    value={field.value === undefined || isNaN(field.value) ? '' : field.value}
                     onChange={(e) => {
                       const value = parseFloat(e.target.value)
                       field.onChange(isNaN(value) ? 0 : value)
