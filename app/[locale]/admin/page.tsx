@@ -70,7 +70,7 @@ export default function AdminDashboard() {
         />
       </div>
 
-      <Tabs defaultValue="properties" className="space-y-4">
+      <Tabs defaultValue="bookings" className="space-y-4">
         <TabsList>
           <TabsTrigger value="properties">{t('tabs.properties')}</TabsTrigger>
           <TabsTrigger value="users">{t('tabs.users')}</TabsTrigger>

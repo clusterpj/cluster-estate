@@ -299,21 +299,38 @@
       "description": "Manage your properties and users",
       "bookings": {
         "title": "Manage Bookings",
+        "searchPlaceholder": "Search by guest name, email or property...",
+        "statusFilter": "Filter by status",
+        "allStatuses": "All Statuses",
+        "noResults": "No bookings found",
+        "actions": "Actions",
+        "approve": "Approve Booking",
+        "approving": "Approving...",
+        "reject": "Reject Booking",
+        "rejecting": "Rejecting...",
+        "rejectBooking": "Reject Booking",
+        "rejectBookingConfirmation": "Are you sure you want to reject this booking? This will void the payment authorization and notify the guest. This action cannot be undone.",
+        "capture": "Capture Payment",
+        "capturing": "Capturing...",
+        "updatePaymentStatus": "Update Payment Status",
+        "markCompleted": "Mark as Completed",
+        "markFailed": "Mark as Failed",
+        "markPending": "Mark as Pending",
         "loading": "Loading bookings...",
         "noBookings": "No bookings found",
-        "fetchError": "Failed to load bookings",
-        "status": {
-          "pending": "Pending",
-          "confirmed": "Confirmed",
-          "canceled": "canceled",
-          "completed": "Completed"
+        "fetchError": "Error loading bookings",
+        "approvalNote": "Approving will capture payment, rejecting will void payment",
+        "paymentCaptured": "Payment successfully captured and marked as completed",
+        "statusUpdated": "Status updated successfully",
+        "errors": {
+          "forbidden": "You don't have permission to perform this action",
+          "unauthorized": "Please log in to continue",
+          "bookingNotFound": "Booking not found",
+          "paymentError": "Failed to process payment",
+          "updateError": "Failed to update booking status",
+          "missingPaymentDetails": "Payment details are missing for this booking"
         },
-        "paymentStatus": {
-          "pending": "Pending",
-          "completed": "Completed",
-          "failed": "Failed",
-          "refunded": "Refunded"
-        }
+        "updating": "Updating..."
       },
       "stats": {
         "totalProperties": "Total Properties",
@@ -567,7 +584,8 @@
     "loginError": "Failed to sign in. Please check your credentials.",
     "registrationSuccess": "Account created successfully! Please sign in.",
     "registrationError": "Failed to create account. Please try again.",
-    "passwordMismatch": "Passwords do not match"
+    "passwordMismatch": "Passwords do not match",
+    "Cancel": "Cancel"
   },
   "nav": {
     "properties": "Properties",
@@ -925,6 +943,8 @@
       "approving": "Approving...",
       "reject": "Reject Booking",
       "rejecting": "Rejecting...",
+      "rejectBooking": "Reject Booking",
+      "rejectBookingConfirmation": "Are you sure you want to reject this booking? This will void the payment authorization and notify the guest. This action cannot be undone.",
       "capture": "Capture Payment",
       "capturing": "Capturing...",
       "updatePaymentStatus": "Update Payment Status",
@@ -942,8 +962,10 @@
         "unauthorized": "Please log in to continue",
         "bookingNotFound": "Booking not found",
         "paymentError": "Failed to process payment",
-        "updateError": "Failed to update booking status"
-      }
+        "updateError": "Failed to update booking status",
+        "missingPaymentDetails": "Payment details are missing for this booking"
+      },
+      "updating": "Updating..."
     }
   }
 }

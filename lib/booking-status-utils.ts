@@ -129,38 +129,22 @@ export function formatPaymentStatus(status: PaymentStatus): FormattedStatus {
 }
 
 /**
- * Gets available actions based on booking and payment status
+ * Gets available actions based on booking status
  */
-export function getAvailableActions(bookingStatus: BookingStatus | string, paymentStatus: PaymentStatus | string) {
+export function getAvailableActions(bookingStatus: BookingStatus | string) {
   const actions = {
     canApprove: false,
     canReject: false,
-    canMarkCompleted: false,
-    canMarkFailed: false,
-    canMarkPending: false,
-    canCancel: false,
-    canCapturePayment: false
+    canCancel: false
   }
 
   // For robustness, convert status to lowercase and check for partial matches
   const status = bookingStatus?.toString().toLowerCase() || '';
-  const payment = paymentStatus?.toString().toLowerCase() || '';
   
   // Approval actions - check for substring to be robust against format variations
   if (status.includes('awaiting') && status.includes('approval')) {
     actions.canApprove = true;
     actions.canReject = true;
-  }
-
-  // Payment actions for confirmed bookings
-  if (status === 'confirmed') {
-    // Can't mark as the current status
-    actions.canMarkCompleted = payment !== 'completed';
-    actions.canMarkFailed = payment !== 'failed';
-    actions.canMarkPending = payment !== 'pending';
-
-    // Special case for authorized payments that need capturing
-    actions.canCapturePayment = payment === 'authorized';
   }
 
   // Cancelation is possible for pending/confirmed bookings

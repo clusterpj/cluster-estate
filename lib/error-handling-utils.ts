@@ -1,7 +1,7 @@
 /**
  * Centralized error handling utilities for Cluster Estate
  */
-import { toast } from '@/components/ui/toast'
+import { toast } from '@/hooks/use-toast'
 
 /**
  * Error types for the application
