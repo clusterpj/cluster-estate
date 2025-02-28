@@ -61,3 +61,53 @@ npm run start
 ```
 
 This will start the Next.js server using the production build.
+
+## Vercel Deployment
+
+The project is configured for seamless deployment on Vercel with the following configuration:
+
+### vercel.json
+
+```json
+{
+  "buildCommand": "next build",
+  "framework": "nextjs",
+  "outputDirectory": ".next"
+}
+```
+
+This configuration tells Vercel to:
+1. Use the standard Next.js build command
+2. Recognize the project as a Next.js application
+3. Look for build output in the `.next` directory
+
+### TypeScript and ESLint Error Handling
+
+The `next.config.mjs` file is configured to ignore TypeScript and ESLint errors during build:
+
+```javascript
+typescript: {
+  ignoreBuildErrors: true,
+},
+eslint: {
+  ignoreDuringBuilds: true,
+}
+```
+
+This allows successful deployment even when there are TypeScript or ESLint errors in the codebase.
+
+### Deployment Process
+
+1. Push your changes to the connected Git repository
+2. Vercel will automatically detect changes and start the build process
+3. The build will complete successfully even with TypeScript errors
+4. Your application will be deployed to a Vercel URL
+
+### Troubleshooting Vercel Deployments
+
+If you encounter issues with Vercel deployment:
+
+1. Check the Vercel build logs for specific error messages
+2. Ensure all environment variables are properly set in the Vercel project settings
+3. Verify that the `.vercelignore` file is properly configured
+4. Try deploying from a clean branch to isolate potential issues
