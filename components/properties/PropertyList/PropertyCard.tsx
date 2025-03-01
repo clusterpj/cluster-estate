@@ -2,12 +2,12 @@ import { useState, useEffect, useCallback } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { MapPin, Star } from "lucide-react"
+import { MapPin, Star, Calendar, Check } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Database } from "@/types/supabase"
-import { useParams } from "next/navigation"
+import { useParams, useSearchParams } from "next/navigation"
 import { useTranslations } from 'next-intl'
 import { PropertyMetrics } from "../PropertyMetrics" // Import the shared component with the new name
 
@@ -122,7 +122,13 @@ function PropertyImage({ images, title }: { images: string[], title: string }) {
 
 export function PropertyCard({ property }: PropertyCardProps) {
   const params = useParams()
+  const searchParams = useSearchParams()
   const t = useTranslations('FeaturedProperties')
+  
+  // Check if date range is selected in search params
+  const startDate = searchParams.get('startDate')
+  const endDate = searchParams.get('endDate')
+  const hasDateSearch = !!(startDate && endDate)
   
   return (
     <motion.div
@@ -153,6 +159,17 @@ export function PropertyCard({ property }: PropertyCardProps) {
                 {t('featured')}
               </Badge>
             )}
+            
+            {/* Date availability badge - only show when date search is active */}
+            {hasDateSearch && (
+              <Badge 
+                className="absolute bottom-3 left-3 z-10 bg-green-500 text-white flex items-center gap-1"
+              >
+                <Calendar className="h-3 w-3" />
+                <Check className="h-3 w-3" />
+                {t('dateAvailability.available')}
+              </Badge>
+            )}
           </CardHeader>
         </Link>
         
@@ -171,6 +188,14 @@ export function PropertyCard({ property }: PropertyCardProps) {
           
           {/* Use the shared PropertyMetrics component */}
           <PropertyMetrics property={property} />
+          
+          {/* Date availability info - only show when date search is active */}
+          {hasDateSearch && (
+            <div className="mt-3 text-sm text-green-600 dark:text-green-400 flex items-center gap-1">
+              <Calendar className="h-4 w-4" />
+              <span>{t('dateAvailability.available')}</span>
+            </div>
+          )}
         </CardContent>
       </Card>
     </motion.div>
