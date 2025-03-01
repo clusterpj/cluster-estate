@@ -11,10 +11,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from './providers/auth-provider';
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { PropertyMetrics } from "./properties/PropertyMetrics"; // Import the shared component with the new name
-
-import type { Database } from '@/types/supabase';
 type Property = {
   id: string;
   title: string;
@@ -30,6 +27,7 @@ type Property = {
   status: string;
   property_type: 'house' | 'villa' | 'condo' | 'lot';
   featured: boolean;
+  pets_allowed: boolean | null;
 };
 
 function formatPrice(price: number) {
@@ -88,7 +86,7 @@ function PriceDisplay({ property }: { property: Property }) {
 
 function PropertyImage({ images, title }: { images: string[], title: string }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   
   // Simple automatic image rotation on hover without UI controls
   const handleMouseEnter = useCallback(() => {
@@ -119,7 +117,7 @@ function PropertyImage({ images, title }: { images: string[], title: string }) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             priority={currentImageIndex === 0}
-            onLoad={() => setIsImageLoaded(true)}
+
             loading={currentImageIndex === 0 ? "eager" : "lazy"}
           />
         </motion.div>
@@ -162,7 +160,8 @@ export function FeaturedProperties() {
             listing_type,
             status,
             property_type,
-            featured
+            featured,
+            pets_allowed
           `)
           .eq('featured', true)
           .eq('status', 'available')  // Only show available properties
@@ -179,8 +178,8 @@ export function FeaturedProperties() {
           const validProperties = data.filter(p => 
             p.featured === true && 
             p.status === 'available' &&
-            p.images?.length > 0  // Ensure we have images
-          );
+            p.images && p.images.length > 0  // Ensure we have images
+          ) as Property[];
 
           setProperties(validProperties);  
         } else {

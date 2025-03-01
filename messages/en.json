@@ -45,46 +45,50 @@
   }
 },
   "HeroSection": {
-    "title": "Find Your Dream Home",
-    "subtitle": "Discover luxury properties in prime locations",
-    "searchPlaceholder": "Enter location, property type, or keywords...",
-    "searchButton": "Search Properties",
-    "backgroundAlt": "Luxury Home",
-    "description": "Discover exceptional properties that match your lifestyle in the Caribbean's most sought-after locations.",
+    "title": "Find Your Dream Property",
+    "subtitle": "Discover the perfect property for your lifestyle in our exclusive collection",
+    "ariaLabel": "Property search section",
     "features": {
       "location": "Prime Locations",
-      "availability": "Immediate Availability",
-      "search": "Search properties"
+      "availability": "Real-time Availability",
+      "search": "Smart Search"
     },
-    "stats": {
-      "properties": "Properties",
-      "clients": "Happy Clients",
-      "locations": "Locations"
-    },
-    "ariaLabel": "Property search section",
+    "browseProperties": "Browse Featured Properties",
+    "browsePropertiesAriaLabel": "Browse featured properties section",
     "search": {
-      "locationPlaceholder": "Where are you going?",
-      "locationAriaLabel": "Enter destination location",
+      "locationPlaceholder": "Where are you looking?",
+      "locationAriaLabel": "Search by location",
       "datePlaceholder": "Select dates",
-      "dateAriaLabel": "Select stay dates",
+      "propertyTypePlaceholder": "Property type",
+      "allPropertyTypes": "All property types",
       "button": "Search",
       "loading": "Searching...",
-      "error": "Error searching properties",
-      "noResults": "No properties found for your search criteria",
+      "error": "Search failed. Please try again.",
+      "validation": {
+        "dateRequired": "Please select check-in and check-out dates",
+        "invalidDateRange": "Check-out date must be after check-in date"
+      },
+      "showAdvanced": "More filters",
+      "hideAdvanced": "Less filters",
+      "bedrooms": "Bedrooms",
+      "anyBeds": "Any bedrooms",
+      "bathrooms": "Bathrooms",
+      "anyBaths": "Any bathrooms",
+      "petsAllowed": "Pets",
+      "petsAllowedOnly": "Pet-friendly only",
       "dateRange": {
+        "placeholder": "Check-in - Check-out",
         "from": "Check-in",
         "to": "Check-out",
-        "placeholder": "Add dates",
-        "selectDates": "Select dates",
-        "clear": "Clear dates"
-      },
-      "validation": {
-        "dateRequired": "Please select dates",
-        "invalidDateRange": "Check-out date must be after check-in date"
+        "clear": "Clear"
       }
     },
-    "browsePropertiesAriaLabel": "Browse all properties",
-    "browseProperties": "Browse All Properties"
+    "propertyTypes": {
+      "house": "House",
+      "villa": "Villa",
+      "condo": "Condo",
+      "lot": "Land/Lot"
+    }
   },
   "ParadiseLiving": {
     "title": "Experience Paradise Living",
@@ -116,57 +120,61 @@
 
     "FeaturedProperties": {
       "title": "Featured Properties",
+      "subtitle": "Discover our exclusive collection of luxury properties",
       "description": "Explore our handpicked selection of premium properties across the Caribbean's most desirable locations.",
-      "viewDetails": "View Details",
+      "viewAll": "View All Properties",
       "viewAllProperties": "View All Properties",
-      "propertyDetails": {
-        "beds": "Beds",
-        "baths": "Baths",
-        "sqft": "sqft",
-        "bedsCount": "{count} Beds",
-        "bathsCount": "{count} Baths",
-        "squareFeet": "{value} sqft",
-        "area": "{value} m²"
-      },
       "price": {
-      "forSale": "For Sale",
-      "forRent": "For Rent",
-      "rentalFrequency": {
-        "daily": "day",
-        "weekly": "week",
-        "monthly": "month",
-        "yearly": "year"
-      }
-    },
-    "status": {
+        "forSale": "For Sale",
+        "forRent": "For Rent",
+        "rentalFrequency": {
+          "daily": "day",
+          "weekly": "week",
+          "monthly": "month",
+          "yearly": "year"
+        }
+      },
+      "status": {
         "available": "Available",
         "pending": "Pending",
         "sold": "Sold",
-        "rented": "Rented"
-      },
-      "listingType": {
-        "rent": "Rent",
-        "sale": "Sale",
-        "both": "Sale & Rent"
+        "rented": "Rented",
+        "booked": "Booked",
+        "featured": "Featured",
+        "notFeatured": "Regular"
       },
       "propertyType": {
         "house": "House",
         "villa": "Villa",
         "condo": "Condo",
-        "lot": "Lot",
-        "unknown": "Unknown"
+        "lot": "Land/Lot"
       },
+      "propertyDetails": {
+        "beds": "Beds",
+        "baths": "Baths",
+        "sqft": "Sq Ft",
+        "bedsCount": "{count} Beds",
+        "bathsCount": "{count} Baths",
+        "squareFeet": "{value} sqft",
+        "area": "{value} m²"
+      },
+      "featured": "Featured",
       "loading": "Loading featured properties...",
-      "noProperties": "No featured properties available at the moment.",
-      "noPropertiesForDates": "No properties available for the selected dates. Please try different dates.",
       "dateAvailability": {
         "available": "Available for your dates",
         "unavailable": "Unavailable for your dates",
         "checkAvailability": "Check availability"
       },
       "error": "Error loading properties",
-      "dateFilterError": "Failed to filter properties by date availability. Showing all properties instead.",
-      "featured": "Featured",
+      "retry": "Try Again",
+      "loadingProperties": "Loading properties...",
+      "loadingAvailability": "Checking availability...",
+      "dateFilterError": "Could not filter by dates. Showing all properties.",
+      "noPropertiesTitle": "No matching properties found",
+      "noProperties": "No properties available at the moment. Please check back later.",
+      "noPropertiesForDates": "No properties available for the selected dates. Try different dates.",
+      "noPropertiesWithFilters": "No properties match your current filters. Try adjusting your search criteria.",
+      "clearFilters": "Clear All Filters",
       "pets": {
         "allowed": "Pets Allowed",
         "notAllowed": "No Pets"
