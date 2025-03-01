@@ -7,15 +7,25 @@ import { Search, MapPin, Calendar, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { DateRangePicker } from "@/components/ui/date-range-picker";
+import { DateRange } from "react-day-picker";
+import { format } from "date-fns";
+import { enUS } from "date-fns/locale";
+import { toast } from "@/components/ui/use-toast";
 
 // Import Variants type instead of defining our own interface
 // Remove the AnimationVariants interface
 
 export function HeroSection() {
   const t = useTranslations('HeroSection');
+  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [location, setLocation] = useState("");
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
+  const [isSearching, setIsSearching] = useState(false);
 
   // Animation control based on scroll position
   const { scrollYProgress } = useScroll({
@@ -112,6 +122,54 @@ export function HeroSection() {
     }
   }, []);
 
+  // Handle search
+  const handleSearch = async () => {
+    if (!dateRange?.from || !dateRange?.to) {
+      toast({
+        title: t('search.validation.dateRequired'),
+        description: t('search.validation.dateRequired'),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate that check-out date is after check-in date
+    if (dateRange.to < dateRange.from) {
+      toast({
+        title: t('search.validation.invalidDateRange'),
+        description: t('search.validation.invalidDateRange'),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSearching(true);
+
+    try {
+      // Format dates for API
+      const startDate = format(dateRange.from, 'yyyy-MM-dd', { locale: enUS });
+      const endDate = format(dateRange.to, 'yyyy-MM-dd', { locale: enUS });
+
+      // Build query parameters
+      const params = new URLSearchParams();
+      if (location) params.set('location', location);
+      params.set('startDate', startDate);
+      params.set('endDate', endDate);
+
+      // Navigate to properties page with search parameters
+      router.push(`/properties?${params.toString()}`);
+    } catch (error) {
+      console.error('Search error:', error);
+      toast({
+        title: t('search.error'),
+        description: t('search.error'),
+        variant: "destructive",
+      });
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
   // Feature highlights
   const features = [
     { icon: <MapPin className="h-5 w-5" />, text: t('features.location') },
@@ -199,22 +257,26 @@ export function HeroSection() {
                 placeholder={t('search.locationPlaceholder')}
                 className="w-full py-3 pl-10 pr-4 bg-transparent text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-caribbean-500 focus:ring-opacity-50"
                 aria-label={t('search.locationAriaLabel')}
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
               />
             </div>
             <div className="relative flex-grow rounded-lg bg-white/90 dark:bg-caribbean-900/90 overflow-hidden">
-              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-caribbean-600 dark:text-caribbean-400" />
-              <input 
-                type="text"
-                placeholder={t('search.datePlaceholder')}
-                className="w-full py-3 pl-10 pr-4 bg-transparent text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-caribbean-500 focus:ring-opacity-50"
-                aria-label={t('search.dateAriaLabel')}
-              />
+              <div className="w-full py-0 pl-3 pr-4 bg-transparent text-black dark:text-white">
+                <DateRangePicker
+                  value={dateRange}
+                  onChange={setDateRange}
+                  placeholder={t('search.datePlaceholder')}
+                />
+              </div>
             </div>
             <Button 
               className="bg-caribbean-600 hover:bg-caribbean-700 text-white font-medium px-6 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 h-12"
+              onClick={handleSearch}
+              disabled={isSearching}
             >
               <Search className="h-4 w-4" />
-              <span>{t('search.button')}</span>
+              <span>{isSearching ? t('search.loading') : t('search.button')}</span>
             </Button>
           </div>
         </motion.div>

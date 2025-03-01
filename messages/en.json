@@ -67,7 +67,21 @@
       "locationAriaLabel": "Enter destination location",
       "datePlaceholder": "Select dates",
       "dateAriaLabel": "Select stay dates",
-      "button": "Search"
+      "button": "Search",
+      "loading": "Searching...",
+      "error": "Error searching properties",
+      "noResults": "No properties found for your search criteria",
+      "dateRange": {
+        "from": "Check-in",
+        "to": "Check-out",
+        "placeholder": "Add dates",
+        "selectDates": "Select dates",
+        "clear": "Clear dates"
+      },
+      "validation": {
+        "dateRequired": "Please select dates",
+        "invalidDateRange": "Check-out date must be after check-in date"
+      }
     },
     "browsePropertiesAriaLabel": "Browse all properties",
     "browseProperties": "Browse All Properties"
@@ -144,7 +158,14 @@
       },
       "loading": "Loading featured properties...",
       "noProperties": "No featured properties available at the moment.",
+      "noPropertiesForDates": "No properties available for the selected dates. Please try different dates.",
+      "dateAvailability": {
+        "available": "Available for your dates",
+        "unavailable": "Unavailable for your dates",
+        "checkAvailability": "Check availability"
+      },
       "error": "Error loading properties",
+      "dateFilterError": "Failed to filter properties by date availability. Showing all properties instead.",
       "featured": "Featured",
       "pets": {
         "allowed": "Pets Allowed",

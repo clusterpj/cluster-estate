@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { addDays, eachDayOfInterval, format } from 'date-fns'
+import { enUS } from 'date-fns/locale'
 import { logger } from '@/lib/logger'
 
 // Define a simpler interface for our aggregate availability data
@@ -14,8 +15,8 @@ interface AggregateAvailability {
 export async function GET(request: Request) {
   const supabase = createRouteHandlerClient({ cookies })
   const { searchParams } = new URL(request.url)
-  const startDate = searchParams.get('start') || format(new Date(), 'yyyy-MM-dd')
-  const endDate = searchParams.get('end') || format(addDays(new Date(), 60), 'yyyy-MM-dd')
+  const startDate = searchParams.get('start') || format(new Date(), 'yyyy-MM-dd', { locale: enUS })
+  const endDate = searchParams.get('end') || format(addDays(new Date(), 60), 'yyyy-MM-dd', { locale: enUS })
   
   logger.info(`Fetching aggregate availability from ${startDate} to ${endDate} for ${request.headers.get('referer')}`)
   
@@ -60,7 +61,7 @@ export async function GET(request: Request) {
     
     // Initialize all dates with available status
     dateRange.forEach(date => {
-      const dateKey = format(date, 'yyyy-MM-dd')
+      const dateKey = format(date, 'yyyy-MM-dd', { locale: enUS })
       availabilityMap.set(dateKey, {
         date: dateKey,
         status: 'available',
@@ -78,7 +79,7 @@ export async function GET(request: Request) {
       logger.info(`Processing booking from ${booking.check_in} to ${booking.check_out} with status ${booking.status}`)
       
       bookingDates.forEach(date => {
-        const dateKey = format(date, 'yyyy-MM-dd')
+        const dateKey = format(date, 'yyyy-MM-dd', { locale: enUS })
         const existing = availabilityMap.get(dateKey) || {
           date: dateKey,
           status: 'available',
@@ -121,6 +122,72 @@ export async function GET(request: Request) {
     logger.error('Failed to fetch availability data:', err)
     return NextResponse.json(
       { error: 'Failed to fetch availability data' },
+      { status: 500 }
+    )
+  }
+}
+
+export async function POST(request: Request) {
+  const supabase = createRouteHandlerClient({ cookies })
+  
+  try {
+    const body = await request.json()
+    const { startDate, endDate } = body
+    
+    if (!startDate || !endDate) {
+      return NextResponse.json(
+        { error: 'Start date and end date are required' },
+        { status: 400 }
+      )
+    }
+    
+    logger.info(`Searching for available properties from ${startDate} to ${endDate}`)
+    
+    // Fetch all properties
+    const { data: allProperties, error: propertiesError } = await supabase
+      .from('properties')
+      .select('*')
+      .eq('status', 'available')
+    
+    if (propertiesError) {
+      logger.error('Error fetching properties:', propertiesError)
+      throw propertiesError
+    }
+    
+    // If no properties found, return empty array
+    if (!allProperties || allProperties.length === 0) {
+      return NextResponse.json([])
+    }
+    
+    // Get all property IDs
+    const propertyIds = allProperties.map(property => property.id)
+    
+    // Fetch bookings that overlap with the requested date range
+    const { data: bookings, error: bookingsError } = await supabase
+      .from('bookings')
+      .select('property_id')
+      .in('property_id', propertyIds)
+      .or(`check_in.lte.${endDate},check_out.gte.${startDate}`)
+      .eq('status', 'confirmed')
+    
+    if (bookingsError) {
+      logger.error('Error fetching bookings:', bookingsError)
+      throw bookingsError
+    }
+    
+    // Get IDs of properties that have bookings in the requested date range
+    const bookedPropertyIds = new Set(bookings.map(booking => booking.property_id))
+    
+    // Filter out properties that have bookings in the requested date range
+    const availableProperties = allProperties.filter(property => !bookedPropertyIds.has(property.id))
+    
+    logger.info(`Found ${availableProperties.length} available properties out of ${allProperties.length} total properties`)
+    
+    return NextResponse.json(availableProperties)
+  } catch (err) {
+    logger.error('Failed to filter properties by availability:', err)
+    return NextResponse.json(
+      { error: 'Failed to filter properties by availability' },
       { status: 500 }
     )
   }
