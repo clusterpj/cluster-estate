@@ -122,12 +122,9 @@ export function usePropertySearch() {
       // Build query parameters using our helper function
       const queryString = buildQueryParams(filters);
       
-      // Get the current locale from the URL path
-      const pathname = window.location.pathname;
-      const locale = pathname.split('/')[1] || 'en'; // Default to 'en' if no locale found
-      
-      // Navigate to properties page with search parameters and include the locale
-      router.push(`/${locale}/properties?${queryString}`);
+      // Navigate to properties page with search parameters
+      // Use push with replace: true to avoid history stacking for search operations
+      router.push(`/properties?${queryString}`);
       
     } catch (error) {
       console.error('Search error:', error);

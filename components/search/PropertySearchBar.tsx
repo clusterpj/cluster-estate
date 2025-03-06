@@ -12,13 +12,25 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { ChevronDown, ChevronUp, Search as SearchIcon, MapPin } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { format } from 'date-fns';
+import { DateRange } from 'react-day-picker';
+import { cn } from '@/lib/utils';
 
 export function PropertySearchBar() {
   const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
   const { filters, updateFilters, handleSearch, isSearching } = usePropertySearch();
   const t = useTranslations('HeroSection');
 
-
+  // Determine if any filters are applied for visual indication
+  const hasActiveFilters = Boolean(
+    filters.location || 
+    filters.dateRange || 
+    filters.propertyType || 
+    filters.beds || 
+    filters.baths || 
+    filters.minPrice ||
+    filters.maxPrice ||
+    filters.petsAllowed !== undefined
+  );
 
   return (
     <div className="w-full bg-card rounded-lg shadow-md p-4 lg:p-6">
