@@ -3,29 +3,41 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence, Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Search, MapPin, Calendar, ArrowRight } from "lucide-react";
+import { Search, MapPin, Calendar, ArrowRight, Filter } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
 import { DateRangePicker } from "@/components/ui/date-range-picker";
-import { DateRange } from "react-day-picker";
-import { format } from "date-fns";
-import { enUS } from "date-fns/locale";
-import { toast } from "@/components/ui/use-toast";
+import { usePropertySearch } from "@/hooks/usePropertySearch";
+import WaveText from "./home/StandaloneWaveText";
+import { PropertySearchBar } from "@/components/search/PropertySearchBar";
 
-// Import Variants type instead of defining our own interface
-// Remove the AnimationVariants interface
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 export function HeroSection() {
   const t = useTranslations('HeroSection');
-  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [location, setLocation] = useState("");
-  const [dateRange, setDateRange] = useState<DateRange | undefined>();
-  const [isSearching, setIsSearching] = useState(false);
+  const [isAdvancedSearchOpen, setIsAdvancedSearchOpen] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [isRippling, setIsRippling] = useState(false);
+  
+  // Use our custom search hook
+  const { 
+    filters, 
+    updateFilters, 
+    handleSearch, 
+    isSearching 
+  } = usePropertySearch();
 
   // Animation control based on scroll position
   const { scrollYProgress } = useScroll({
@@ -36,6 +48,29 @@ export function HeroSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const y = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
+
+  const handleWaveTextClick = () => {
+    setIsRippling(true);
+    setTimeout(() => {
+      setIsRippling(false);
+      setShowSearch(true);
+    }, 1200); // Extended to allow for the enhanced ripple effect
+  };
+
+  // Automatically trigger ripple effect and show search form after 6 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!showSearch) {
+        setIsRippling(true);
+        setTimeout(() => {
+          setIsRippling(false);
+          setShowSearch(true);
+        }, 1200); // Extended to match handleWaveTextClick
+      }
+    }, 6000); // 6 seconds
+
+    return () => clearTimeout(timer);
+  }, [showSearch]);
 
   // Animation variants
   const titleVariants: Variants = {
@@ -53,270 +88,152 @@ export function HeroSection() {
     }
   };
 
-  const subtitleVariants: Variants = {
-    hidden: { 
-      opacity: 0,
-      y: 20 
+  // Enhanced ripple variants with staggered multiple ripples
+  const ripple1Variants: Variants = {
+    initial: {
+      scale: 0,
+      opacity: 0
     },
-    visible: {
-      opacity: 1,
-      y: 0,
+    animate: {
+      scale: [0, 2.5],
+      opacity: [0.7, 0],
       transition: {
+        duration: 1.2,
+        ease: [0.25, 0.1, 0.25, 1], // cubic-bezier for a more natural feel
+      }
+    }
+  };
+
+  const ripple2Variants: Variants = {
+    initial: {
+      scale: 0,
+      opacity: 0
+    },
+    animate: {
+      scale: [0, 2],
+      opacity: [0.6, 0],
+      transition: {
+        delay: 0.15,
+        duration: 1,
+        ease: [0.25, 0.1, 0.25, 1],
+      }
+    }
+  };
+
+  const ripple3Variants: Variants = {
+    initial: {
+      scale: 0,
+      opacity: 0
+    },
+    animate: {
+      scale: [0, 1.5],
+      opacity: [0.5, 0],
+      transition: {
+        delay: 0.3,
         duration: 0.8,
-        delay: 0.2,
-        ease: "easeOut",
+        ease: [0.25, 0.1, 0.25, 1],
       }
     }
   };
 
-  const searchBarVariants: Variants = {
-    hidden: { 
-      opacity: 0,
-      y: 30,
-      scale: 0.95 
+  const textGlowVariants: Variants = {
+    initial: {
+      textShadow: "0 0 0px rgba(255,255,255,0)",
     },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
+    animate: {
+      textShadow: [
+        "0 0 0px rgba(255,255,255,0)", 
+        "0 0 15px rgba(255,255,255,0.8)",
+        "0 0 0px rgba(255,255,255,0)"
+      ],
       transition: {
-        duration: 0.7,
-        delay: 0.4,
-        ease: "easeOut",
+        duration: 1.2,
+        ease: "easeInOut",
       }
     }
   };
-
-  const featureItemVariants: Variants = {
-    hidden: { 
-      opacity: 0,
-      x: -20 
-    },
-    visible: (custom: number) => ({
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.6,
-        delay: 0.6 + (custom * 0.1),
-        ease: "easeOut",
-      }
-    })
-  };
-
-  // Handle video loading
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      const handleLoaded = () => setIsVideoLoaded(true);
-      
-      // Check if video is already loaded
-      if (video.readyState >= 3) {
-        setIsVideoLoaded(true);
-      } else {
-        video.addEventListener('loadeddata', handleLoaded);
-      }
-      
-      return () => {
-        video.removeEventListener('loadeddata', handleLoaded);
-      };
-    }
-  }, []);
-
-  // Handle search
-  const handleSearch = async () => {
-    if (!dateRange?.from || !dateRange?.to) {
-      toast({
-        title: t('search.validation.dateRequired'),
-        description: t('search.validation.dateRequired'),
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Validate that check-out date is after check-in date
-    if (dateRange.to < dateRange.from) {
-      toast({
-        title: t('search.validation.invalidDateRange'),
-        description: t('search.validation.invalidDateRange'),
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsSearching(true);
-
-    try {
-      // Format dates for API
-      const startDate = format(dateRange.from, 'yyyy-MM-dd', { locale: enUS });
-      const endDate = format(dateRange.to, 'yyyy-MM-dd', { locale: enUS });
-
-      // Build query parameters
-      const params = new URLSearchParams();
-      if (location) params.set('location', location);
-      params.set('startDate', startDate);
-      params.set('endDate', endDate);
-
-      // Navigate to properties page with search parameters
-      router.push(`/properties?${params.toString()}`);
-    } catch (error) {
-      console.error('Search error:', error);
-      toast({
-        title: t('search.error'),
-        description: t('search.error'),
-        variant: "destructive",
-      });
-    } finally {
-      setIsSearching(false);
-    }
-  };
-
-  // Feature highlights
-  const features = [
-    { icon: <MapPin className="h-5 w-5" />, text: t('features.location') },
-    { icon: <Calendar className="h-5 w-5" />, text: t('features.availability') },
-    { icon: <Search className="h-5 w-5" />, text: t('features.search') },
-  ];
 
   return (
-    <div 
-      ref={containerRef}
-      className="relative min-h-[70vh] md:min-h-[70vh] lg:min-h-[80vh] flex items-center justify-center overflow-hidden"
-      aria-label={t('ariaLabel')}
-    >
-      {/* Background Video with Overlay */}
-      <div className="absolute inset-0 z-0">
-        {/* Loading state - skeleton gradient */}
-        <AnimatePresence>
-          {!isVideoLoaded && (
-            <motion.div 
-              initial={{ opacity: 1 }}
-              exit={{ opacity: 0, transition: { duration: 0.5 } }}
-              className="absolute inset-0 bg-gradient-to-b from-caribbean-900 to-caribbean-700 animate-pulse"
-            />
-          )}
-        </AnimatePresence>
-        
-        <motion.div 
-          style={{ scale, opacity }}
-          className="absolute inset-0"
-        >
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            className={cn(
-              "absolute inset-0 w-full h-full object-cover transition-opacity duration-700",
-              isVideoLoaded ? "opacity-100" : "opacity-0"
-            )}
-            aria-hidden="true"
-          >
-            <source src="/hero-video.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-        </motion.div>
-      </div>
-
-      {/* Content */}
-      <motion.div 
-        style={{ y }}
-        className="z-10 px-6 md:px-8 container relative text-center py-8 md:py-10"
+    <div ref={containerRef} className="relative min-h-screen w-full overflow-hidden">
+      <motion.div
+        style={{ opacity, y, scale }}
+        className="absolute inset-0 z-0"
       >
-        <motion.h1 
-          variants={titleVariants}
-          initial="hidden"
-          animate="visible"
-          className="text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-3 tracking-tight [text-shadow:_0_2px_12px_rgba(0,0,0,0.4)]"
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          onLoadedData={() => setIsVideoLoaded(true)}
+          className="h-full w-full object-cover"
         >
-          {t('title')}
-        </motion.h1>
-        
-        <motion.p 
-          variants={subtitleVariants}
-          initial="hidden"
-          animate="visible"
-          className="text-lg md:text-xl text-white/90 mb-6 max-w-2xl mx-auto font-light [text-shadow:_0_2px_8px_rgba(0,0,0,0.3)]"
-        >
-          {t('subtitle')}
-        </motion.p>
-
-        {/* Search Bar */}
-        <motion.div
-          variants={searchBarVariants}
-          initial="hidden"
-          animate="visible"
-          className="bg-white/10 backdrop-blur-md p-2 md:p-3 rounded-xl max-w-3xl mx-auto mb-7 border border-white/20 shadow-xl"
-        >
-          <div className="flex flex-col md:flex-row gap-2 md:gap-4">
-            <div className="relative flex-grow rounded-lg bg-white/90 dark:bg-caribbean-900/90 overflow-hidden">
-              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-caribbean-600 dark:text-caribbean-400" />
-              <input 
-                type="text"
-                placeholder={t('search.locationPlaceholder')}
-                className="w-full py-3 pl-10 pr-4 bg-transparent text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-caribbean-500 focus:ring-opacity-50"
-                aria-label={t('search.locationAriaLabel')}
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
-            </div>
-            <div className="relative flex-grow rounded-lg bg-white/90 dark:bg-caribbean-900/90 overflow-hidden">
-              <div className="w-full py-0 pl-3 pr-4 bg-transparent text-black dark:text-white">
-                <DateRangePicker
-                  value={dateRange}
-                  onChange={setDateRange}
-                  placeholder={t('search.datePlaceholder')}
-                />
-              </div>
-            </div>
-            <Button 
-              className="bg-caribbean-600 hover:bg-caribbean-700 text-white font-medium px-6 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 h-12"
-              onClick={handleSearch}
-              disabled={isSearching}
-            >
-              <Search className="h-4 w-4" />
-              <span>{isSearching ? t('search.loading') : t('search.button')}</span>
-            </Button>
-          </div>
-        </motion.div>
-
-        {/* Feature Highlights */}
-        <div className="max-w-3xl mx-auto flex flex-wrap justify-center gap-3 md:gap-5 mb-6">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              custom={index}
-              variants={featureItemVariants}
-              initial="hidden"
-              animate="visible"
-              className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10"
-            >
-              <div className="text-white/80">{feature.icon}</div>
-              <span className="text-white/90 text-sm md:text-base">{feature.text}</span>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Browse Properties CTA Button - only visible on larger screens */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.6 }}
-          className="hidden md:block"
-        >
-          <Link href="#featured-properties">
-            <Button 
-              variant="ghost" 
-              className="text-white/80 hover:text-white hover:bg-white/10 group"
-              aria-label={t('browsePropertiesAriaLabel')}
-            >
-              {t('browseProperties')}
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
-        </motion.div>
+          <source src="/hero-video.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/40" />
       </motion.div>
+
+      <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
+        <div className="mx-auto max-w-5xl text-center">
+          {!showSearch ? (
+            <div 
+              className="relative cursor-pointer" 
+              onClick={handleWaveTextClick}
+            >
+              <motion.div
+                variants={textGlowVariants}
+                initial="initial"
+                animate={isRippling ? "animate" : "initial"}
+              >
+                <WaveText text="CABARETE" />
+              </motion.div>
+              
+              {isRippling && (
+                <>
+                  <motion.div
+                    variants={ripple1Variants}
+                    initial="initial"
+                    animate="animate"
+                    className="absolute inset-0 rounded-full bg-white/70 blur-sm"
+                  />
+                  <motion.div
+                    variants={ripple2Variants}
+                    initial="initial"
+                    animate="animate"
+                    className="absolute inset-0 rounded-full bg-blue-200/60 blur-[2px]"
+                  />
+                  <motion.div
+                    variants={ripple3Variants}
+                    initial="initial"
+                    animate="animate"
+                    className="absolute inset-0 rounded-full bg-white/50 blur-[1px]"
+                  />
+                </>
+              )}
+            </div>
+          ) : (
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <motion.h1
+                  variants={titleVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="mb-6 text-4xl font-bold text-white md:text-5xl lg:text-6xl"
+                >
+                  {t('title')}
+                </motion.h1>
+                <div className="max-w-2xl mx-auto">
+                  <PropertySearchBar />
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
