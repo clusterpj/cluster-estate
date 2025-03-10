@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from 'next/navigation';
-import { Menu, Home, Building2, Info, Phone, User, LogOut } from "lucide-react";
+import { usePathname, useRouter } from 'next/navigation';
+import { Menu, Home, Building2, Info, Phone, User, LogOut, Shield, Settings } from "lucide-react";
 import Image from "next/image";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
@@ -42,11 +42,13 @@ const ListItem = React.forwardRef<
 ListItem.displayName = "ListItem";
 
 export function Header() {
-  const { user, signOut, userProfile } = useAuth();
+  const { user, signOut, userProfile, refreshProfile } = useAuth();
   const t = useTranslations();
   const pathname = usePathname();
   const currentLocale = pathname.split('/')[1];
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isAdmin, setIsAdmin] = React.useState(false);
+  const router = useRouter();
 
   const localizedHref = (path: string) => `/${currentLocale}${path}`;
   
@@ -54,6 +56,81 @@ export function Header() {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+  
+  // Check if user is admin
+  React.useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (userProfile) {
+        console.log('Header - User profile loaded:', userProfile);
+        // Check for both exact match and case-insensitive match
+        const hasAdminRole = userProfile.role === 'admin' || 
+                            (typeof userProfile.role === 'string' && 
+                             userProfile.role.toLowerCase() === 'admin');
+        
+        console.log('Header - Admin role check:', { 
+          role: userProfile.role,
+          isAdmin: hasAdminRole 
+        });
+        
+        setIsAdmin(hasAdminRole);
+      } else if (user) {
+        console.log('Header - User exists but no profile loaded. Refreshing profile...');
+        // If we have a user but no profile, try to refresh the profile
+        const profile = await refreshProfile();
+        
+        if (profile) {
+          console.log('Header - Profile refreshed successfully:', profile);
+          const hasAdminRole = profile.role === 'admin' || 
+                              (typeof profile.role === 'string' && 
+                               profile.role.toLowerCase() === 'admin');
+          
+          console.log('Header - Admin role check after refresh:', {
+            role: profile.role,
+            isAdmin: hasAdminRole
+          });
+          
+          setIsAdmin(hasAdminRole);
+        } else {
+          console.log('Header - Profile refresh failed, checking directly...');
+          // If refresh failed, try to check the profile directly
+          try {
+            const { createClientComponentClient } = await import('@supabase/auth-helpers-nextjs');
+            const supabase = createClientComponentClient();
+            
+            const { data: profile, error } = await supabase
+              .from('profiles')
+              .select('role')
+              .eq('id', user.id)
+              .single();
+            
+            if (!error && profile) {
+              const hasAdminRole = profile.role === 'admin' || 
+                                  (typeof profile.role === 'string' && 
+                                   profile.role.toLowerCase() === 'admin');
+              
+              console.log('Header - Direct profile check:', {
+                role: profile.role,
+                isAdmin: hasAdminRole
+              });
+              
+              setIsAdmin(hasAdminRole);
+            } else {
+              console.log('Header - Direct profile check failed:', error);
+              setIsAdmin(false);
+            }
+          } catch (err) {
+            console.error('Error checking admin role:', err);
+            setIsAdmin(false);
+          }
+        }
+      } else {
+        console.log('Header - No user or profile loaded');
+        setIsAdmin(false);
+      }
+    };
+    
+    checkAdminStatus();
+  }, [userProfile, user, refreshProfile]);
   
   // Custom Link component that closes the menu when clicked
   const MenuLink = ({ href, className, children }: { href: string, className?: string, children: React.ReactNode }) => (
@@ -142,6 +219,20 @@ export function Header() {
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
+
+                {/* Admin Link in Main Navigation - Only show if user is admin */}
+                {isAdmin && (
+                  <NavigationMenuItem>
+                    <Link href={localizedHref('/admin')} legacyBehavior passHref>
+                      <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30")}>
+                        <span className="flex items-center gap-2">
+                          <Shield className="h-4 w-4" />
+                          {t('auth.adminDashboard')}
+                        </span>
+                      </NavigationMenuLink>
+                    </Link>
+                  </NavigationMenuItem>
+                )}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
@@ -213,6 +304,92 @@ export function Header() {
                       <Phone className="h-5 w-5" />
                       {t('nav.contact')}
                     </MenuLink>
+                    
+                    {/* Admin Links - Only show if user is admin */}
+                    {isAdmin && (
+                      <div className="space-y-2">
+                        <div className="border-t border-gray-200 dark:border-gray-800 my-2 pt-2">
+                          <div className="px-2 py-1.5 text-sm font-medium text-gray-500 dark:text-gray-400">
+                            Admin
+                          </div>
+                        </div>
+                        <MenuLink 
+                          href={localizedHref('/admin')} 
+                          className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+                        >
+                          <Shield className="h-5 w-5" />
+                          {t('auth.adminDashboard')}
+                        </MenuLink>
+                        <MenuLink 
+                          href={localizedHref('/direct-admin')} 
+                          className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30"
+                        >
+                          <Settings className="h-5 w-5" />
+                          Direct Admin Access
+                        </MenuLink>
+                      </div>
+                    )}
+                    
+                    {/* User Account Links - Only show if logged in */}
+                    {user && (
+                      <>
+                        <div className="border-t border-gray-200 dark:border-gray-800 my-2 pt-2">
+                          <div className="px-2 py-1.5 text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {t('auth.account')}
+                          </div>
+                        </div>
+                        <MenuLink 
+                          href={localizedHref('/dashboard')} 
+                          className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
+                        >
+                          <User className="h-5 w-5" />
+                          {t('auth.dashboard')}
+                        </MenuLink>
+                        <MenuLink 
+                          href={localizedHref('/profile')} 
+                          className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
+                        >
+                          <User className="h-5 w-5" />
+                          {t('auth.profile')}
+                        </MenuLink>
+                        <button
+                          onClick={() => {
+                            closeMenu();
+                            const locale = pathname.split('/')[1] || 'en';
+                            router.push(`/${locale}/auth/logout`);
+                          }}
+                          className="flex w-full items-center gap-2 px-2 py-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+                        >
+                          <LogOut className="h-5 w-5" />
+                          {t('auth.signOut')}
+                        </button>
+                      </>
+                    )}
+                    
+                    {/* Auth Links - Only show if not logged in */}
+                    {!user && (
+                      <>
+                        <div className="border-t border-gray-200 dark:border-gray-800 my-2 pt-2">
+                          <div className="px-2 py-1.5 text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {t('auth.account')}
+                          </div>
+                        </div>
+                        <MenuLink 
+                          href={localizedHref('/auth/login')} 
+                          className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
+                        >
+                          <User className="h-5 w-5" />
+                          {t('auth.signIn')}
+                        </MenuLink>
+                        <MenuLink 
+                          href={localizedHref('/auth/register')} 
+                          className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-transparent transition-colors duration-300 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
+                        >
+                          <User className="h-5 w-5" />
+                          {t('auth.signUp')}
+                        </MenuLink>
+                      </>
+                    )}
                   </nav>
                 </SheetContent>
               </Sheet>
@@ -230,13 +407,25 @@ export function Header() {
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>
                     {userProfile?.full_name || user.email}
+                    {isAdmin && (
+                      <span className="ml-2 px-1.5 py-0.5 text-xs font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                        Admin
+                      </span>
+                    )}
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  {userProfile?.role === 'admin' && (
+                  {isAdmin && (
                     <>
                       <DropdownMenuItem asChild>
                         <Link href={localizedHref('/admin')}>
+                          <Shield className="mr-2 h-4 w-4" />
                           {t('auth.adminDashboard')}
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href={localizedHref('/direct-admin')}>
+                          <Settings className="mr-2 h-4 w-4" />
+                          Direct Admin Access
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
@@ -253,7 +442,10 @@ export function Header() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={signOut} className="text-red-600">
+                  <DropdownMenuItem onClick={() => {
+                    const locale = pathname.split('/')[1] || 'en';
+                    router.push(`/${locale}/auth/logout`);
+                  }} className="text-red-600">
                     <LogOut className="mr-2 h-4 w-4" />
                     {t('auth.signOut')}
                   </DropdownMenuItem>
@@ -273,10 +465,12 @@ export function Header() {
                 </Button>
               </div>
             )}
-            <div className="flex items-center">
-              <ModeToggle />
-              <LanguageSwitcher />
-            </div>
+
+            {/* Language Switcher */}
+            <LanguageSwitcher />
+
+            {/* Theme Toggle */}
+            <ModeToggle />
           </div>
         </div>
       </div>
