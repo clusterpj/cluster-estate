@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Home, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -21,14 +22,19 @@ export function Footer() {
     <footer className="w-full bg-stone-950 text-stone-300">
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-          {/* Company Info */}
+          {/* Company Info - Updated with the same logo as header */}
           <div className="space-y-4">
             <Link 
               href="/" 
-              className="text-xl md:text-2xl font-semibold text-white flex items-center gap-2"
+              className="flex items-center gap-2"
             >
-              <Home className="h-5 w-5 md:h-6 md:w-6" />
-              <span>RealtyWest</span>
+              <Image
+                src="/cabarete-villas.png"
+                alt="Cabarete Villas Logo"
+                width={200}
+                height={40}
+                className="h-8 w-auto object-contain"
+              />
             </Link>
             <p className="text-sm text-stone-400 max-w-sm">
               Your trusted partner in finding the perfect property. We make real estate simple and accessible.

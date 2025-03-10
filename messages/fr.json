@@ -41,18 +41,10 @@
   },
   "FeaturedProperties": {
     "title": "Propriétés en Vedette",
+    "subtitle": "Découvrez notre collection exclusive de propriétés de luxe",
     "description": "Découvrez notre sélection soignée de propriétés haut de gamme dans les endroits les plus recherchés des Caraïbes.",
-    "viewDetails": "Voir les Détails",
+    "viewAll": "Voir toutes les propriétés",
     "viewAllProperties": "Voir Toutes les Propriétés",
-    "propertyDetails": {
-      "beds": "Lits",
-      "baths": "Salles de Bain",
-      "sqft": "m²",
-      "bedsCount": "{count} Lits",
-      "bathsCount": "{count} Salles de Bain",
-      "squareFeet": "{value} m²",
-      "area": "{value} m²"
-    },
     "price": {
       "forSale": "À Vendre",
       "forRent": "À Louer",
@@ -67,24 +59,43 @@
       "available": "Disponible",
       "pending": "En Attente",
       "sold": "Vendu",
-      "rented": "Loué"
-    },
-    "listingType": {
-      "rent": "Location",
-      "sale": "Vente",
-      "both": "Vente & Location"
+      "rented": "Loué",
+      "booked": "Réservé",
+      "featured": "En Vedette",
+      "notFeatured": "Standard"
     },
     "propertyType": {
       "house": "Maison",
       "villa": "Villa",
       "condo": "Appartement",
-      "lot": "Terrain",
-      "unknown": "Inconnu"
+      "lot": "Terrain"
     },
-    "loading": "Chargement des propriétés en vedette...",
-    "noProperties": "Aucune propriété en vedette disponible pour le moment.",
-    "error": "Erreur lors du chargement des propriétés",
+    "propertyDetails": {
+      "beds": "Lits",
+      "baths": "Salles de Bain",
+      "sqft": "m²",
+      "bedsCount": "{count} Lits",
+      "bathsCount": "{count} Salles de Bain",
+      "squareFeet": "{value} m²",
+      "area": "{value} m²"
+    },
     "featured": "En Vedette",
+    "loading": "Chargement des propriétés en vedette...",
+    "dateAvailability": {
+      "available": "Disponible pour vos dates",
+      "unavailable": "Indisponible pour vos dates",
+      "checkAvailability": "Vérifier la disponibilité"
+    },
+    "error": "Erreur lors du chargement des propriétés",
+    "retry": "Réessayer",
+    "loadingProperties": "Chargement des propriétés...",
+    "loadingAvailability": "Vérification de la disponibilité...",
+    "dateFilterError": "Impossible de filtrer par dates. Affichage de toutes les propriétés.",
+    "noPropertiesTitle": "Aucune propriété correspondante trouvée",
+    "noProperties": "Aucune propriété disponible pour le moment. Veuillez vérifier ultérieurement.",
+    "noPropertiesForDates": "Aucune propriété disponible pour les dates sélectionnées. Essayez des dates différentes.",
+    "noPropertiesWithFilters": "Aucune propriété ne correspond à vos filtres actuels. Essayez d'ajuster vos critères de recherche.",
+    "clearFilters": "Effacer tous les filtres",
     "pets": {
       "allowed": "Animaux Autorisés",
       "notAllowed": "Animaux Non Autorisés"
@@ -96,19 +107,19 @@
     "features": [
       {
         "title": "Expertise",
-        "description": "Over 20 years of Caribbean real estate experience"
+        "description": "Plus de 20 ans d'expérience dans l'immobilier caribéen"
       },
       {
-        "title": "Trust",
-        "description": "Licensed and regulated with a proven track record"
+        "title": "Confiance",
+        "description": "Agréé et réglementé avec des antécédents éprouvés"
       },
       {
-        "title": "Dedication",
-        "description": "Personalized service tailored to your needs"
+        "title": "Dévouement",
+        "description": "Service personnalisé adapté à vos besoins"
       },
       {
         "title": "Support",
-        "description": "24/7 support throughout your journey"
+        "description": "Support 24/7 tout au long de votre parcours"
       }
     ]
   },
@@ -119,16 +130,16 @@
     "exploreLocation": "Explorez l'emplacement",
     "locations": [
       {
-        "description": "Discover paradise with stunning beaches and lush mountains"
+        "description": "Découvrez le paradis avec des plages magnifiques et des montagnes luxuriantes"
       },
       {
-        "description": "Experience luxury living in this tropical haven"
+        "description": "Vivez le luxe dans ce havre tropical"
       },
       {
-        "description": "Find your dream home in this vibrant Caribbean culture"
+        "description": "Trouvez votre maison de rêve dans cette culture caribéenne vibrante"
       },
       {
-        "description": "Paradise found in crystal clear waters"
+        "description": "Paradis trouvé dans des eaux cristallines"
       }
     ]
   },
@@ -144,7 +155,7 @@
       "content": "Mon mari Chuck et moi venons d'Erie, en Pennsylvanie, aux États-Unis, et avons parcouru le monde pour trouver une deuxième maison. En 2000, nous avons voyagé à Cabarete et avons su que c'était l'endroit parfait pour nous. Nous avons acheté notre maison sur place."
     },
     "location": {
-      "title": "Notre emplacement",
+      "title": "Cabarete : La capitale de l'aventure",
       "content": "Cabarete est une ville balnéaire dynamique connue comme \"La capitale de l'aventure des Caraïbes\". Avec des conditions parfaites pour le windsurf, le kitesurf et le surf, Cabarete est l'une des principales destinations mondiales pour les sports nautiques. Vous n'êtes pas amateur de sports nautiques ? Il y a quelque chose pour tout le monde à Cabarete. Vous pouvez faire du vélo, de l'équitation, du kayak, du canyoning, participer à de nombreuses autres aventures ou simplement vous détendre sur la magnifique plage."
     },
     "community": {
@@ -169,51 +180,51 @@
     "activities": [
       {
         "title": "Ocean World Adventure Park",
-        "description": "There is so much to do! Swim with the dolphins, have an encounter with sea lions, sharks and stingrays. You can swim in the same pool as the tigers only separated by glass. There is a coral reef aquarium for snorkeler enthusiasts and a rain forest where you can see rhinoceroses, iguanas and a bird sanctuary. It's a once in a lifetime experience!",
+        "description": "Il y a tant à faire ! Nagez avec les dauphins, rencontrez des lions de mer, des requins et des raies. Vous pouvez nager dans la même piscine que les tigres, séparés uniquement par du verre. Il y a un aquarium de récifs coralliens pour les amateurs de plongée avec tuba et une forêt tropicale où vous pouvez voir des rhinocéros, des iguanes et un sanctuaire d'oiseaux. C'est une expérience unique !",
         "website": "www.oceanworld.net",
         "image": "/images/activities/ocean-world.jpg"
       },
       {
         "title": "Monkey Jungle",
-        "description": "Experience the thrill of zip lining through the jungle canopy while interacting with friendly squirrel monkeys. This unique eco-adventure combines adrenaline with animal encounters in a safe, controlled environment.",
+        "description": "Vivez le frisson de la tyrolienne à travers la canopée de la jungle tout en interagissant avec des singes écureuils amicaux. Cette éco-aventure unique combine adrénaline et rencontres avec des animaux dans un environnement sécurisé et contrôlé.",
         "website": "www.monkeyjungledr.com",
         "image": "/images/activities/monkey-jungle.jpg"
       },
       {
-        "title": "Horseback Riding",
-        "description": "Explore the beautiful Dominican countryside on horseback. Ride through lush forests, along pristine beaches, and discover hidden waterfalls on guided tours suitable for all experience levels.",
+        "title": "Équitation",
+        "description": "Explorez la magnifique campagne dominicaine à cheval. Traversez des forêts luxuriantes, longez des plages vierges et découvrez des cascades cachées lors de visites guidées adaptées à tous les niveaux d'expérience.",
         "image": "/images/activities/horseback.jpg",
         "contact": "+1 809-555-0123"
       },
       {
-        "title": "Kite Surfing",
-        "description": "Cabarete is world-renowned for its perfect kitesurfing conditions. Whether you're a beginner or an expert, our certified instructors will help you catch the perfect wind.",
+        "title": "Kitesurf",
+        "description": "Cabarete est mondialement connue pour ses conditions parfaites de kitesurf. Que vous soyez débutant ou expert, nos instructeurs certifiés vous aideront à attraper le vent parfait.",
         "image": "/images/activities/kite-surfing.jpg",
         "contact": "+1 809-555-0124"
       },
       {
         "title": "Paradise Island",
-        "description": "Visit one of the most beautiful islands in the Caribbean. Snorkel in crystal clear waters, relax on pristine beaches, and enjoy fresh seafood in this tropical paradise.",
+        "description": "Visitez l'une des plus belles îles des Caraïbes. Faites de la plongée avec tuba dans des eaux cristallines, détendez-vous sur des plages vierges et dégustez des fruits de mer frais dans ce paradis tropical.",
         "image": "/images/activities/paradise-island.jpg",
-        "details": "Daily tours available with lunch included"
+        "details": "Visites quotidiennes disponibles avec déjeuner inclus"
       },
       {
-        "title": "27 Waterfalls of Damajagua",
-        "description": "Adventure through the famous 27 waterfalls, jumping, sliding, and swimming through natural water formations. A unique experience that combines hiking with water adventures.",
+        "title": "27 Cascades de Damajagua",
+        "description": "Aventurez-vous à travers les célèbres 27 cascades, sautez, glissez et nagez à travers des formations naturelles d'eau. Une expérience unique qui combine randonnée et aventures aquatiques.",
         "image": "/images/activities/waterfalls.jpg",
         "website": "www.27charcos.com"
       },
       {
-        "title": "Whale Watching with Kim Baddall",
-        "description": "Humpback Whales here in Samana Bay, DR. A unique opportunity to observe humpback whales in their natural calving and mating grounds. Listen to the male humpback's solitary courting song and witness incredible displays of flipping, tail lobbing and breaching by the most active species of whales in the Atlantic.",
-        "details": "On board a marine mammal specialist narrating vessel answering questions….it's an experience of a lifetime not to be missed. Dates: January 15 – March 25 from the main town dock in Samana on the Whale Watch vessel \"Pina Mia\"",
+        "title": "Observation des baleines avec Kim Baddall",
+        "description": "Baleines à bosse ici dans la baie de Samana, RD. Une opportunité unique d'observer les baleines à bosse dans leur habitat naturel de mise bas et d'accouplement. Écoutez le chant solitaire de séduction du mâle à bosse et assistez à d'incroyables démonstrations de retournement, de queue et de saut de l'espèce de baleine la plus active de l'Atlantique.",
+        "details": "À bord d'un navire commenté par un spécialiste des mammifères marins répondant aux questions... c'est une expérience à ne pas manquer. Dates : 15 janvier - 25 mars depuis le quai principal de Samana sur le navire d'observation des baleines \"Pina Mia\"",
         "contact": "809-538-2494",
         "email": "reservations@whalesamana.com",
         "image": "/images/activities/whale-watching.jpg"
       },
       {
         "title": "Andari Spa",
-        "description": "This is our favorite! Massage, physiotherapy, hot stone massage, body scrubs, body wraps, facials, manicures & pedicures and hair removal. It's in the Millennium Resort & Spa, Cabarete.",
+        "description": "C'est notre préféré ! Massage, physiothérapie, massage aux pierres chaudes, gommages corporels, enveloppements corporels, soins du visage, manucures et pédicures et épilation. C'est dans le Millennium Resort & Spa, Cabarete.",
         "website": "www.andarispa.com",
         "image": "/images/activities/spa.jpg"
       }
@@ -221,16 +232,449 @@
   },
   "BookingConfirmation": {
     "title": "Confirmation de Réservation",
-    "status": "Statut",
+    "booking_id": "ID de Réservation",
     "property": "Propriété",
-    "total": "Total",
     "check_in": "Date d'arrivée",
     "check_out": "Date de départ",
     "guests": "Voyageurs",
+    "total": "Montant Total",
+    "payment_info": "Informations de Paiement",
+    "payment_id": "ID de Paiement",
     "special_requests": "Demandes spéciales",
-    "confirmed": "Confirmée",
-    "pending": "En attente",
-    "canceled": "Annulée"
+    "back_to_bookings": "Retour à Mes Réservations",
+    "go_to_dashboard": "Aller au Tableau de Bord",
+    "cancel_booking": "Annuler la Réservation",
+    "payment_status_label": "Statut du Paiement",
+    "status_label": "Statut",
+    "payment_authorization_notice": "IMPORTANT : Votre paiement a été autorisé mais pas encore traité. Nous confirmerons votre réservation sous peu.",
+    "payment_status": {
+      "captured": "Capturé",
+      "outline": "Aperçu",
+      "completed": "Terminé",
+      "authorized": "Autorisé",
+      "pending": "En Attente",
+      "failed": "Paiement Échoué",
+      "refunded": "Remboursé"
+    },
+    "awaiting_approval": {
+      "title": "En Attente d'Approbation",
+      "description": "Cette réservation nécessite l'approbation du propriétaire. Nous vous notifierons une fois confirmée."
+    },
+    "errors": {
+      "fetch_failed": "Échec du chargement des détails de la réservation",
+      "title": "Erreur de Réservation",
+      "unknown": "Une erreur inattendue est survenue"
+    },
+    "status": {
+      "confirmed": "Confirmée",
+      "pending": "En Attente",
+      "canceled": "Annulée",
+      "completed": "Terminée",
+      "awaiting_approval": "En Attente d'Approbation",
+      "payment_failed": "Paiement Échoué",
+      "expired": "Expirée"
+    }
+  },
+  "HeroSection": {
+    "title": "Trouvez Votre Propriété de Rêve",
+    "subtitle": "Découvrez la propriété parfaite pour votre style de vie dans notre collection exclusive",
+    "ariaLabel": "Section de recherche de propriété",
+    "features": {
+      "location": "Emplacements de Premier Choix",
+      "availability": "Disponibilité en Temps Réel",
+      "search": "Recherche Intelligente"
+    },
+    "browseProperties": "Parcourir les Propriétés en Vedette",
+    "browsePropertiesAriaLabel": "Section pour parcourir les propriétés en vedette",
+    "search": {
+      "locationPlaceholder": "Où cherchez-vous ?",
+      "locationAriaLabel": "Recherche par lieu",
+      "datePlaceholder": "Sélectionnez les dates",
+      "propertyTypePlaceholder": "Type de propriété",
+      "allPropertyTypes": "Tous les types de propriétés",
+      "button": "Rechercher",
+      "loading": "Recherche...",
+      "error": "Échec de la recherche. Veuillez réessayer.",
+      "validation": {
+        "dateRequired": "Veuillez sélectionner les dates d'arrivée et de départ",
+        "invalidDateRange": "La date de départ doit être postérieure à la date d'arrivée"
+      },
+      "showAdvanced": "Plus de filtres",
+      "hideAdvanced": "Moins de filtres",
+      "bedrooms": "Chambres",
+      "anyBeds": "Toutes chambres",
+      "bathrooms": "Salles de bain",
+      "anyBaths": "Toutes salles de bain",
+      "petsAllowed": "Animaux",
+      "petsAllowedOnly": "Acceptant les animaux uniquement",
+      "dateRange": {
+        "placeholder": "Arrivée - Départ",
+        "from": "Arrivée",
+        "to": "Départ",
+        "clear": "Effacer"
+      }
+    },
+    "propertyTypes": {
+      "house": "Maison",
+      "villa": "Villa",
+      "condo": "Appartement",
+      "lot": "Terrain"
+    }
+  },
+  "PropertyDetails": {
+    "overview": {
+      "beds": "Lits",
+      "baths": "Salles de bain",
+      "sqft": "M²"
+    },
+    "pets": {
+      "allowed": "Animaux Autorisés",
+      "notAllowed": "Animaux Non Autorisés",
+      "information": "Informations sur les Animaux",
+      "restrictions": "Restrictions pour les Animaux",
+      "deposit": "Caution pour Animaux",
+      "petsAllowed": "Les animaux sont bienvenus"
+    },
+    "sections": {
+      "description": "Description",
+      "features": "Caractéristiques et Commodités",
+      "location": "Emplacement",
+      "featuresSubtitle": "Commodités et caractéristiques incluses avec cette propriété",
+      "trustSafety": "Confiance et Sécurité",
+      "trustSafetyDesc": "Nous priorisons votre sécurité et satisfaction",
+      "showMore": "Afficher Plus",
+      "showLess": "Afficher Moins"
+    },
+    "features": {
+      "wifi": "Internet Sans Fil",
+      "parking": "Stationnement Gratuit",
+      "tv": "Télévision",
+      "kitchen": "Cuisine",
+      "pool": "Piscine",
+      "coffee": "Cafetière",
+      "ac": "Climatisation",
+      "security": "Système de Sécurité",
+      "fan": "Ventilateur de Plafond",
+      "garden": "Vue sur le Jardin"
+    },
+    "favorites": {
+      "add": "Ajouter aux Favoris",
+      "remove": "Retirer des Favoris",
+      "added": "Ajouté aux Favoris",
+      "removed": "Retiré des Favoris",
+      "addedDescription": "Propriété ajoutée à vos favoris",
+      "removedDescription": "Propriété retirée de vos favoris"
+    },
+    "share": {
+      "property": "Partager la Propriété",
+      "copied": "Lien Copié",
+      "linkCopied": "Lien de la propriété copié dans le presse-papiers"
+    },
+    "booking": {
+      "noChargeYet": "Vous ne serez pas encore débité",
+      "viewAvailability": "Voir la Disponibilité",
+      "checkAvailability": "Vérifier la Disponibilité",
+      "bookNow": "Réserver Maintenant",
+      "contactAgent": "Contacter l'Agent",
+      "contactHost": "Contacter l'Hôte"
+    },
+    "contactHost": {
+      "name": "Votre Nom",
+      "email": "Votre Email",
+      "message": "Message",
+      "submit": "Envoyer le Message",
+      "success": "Message envoyé avec succès !",
+      "error": "Échec de l'envoi du message. Veuillez réessayer."
+    },
+    "gallery": {
+      "mainImage": "Image Principale de la Propriété",
+      "viewLarger": "Voir l'Image en Plus Grand",
+      "viewImage": "Voir l'Image",
+      "of": "de",
+      "image": "Image de la Propriété",
+      "morePhotos": "Voir Plus de Photos",
+      "close": "Fermer la Galerie",
+      "previous": "Image Précédente",
+      "next": "Image Suivante"
+    },
+    "calendar": {
+      "today": "Aujourd'hui",
+      "month": "Mois",
+      "week": "Semaine",
+      "available": "Disponible",
+      "unavailable": "Indisponible"
+    },
+    "forRent": "À Louer",
+    "forSale": "À Vendre",
+    "listing": {
+      "forRent": "À Louer",
+      "forSale": "À Vendre"
+    },
+    "rentalFrequency": {
+      "daily": "jour",
+      "weekly": "semaine",
+      "monthly": "mois",
+      "yearly": "année"
+    },
+    "FeaturedProperties": {
+      "propertyType": {
+        "house": "Maison",
+        "villa": "Villa",
+        "condo": "Appartement",
+        "lot": "Terrain",
+        "unknown": "Inconnu"
+      }
+    }
+  },
+  "PropertyForm": {
+    "title": "Détails de la Propriété",
+    "description": "Veuillez fournir les détails de votre propriété",
+    "fields": {
+      "title": "Titre de la Propriété",
+      "description": "Description",
+      "location": "Emplacement",
+      "price": "Prix",
+      "bedrooms": "Chambres",
+      "bathrooms": "Salles de Bain",
+      "squareFeet": "Mètres Carrés",
+      "listingType": "Type d'Annonce",
+      "status": "Statut",
+      "features": "Caractéristiques",
+      "images": "Images",
+      "rentalPrice": "Prix de Location",
+      "rentalFrequency": "Fréquence de Location",
+      "minimumRentalPeriod": "Période Minimale de Location",
+      "availableFrom": "Disponible à Partir du",
+      "availableTo": "Disponible Jusqu'au",
+      "cancellationDays": "Jours d'Annulation"
+    },
+    "placeholders": {
+      "title": "Entrez le titre de la propriété...",
+      "description": "Décrivez votre propriété...",
+      "location": "Entrez l'emplacement de la propriété...",
+      "price": "Entrez le prix...",
+      "bedrooms": "Entrez le nombre de chambres...",
+      "bathrooms": "Entrez le nombre de salles de bain...",
+      "squareFeet": "Entrez la superficie en mètres carrés...",
+      "features": "Ajoutez des caractéristiques (appuyez sur entrée)...",
+      "rentalPrice": "Entrez le prix de location...",
+      "minimumRentalPeriod": "Entrez la période minimale de location...",
+      "cancellationDays": "Entrez les jours d'annulation..."
+    },
+    "errors": {
+      "required": "Ce champ est obligatoire",
+      "invalidNumber": "Veuillez entrer un nombre valide",
+      "invalidDate": "Veuillez entrer une date valide",
+      "invalidImage": "Veuillez télécharger des images valides",
+      "minRentalPeriod": "La période minimale de location doit être d'au moins {min} jours"
+    },
+    "actions": {
+      "submit": "Enregistrer la Propriété",
+      "cancel": "Annuler",
+      "addImage": "Ajouter une Image",
+      "removeImage": "Supprimer l'Image"
+    },
+    "statusOptions": {
+      "available": "Disponible",
+      "pending": "En Attente",
+      "sold": "Vendu",
+      "rented": "Loué"
+    },
+    "listingTypeOptions": {
+      "sale": "À Vendre",
+      "rent": "À Louer",
+      "both": "Vente & Location"
+    },
+    "rentalFrequencyOptions": {
+      "daily": "Quotidien",
+      "weekly": "Hebdomadaire",
+      "monthly": "Mensuel",
+      "yearly": "Annuel"
+    },
+    "success": {
+      "created": "Propriété créée avec succès",
+      "updated": "Propriété mise à jour avec succès"
+    },
+    "error": {
+      "createFailed": "Échec de la création de la propriété",
+      "updateFailed": "Échec de la mise à jour de la propriété"
+    }
+  },
+  "profile": {
+    "title": "Paramètres du Profil",
+    "fullName": "Nom Complet",
+    "phone": "Numéro de Téléphone",
+    "bio": "Biographie",
+    "save": "Enregistrer les Modifications",
+    "updateSuccess": "Profil mis à jour avec succès",
+    "updateError": "Échec de la mise à jour du profil"
+  },
+  "dashboard": {
+    "title": "Tableau de Bord",
+    "description": "Gérez vos réservations et consultez votre activité",
+    "overview": "Vue d'ensemble",
+    "viewAll": "Voir Tout",
+    "upcomingBookings": "Réservations à Venir",
+    "noUpcomingBookings": "Aucune réservation à venir",
+    "exploreProperties": "Explorez les propriétés disponibles",
+    "browseProperties": "Parcourir les Propriétés",
+    "bookingCalendar": "Calendrier des Réservations",
+    "bookingCalendarDescription": "Consultez et gérez vos séjours à venir et passés",
+    "upcomingStays": "Séjours à Venir",
+    "pastStays": "Séjours Passés",
+    "noPastBookings": "Aucune réservation passée trouvée",
+    "stats": {
+      "totalBookings": "Total des Réservations",
+      "activeBookings": "Réservations Actives",
+      "upcomingBookings": "Réservations à Venir",
+      "totalSpent": "Total Dépensé"
+    },
+    "bookings": {
+      "title": "Vos Réservations",
+      "upcomingBookings": "Réservations à Venir",
+      "noUpcomingBookings": "Aucune réservation à venir trouvée",
+      "noBookings": "Aucune réservation trouvée",
+      "exploreProperties": "Explorez nos propriétés disponibles pour planifier votre prochain séjour",
+      "browseProperties": "Parcourir les Propriétés",
+      "searchPlaceholder": "Rechercher des réservations...",
+      "allStatuses": "Tous les Statuts",
+      "statusFilter": "Filtrer par statut",
+      "pagination": {
+        "previous": "Précédent",
+        "next": "Suivant",
+        "page": "Page {number}",
+        "of": "sur {total}"
+      },
+      "status": {
+        "confirmed": "Confirmée",
+        "pending": "En Attente",
+        "cancelled": "Annulée",
+        "canceled": "Annulée",
+        "completed": "Terminée"
+      },
+      "paymentStatus": {
+        "completed": "Paiement terminé",
+        "pending": "Paiement en attente",
+        "failed": "Paiement échoué",
+        "refunded": "Remboursé"
+      },
+      "timeLabels": {
+        "ago": "il y a",
+        "in": "dans",
+        "day": "jour",
+        "days": "jours",
+        "hour": "heure",
+        "hours": "heures",
+        "minute": "minute",
+        "minutes": "minutes"
+      }
+    },
+    "calendar": {
+      "title": "Calendrier des Réservations",
+      "description": "Consultez vos séjours à venir et passés",
+      "today": "Aujourd'hui",
+      "month": "Mois",
+      "week": "Semaine",
+      "days": {
+        "sun": "Dim",
+        "mon": "Lun",
+        "tue": "Mar",
+        "wed": "Mer",
+        "thu": "Jeu",
+        "fri": "Ven",
+        "sat": "Sam"
+      }
+    },
+    "settings": {
+      "title": "Paramètres",
+      "notifications": "Notifications",
+      "emailNotifications": "Notifications par Email",
+      "emailNotificationsDescription": "Recevez des mises à jour importantes et des informations sur vos réservations par email",
+      "bookingReminders": "Rappels de Réservation",
+      "bookingRemindersDescription": "Soyez informé de vos prochains séjours et des heures d'arrivée/départ",
+      "marketingEmails": "Emails Marketing",
+      "marketingEmailsDescription": "Restez informé de nos dernières propriétés, offres spéciales et conseils de voyage",
+      "saveChanges": "Enregistrer les Modifications"
+    },
+    "navigation": {
+      "overview": "Vue d'ensemble",
+      "bookings": "Vos Réservations",
+      "settings": "Paramètres"
+    }
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Prenez contact avec nous pour toute demande ou assistance",
+    "phone": "Téléphone",
+    "email": "Email",
+    "address": "Adresse",
+    "officeHours": "Heures d'Ouverture",
+    "form": {
+      "name": "Nom",
+      "namePlaceholder": "Votre nom",
+      "email": "Email",
+      "emailPlaceholder": "votre@email.com",
+      "subject": "Sujet",
+      "subjectPlaceholder": "De quoi s'agit-il ?",
+      "message": "Message",
+      "messagePlaceholder": "Votre message ici...",
+      "submit": "Envoyer le Message"
+    }
+  },
+  "bookings": {
+    "status": {
+      "awaiting_approval": "En Attente d'Approbation",
+      "pending": "En Attente",
+      "confirmed": "Confirmée",
+      "canceled": "Annulée",
+      "expired": "Expirée",
+      "payment_failed": "Paiement Échoué"
+    },
+    "payment_status": {
+      "pending": "En Attente",
+      "authorized": "Autorisé",
+      "completed": "Terminé",
+      "failed": "Échoué",
+      "refunded": "Remboursé"
+    }
+  },
+  "admin": {
+    "bookings": {
+      "title": "Gérer les Réservations",
+      "searchPlaceholder": "Rechercher par nom d'invité, email ou propriété...",
+      "statusFilter": "Filtrer par statut",
+      "allStatuses": "Tous les Statuts",
+      "noResults": "Aucune réservation trouvée",
+      "actions": "Actions",
+      "approve": "Approuver la Réservation",
+      "approving": "Approbation en cours...",
+      "reject": "Rejeter la Réservation",
+      "rejecting": "Rejet en cours...",
+      "rejectBooking": "Rejeter la Réservation",
+      "rejectBookingConfirmation": "Êtes-vous sûr de vouloir rejeter cette réservation ? Cela annulera l'autorisation de paiement et informera l'invité. Cette action ne peut pas être annulée.",
+      "capture": "Capturer le Paiement",
+      "capturing": "Capture en cours...",
+      "updatePaymentStatus": "Mettre à Jour le Statut de Paiement",
+      "markCompleted": "Marquer comme Terminé",
+      "markFailed": "Marquer comme Échoué",
+      "markPending": "Marquer comme En Attente",
+      "loading": "Chargement des réservations...",
+      "noBookings": "Aucune réservation trouvée",
+      "fetchError": "Erreur lors du chargement des réservations",
+      "approvalNote": "L'approbation capturera le paiement, le rejet annulera le paiement",
+      "paymentCaptured": "Paiement capturé avec succès et marqué comme terminé",
+      "statusUpdated": "Statut mis à jour avec succès",
+      "search": "Rechercher des Réservations",
+      "errors": {
+        "forbidden": "Vous n'avez pas la permission d'effectuer cette action",
+        "unauthorized": "Veuillez vous connecter pour continuer",
+        "bookingNotFound": "Réservation non trouvée",
+        "paymentError": "Échec du traitement du paiement",
+        "updateError": "Échec de la mise à jour du statut de la réservation",
+        "missingPaymentDetails": "Les détails de paiement sont manquants pour cette réservation"
+      },
+      "updating": "Mise à jour en cours..."
+    }
   },
   "auth": {
     "loginTitle": "Connexion",
@@ -250,9 +694,29 @@
       "description": "Gérez vos propriétés et utilisateurs",
       "bookings": {
         "title": "Gérer les Réservations",
+        "searchPlaceholder": "Rechercher par nom d'invité, email ou propriété...",
+        "statusFilter": "Filtrer par statut",
+        "allStatuses": "Tous les Statuts",
+        "noResults": "Aucune réservation trouvée",
+        "actions": "Actions",
+        "approve": "Approuver la Réservation",
+        "approving": "Approbation en cours...",
+        "reject": "Rejeter la Réservation",
+        "rejecting": "Rejet en cours...",
+        "rejectBooking": "Rejeter la Réservation",
+        "rejectBookingConfirmation": "Êtes-vous sûr de vouloir rejeter cette réservation ? Cela annulera l'autorisation de paiement et informera l'invité. Cette action ne peut pas être annulée.",
+        "capture": "Capturer le Paiement",
+        "capturing": "Capture en cours...",
+        "updatePaymentStatus": "Mettre à Jour le Statut de Paiement",
+        "markCompleted": "Marquer comme Terminé",
+        "markFailed": "Marquer comme Échoué",
+        "markPending": "Marquer comme En Attente",
         "loading": "Chargement des réservations...",
         "noBookings": "Aucune réservation trouvée",
-        "fetchError": "Échec du chargement des réservations",
+        "fetchError": "Erreur lors du chargement des réservations",
+        "approvalNote": "L'approbation capturera le paiement, le rejet annulera le paiement",
+        "paymentCaptured": "Paiement capturé avec succès et marqué comme terminé",
+        "statusUpdated": "Statut mis à jour avec succès",
         "status": {
           "pending": "En Attente",
           "confirmed": "Confirmée",
@@ -276,7 +740,40 @@
       "tabs": {
         "properties": "Propriétés",
         "users": "Utilisateurs",
-        "bookings": "Réservations"
+        "bookings": "Réservations",
+        "calendar": "Calendrier"
+      },
+      "calendar": {
+        "title": "Gestion du Calendrier",
+        "description": "Gérez la disponibilité des propriétés et synchronisez les calendriers externes",
+        "selectProperty": "Sélectionner une Propriété",
+        "allProperties": "Toutes les Propriétés",
+        "pickDate": "Choisir une date",
+        "addFeed": "Ajouter un Flux de Calendrier",
+        "addNewFeed": "Ajouter un Nouveau Flux de Calendrier",
+        "feedUrl": "URL du Flux de Calendrier",
+        "priority": "Priorité",
+        "calendarFeeds": "Flux de Calendrier",
+        "calendarFeedsDescription": "Gérez et synchronisez les flux de calendrier externes",
+        "loadingFeeds": "Chargement des flux de calendrier...",
+        "noFeeds": "Aucun flux de calendrier ajouté pour le moment",
+        "sync": "Synchroniser Maintenant",
+        "lastSync": "Dernière Synchronisation",
+        "never": "Jamais",
+        "feedAdded": "Flux de Calendrier Ajouté",
+        "feedAddedDescription": "Le flux de calendrier a été ajouté avec succès",
+        "syncComplete": "Synchronisation Terminée",
+        "syncCompleteDescription": "Le calendrier a été synchronisé avec succès",
+        "syncError": "Échec de la Synchronisation",
+        "error": "Erreur",
+        "unknownError": "Une erreur inconnue est survenue",
+        "selectPropertyFirst": "Veuillez d'abord sélectionner une propriété",
+        "legend": {
+          "available": "Disponible",
+          "booked": "Réservé",
+          "pending": "En Attente",
+          "maintenance": "Maintenance"
+        }
       },
       "users": {
         "title": "Gestion des Utilisateurs",
@@ -306,7 +803,20 @@
         }
       },
       "properties": {
-        "title": "Gestion des Propriétés",
+        "allListings": "Toutes les Annonces",
+        "selectListingType": "Filtrer par type",
+        "forSale": "À Vendre",
+        "forRent": "À Louer",
+        "saleAndRent": "Vente et Location",
+        "calendar": {
+          "manageTitle": "Gérer les Flux de Calendrier",
+          "manage": "Synchroniser et gérer votre calendrier de propriété",
+          "description": "Gérer les flux de calendrier pour",
+          "manageDescription": "Gérer les flux de calendrier pour votre propriété",
+          "syncSuccess": "Synchronisation du Calendrier Terminée",
+          "syncSuccessDescription": "Le calendrier a été synchronisé avec succès"
+        },
+        "title": "Propriétés",
         "loading": "Chargement des propriétés...",
         "error": "Erreur",
         "success": "Succès",
@@ -362,6 +872,7 @@
           "actions": "Actions"
         },
         "form": {
+          "saving": "Enregistrement...",
           "createProperty": "Créer une Nouvelle Propriété",
           "editProperty": "Modifier la Propriété",
           "createPropertyDescription": "Ajouter une nouvelle propriété à vos annonces",
@@ -393,11 +904,21 @@
           "selectRentalFrequency": "Sélectionner la fréquence",
           "minimumRentalPeriod": "Période Minimale de Location",
           "depositAmount": "Montant de la Caution",
-          "availableFrom": "Disponible à partir du",
-          "availableTo": "Disponible jusqu'au",
-          "submit": "Enregistrer la Propriété"
+          "availableFrom": "Disponible à Partir du",
+          "availableTo": "Disponible Jusqu'au",
+          "submit": "Enregistrer la Propriété",
+          "petsAllowed": "Animaux Autorisés",
+          "petsAllowedDescription": "Si les animaux sont autorisés dans cette propriété",
+          "petInformation": "Informations sur les Animaux",
+          "petRestrictions": "Restrictions pour les Animaux",
+          "petRestrictionsDescription": "Listez les restrictions pour les animaux (ex. taille, race)",
+          "petRestrictionsPlaceholder": "Ajouter une restriction...",
+          "petDeposit": "Caution pour Animaux",
+          "update": "Mettre à Jour",
+          "updating": "Mise à jour en cours"
         },
         "actions": {
+          "title": "Actions de Propriété",
           "createProperty": "Ajouter une Propriété",
           "manage": "Gérer la Propriété",
           "markFeatured": "Marquer comme En Vedette",
@@ -408,7 +929,8 @@
           "markRented": "Marquer comme Loué",
           "edit": "Modifier la Propriété",
           "delete": "Supprimer la Propriété",
-          "status": "Changer le Statut"
+          "status": "Changer le Statut",
+          "manageCalendar": "Gérer le Calendrier"
         },
         "deleteConfirmation": {
           "title": "Supprimer la Propriété",
@@ -427,7 +949,15 @@
         "deleteError": "Échec de suppression de la propriété",
         "updateSuccess": "Propriété mise à jour avec succès",
         "createSuccess": "Propriété créée avec succès",
-        "deleteSuccess": "Propriété supprimée avec succès"
+        "deleteSuccess": "Propriété supprimée avec succès",
+        "type": {
+          "house": "Maison",
+          "apartment": "Appartement",
+          "villa": "Villa",
+          "land": "Terrain"
+        },
+        "featuresUpdateSuccess": "Caractéristiques de la propriété mises à jour avec succès",
+        "featuresUpdateError": "Erreur lors de la mise à jour des caractéristiques de la propriété"
       }
     },
     "email": "Email",
@@ -452,7 +982,8 @@
     "loginError": "Échec de la connexion. Veuillez vérifier vos identifiants.",
     "registrationSuccess": "Compte créé avec succès ! Veuillez vous connecter.",
     "registrationError": "Échec de la création du compte. Veuillez réessayer.",
-    "passwordMismatch": "Les mots de passe ne correspondent pas"
+    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "Cancel": "Annuler"
   },
   "nav": {
     "properties": "Propriétés",
@@ -480,40 +1011,5 @@
     "open": "Rechercher",
     "close": "Fermer la recherche",
     "title": "Rechercher des propriétés"
-  },
-  "PropertyDetails": {
-    "overview": {
-      "beds": "Lits",
-      "baths": "Salles de bain",
-      "sqft": "M²"
-    },
-    "pets": {
-      "allowed": "Animaux Autorisés",
-      "notAllowed": "Animaux Non Autorisés",
-      "information": "Informations sur les Animaux",
-      "restrictions": "Restrictions pour les Animaux",
-      "deposit": "Caution pour Animaux",
-      "petsAllowed": "Les animaux sont bienvenus"
-    },
-    "sections": {
-      "description": "Description",
-      "features": "Caractéristiques et Commodités",
-      "location": "Emplacement",
-      "featuresSubtitle": "Commodités et caractéristiques incluses avec cette propriété",
-      "trustSafety": "Confiance et Sécurité",
-      "trustSafetyDesc": "Nous priorisons votre sécurité et satisfaction",
-      "showMore": "Afficher Plus",
-      "showLess": "Afficher Moins"
-    }
-  },
-  "sections": {
-    "description": "Description",
-    "features": "Caractéristiques et Commodités",
-    "location": "Emplacement",
-    "featuresSubtitle": "Commodités et caractéristiques incluses avec cette propriété",
-    "trustSafety": "Confiance et Sécurité",
-    "trustSafetyDesc": "Nous priorisons votre sécurité et satisfaction",
-    "showMore": "Afficher Plus",
-    "showLess": "Afficher Moins"
   }
 }
