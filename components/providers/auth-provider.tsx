@@ -96,31 +96,79 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const refreshSession = async () => {
     try {
       console.log('Refreshing session...')
-      const { data: { session: newSession }, error } = await supabase.auth.getSession()
+      
+      // Track retry attempts for exponential backoff
+      let retryCount = 0;
+      const maxRetries = 3;
+      const baseDelay = 1000; // 1 second initial delay
+      
+      const executeRefresh = async (): Promise<any> => {
+        try {
+          const { data, error } = await supabase.auth.getSession();
+          
+          // If we get a rate limit error, implement exponential backoff
+          if (error && (
+              error.message.includes('rate limit') || 
+              error.message.includes('429') ||
+              (error as any).code === 'over_request_rate_limit'
+            )) {
+            if (retryCount < maxRetries) {
+              retryCount++;
+              const delay = baseDelay * Math.pow(2, retryCount); // Exponential backoff
+              console.log(`Rate limit hit. Retrying in ${delay}ms (attempt ${retryCount}/${maxRetries})`);
+              
+              return new Promise(resolve => {
+                setTimeout(async () => {
+                  resolve(await executeRefresh());
+                }, delay);
+              });
+            } else {
+              console.error('Rate limit exceeded after maximum retry attempts');
+              throw {
+                code: 'rate_limit_exceeded',
+                message: 'Too many authentication requests. Please try again later or sign out and sign back in.'
+              };
+            }
+          }
+          
+          return { data, error };
+        } catch (err) {
+          return { data: { session: null }, error: err };
+        }
+      };
+      
+      const { data: { session: newSession }, error } = await executeRefresh();
       
       if (error) {
-        console.error('Error refreshing session:', error.message)
-        return
+        // Handle rate limit errors with a more user-friendly message
+        if (error.code === 'rate_limit_exceeded' || error.code === 'over_request_rate_limit') {
+          console.error('Authentication rate limit exceeded:', error.message);
+          // We could show a toast notification here if we had a toast system
+          // For now, just log the error
+        } else {
+          console.error('Error refreshing session:', error.message);
+        }
+        return;
       }
       
       if (newSession) {
-        console.log('New session obtained:', newSession.user.id)
-        setSession(newSession)
-        setUser(newSession.user)
+        console.log('New session obtained:', newSession.user.id);
+        setSession(newSession);
+        setUser(newSession.user);
         
         // Also refresh the profile
-        const profile = await fetchUserProfile(newSession.user.id)
+        const profile = await fetchUserProfile(newSession.user.id);
         if (profile) {
-          setUserProfile(profile)
+          setUserProfile(profile);
         }
       } else {
-        console.log('No active session found during refresh')
-        setSession(null)
-        setUser(null)
-        setUserProfile(null)
+        console.log('No active session found during refresh');
+        setSession(null);
+        setUser(null);
+        setUserProfile(null);
       }
     } catch (error) {
-      console.error('Unexpected error refreshing session:', error)
+      console.error('Unexpected error refreshing session:', error);
     }
   }
 
@@ -154,7 +202,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const { data: { session: currentSession }, error } = await supabase.auth.getSession()
         
         if (error) {
-          console.error('Error getting session:', error.message)
+          // Handle rate limit errors specifically
+          if (error.message.includes('rate limit') || 
+              error.message.includes('429') || 
+              (error as any).code === 'over_request_rate_limit') {
+            console.warn('Rate limit hit during auth initialization. Will retry on next page load.')
+          } else {
+            console.error('Error getting session:', error.message)
+          }
           setIsLoading(false)
           return
         }
@@ -186,28 +241,43 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       async (event, newSession) => {
         console.log('Auth state changed:', event, newSession?.user?.id)
         
-        if (event === 'SIGNED_IN' && newSession) {
-          setSession(newSession)
-          setUser(newSession.user)
-          
-          // Fetch user profile when signed in
-          const profile = await fetchUserProfile(newSession.user.id)
-          if (profile) {
-            setUserProfile(profile)
+        try {
+          if (event === 'SIGNED_IN' && newSession) {
+            setSession(newSession)
+            setUser(newSession.user)
+            
+            // Fetch user profile when signed in
+            const profile = await fetchUserProfile(newSession.user.id)
+            if (profile) {
+              setUserProfile(profile)
+            }
+            
+            // Refresh the page to ensure all server components get the updated session
+            router.refresh()
+          } else if (event === 'SIGNED_OUT') {
+            setSession(null)
+            setUser(null)
+            setUserProfile(null)
+            
+            // Refresh the page to ensure all server components get the updated session
+            router.refresh()
+          } else if (event === 'TOKEN_REFRESHED' && newSession) {
+            console.log('Token refreshed, updating session')
+            setSession(newSession)
+          } else if (event === 'USER_UPDATED' && newSession) {
+            console.log('User updated, updating session')
+            setSession(newSession)
+            setUser(newSession.user)
           }
-          
-          // Refresh the page to ensure all server components get the updated session
-          router.refresh()
-        } else if (event === 'SIGNED_OUT') {
-          setSession(null)
-          setUser(null)
-          setUserProfile(null)
-          
-          // Refresh the page to ensure all server components get the updated session
-          router.refresh()
-        } else if (event === 'TOKEN_REFRESHED' && newSession) {
-          console.log('Token refreshed, updating session')
-          setSession(newSession)
+        } catch (error) {
+          // Handle errors in the auth state change handler
+          if (error instanceof Error && 
+              (error.message.includes('rate limit') || 
+               error.message.includes('429'))) {
+            console.warn('Rate limit hit during auth state change handling:', error.message)
+          } else {
+            console.error('Error handling auth state change:', error)
+          }
         }
       }
     )
@@ -255,18 +325,46 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signOut = async () => {
     try {
       console.log('Signing out...')
-      await supabase.auth.signOut({ scope: 'global' })
       
-      // Clear state
+      // Clear state first to ensure UI updates even if the signOut call fails
       setSession(null)
       setUser(null)
       setUserProfile(null)
       
+      try {
+        // Attempt to sign out from Supabase
+        const { error } = await supabase.auth.signOut({ scope: 'global' })
+        
+        if (error) {
+          // Handle rate limit errors specifically
+          if (error.message.includes('rate limit') || 
+              error.message.includes('429') || 
+              (error as any).code === 'over_request_rate_limit') {
+            console.warn('Rate limit hit during sign out. Session cleared locally but server-side session may persist.')
+            // Continue with redirect despite the error
+          } else {
+            console.error('Error during sign out:', error)
+            // Continue with redirect despite the error
+          }
+        }
+      } catch (error) {
+        console.error('Exception during sign out:', error)
+        // Continue with redirect despite the error
+      }
+      
       // Redirect to logout page instead of home
-      const locale = window.location.pathname.split('/')[1] || 'en'
+      const locale = window.location.pathname.split('/')[1] || defaultLocale
       router.push(`/${locale}/auth/logout`)
     } catch (error) {
-      console.error('Error during sign out:', error)
+      console.error('Unexpected error during sign out flow:', error)
+      
+      // As a fallback, try to redirect anyway
+      try {
+        const locale = window.location.pathname.split('/')[1] || defaultLocale
+        router.push(`/${locale}/auth/logout`)
+      } catch (e) {
+        console.error('Failed to redirect after sign out error:', e)
+      }
     }
   }
 
