@@ -36,6 +36,7 @@ const nextConfig = {
       "https://*.supabase.co",
       "https://www.sandbox.paypal.com",
       "https://www.paypalobjects.com",
+      "https://vercel.live",  // Added for Vercel live feedback
       ...(isDevelopment ? ["http://localhost:*"] : [])
     ].join(' ');
 
@@ -47,8 +48,8 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src 'self' https://www.paypal.com https://www.paypalobjects.com 'unsafe-eval';
-              script-src-elem 'self' https://www.paypal.com https://www.paypalobjects.com 'unsafe-inline';
+              script-src 'self' https://www.paypal.com https://www.paypalobjects.com https://vercel.live 'unsafe-eval';
+              script-src-elem 'self' https://www.paypal.com https://www.paypalobjects.com https://vercel.live 'unsafe-inline';
               style-src 'self' 'unsafe-inline' https://www.paypal.com https://www.paypalobjects.com;
               img-src 'self' https://www.paypal.com https://www.paypalobjects.com https://ebydkdkayaukivmtljmo.supabase.co data:;
               connect-src ${connectSrc};
