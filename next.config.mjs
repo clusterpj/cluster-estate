@@ -7,9 +7,13 @@ const withNextIntl = createNextIntlPlugin(
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
+    // ⚠️ Dangerously allow production builds to successfully complete even if
+    // your project has type errors
     ignoreBuildErrors: true,
   },
   eslint: {
+    // ⚠️ Dangerously allow production builds to successfully complete even if
+    // your project has ESLint errors
     ignoreDuringBuilds: true,
   },
   images: {
@@ -32,25 +36,8 @@ const nextConfig = {
       "https://*.supabase.co",
       "https://www.sandbox.paypal.com",
       "https://www.paypalobjects.com",
-      "https://vercel.live",
-      "https://*.vercel.app",
+      "https://vercel.live",  // Added for Vercel live feedback
       ...(isDevelopment ? ["http://localhost:*"] : [])
-    ].join(' ');
-
-    const scriptSrc = [
-      "'self'",
-      "https://www.paypal.com",
-      "https://www.paypalobjects.com", 
-      "https://vercel.live",
-      "'unsafe-eval'"
-    ].join(' ');
-
-    const scriptSrcElem = [
-      "'self'",
-      "https://www.paypal.com",
-      "https://www.paypalobjects.com",
-      "https://vercel.live",
-      "'unsafe-inline'"
     ].join(' ');
 
     return [
@@ -61,12 +48,12 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src ${scriptSrc};
-              script-src-elem ${scriptSrcElem};
+              script-src 'self' https://www.paypal.com https://www.paypalobjects.com https://vercel.live 'unsafe-eval';
+              script-src-elem 'self' https://www.paypal.com https://www.paypalobjects.com https://vercel.live 'unsafe-inline';
               style-src 'self' 'unsafe-inline' https://www.paypal.com https://www.paypalobjects.com;
               img-src 'self' https://www.paypal.com https://www.paypalobjects.com https://ebydkdkayaukivmtljmo.supabase.co data:;
               connect-src ${connectSrc};
-              frame-src 'self' https://www.paypal.com https://*.paypal.com https://vercel.live;
+              frame-src 'self' https://www.paypal.com https://*.paypal.com;
               object-src 'none';
               base-uri 'self';
               form-action 'self';
@@ -78,36 +65,5 @@ const nextConfig = {
   }
 };
 
-// Add custom domains
-const customDomains = {
-  async rewrites() {
-    return [
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'clustercreations.com',
-          },
-        ],
-        destination: '/:path*',
-      },
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'www.clustercreations.com',
-          },
-        ],
-        destination: '/:path*',
-      },
-    ];
-  },
-};
-
-// Apply next-intl plugin and custom domains
-export default withNextIntl({
-  ...nextConfig,
-  ...customDomains
-});
+// Apply next-intl plugin
+export default withNextIntl(nextConfig);
