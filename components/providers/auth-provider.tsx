@@ -16,6 +16,7 @@ type UserProfile = {
 }
 
 type AuthContextType = {
+  supabase: ReturnType<typeof createClientComponentClient>;
   user: User | null
   userProfile: UserProfile | null
   session: Session | null
@@ -369,6 +370,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const value = {
+    supabase,
     user,
     userProfile,
     session,
@@ -380,7 +382,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     refreshProfile,
   }
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 export const useAuth = () => {
