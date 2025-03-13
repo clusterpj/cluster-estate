@@ -1,67 +1,69 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { Award, Clock, Heart, Shield } from "lucide-react";
+import { MapPin, Wind, Umbrella, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import { FadeInView } from "./animations/fade-in-view";
-import { useTranslations } from 'next-intl';
-
 const features = [
   {
-    icon: Award,
-    title: "Expertise",
-    description: "Over 20 years of Caribbean real estate experience"
+    icon: MapPin,
+    title: "Prime Location",
+    description: "Located in the heart of Cabarete, steps away from world-class kitesurfing beaches"
   },
   {
-    icon: Shield,
-    title: "Trust",
-    description: "Licensed and regulated with a proven track record"
+    icon: Wind,
+    title: "Perfect Conditions",
+    description: "Consistent trade winds and warm waters make Cabarete a water sports paradise"
   },
   {
-    icon: Heart,
-    title: "Dedication",
-    description: "Personalized service tailored to your needs"
+    icon: Umbrella,
+    title: "Beach Lifestyle",
+    description: "Experience the perfect blend of relaxation and adventure in our beachfront properties"
   },
   {
-    icon: Clock,
-    title: "Support",
-    description: "24/7 support throughout your journey"
+    icon: Users,
+    title: "Local Expertise",
+    description: "Over 20 years of experience in Cabarete with deep connections to the community"
   }
 ];
 
 export function WhyChooseUs() {
-  const t = useTranslations('WhyChooseUs');
-  
   return (
-    <section className="py-16 dark:bg-caribbean-950">
-      <div className="container mx-auto px-4">
+    <section className="relative overflow-hidden py-24">
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background dark:from-caribbean-950/90 dark:to-caribbean-950" />
+      
+      <div className="container relative mx-auto px-4">
         <FadeInView>
-          <h2 className="text-4xl font-bold text-center mb-4 dark:text-sand-50">
-            {t('title')}
+          <h2 className="text-center text-4xl font-bold tracking-tight sm:text-5xl dark:text-sand-50">
+            Why Choose Cabarete Villas
           </h2>
         </FadeInView>
         
         <FadeInView delay={0.2}>
-          <p className="text-center mb-12 max-w-2xl mx-auto dark:text-sand-200">
-            {t('description')}
+          <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 dark:text-sand-200">
+            Discover why our slice of Caribbean paradise is the perfect place for your next vacation
           </p>
         </FadeInView>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {features.map((feature, index) => (
             <FadeInView key={feature.title} delay={0.2 * (index + 1)}>
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <Card className="p-6 text-center h-full dark:bg-caribbean-900 dark:border-caribbean-800 shadow-lg">
-                  <feature.icon className="w-12 h-12 mx-auto mb-4 dark:text-sand-200" />
-                  <h3 className="text-xl font-semibold mb-2 dark:text-sand-50">
-                    {t(`features.${index}.title`)}
-                  </h3>
-                  <p className="dark:text-sand-200">
-                    {t(`features.${index}.description`)}
-                  </p>
+                <Card className="group h-full overflow-hidden rounded-xl p-8 transition-all hover:bg-primary/5 dark:bg-caribbean-900/50 dark:border-caribbean-800/50 dark:hover:bg-caribbean-800/50">
+                  <div className="relative">
+                    <feature.icon className="h-12 w-12 text-primary transition-transform duration-300 group-hover:scale-110 dark:text-sand-200" />
+                    <div className="mt-6">
+                      <h3 className="text-xl font-semibold tracking-tight dark:text-sand-50">
+                        {feature.title}
+                      </h3>
+                      <p className="mt-3 text-muted-foreground dark:text-sand-200">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
                 </Card>
               </motion.div>
             </FadeInView>

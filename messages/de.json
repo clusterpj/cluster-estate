@@ -1,15 +1,93 @@
 {
-  "Hero": {
-    "title": "Finden Sie Ihr Traumhaus",
-    "subtitle": "Entdecken Sie Luxusimmobilien an exklusiven Standorten",
-    "searchPlaceholder": "Geben Sie den Standort, den Immobilientyp oder Schlüsselwörter ein...",
-    "searchButton": "Immobilien suchen",
-    "backgroundAlt": "Luxushaus",
-    "description": "Entdecken Sie außergewöhnliche Immobilien, die zu Ihrem Lebensstil in den begehrtesten Lagen der Karibik passen.",
-    "stats": {
-      "properties": "Eigenschaften",
-      "clients": "Glückliche Kunden",
-      "locations": "Standorte"
+  "BookingConfirmation": {
+    "title": "Buchungsbestätigung",
+    "booking_id": "Buchungs-ID",
+    "property": "Immobilie",
+    "check_in": "Anreisedatum",
+    "check_out": "Abreisedatum",
+    "guests": "Gäste",
+    "total": "Gesamtbetrag",
+    "payment_info": "Zahlungsinformationen",
+    "payment_id": "Zahlungs-ID",
+    "special_requests": "Besondere Wünsche",
+    "back_to_bookings": "Zurück zu meinen Buchungen",
+    "go_to_dashboard": "Gehe zum Dashboard",
+    "cancel_booking": "Buchung stornieren",
+    "payment_status_label": "Zahlungsstatus",
+    "status_label": "Status",
+    "payment_authorization_notice": "WICHTIG: Ihre Zahlung wurde autorisiert, aber noch nicht verarbeitet. Wir werden Ihre Buchung in Kürze bestätigen.",
+    "payment_status": {
+      "captured": "Erfasst",
+      "outline": "Umriss",
+      "completed": "Abgeschlossen",
+      "authorized": "Autorisiert",
+      "pending": "Ausstehend",
+      "failed": "Zahlung fehlgeschlagen",
+      "refunded": "Erstattet"
+    },
+    "awaiting_approval": {
+      "title": "Ausstehende Genehmigung",
+      "description": "Diese Buchung erfordert die Zustimmung des Eigentümers. Wir benachrichtigen Sie, sobald sie bestätigt ist."
+    },
+    "errors": {
+      "fetch_failed": "Fehler beim Laden der Buchungsdetails",
+      "title": "Buchungsfehler",
+      "unknown": "Ein unerwarteter Fehler ist aufgetreten"
+    },
+    "status": {
+      "confirmed": "Bestätigt",
+      "pending": "Ausstehend",
+      "canceled": "Abgebrochen",
+      "completed": "Abgeschlossen",
+      "awaiting_approval": "Ausstehende Genehmigung",
+      "payment_failed": "Zahlung fehlgeschlagen",
+      "expired": "Abgelaufen"
+    }
+  },
+  "HeroSection": {
+    "title": "Finden Sie Ihre Traumimmobilie",
+    "subtitle": "Entdecken Sie die perfekte Immobilie für Ihren Lebensstil in unserer exklusiven Sammlung",
+    "ariaLabel": "Immobiliensuchbereich",
+    "features": {
+      "location": "Erstklassige Standorte",
+      "availability": "Echtzeit-Verfügbarkeit",
+      "search": "Intelligente Suche"
+    },
+    "browseProperties": "Durchstöbern Sie ausgewählte Immobilien",
+    "browsePropertiesAriaLabel": "Durchsuchen Sie den Bereich mit ausgewählten Immobilien",
+    "search": {
+      "locationPlaceholder": "Wo schaust du hin?",
+      "locationAriaLabel": "Suche nach Standort",
+      "datePlaceholder": "Daten auswählen",
+      "propertyTypePlaceholder": "Immobilienart",
+      "allPropertyTypes": "Alle Immobilientypen",
+      "button": "Suchen",
+      "loading": "Suchen...",
+      "error": "Suche fehlgeschlagen. Bitte versuchen Sie es erneut.",
+      "validation": {
+        "dateRequired": "Bitte wählen Sie das Anreise- und Abreisedatum aus.",
+        "invalidDateRange": "Das Check-out-Datum muss nach dem Check-in-Datum liegen."
+      },
+      "showAdvanced": "Weitere Filter",
+      "hideAdvanced": "Weniger Filter",
+      "bedrooms": "Schlafzimmer",
+      "anyBeds": "Irgendwelche Schlafzimmer",
+      "bathrooms": "Badezimmer",
+      "anyBaths": "Irgendwelche Badezimmer",
+      "petsAllowed": "Haustiere",
+      "petsAllowedOnly": "Nur haustierfreundlich",
+      "dateRange": {
+        "placeholder": "Einchecken - Auschecken",
+        "from": "Einchecken",
+        "to": "Auschecken",
+        "clear": "Löschen"
+      }
+    },
+    "propertyTypes": {
+      "house": "Haus",
+      "villa": "Villa",
+      "condo": "Wohnungseigentum",
+      "lot": "Grundstück/Parzelle"
     }
   },
   "ParadiseLiving": {
@@ -41,18 +119,10 @@
   },
   "FeaturedProperties": {
     "title": "Ausgewählte Immobilien",
+    "subtitle": "Entdecken Sie unsere exklusive Sammlung von Luxusimmobilien",
     "description": "Entdecken Sie unsere handverlesene Auswahl an Premium-Immobilien in den begehrtesten Lagen der Karibik.",
-    "viewDetails": "Details Anzeigen",
+    "viewAll": "Alle Eigenschaften anzeigen",
     "viewAllProperties": "Alle Immobilien Anzeigen",
-    "propertyDetails": {
-      "beds": "Schlafzimmer",
-      "baths": "Badezimmer",
-      "sqft": "m²",
-      "bedsCount": "{count} Schlafzimmer",
-      "bathsCount": "{count} Badezimmer",
-      "squareFeet": "{value} m²",
-      "area": "{value} m²"
-    },
     "price": {
       "forSale": "Zum Verkauf",
       "forRent": "Zur Miete",
@@ -67,24 +137,43 @@
       "available": "Verfügbar",
       "pending": "Ausstehend",
       "sold": "Verkauft",
-      "rented": "Vermietet"
-    },
-    "listingType": {
-      "rent": "Mieten",
-      "sale": "Verkauf",
-      "both": "Verkauf & Vermietung"
+      "rented": "Vermietet",
+      "booked": "Gebucht",
+      "featured": "Vorgestellt",
+      "notFeatured": "Regelmäßig"
     },
     "propertyType": {
       "house": "Haus",
       "villa": "Villa",
       "condo": "Eigentumswohnung",
-      "lot": "Grundstück",
-      "unknown": "Unbekannt"
+      "lot": "Grundstück"
     },
-    "loading": "Immobilien werden geladen...",
-    "noProperties": "Derzeit sind keine ausgewählten Immobilien verfügbar.",
-    "error": "Fehler beim Laden der Immobilien",
+    "propertyDetails": {
+      "beds": "Schlafzimmer",
+      "baths": "Badezimmer",
+      "sqft": "m²",
+      "bedsCount": "{count} Schlafzimmer",
+      "bathsCount": "{count} Badezimmer",
+      "squareFeet": "{value} m²",
+      "area": "{value} m²"
+    },
     "featured": "Ausgezeichnet",
+    "loading": "Immobilien werden geladen...",
+    "dateAvailability": {
+      "available": "Verfügbar für Ihre Termine",
+      "unavailable": "Nicht verfügbar für Ihre Daten",
+      "checkAvailability": "Verfügbarkeit prüfen"
+    },
+    "error": "Fehler beim Laden der Immobilien",
+    "retry": "Erneut versuchen",
+    "loadingProperties": "Eigenschaften werden geladen...",
+    "loadingAvailability": "Verfügbarkeit wird überprüft...",
+    "dateFilterError": "Konnte nicht nach Datum filtern. Zeige alle Eigenschaften an.",
+    "noPropertiesTitle": "Keine passenden Eigenschaften gefunden",
+    "noProperties": "Derzeit sind keine ausgewählten Immobilien verfügbar.",
+    "noPropertiesForDates": "Keine Eigenschaften für die ausgewählten Daten verfügbar. Versuchen Sie es mit anderen Daten.",
+    "noPropertiesWithFilters": "Keine Eigenschaften entsprechen Ihren aktuellen Filtern. Versuchen Sie, Ihre Suchkriterien anzupassen.",
+    "clearFilters": "Alle Filter löschen",
     "pets": {
       "allowed": "Haustiere Erlaubt",
       "notAllowed": "Keine Haustiere"
@@ -219,19 +308,6 @@
       }
     ]
   },
-  "BookingConfirmation": {
-    "title": "Buchungsbestätigung",
-    "status": "Status",
-    "property": "Immobilie",
-    "total": "Gesamtbetrag",
-    "check_in": "Anreisedatum",
-    "check_out": "Abreisedatum",
-    "guests": "Gäste",
-    "special_requests": "Besondere Wünsche",
-    "confirmed": "Bestätigt",
-    "pending": "Ausstehend",
-    "canceled": "Storniert"
-  },
   "auth": {
     "loginTitle": "Anmelden",
     "loginDescription": "Willkommen zurück! Bitte melden Sie sich in Ihrem Konto an.",
@@ -250,21 +326,39 @@
       "description": "Verwalten Sie Ihre Immobilien und Benutzer",
       "bookings": {
         "title": "Buchungen verwalten",
+        "searchPlaceholder": "Suche nach Gastname, E-Mail oder Objekt...",
+        "statusFilter": "Filtern nach Status",
+        "allStatuses": "Alle Statusse",
+        "noResults": "Keine Buchungen gefunden",
+        "actions": "Aktionen",
+        "approve": "Buchung genehmigen",
+        "approving": "Genehmigen...",
+        "reject": "Buchung ablehnen",
+        "rejecting": "Ablehnen...",
+        "rejectBooking": "Buchung ablehnen",
+        "rejectBookingConfirmation": "Sind Sie sicher, dass Sie diese Buchung ablehnen möchten? Dadurch wird die Zahlungsautorisierung ungültig und der Gast wird benachrichtigt. Diese Aktion kann nicht rückgängig gemacht werden.",
+        "capture": "Zahlung erfassen",
+        "capturing": "Erfassen...",
+        "updatePaymentStatus": "Zahlungsstatus aktualisieren",
+        "markCompleted": "Als abgeschlossen markieren",
+        "markFailed": "Als fehlgeschlagen markieren",
+        "markPending": "Als ausstehend markieren",
         "loading": "Buchungen werden geladen...",
         "noBookings": "Keine Buchungen gefunden",
         "fetchError": "Fehler beim Laden der Buchungen",
-        "status": {
-          "pending": "Ausstehend",
-          "confirmed": "Bestätigt",
-          "canceled": "Storniert",
-          "completed": "Abgeschlossen"
+        "approvalNote": "Die Genehmigung erfasst die Zahlung, die Ablehnung macht die Zahlung ungültig.",
+        "paymentCaptured": "Zahlung erfolgreich erfasst und als abgeschlossen markiert",
+        "statusUpdated": "Status erfolgreich aktualisiert",
+        "search": "Buchungen suchen",
+        "errors": {
+          "forbidden": "Sie haben keine Berechtigung, diese Aktion auszuführen.",
+          "unauthorized": "Bitte melden Sie sich an, um fortzufahren",
+          "bookingNotFound": "Buchung nicht gefunden",
+          "paymentError": "Zahlung konnte nicht verarbeitet werden",
+          "updateError": "Fehler beim Aktualisieren des Buchungsstatus",
+          "missingPaymentDetails": "Zahlungsdetails fehlen für diese Buchung"
         },
-        "paymentStatus": {
-          "pending": "Ausstehend",
-          "completed": "Abgeschlossen",
-          "failed": "Fehlgeschlagen",
-          "refunded": "Erstattet"
-        }
+        "updating": "Wird aktualisiert..."
       },
       "stats": {
         "totalProperties": "Gesamte Immobilien",
@@ -276,7 +370,40 @@
       "tabs": {
         "properties": "Immobilien",
         "users": "Benutzer",
-        "bookings": "Buchungen"
+        "bookings": "Buchungen",
+        "calendar": "Kalender"
+      },
+      "calendar": {
+        "title": "Kalenderverwaltung",
+        "description": "Verwalten Sie die Verfügbarkeit von Unterkünften und synchronisieren Sie externe Kalender.",
+        "selectProperty": "Eigenschaft auswählen",
+        "allProperties": "Alle Eigenschaften",
+        "pickDate": "Wähle ein Datum",
+        "addFeed": "Kalender-Feed hinzufügen",
+        "addNewFeed": "Neuen Kalender-Feed hinzufügen",
+        "feedUrl": "Kalender-Feed-URL",
+        "priority": "Priorität",
+        "calendarFeeds": "Kalender-Feeds",
+        "calendarFeedsDescription": "Verwalten und synchronisieren Sie externe Kalender-Feeds",
+        "loadingFeeds": "Kalenderfeeds werden geladen...",
+        "noFeeds": "Noch keine Kalender-Feeds hinzugefügt",
+        "sync": "Jetzt synchronisieren",
+        "lastSync": "Letzte Synchronisierung",
+        "never": "Niemals",
+        "feedAdded": "Kalender-Feed hinzugefügt",
+        "feedAddedDescription": "Der Kalenderfeed wurde erfolgreich hinzugefügt.",
+        "syncComplete": "Synchronisierung abgeschlossen",
+        "syncCompleteDescription": "Kalender wurde erfolgreich synchronisiert.",
+        "syncError": "Synchronisierung fehlgeschlagen",
+        "error": "Fehler",
+        "unknownError": "Ein unbekannter Fehler ist aufgetreten",
+        "selectPropertyFirst": "Bitte wählen Sie zuerst eine Eigenschaft aus",
+        "legend": {
+          "available": "Verfügbar",
+          "booked": "Gebucht",
+          "pending": "Ausstehend",
+          "maintenance": "Wartung"
+        }
       },
       "users": {
         "title": "Benutzerverwaltung",
@@ -306,6 +433,19 @@
         }
       },
       "properties": {
+        "allListings": "Alle Anzeigen",
+        "selectListingType": "Filtern nach Typ",
+        "forSale": "Zu verkaufen",
+        "forRent": "Zu vermieten",
+        "saleAndRent": "Verkauf & Vermietung",
+        "calendar": {
+          "manageTitle": "Kalender-Feeds verwalten",
+          "manage": "Synchronisieren und verwalten Sie Ihren Immobilienkalender",
+          "description": "Kalender-Feeds verwalten für",
+          "manageDescription": "Verwalten Sie Kalender-Feeds für Ihre Unterkunft",
+          "syncSuccess": "Kalendersynchronisierung abgeschlossen",
+          "syncSuccessDescription": "Der Kalender wurde erfolgreich synchronisiert."
+        },
         "title": "Immobilienverwaltung",
         "loading": "Immobilien werden geladen...",
         "error": "Fehler",
@@ -362,6 +502,7 @@
           "actions": "Aktionen"
         },
         "form": {
+          "saving": "Wird gespeichert...",
           "createProperty": "Neue Immobilie erstellen",
           "editProperty": "Immobilie bearbeiten",
           "createPropertyDescription": "Fügen Sie eine neue Immobilie zu Ihren Angeboten hinzu",
@@ -395,9 +536,19 @@
           "depositAmount": "Kaution",
           "availableFrom": "Verfügbar ab",
           "availableTo": "Verfügbar bis",
-          "submit": "Immobilie speichern"
+          "submit": "Immobilie speichern",
+          "petsAllowed": "Haustiere erlaubt",
+          "petsAllowedDescription": "Ob Haustiere in dieser Unterkunft erlaubt sind",
+          "petInformation": "Haustierinformationen",
+          "petRestrictions": "Haustierbeschränkungen",
+          "petRestrictionsDescription": "Listen Sie alle Einschränkungen für Haustiere auf (z. B. Größe, Rasse).",
+          "petRestrictionsPlaceholder": "Fügen Sie eine Einschränkung hinzu...",
+          "petDeposit": "Haustierkaution",
+          "update": "Aktualisieren",
+          "updating": "Aktualisieren"
         },
         "actions": {
+          "title": "Eigenschaften-Aktionen",
           "createProperty": "Immobilie hinzufügen",
           "manage": "Immobilie verwalten",
           "markFeatured": "Als hervorgehoben markieren",
@@ -408,7 +559,8 @@
           "markRented": "Als vermietet markieren",
           "edit": "Immobilie bearbeiten",
           "delete": "Immobilie löschen",
-          "status": "Status ändern"
+          "status": "Status ändern",
+          "manageCalendar": "Kalender verwalten"
         },
         "deleteConfirmation": {
           "title": "Immobilie löschen",
@@ -427,7 +579,15 @@
         "deleteError": "Fehler beim Löschen der Immobilie",
         "updateSuccess": "Immobilie erfolgreich aktualisiert",
         "createSuccess": "Immobilie erfolgreich erstellt",
-        "deleteSuccess": "Immobilie erfolgreich gelöscht"
+        "deleteSuccess": "Immobilie erfolgreich gelöscht",
+        "type": {
+          "house": "Haus",
+          "apartment": "Wohnung",
+          "villa": "Villa",
+          "land": "Land"
+        },
+        "featuresUpdateSuccess": "Eigenschaftsmerkmale erfolgreich aktualisiert",
+        "featuresUpdateError": "Fehler beim Aktualisieren der Eigenschaftenfunktionen"
       }
     },
     "email": "E-Mail",
@@ -452,7 +612,8 @@
     "loginError": "Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Zugangsdaten.",
     "registrationSuccess": "Konto erfolgreich erstellt! Bitte melden Sie sich an.",
     "registrationError": "Fehler beim Erstellen des Kontos. Bitte versuchen Sie es erneut.",
-    "passwordMismatch": "Die Passwörter stimmen nicht überein"
+    "passwordMismatch": "Die Passwörter stimmen nicht überein",
+    "Cancel": "Abbrechen"
   },
   "nav": {
     "properties": "Eigenschaften",
@@ -537,6 +698,302 @@
       "bookNow": "Jetzt buchen",
       "contactAgent": "Makler kontaktieren",
       "contactHost": "Gastgeber kontaktieren"
+    },
+    "contactHost": {
+      "name": "Dein Name",
+      "email": "Ihre E-Mail",
+      "message": "Nachricht",
+      "submit": "Nachricht senden",
+      "success": "Nachricht erfolgreich gesendet!",
+      "error": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut."
+    },
+    "gallery": {
+      "mainImage": "Haupt-Eigenschaftsbild",
+      "viewLarger": "Bild vergrößern",
+      "viewImage": "Bild anzeigen",
+      "of": "von",
+      "image": "Eigenschaftsbild",
+      "morePhotos": "Weitere Fotos anzeigen",
+      "close": "Galerie schließen",
+      "previous": "Vorheriges Bild",
+      "next": "Nächstes Bild"
+    },
+    "calendar": {
+      "today": "Heute",
+      "month": "Monat",
+      "week": "Woche",
+      "available": "Verfügbar",
+      "unavailable": "Nicht verfügbar"
+    },
+    "forRent": "Zu vermieten",
+    "forSale": "Zu verkaufen",
+    "listing": {
+      "forRent": "Zu vermieten",
+      "forSale": "Zu verkaufen"
+    },
+    "rentalFrequency": {
+      "daily": "Tag",
+      "weekly": "Woche",
+      "monthly": "Monat",
+      "yearly": "Jahr"
+    },
+    "FeaturedProperties": {
+      "propertyType": {
+        "house": "Haus",
+        "villa": "Villa",
+        "condo": "Wohnungseigentum",
+        "lot": "Los",
+        "unknown": "Unbekannt"
+      }
+    }
+  },
+  "PropertyForm": {
+    "title": "Eigenschaftsdetails",
+    "description": "Bitte geben Sie die Details Ihrer Immobilie an.",
+    "fields": {
+      "title": "Eigentumstitel",
+      "description": "Beschreibung",
+      "location": "Standort",
+      "price": "Preis",
+      "bedrooms": "Schlafzimmer",
+      "bathrooms": "Badezimmer",
+      "squareFeet": "Quadratfuß",
+      "listingType": "Auflistungstyp",
+      "status": "Status",
+      "features": "Funktionen",
+      "images": "Bilder",
+      "rentalPrice": "Mietpreis",
+      "rentalFrequency": "Miethäufigkeit",
+      "minimumRentalPeriod": "Mindestmietdauer",
+      "availableFrom": "Verfügbar ab",
+      "availableTo": "Verfügbar für",
+      "cancellationDays": "Stornotage"
+    },
+    "placeholders": {
+      "title": "Eigenschaftstitel eingeben...",
+      "description": "Beschreiben Sie Ihre Immobilie...",
+      "location": "Eigentumsstandort eingeben...",
+      "price": "Preis eingeben...",
+      "bedrooms": "Geben Sie die Anzahl der Schlafzimmer ein...",
+      "bathrooms": "Geben Sie die Anzahl der Badezimmer ein...",
+      "squareFeet": "Geben Sie die Quadratmeterzahl ein...",
+      "features": "Funktionen hinzufügen (Enter drücken)...",
+      "rentalPrice": "Mietpreis eingeben...",
+      "minimumRentalPeriod": "Geben Sie die Mindestmietdauer ein...",
+      "cancellationDays": "Geben Sie die Stornierungstage ein..."
+    },
+    "errors": {
+      "required": "Dieses Feld ist erforderlich",
+      "invalidNumber": "Bitte geben Sie eine gültige Zahl ein",
+      "invalidDate": "Bitte geben Sie ein gültiges Datum ein",
+      "invalidImage": "Bitte laden Sie gültige Bilder hoch",
+      "minRentalPeriod": "Mindestmietdauer muss mindestens {min} Tage betragen"
+    },
+    "actions": {
+      "submit": "Eigenschaft speichern",
+      "cancel": "Abbrechen",
+      "addImage": "Bild hinzufügen",
+      "removeImage": "Bild entfernen"
+    },
+    "statusOptions": {
+      "available": "Verfügbar",
+      "pending": "Ausstehend",
+      "sold": "Verkauft",
+      "rented": "Gemietet"
+    },
+    "listingTypeOptions": {
+      "sale": "Zu verkaufen",
+      "rent": "Zu vermieten",
+      "both": "Verkauf & Vermietung"
+    },
+    "rentalFrequencyOptions": {
+      "daily": "Täglich",
+      "weekly": "Wöchentlich",
+      "monthly": "Monatlich",
+      "yearly": "Jährlich"
+    },
+    "success": {
+      "created": "Eigenschaft erfolgreich erstellt",
+      "updated": "Eigenschaft erfolgreich aktualisiert"
+    },
+    "error": {
+      "createFailed": "Fehler beim Erstellen der Eigenschaft",
+      "updateFailed": "Eigenschaft konnte nicht aktualisiert werden"
+    }
+  },
+  "profile": {
+    "title": "Profil-Einstellungen",
+    "fullName": "Vollständiger Name",
+    "phone": "Telefonnummer",
+    "bio": "Bio",
+    "save": "Änderungen speichern",
+    "updateSuccess": "Profil erfolgreich aktualisiert",
+    "updateError": "Profil konnte nicht aktualisiert werden"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Verwalten Sie Ihre Buchungen und sehen Sie Ihre Aktivitäten ein",
+    "overview": "Übersicht",
+    "viewAll": "Alle anzeigen",
+    "upcomingBookings": "Bevorstehende Buchungen",
+    "noUpcomingBookings": "Keine bevorstehenden Buchungen",
+    "exploreProperties": "Verfügbare Immobilien erkunden",
+    "browseProperties": "Eigenschaften durchsuchen",
+    "bookingCalendar": "Buchungskalender",
+    "bookingCalendarDescription": "Anzeigen und Verwalten Ihrer bevorstehenden und vergangenen Aufenthalte",
+    "upcomingStays": "Bevorstehende Aufenthalte",
+    "pastStays": "Vergangene Aufenthalte",
+    "noPastBookings": "Keine vergangenen Buchungen gefunden",
+    "stats": {
+      "totalBookings": "Gesamtbuchungen",
+      "activeBookings": "Aktive Buchungen",
+      "upcomingBookings": "Bevorstehende Buchungen",
+      "totalSpent": "Gesamtausgaben"
+    },
+    "bookings": {
+      "title": "Ihre Buchungen",
+      "upcomingBookings": "Bevorstehende Buchungen",
+      "noUpcomingBookings": "Keine bevorstehenden Buchungen gefunden",
+      "noBookings": "Keine Buchungen gefunden",
+      "exploreProperties": "Entdecken Sie unsere verfügbaren Unterkünfte, um Ihren nächsten Aufenthalt zu planen.",
+      "browseProperties": "Eigenschaften durchsuchen",
+      "searchPlaceholder": "Buchungen suchen...",
+      "allStatuses": "Alle Statusse",
+      "statusFilter": "Filtern nach Status",
+      "pagination": {
+        "previous": "Vorherige",
+        "next": "Weiter",
+        "page": "Seite {number}",
+        "of": "von {total}"
+      },
+      "status": {
+        "confirmed": "Bestätigt",
+        "pending": "Ausstehend",
+        "cancelled": "Abgebrochen",
+        "canceled": "Abgebrochen",
+        "completed": "Abgeschlossen"
+      },
+      "paymentStatus": {
+        "completed": "Zahlung abgeschlossen",
+        "pending": "Zahlung ausstehend",
+        "failed": "Zahlung fehlgeschlagen",
+        "refunded": "Erstattet"
+      },
+      "timeLabels": {
+        "ago": "vor",
+        "in": "in",
+        "day": "Tag",
+        "days": "Tage",
+        "hour": "Stunde",
+        "hours": "Stunden",
+        "minute": "Minute",
+        "minutes": "Minuten"
+      }
+    },
+    "calendar": {
+      "title": "Buchungskalender",
+      "description": "Sehen Sie sich Ihre bevorstehenden und vergangenen Aufenthalte an",
+      "today": "Heute",
+      "month": "Monat",
+      "week": "Woche",
+      "days": {
+        "sun": "Sonne",
+        "mon": "Montag",
+        "tue": "Dienstag",
+        "wed": "Mittwoch",
+        "thu": "Do",
+        "fri": "Freitag",
+        "sat": "Samstag"
+      }
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "notifications": "Benachrichtigungen",
+      "emailNotifications": "E-Mail-Benachrichtigungen",
+      "emailNotificationsDescription": "Erhalten Sie wichtige Updates und Informationen zu Ihren Buchungen per E-Mail",
+      "bookingReminders": "Buchungserinnerungen",
+      "bookingRemindersDescription": "Erhalten Sie Erinnerungen an Ihre bevorstehenden Aufenthalte sowie an die Check-in- und Check-out-Zeiten.",
+      "marketingEmails": "Marketing-E-Mails",
+      "marketingEmailsDescription": "Bleiben Sie auf dem Laufenden mit unseren neuesten Immobilien, Sonderangeboten und Reisetipps",
+      "saveChanges": "Änderungen speichern"
+    },
+    "navigation": {
+      "overview": "Übersicht",
+      "bookings": "Ihre Buchungen",
+      "settings": "Einstellungen"
+    }
+  },
+  "contact": {
+    "title": "Kontaktieren Sie uns",
+    "subtitle": "Kontaktieren Sie uns für Anfragen oder Unterstützung",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "address": "Adresse",
+    "officeHours": "Bürozeiten",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Dein Name",
+      "email": "E-Mail",
+      "emailPlaceholder": "deine@email.de",
+      "subject": "Betreff",
+      "subjectPlaceholder": "Worum geht es hier?",
+      "message": "Nachricht",
+      "messagePlaceholder": "Ihre Nachricht hier...",
+      "submit": "Nachricht senden"
+    }
+  },
+  "bookings": {
+    "status": {
+      "awaiting_approval": "Ausstehende Genehmigung",
+      "pending": "Ausstehend",
+      "confirmed": "Bestätigt",
+      "canceled": "Abgebrochen",
+      "expired": "Abgelaufen",
+      "payment_failed": "Zahlung fehlgeschlagen"
+    },
+    "payment_status": {
+      "pending": "Ausstehend",
+      "authorized": "Autorisiert",
+      "completed": "Abgeschlossen",
+      "failed": "Fehlgeschlagen",
+      "refunded": "Erstattet"
+    }
+  },
+  "admin": {
+    "bookings": {
+      "title": "Buchungen verwalten",
+      "searchPlaceholder": "Suche nach Gastname, E-Mail oder Objekt...",
+      "statusFilter": "Filtern nach Status",
+      "allStatuses": "Alle Statusse",
+      "noResults": "Keine Buchungen gefunden",
+      "actions": "Aktionen",
+      "approve": "Buchung genehmigen",
+      "approving": "Genehmigen...",
+      "reject": "Buchung ablehnen",
+      "rejecting": "Ablehnen...",
+      "rejectBooking": "Buchung ablehnen",
+      "rejectBookingConfirmation": "Sind Sie sicher, dass Sie diese Buchung ablehnen möchten? Dadurch wird die Zahlungsautorisierung ungültig und der Gast wird benachrichtigt. Diese Aktion kann nicht rückgängig gemacht werden.",
+      "capture": "Zahlung erfassen",
+      "capturing": "Erfassen...",
+      "updatePaymentStatus": "Zahlungsstatus aktualisieren",
+      "markCompleted": "Als abgeschlossen markieren",
+      "markFailed": "Als fehlgeschlagen markieren",
+      "markPending": "Als ausstehend markieren",
+      "loading": "Buchungen werden geladen...",
+      "noBookings": "Keine Buchungen gefunden",
+      "fetchError": "Fehler beim Laden der Buchungen",
+      "approvalNote": "Die Genehmigung erfasst die Zahlung, die Ablehnung macht die Zahlung ungültig.",
+      "paymentCaptured": "Zahlung erfolgreich erfasst und als abgeschlossen markiert",
+      "statusUpdated": "Status erfolgreich aktualisiert",
+      "errors": {
+        "forbidden": "Sie haben keine Berechtigung, diese Aktion auszuführen.",
+        "unauthorized": "Bitte melden Sie sich an, um fortzufahren",
+        "bookingNotFound": "Buchung nicht gefunden",
+        "paymentError": "Zahlung konnte nicht verarbeitet werden",
+        "updateError": "Fehler beim Aktualisieren des Buchungsstatus",
+        "missingPaymentDetails": "Zahlungsdetails fehlen für diese Buchung"
+      },
+      "updating": "Wird aktualisiert..."
     }
   }
 }

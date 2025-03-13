@@ -40,13 +40,21 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { useTranslations } from 'next-intl'
+import { BookingDetailsDialog } from './booking-details'
 
-export type BookingWithDetails = Omit<Database['public']['Tables']['bookings']['Row'], 'user'> & {
+export type BookingWithDetails = Database['public']['Tables']['bookings']['Row'] & {
   property: Pick<
     Database['public']['Tables']['properties']['Row'],
     'title' | 'location' | 'images'
   >
-  guest_details: {
+  user?: {
+    email: string
+    raw_user_meta_data: {
+      full_name: string
+    }
+  }
+  guest_details?: {
+    id: string
     email: string
     raw_user_meta_data: {
       full_name: string
@@ -102,7 +110,29 @@ const PropertyCell = ({ property }: { property: BookingWithDetails['property'] }
   )
 }
 
-const GuestCell = ({ guest_details }: { guest_details: BookingWithDetails['guest_details'] }) => {
+type GuestDetailsDisplay = {
+  email: string
+  raw_user_meta_data: {
+    full_name: string
+  }
+}
+
+const GuestCell = ({ guest_details }: { guest_details: GuestDetailsDisplay }) => {
+  if (!guest_details?.raw_user_meta_data?.full_name || !guest_details?.email) {
+    return (
+      <div className="flex items-center gap-4">
+        <Avatar className="h-8 w-8">
+          <AvatarFallback>
+            <User className="h-4 w-4" />
+          </AvatarFallback>
+        </Avatar>
+        <div className="flex flex-col">
+          <span className="font-medium text-muted-foreground">No guest details</span>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="flex items-center gap-4">
       <Avatar className="h-8 w-8">
@@ -125,6 +155,8 @@ const GuestCell = ({ guest_details }: { guest_details: BookingWithDetails['guest
 function ActionsCell({ row }: { row: { original: BookingWithDetails } }) {
   const booking = row.original
   const [isLoading, setIsLoading] = useState(false)
+  const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false)
+  const [isRejectDialogOpen, setIsRejectDialogOpen] = useState(false)
   const { toast } = useToast()
   const queryClient = useQueryClient()
   const t = useTranslations()
@@ -218,8 +250,6 @@ function ActionsCell({ row }: { row: { original: BookingWithDetails } }) {
     }
   })
 
-  const [isRejectDialogOpen, setIsRejectDialogOpen] = useState(false)
-
   const handleReject = () => {
     setIsRejectDialogOpen(true)
   }
@@ -250,10 +280,10 @@ function ActionsCell({ row }: { row: { original: BookingWithDetails } }) {
           
           <DropdownMenuGroup>
             <DropdownMenuItem
-              onClick={() => window.open(`/admin/bookings/${booking.id}`, '_blank')}
+              onClick={() => setIsDetailsDialogOpen(true)}
             >
               <ExternalLink className="mr-2 h-4 w-4" />
-              {t('View Details')}
+              {t('admin.bookings.viewDetails')}
             </DropdownMenuItem>
           </DropdownMenuGroup>
           
@@ -318,6 +348,12 @@ function ActionsCell({ row }: { row: { original: BookingWithDetails } }) {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <BookingDetailsDialog 
+        bookingId={booking.id}
+        open={isDetailsDialogOpen}
+        onOpenChange={setIsDetailsDialogOpen}
+      />
     </>
   )
 }
@@ -331,11 +367,40 @@ export const columns: ColumnDef<BookingWithDetails>[] = [
     cell: ({ row }) => <PropertyCell property={row.getValue('property')} />,
   },
   {
-    accessorKey: 'guest_details',
+    id: 'guest',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Guest" />
     ),
-    cell: ({ row }) => <GuestCell guest_details={row.getValue('guest_details')} />,
+    cell: ({ row }) => {
+      const rowData = row.original;
+      console.log('Guest column data:', {
+        guestDetails: rowData.guest_details,
+        userId: rowData.user_id
+      });
+
+      const guestDetails = rowData.guest_details;
+      
+      if (!guestDetails || guestDetails.email === 'Loading...') {
+        return (
+          <div className="flex items-center gap-4">
+            <Avatar className="h-8 w-8">
+              <AvatarFallback>
+                <User className="h-4 w-4" />
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <span className="font-medium">Loading...</span>
+              <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                <Mail className="h-3 w-3" />
+                <span>...</span>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      return <GuestCell guest_details={guestDetails} />;
+    },
   },
   {
     accessorKey: 'check_in',

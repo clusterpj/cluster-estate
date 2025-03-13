@@ -142,6 +142,12 @@ export function FeaturedProperties() {
   const { supabase } = useAuth();
   
   useEffect(() => {
+    if (!supabase) {
+      setError('Supabase client not initialized');
+      setLoading(false);
+      return;
+    }
+
     async function fetchFeaturedProperties() {
       try {
         const { data, error } = await supabase
@@ -174,11 +180,10 @@ export function FeaturedProperties() {
         }
 
         if (data) {
-          // Additional validation
           const validProperties = data.filter(p => 
             p.featured === true && 
             p.status === 'available' &&
-            p.images && p.images.length > 0  // Ensure we have images
+            p.images && p.images.length > 0
           ) as Property[];
 
           setProperties(validProperties);  
