@@ -251,6 +251,13 @@
       "title": "Proprietors, Cabarete Villas"
     }
   },
+  "Testimonials": {
+    "title": "What Our Clients Say",
+    "subtitle": "Discover why our clients love working with us",
+    "testimonial1": "Absolutely fantastic experience! The property exceeded our expectations and the service was impeccable. Would definitely recommend to anyone looking for their dream Caribbean home.",
+    "testimonial2": "Professional and knowledgeable team that made the entire process smooth and stress-free. Found exactly what I was looking for.",
+    "testimonial3": "Outstanding service and attention to detail. They helped me find the perfect property for my remote work lifestyle. Couldn't be happier!"
+  },
   "Activities": {
     "hero": {
       "title": "Discover Dominican Adventures",

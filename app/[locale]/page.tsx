@@ -6,6 +6,7 @@ import { SimpleSearchSection } from "@/components/home/SimpleSearchSection";
 import { FeaturedProperties } from "@/components/featured-properties";
 import { WhyChooseUs } from "@/components/why-choose-us";
 import { LifestylePreview } from "@/components/lifestyle-preview";
+import { Testimonials } from "@/components/testimonials";
 
 type Props = {
   params: { locale: string }
@@ -25,6 +26,7 @@ export default function Home({ params: { locale } }: Props) {
       <SimpleSearchSection />
       <WhyChooseUs />
       <FeaturedProperties />
+      <Testimonials />
       <LifestylePreview />
     </main>
   );
