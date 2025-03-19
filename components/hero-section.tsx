@@ -18,7 +18,6 @@ export function HeroSection() {
     offset: ["start start", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const y = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
 
@@ -109,7 +108,7 @@ export function HeroSection() {
   return (
     <div ref={containerRef} className="relative min-h-screen w-full overflow-hidden">
       <motion.div
-        style={{ opacity, y, scale }}
+        style={{ y, scale }}
         className="absolute inset-0 z-0"
       >
         <video
