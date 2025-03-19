@@ -671,6 +671,17 @@
     "featuredProperties": "Featured Properties",
     "featuredPropertiesDesc": "Discover our handpicked selection of premium properties"
   },
+  "Search": {
+    "findYourPerfectStay": "Find Your Perfect Stay",
+    "searchDescription": "Browse our selection of beautiful properties in top locations",
+    "location": "Location",
+    "selectLocation": "Select location",
+    "guests": "Guests",
+    "selectGuests": "Select number of guests",
+    "guest": "Guest",
+    "dates": "Dates",
+    "search": "Search"
+  },
   "search": {
     "placeholder": "Search properties...",
     "filters": "Search Filters",

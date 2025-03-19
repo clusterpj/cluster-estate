@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Calendar, Users, MapPin, Search } from 'lucide-react';
-import { DateRange } from 'react-day-picker';
+import { Calendar, Users, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DateRangePicker } from '@/components/ui/date-range-picker';
 import { cn } from '@/lib/utils';
+import { usePropertySearch } from '@/hooks/usePropertySearch';
 import {
   Select,
   SelectContent,
@@ -20,15 +20,6 @@ interface SimpleSearchSectionProps {
   className?: string;
 }
 
-const locations = [
-  "Cabarete Beach",
-  "Kite Beach",
-  "Encuentro Beach",
-  "Sosua Beach",
-  "Puerto Plata",
-  "All Locations"
-];
-
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 }
@@ -36,10 +27,8 @@ const fadeIn = {
 
 export function SimpleSearchSection({ className }: SimpleSearchSectionProps) {
   const t = useTranslations('Search');
-  const [dateRange, setDateRange] = useState<DateRange>({
-    from: new Date(),
-    to: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-  });
+  const { filters, updateFilters, handleSearch, isSearching } = usePropertySearch();
+  const [guestCount, setGuestCount] = useState("2");
 
   return (
     <section className={cn("relative py-16 md:py-24 overflow-hidden", className)}>
@@ -77,34 +66,20 @@ export function SimpleSearchSection({ className }: SimpleSearchSectionProps) {
           transition={{ delay: 0.2 }}
           className="mx-auto max-w-4xl backdrop-blur-sm bg-white/90 rounded-xl shadow-lg p-6 md:p-8"
         >
-          <div className="grid gap-6 md:grid-cols-12">
-            {/* Location */}
-            <div className="md:col-span-3 space-y-2">
-              <div className="flex items-center">
-                <MapPin className="mr-2 h-4 w-4 text-primary" />
-                <span className="text-sm font-medium">{t('location')}</span>
-              </div>
-              <Select defaultValue="All Locations">
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder={t('selectLocation')} />
-                </SelectTrigger>
-                <SelectContent>
-                  {locations.map((location) => (
-                    <SelectItem key={location} value={location}>
-                      {location}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
+          <div className="grid gap-6 md:grid-cols-9">
             {/* People Count */}
-            <div className="md:col-span-3 space-y-2">
+            <div className="md:col-span-4 space-y-2">
               <div className="flex items-center">
                 <Users className="mr-2 h-4 w-4 text-primary" />
                 <span className="text-sm font-medium">{t('guests')}</span>
               </div>
-              <Select defaultValue="2">
+              <Select 
+                value={guestCount}
+                onValueChange={(value) => {
+                  setGuestCount(value);
+                  updateFilters({ beds: parseInt(value) });
+                }}
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder={t('selectGuests')} />
                 </SelectTrigger>
@@ -119,18 +94,16 @@ export function SimpleSearchSection({ className }: SimpleSearchSectionProps) {
             </div>
 
             {/* Check-in/Check-out dates */}
-            <div className="md:col-span-6 space-y-2">
+            <div className="md:col-span-5 space-y-2">
               <div className="flex items-center">
                 <Calendar className="mr-2 h-4 w-4 text-primary" />
                 <span className="text-sm font-medium">{t('dates')}</span>
               </div>
               <DateRangePicker
                 className="w-full"
-                value={dateRange}
+                value={filters.dateRange}
                 onChange={(range) => {
-                  if (range) {
-                    setDateRange(range);
-                  }
+                  updateFilters({ dateRange: range });
                 }}
               />
             </div>
@@ -144,9 +117,11 @@ export function SimpleSearchSection({ className }: SimpleSearchSectionProps) {
             className="mt-6 flex justify-center"
           >
             <Button
-              type="submit"
+              type="button"
               size="lg"
               className="w-full md:w-auto min-w-[200px] gap-2"
+              onClick={handleSearch}
+              disabled={isSearching}
             >
               <Search className="h-4 w-4" />
               {t('search')}
