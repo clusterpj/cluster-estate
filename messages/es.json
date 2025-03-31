@@ -1,4 +1,13 @@
 {
+  "Search": {
+    "findYourPerfectStay": "Encuentra tu Estancia Perfecta",
+    "searchDescription": "Explora nuestra selección de hermosas propiedades en las mejores ubicaciones",
+    "guests": "Huéspedes",
+    "selectGuests": "Seleccionar número de huéspedes",
+    "guest": "Huésped",
+    "dates": "Fechas",
+    "search": "Buscar"
+  },
   "BookingConfirmation": {
     "title": "Confirmación de Reserva",
     "booking_id": "ID de Reserva",
@@ -248,6 +257,13 @@
       "names": "Chuck y Ronda Janicki",
       "title": "Propietarios, Cabarete Villas"
     }
+  },
+  "Testimonials": {
+    "title": "Lo Que Dicen Nuestros Clientes",
+    "subtitle": "Descubre por qué nuestros clientes aman trabajar con nosotros",
+    "testimonial1": "¡Una experiencia absolutamente fantástica! La propiedad superó nuestras expectativas y el servicio fue impecable. Definitivamente lo recomendaría a cualquiera que busque su hogar caribeño de ensueño.",
+    "testimonial2": "Equipo profesional y conocedor que hizo que todo el proceso fuera fluido y sin estrés. Encontré exactamente lo que estaba buscando.",
+    "testimonial3": "Servicio sobresaliente y atención al detalle. Me ayudaron a encontrar la propiedad perfecta para mi estilo de vida de trabajo remoto. ¡No podría estar más feliz!"
   },
   "Activities": {
     "hero": {

@@ -1,4 +1,13 @@
 {
+  "Search": {
+    "findYourPerfectStay": "Trouvez Votre Séjour Parfait",
+    "searchDescription": "Parcourez notre sélection de belles propriétés dans les meilleurs endroits",
+    "guests": "Voyageurs",
+    "selectGuests": "Sélectionner le nombre de voyageurs",
+    "guest": "Voyageur",
+    "dates": "Dates",
+    "search": "Rechercher"
+  },
   "BookingConfirmation": {
     "title": "Confirmation de Réservation",
     "booking_id": "ID de Réservation",
@@ -248,6 +257,13 @@
       "names": "Chuck et Ronda Janicki",
       "title": "Propriétaires, Villas de Cabarete"
     }
+  },
+  "Testimonials": {
+    "title": "Ce Que Disent Nos Clients",
+    "subtitle": "Découvrez pourquoi nos clients adorent travailler avec nous",
+    "testimonial1": "Une expérience absolument fantastique ! La propriété a dépassé nos attentes et le service était impeccable. Je recommande vivement à tous ceux qui cherchent leur maison de rêve dans les Caraïbes.",
+    "testimonial2": "Une équipe professionnelle et compétente qui a rendu tout le processus fluide et sans stress. J'ai trouvé exactement ce que je cherchais.",
+    "testimonial3": "Service exceptionnel et attention aux détails. Ils m'ont aidé à trouver la propriété parfaite pour mon style de vie en télétravail. Je ne pourrais pas être plus heureux !"
   },
   "Activities": {
     "hero": {

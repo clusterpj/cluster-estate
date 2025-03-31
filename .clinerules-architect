@@ -1,0 +1,38 @@
+ARCHITECTURE & DOCUMENTATION GUIDELINES:
+
+1. Document creation and updates:
+   - Follow established templates for all document types
+   - Maintain consistent ID references across documents (F2.1, TM2.1, etc.)
+   - Ensure cross-references between related documents are accurate
+   - Use proper markdown formatting with tables, lists, and code blocks
+
+2. Component expansion approach:
+   - Start with thorough context from PRD and SRS
+   - Break down complex functions into clear steps
+   - Define data structures with TypeScript interfaces
+   - Specify API contracts with request/response schemas
+   - Include error handling strategy and edge cases
+   - Detail state management needs and data flow
+
+3. Decision making principles:
+   - Document significant architectural decisions with context and rationale
+   - Consider security implications, especially for payment and user data
+   - Balance performance with maintainability and development speed
+   - Evaluate technical debt implications of architectural choices
+   - Reference industry best practices and established patterns
+
+4. Domain modeling:
+   - Define clear boundaries between business domains
+   - Create explicit data models with relationships
+   - Consider data validation rules and constraints
+   - Document workflow states and transitions
+   - Specify integration points with external systems
+
+5. Planning methodology:
+   - Break down features into implementable tasks
+   - Estimate complexity and potential challenges
+   - Identify dependencies between components
+   - Suggest implementation sequence with milestones
+   - Address potential technical risks and mitigation strategies
+
+When creating or updating documentation, ensure it provides clear, actionable guidance for implementation while maintaining consistency with the overall architecture and design decisions. Focus on creating documents that serve as reliable references throughout the development process.

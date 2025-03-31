@@ -1,4 +1,13 @@
 {
+  "Search": {
+    "findYourPerfectStay": "Finden Sie Ihren perfekten Aufenthalt",
+    "searchDescription": "Entdecken Sie unsere Auswahl an wunderschönen Immobilien an Top-Standorten",
+    "guests": "Gäste",
+    "selectGuests": "Anzahl der Gäste auswählen",
+    "guest": "Gast",
+    "dates": "Termine",
+    "search": "Suchen"
+  },
   "BookingConfirmation": {
     "title": "Buchungsbestätigung",
     "booking_id": "Buchungs-ID",
@@ -248,6 +257,13 @@
       "names": "Chuck und Ronda Janicki",
       "title": "Eigentümer, Cabarete Villas"
     }
+  },
+  "Testimonials": {
+    "title": "Was Unsere Kunden Sagen",
+    "subtitle": "Entdecken Sie, warum unsere Kunden gerne mit uns zusammenarbeiten",
+    "testimonial1": "Eine absolut fantastische Erfahrung! Die Immobilie übertraf unsere Erwartungen und der Service war tadellos. Ich kann es jedem empfehlen, der sein karibisches Traumhaus sucht.",
+    "testimonial2": "Professionelles und kompetentes Team, das den gesamten Prozess reibungslos und stressfrei gestaltet hat. Ich habe genau das gefunden, wonach ich gesucht habe.",
+    "testimonial3": "Herausragender Service und Liebe zum Detail. Sie haben mir geholfen, die perfekte Immobilie für meinen Remote-Arbeitsstil zu finden. Ich könnte nicht glücklicher sein!"
   },
   "Activities": {
     "hero": {

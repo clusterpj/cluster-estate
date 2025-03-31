@@ -232,24 +232,91 @@
     "subtitle": "Your Paradise Home in the Adventure Capital of the Caribbean",
     "intro": {
       "title": "Our Story",
-      "content": "My husband Chuck and I are from Erie, Pennsylvania USA and have traveled the world to find a second home. In 2000 we traveled to Cabarete and knew this was the perfect place for us. We purchased our home on the spot."
+      "content": "When Chuck and I first arrived in Cabarete in 2000, we were immediately captivated by its unique blend of natural beauty and vibrant community. Coming from Erie, Pennsylvania, we had traveled extensively in search of the perfect second home, but there was something special about Cabarete that spoke to us instantly. The way the morning sun painted the beach in golden hues, the warm smiles of the locals, and the perfect balance of adventure and tranquility - we knew this was where we wanted to build our dream.",
+      "callToAction": "Begin Your Journey with Us"
     },
     "location": {
       "title": "Cabarete: The Adventure Capital",
       "content": "Cabarete is a vibrant beach town known as \"The Adventure Capital of the Caribbean.\" With perfect conditions for windsurfing, kitesurfing, and surfing, Cabarete is one of the top destinations in the world for water sports. Not a water sport enthusiast? There is something for everyone in Cabarete. You can bike, horseback ride, kayak, go canyoning, take part in so many other adventures, or simply just enjoy lounging on the beautiful beach."
     },
+    "timeline": {
+      "title": "Our Journey",
+      "subtitle": "From Dream to Reality: The Evolution of Cabarete Villas",
+      "events": [
+        {
+          "year": "2000",
+          "title": "The Beginning",
+          "description": "Chuck and Ronda discover Cabarete and purchase their first property"
+        },
+        {
+          "year": "2005",
+          "title": "Growing Dreams",
+          "description": "Expansion begins with the acquisition of additional beachfront properties"
+        },
+        {
+          "year": "2010",
+          "title": "Building Community",
+          "description": "Establishment of our core management team and service standards"
+        },
+        {
+          "year": "2015",
+          "title": "Reaching New Heights",
+          "description": "Major renovations and modernization of all properties"
+        },
+        {
+          "year": "2020",
+          "title": "Embracing Change",
+          "description": "Implementation of enhanced safety protocols and virtual tours"
+        },
+        {
+          "year": "Present",
+          "title": "Continuing Excellence",
+          "description": "Ongoing improvements and expansion of our services"
+        }
+      ]
+    },
+    "stats": {
+      "title": "Our Impact",
+      "guestsHosted": "20,000+ Guests Hosted",
+      "satisfactionRate": "96% Satisfaction Rate",
+      "repeatCustomers": "70% Repeat Customers",
+      "yearsInBusiness": "23 Years in Business"
+    },
+    "team": {
+      "title": "Meet Our Team",
+      "subtitle": "The People Who Make Your Stay Special",
+      "leadership": "Leadership Team",
+      "management": "Management Team",
+      "service": "Service Team",
+      "description": "Our dedicated staff works tirelessly to ensure your stay exceeds expectations"
+    },
+    "commitment": {
+      "title": "Our Commitment to You",
+      "content": "At Cabarete Villas, your comfort and satisfaction are our top priorities. Our staff is trained to anticipate your needs and exceed your expectations. From the moment you inquire about a stay until long after your departure, we're here to ensure every aspect of your experience is perfect.",
+      "guarantees": [
+        "24/7 Concierge Service",
+        "Professional Cleaning Standards",
+        "Regular Property Maintenance",
+        "Local Expert Guidance",
+        "Personalized Guest Experience"
+      ]
+    },
     "community": {
       "title": "A Unique Community",
       "content": "What makes Cabarete so unique and wonderful is the local charm combined with a great place to vacation. Only in Cabarete will you find locals and people from all over the world and all walks of life coming together to live, work, and play."
     },
-    "service": {
-      "title": "Our Commitment",
-      "content": "At Cabarete Villas you can leave all of your worries behind while we take care of your every need. Our management staff is top notch. Our maids and grounds keepers go above and beyond to keep our villas looking amazing."
-    },
     "signature": {
       "names": "Chuck and Ronda Janicki",
-      "title": "Proprietors, Cabarete Villas"
+      "title": "Proprietors, Cabarete Villas",
+      "message": "We look forward to welcoming you to our piece of paradise"
     }
+  },
+  "Testimonials": {
+    "title": "What Our Clients Say",
+    "subtitle": "Discover why our clients love working with us",
+    "testimonial1": "Absolutely fantastic experience! The property exceeded our expectations and the service was impeccable. Would definitely recommend to anyone looking for their dream Caribbean home.",
+    "testimonial2": "Professional and knowledgeable team that made the entire process smooth and stress-free. Found exactly what I was looking for.",
+    "testimonial3": "Outstanding service and attention to detail. They helped me find the perfect property for my remote work lifestyle. Couldn't be happier!"
   },
   "Activities": {
     "hero": {
@@ -670,6 +737,17 @@
     "contact": "Contact",
     "featuredProperties": "Featured Properties",
     "featuredPropertiesDesc": "Discover our handpicked selection of premium properties"
+  },
+  "Search": {
+    "findYourPerfectStay": "Find Your Perfect Stay",
+    "searchDescription": "Browse our selection of beautiful properties in top locations",
+    "location": "Location",
+    "selectLocation": "Select location",
+    "guests": "Guests",
+    "selectGuests": "Select number of guests",
+    "guest": "Guest",
+    "dates": "Dates",
+    "search": "Search"
   },
   "search": {
     "placeholder": "Search properties...",
