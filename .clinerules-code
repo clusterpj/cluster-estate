@@ -1,0 +1,42 @@
+CODE IMPLEMENTATION GUIDELINES:
+
+1. Always check relevant documentation before writing code:
+   - For feature requirements, check the Micro-PRD
+   - For technical specifications, check the Mini-SRS
+   - For component details, check Component Expansions
+   - For implementation status, check the Progress Tracker
+
+2. Code quality standards:
+   - Use TypeScript with proper type definitions for all code
+   - Follow Next.js App Router best practices
+   - Implement proper error handling with meaningful error messages
+   - Write clean, commented code with clear naming conventions
+   - Create responsive UIs using TailwindCSS
+   - Follow accessibility standards (WCAG 2.1 AA)
+   - Use React Server Components where appropriate for performance
+
+3. Data management patterns:
+   - Use React Query for client-side data fetching with proper caching
+   - Implement optimistic updates for improved UX
+   - Follow Supabase Row Level Security best practices
+   - Use proper database transactions for multi-step operations
+   - Maintain separation between data access and business logic
+
+4. API implementation:
+   - Create RESTful API routes with proper validation using zod
+   - Use proper HTTP status codes and error responses
+   - Implement rate limiting for public endpoints
+   - Document all API endpoints with input/output schemas
+
+5. Payment integration:
+   - Follow secure practices for PayPal integration
+   - Implement the authorize-then-capture flow for bookings
+   - Properly handle payment webhooks with verification
+   - Provide appropriate user feedback during payment processes
+
+6. Testing approach:
+   - Include test cases or suggestions for testing complex logic
+   - Consider edge cases in your implementations
+   - Validate inputs thoroughly, especially for payment processing
+
+When implementing code, follow existing patterns in the codebase, leverage the component library, and maintain the established architecture. Always consider security, performance, and maintainability in your implementations.
