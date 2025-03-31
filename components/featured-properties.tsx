@@ -4,14 +4,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin } from "lucide-react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { FadeInView } from "./animations/fade-in-view";
 import { useTranslations } from 'next-intl';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from './providers/auth-provider';
 import Link from "next/link";
-import { PropertyMetrics } from "./properties/PropertyMetrics"; // Import the shared component with the new name
+import { PropertyMetrics } from "./properties/PropertyMetrics";
+import { PropertyImageSlider } from "@/components/ui/PropertyImageSlider";
+
 type Property = {
   id: string;
   title: string;
@@ -41,7 +42,6 @@ function PriceDisplay({ property }: { property: Property }) {
   const t = useTranslations('FeaturedProperties');
 
   const renderPrice = () => {
-    // For sale properties
     if (property.listing_type === 'sale' || property.listing_type === 'both') {
       return (
         <div className="flex items-center gap-2">
@@ -55,7 +55,6 @@ function PriceDisplay({ property }: { property: Property }) {
       );
     }
 
-    // For rental properties
     if (property.listing_type === 'rent' || property.listing_type === 'both') {
       const frequency = property.rental_frequency ?  
         t(`price.rentalFrequency.${property.rental_frequency}`) : '';
@@ -84,61 +83,11 @@ function PriceDisplay({ property }: { property: Property }) {
   );
 }
 
-function PropertyImage({ images, title }: { images: string[], title: string }) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  
-  // Simple automatic image rotation on hover without UI controls
-  const handleMouseEnter = useCallback(() => {
-    if (images.length > 1) {
-      const nextIndex = (currentImageIndex + 1) % images.length;
-      setCurrentImageIndex(nextIndex);
-    }
-  }, [currentImageIndex, images.length]);
-
-  return (
-    <div 
-      className="relative w-full h-full aspect-[4/3] overflow-hidden"
-      onMouseEnter={handleMouseEnter}
-    >
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentImageIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={images[currentImageIndex]}
-            alt={`${title} - Image ${currentImageIndex + 1}`}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            priority={currentImageIndex === 0}
-
-            loading={currentImageIndex === 0 ? "eager" : "lazy"}
-          />
-        </motion.div>
-      </AnimatePresence>
-      
-      {/* Simple image counter */}
-      {images.length > 1 && (
-        <div className="absolute bottom-2 right-2 bg-black/50 rounded-full px-2 py-1 text-xs text-white">
-          {currentImageIndex + 1}/{images.length}
-        </div>
-      )}
-    </div>
-  );
-}
-
 export function FeaturedProperties() {
   const t = useTranslations('FeaturedProperties');
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
   const { supabase } = useAuth();
   
   useEffect(() => {
@@ -170,7 +119,7 @@ export function FeaturedProperties() {
             pets_allowed
           `)
           .eq('featured', true)
-          .eq('status', 'available')  // Only show available properties
+          .eq('status', 'available')
           .order('created_at', { ascending: false });
 
         if (error) {
@@ -180,13 +129,20 @@ export function FeaturedProperties() {
         }
 
         if (data) {
-          const validProperties = data.filter(p => 
-            p.featured === true && 
-            p.status === 'available' &&
-            p.images && p.images.length > 0
-          ) as Property[];
+          const validProperties = data.filter((p: unknown): p is Property => {
+            const property = p as Partial<Property>;
+            return (
+              property.featured === true &&
+              property.status === 'available' &&
+              Array.isArray(property.images) &&
+              property.images.length > 0 &&
+              typeof property.id === 'string' &&
+              typeof property.title === 'string' &&
+              typeof property.location === 'string'
+            );
+          });
 
-          setProperties(validProperties);  
+          setProperties(validProperties);
         } else {
           setProperties([]);
         }
@@ -263,39 +219,33 @@ export function FeaturedProperties() {
               }}
               className="h-full"
             >
-              <Card className="group overflow-hidden h-full flex flex-col border-caribbean-100 dark:border-caribbean-800 hover:shadow-lg hover:shadow-caribbean-100/10 dark:hover:shadow-caribbean-700/20 transition-all duration-300">
-                <Link href={`/properties/${property.id}`} className="block flex-none">
+              <Link href={`/properties/${property.id}`} className="block h-full">
+                <Card className="group overflow-hidden h-full flex flex-col border-caribbean-100 dark:border-caribbean-800 hover:shadow-lg hover:shadow-caribbean-100/10 dark:hover:shadow-caribbean-700/20 transition-all duration-300">
                   <CardHeader className="p-0 relative aspect-[4/3]">
-                    <PropertyImage 
-                      images={property.images} 
-                      title={property.title} 
+                    <PropertyImageSlider
+                      images={property.images}
+                      title={property.title}
+                      className="relative z-10"
                     />
-                    {/* Status badge if needed */}
                     {property.status !== 'available' && (
                       <Badge variant="secondary" className="absolute top-3 left-3 z-10">
                         {property.status}
                       </Badge>
                     )}
                   </CardHeader>
-                </Link>
-                
-                <CardContent className="p-6 flex-grow flex flex-col">
-                  {/* Price displayed at the top */}
-                  <PriceDisplay property={property} />
-                  
-                  <CardTitle className="text-xl mb-2 text-caribbean-900 dark:text-caribbean-100 line-clamp-1">
-                    {property.title}
-                  </CardTitle>
-                  
-                  <CardDescription className="flex items-center text-muted-foreground mb-2 dark:text-caribbean-300">
-                    <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
-                    <span className="line-clamp-1">{property.location}</span>
-                  </CardDescription>
-                  
-                  {/* Use the shared PropertyMetrics component */}
-                  <PropertyMetrics property={property} />
-                </CardContent>
-              </Card>
+                  <CardContent className="p-6 flex-grow flex flex-col">
+                    <PriceDisplay property={property} />
+                    <CardTitle className="text-xl mb-2 text-caribbean-900 dark:text-caribbean-100 line-clamp-1">
+                      {property.title}
+                    </CardTitle>
+                    <CardDescription className="flex items-center text-muted-foreground mb-2 dark:text-caribbean-300">
+                      <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
+                      <span className="line-clamp-1">{property.location}</span>
+                    </CardDescription>
+                    <PropertyMetrics property={property} />
+                  </CardContent>
+                </Card>
+              </Link>
             </motion.div>
           ))}
         </motion.div>
