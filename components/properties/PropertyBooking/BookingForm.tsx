@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
-import { isPropertyAvailable, getBookedDates } from '@/lib/utils'
-import { PropertyCalendar } from './PropertyCalendar'
+'use client'
+
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import { Calendar } from '@/components/ui/calendar'
+import { DateRangeCalendar } from './DateRangeCalendar'
 import {
   Form,
   FormControl,
@@ -22,10 +22,17 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { Info } from 'lucide-react'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { Info, Calendar as CalendarIcon } from 'lucide-react'
 import { BookingFormData } from '@/types/booking'
 import { Property } from '@/types/property'
-
+import { isPropertyAvailable } from '@/lib/utils'
+import { format } from 'date-fns'
+import { cn } from '@/lib/utils'
 
 interface BookingFormProps {
   property: Property
@@ -37,6 +44,7 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
   const [dateError, setDateError] = useState<string>('')
   const [isCheckingAvailability, setIsCheckingAvailability] = useState(false)
   const [isAvailable, setIsAvailable] = useState(true)
+  const [calendarOpen, setCalendarOpen] = useState(false)
 
   const bookingSchema = z.object({
     checkIn: z.date({
@@ -65,16 +73,6 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
   })
 
   const handleSubmit = async (data: BookingFormData) => {
-    // Check if dates are within property's available range
-    if (property.available_from && data.checkIn < new Date(property.available_from)) {
-      setDateError('Check-in date is before property availability')
-      return
-    }
-    if (property.available_to && data.checkOut > new Date(property.available_to)) {
-      setDateError('Check-out date is after property availability')
-      return
-    }
-
     // Check minimum rental period
     if (property.minimum_rental_period) {
       const days = Math.ceil(
@@ -107,46 +105,60 @@ export function BookingForm({ property, onSubmit, isLoading }: BookingFormProps)
     }
   }
 
-  const isDateDisabled = (date: Date, type: 'checkIn' | 'checkOut'): boolean => {
-    if (type === 'checkIn') {
-      return (
-        date < new Date() ||
-        (property.available_from ? date < new Date(property.available_from) : false)
-      )
-    } else {
-      const checkInDate = form.getValues('checkIn')
-      return (
-        date <= checkInDate ||
-        (property.available_to ? date > new Date(property.available_to) : false)
-      )
-    }
+  const handleDateRangeSelect = (range: { checkIn: Date; checkOut: Date }) => {
+    form.setValue('checkIn', range.checkIn)
+    form.setValue('checkOut', range.checkOut)
+    setDateError('')
+    setCalendarOpen(false)
   }
+
+  const checkIn = form.watch('checkIn')
+  const checkOut = form.watch('checkOut')
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-        <PropertyCalendar 
-          property={property}
-          onDateSelect={(date) => {
-            if (!form.getValues('checkIn')) {
-              form.setValue('checkIn', date)
-            } else if (date > form.getValues('checkIn')) {
-              form.setValue('checkOut', date)
-            } else {
-              // If selected date is before check-in, reset both dates
-              form.setValue('checkIn', date)
-              form.setValue('checkOut', new Date()); // Set to current date as default
-            }
-          }}
-          selectedDates={{
-            start: form.watch('checkIn') || null,
-            end: form.watch('checkOut') || null
-          }}
-        />
+        <div className="space-y-4">
+          <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "w-full justify-start text-left font-normal h-auto p-4",
+                  !checkIn && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {checkIn && checkOut ? (
+                  <div className="flex flex-col items-start">
+                    <div className="text-sm">
+                      {format(checkIn, "LLL d, y")} - {format(checkOut, "LLL d, y")}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24))} nights
+                    </div>
+                  </div>
+                ) : (
+                  <span>Select dates</span>
+                )}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <DateRangeCalendar
+                property={property}
+                onRangeSelect={handleDateRangeSelect}
+                selected={{
+                  from: checkIn,
+                  to: checkOut
+                }}
+              />
+            </PopoverContent>
+          </Popover>
 
-        {dateError && (
-          <p className="text-sm font-medium text-destructive">{dateError}</p>
-        )}
+          {dateError && (
+            <p className="text-sm font-medium text-destructive">{dateError}</p>
+          )}
+        </div>
 
         <FormField
           control={form.control}
