@@ -1,10 +1,10 @@
 'use client'
 
 import React from 'react'
-import PayPalButtons from './PayPalButtons'
 import { BookingForm } from './BookingForm'
 import { Property } from '@/types/property'
 import { BookingFormData } from '@/types/booking'
+import { PaymentDialog } from './PaymentDialog'
 
 interface PayPalPaymentData {
   orderID: string
@@ -21,6 +21,7 @@ export function PropertyBooking({ property }: PropertyBookingProps) {
   const [bookingData, setBookingData] = React.useState<BookingFormData & { totalPrice: number } | null>(null)
   const [bookingError, setBookingError] = React.useState<string | null>(null)
   const [isProcessing, setIsProcessing] = React.useState(false)
+  const [isPaymentDialogOpen, setIsPaymentDialogOpen] = React.useState(false)
 
   const calculateTotalPrice = (formData: BookingFormData): number => {
     if (!property.rental_price) {
@@ -39,6 +40,7 @@ export function PropertyBooking({ property }: PropertyBookingProps) {
       const totalPrice = calculateTotalPrice(formData)
       setBookingData({ ...formData, totalPrice })
       setBookingError(null)
+      setIsPaymentDialogOpen(true)
     } catch (error) {
       setBookingError(error instanceof Error ? error.message : 'Failed to calculate price')
     }
@@ -109,52 +111,26 @@ export function PropertyBooking({ property }: PropertyBookingProps) {
         </div>
       )}
 
-      {!bookingData ? (
-        <BookingForm 
-          property={property}
-          onSubmit={handleBookingSubmit}
-          isLoading={isProcessing}
-        />
-      ) : (
-        <div>
-          <div className="mb-4 p-4 bg-gray-50 rounded-md">
-            <h3 className="font-semibold mb-2">Booking Summary</h3>
-            <p>Check-in: {bookingData.checkIn.toLocaleDateString()}</p>
-            <p>Check-out: {bookingData.checkOut.toLocaleDateString()}</p>
-            <p>Guests: {bookingData.guests}</p>
-            <p className="mt-2">Price per night: ${property.rental_price}</p>
-            <p className="font-bold mt-2">Total: ${bookingData.totalPrice}</p>
-            {bookingData.specialRequests && (
-              <div className="mt-2">
-                <p className="font-semibold">Special Requests:</p>
-                <p className="text-gray-600">{bookingData.specialRequests}</p>
-              </div>
-            )}
-          </div>
+      <BookingForm 
+        property={property}
+        onSubmit={handleBookingSubmit}
+        isLoading={isProcessing}
+      />
 
-          {isProcessing ? (
-            <div className="text-center py-4">
-              <div className="animate-spin h-8 w-8 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-2"></div>
-              <p className="text-gray-600">Processing your booking...</p>
-            </div>
-          ) : (
-            <div>
-              <PayPalButtons
-                totalPrice={bookingData.totalPrice}
-                currency="USD"
-                onApprove={handlePaymentSuccess}
-                onError={handlePaymentError}
-                onCancel={handlePaymentCancel}
-              />
-              <button
-                onClick={() => setBookingData(null)}
-                className="w-full mt-4 p-2 text-gray-600 hover:text-gray-800 text-center"
-              >
-                Back to Booking Details
-              </button>
-            </div>
-          )}
-        </div>
+      {bookingData && (
+        <PaymentDialog
+          isOpen={isPaymentDialogOpen}
+          onClose={() => {
+            setIsPaymentDialogOpen(false)
+            setBookingData(null)
+          }}
+          bookingData={bookingData}
+          property={property}
+          onPaymentSuccess={handlePaymentSuccess}
+          onPaymentError={handlePaymentError}
+          onPaymentCancel={handlePaymentCancel}
+          isProcessing={isProcessing}
+        />
       )}
     </div>
   )
