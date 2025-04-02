@@ -1,33 +1,22 @@
-import { Booking } from '@/types/booking';
+import { ExtendedBooking } from '@/types/booking';
+import { getEmailService } from './email-service';
 
 /**
  * Sends a booking cancellation email to the user
  * @param booking The booking details
  */
-export async function sendBookingCancellationEmail(booking: Booking): Promise<void> {
-  // In a real implementation, this would send an email using a service like SendGrid, Mailgun, etc.
+export async function sendBookingCancellationEmail(booking: ExtendedBooking): Promise<void> {
   try {
     console.log(`Sending booking cancellation email for booking ID: ${booking.id}`);
     
-    // Example implementation using an email service
-    // const emailService = new EmailService();
-    // await emailService.send({
-    //   to: booking.user_email,
-    //   subject: 'Your booking has been cancelled',
-    //   templateId: 'booking-cancellation',
-    //   data: {
-    //     bookingId: booking.id,
-    //     propertyName: booking.property_name || 'Property',
-    //     checkIn: new Date(booking.check_in).toLocaleDateString(),
-    //     checkOut: new Date(booking.check_out).toLocaleDateString(),
-    //     cancellationReason: booking.cancellation_reason || 'Payment issue',
-    //     refundAmount: booking.total_price,
-    //     currency: booking.currency || 'USD'
-    //   }
-    // });
+    const emailService = getEmailService();
+    const success = await emailService.sendBookingCancellationEmail(booking);
     
-    // For now, just log the success
-    console.log(`✅ Booking cancellation email queued successfully for booking ID: ${booking.id}`);
+    if (success) {
+      console.log(`✅ Booking cancellation email sent successfully for booking ID: ${booking.id}`);
+    } else {
+      throw new Error('Email service failed to send cancellation email');
+    }
   } catch (error) {
     console.error(`Failed to send booking cancellation email for booking ID: ${booking.id}`, error);
     // In production, you might want to log this to an error monitoring service
@@ -39,14 +28,39 @@ export async function sendBookingCancellationEmail(booking: Booking): Promise<vo
  * @param booking The booking details
  * @param ownerEmail The property owner's email
  */
-export async function sendOwnerCancellationNotification(booking: Booking, ownerEmail: string): Promise<void> {
+export async function sendOwnerCancellationNotification(booking: ExtendedBooking, ownerEmail: string): Promise<void> {
   try {
     console.log(`Sending cancellation notification to owner for booking ID: ${booking.id}`);
     
-    // Implementation would be similar to the user notification
-    // but with different messaging appropriate for the property owner
+    const emailService = getEmailService();
     
-    console.log(`✅ Owner cancellation notification sent successfully for booking ID: ${booking.id}`);
+    // Create owner-specific email content
+    const checkIn = new Date(booking.check_in).toLocaleDateString();
+    const checkOut = new Date(booking.check_out).toLocaleDateString();
+    
+    const html = `
+      <h2>Booking Cancellation Notification</h2>
+      <p>A booking for your property has been canceled.</p>
+      <h3>Booking Details:</h3>
+      <p><strong>Booking ID:</strong> ${booking.id}</p>
+      <p><strong>Property:</strong> ${booking.property_name || 'Your property'}</p>
+      <p><strong>Guest:</strong> ${booking.guest_name || 'Guest'}</p>
+      <p><strong>Check-in:</strong> ${checkIn}</p>
+      <p><strong>Check-out:</strong> ${checkOut}</p>
+      <p><strong>Total Amount:</strong> ${booking.currency || 'USD'} ${booking.total_price}</p>
+    `;
+    
+    const success = await emailService.sendEmail({
+      to: ownerEmail,
+      subject: `Booking Cancellation: ${booking.property_name || 'Property'}`,
+      html
+    });
+    
+    if (success) {
+      console.log(`✅ Owner cancellation notification sent successfully for booking ID: ${booking.id}`);
+    } else {
+      throw new Error('Email service failed to send owner notification');
+    }
   } catch (error) {
     console.error(`Failed to send owner cancellation notification for booking ID: ${booking.id}`, error);
   }

@@ -156,6 +156,19 @@ export async function POST(request: Request) {
     }
 
     console.log('Successfully created booking:', booking)
+    
+    // Send booking confirmation email
+    try {
+      // Import here to avoid circular dependencies
+      const { sendBookingConfirmationEmail } = await import('@/lib/emails')
+      await sendBookingConfirmationEmail(booking)
+      console.log(`Confirmation email sent for booking ID: ${booking.id}`)
+    } catch (emailError) {
+      // Log the error but don't fail the request
+      console.error('Failed to send confirmation email:', emailError)
+      // We continue with the response as the booking was created successfully
+    }
+    
     return NextResponse.json({ booking })
 
   } catch (error) {

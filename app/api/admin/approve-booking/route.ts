@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 // Remove unused imports
 import { capturePayPalPayment, voidPayPalPayment } from '@/lib/paypal'
+import { sendBookingApprovalEmail, sendBookingCancellationEmail } from '@/lib/emails'
 
 export async function POST(request: Request) {
   try {
@@ -114,6 +115,23 @@ export async function POST(request: Request) {
         { error: `Failed to update booking status: ${updateError.message}` },
         { status: 500 }
       )
+    }
+
+    // Send email notification based on approval decision
+    try {
+      if (approved) {
+        // Send approval email to guest
+        await sendBookingApprovalEmail(booking);
+        console.log(`Approval email sent for booking ID: ${bookingId}`);
+      } else {
+        // Send cancellation email to guest
+        await sendBookingCancellationEmail(booking);
+        console.log(`Cancellation email sent for booking ID: ${bookingId}`);
+      }
+    } catch (emailError) {
+      // Log the error but don't fail the request
+      console.error('Failed to send notification email:', emailError);
+      // We continue with the response as the booking status was updated successfully
     }
 
     return NextResponse.json({ 

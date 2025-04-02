@@ -109,6 +109,16 @@ export async function POST(req: NextRequest) {
           booking.payment_status,
           PaymentStatus.FAILED
         );
+        
+        // Send payment failure email
+        try {
+          const { sendPaymentFailureEmail } = await import('@/lib/emails');
+          await sendPaymentFailureEmail(booking, 'Payment was denied by the payment processor');
+          console.log(`Payment failure email sent for booking ID: ${bookingId}`);
+        } catch (emailError) {
+          console.error('Failed to send payment failure email:', emailError);
+        }
+        
         break;
       }
       
@@ -144,6 +154,16 @@ export async function POST(req: NextRequest) {
           booking.payment_status,
           PaymentStatus.FAILED
         );
+        
+        // Send payment failure email
+        try {
+          const { sendPaymentFailureEmail } = await import('@/lib/emails');
+          await sendPaymentFailureEmail(booking, 'Payment was declined by your financial institution');
+          console.log(`Payment failure email sent for booking ID: ${bookingId}`);
+        } catch (emailError) {
+          console.error('Failed to send payment failure email:', emailError);
+        }
+        
         break;
       }
       

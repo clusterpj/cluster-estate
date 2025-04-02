@@ -9,6 +9,7 @@ export interface ExtendedBooking extends Booking {
   property_name?: string;
   user_email?: string;
   total_nights?: number;
+  guest_name?: string;
 }
 
 // Booking creation payload
@@ -69,7 +70,8 @@ export interface BookingWithProperty extends Booking {
     title: string
     location?: string
   }
-  status: BookingStatus
+  // Use the same type as in the base Booking type
+  // status is already defined in the base Booking type
   payment_status: PaymentStatus
   payment_id: string | null
   special_requests: string | null
