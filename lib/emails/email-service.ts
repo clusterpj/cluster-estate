@@ -38,17 +38,44 @@ export class EmailService {
   constructor() {
     // Initialize the transporter with Gmail SMTP
     this.transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: process.env.EMAIL_SERVER || 'smtp.gmail.com',
+      port: parseInt(process.env.EMAIL_PORT || '587'),
+      secure: false, // true for 465, false for other ports
       auth: {
         // These should be added to the environment variables and config
         user: process.env.EMAIL_USER || '',
-        pass: process.env.EMAIL_APP_PASSWORD || '', // Use app password for Gmail
+        pass: process.env.EMAIL_PASSWORD || '', // Use app password for Gmail
       },
+      // Add additional configuration for better deliverability
+      tls: {
+        rejectUnauthorized: false // Helps with some TLS issues
+      },
+      // Set a higher timeout for SMTP connections
+      connectionTimeout: 10000, // 10 seconds
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
     });
 
     // Set default sender and admin recipient
+    // Make sure the FROM address matches exactly with the authenticated email account
     this.defaultFrom = process.env.EMAIL_FROM || 'Cluster Estate <noreply@clusterestate.com>';
     this.adminEmail = process.env.ADMIN_EMAIL || 'reservecabaretevillas@gmail.com';
+    
+    // Verify SMTP connection on initialization
+    this.verifyConnection();
+  }
+
+  /**
+   * Verify SMTP connection
+   * @private
+   */
+  private async verifyConnection(): Promise<void> {
+    try {
+      await this.transporter.verify();
+      console.log('SMTP connection verified successfully');
+    } catch (error) {
+      console.error('SMTP connection verification failed:', error);
+    }
   }
 
   /**
@@ -57,22 +84,52 @@ export class EmailService {
    */
   async sendEmail(emailData: EmailData): Promise<boolean> {
     try {
+      // Ensure the from address matches the authenticated email account for better deliverability
+      const from = emailData.from || this.defaultFrom;
+      // If the from address doesn't include the email username, use the authenticated email
+      const fromEmail = from.includes('<') ? from : `${from} <${process.env.EMAIL_USER}>`;
+      
       const mailOptions = {
-        from: emailData.from || this.defaultFrom,
+        from: fromEmail,
         to: emailData.to,
         subject: emailData.subject,
-        text: emailData.text,
+        text: emailData.text || this.createTextVersion(emailData.html), // Always include a text version
         html: emailData.html,
-        replyTo: emailData.replyTo,
+        replyTo: emailData.replyTo || process.env.EMAIL_USER,
+        // Add headers to improve deliverability
+        headers: {
+          'X-Priority': '1', // High priority
+          'X-MSMail-Priority': 'High',
+          'Importance': 'High'
+        }
       };
 
+      console.log(`Sending email to: ${emailData.to}`);
+      console.log(`Email subject: ${emailData.subject}`);
+      console.log(`From address: ${fromEmail}`);
+      
       const info = await this.transporter.sendMail(mailOptions);
       console.log(`Email sent: ${info.messageId}`);
+      console.log(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
+      console.log(`Delivery info:`, info);
       return true;
     } catch (error) {
       console.error('Error sending email:', error);
       return false;
     }
+  }
+  
+  /**
+   * Create a plain text version from HTML content
+   * @private
+   */
+  private createTextVersion(html: string): string {
+    // Simple conversion from HTML to plain text
+    return html
+      .replace(/<[^>]*>/g, '') // Remove HTML tags
+      .replace(/&nbsp;/g, ' ') // Replace non-breaking spaces
+      .replace(/\s+/g, ' ') // Normalize whitespace
+      .trim();
   }
 
   /**

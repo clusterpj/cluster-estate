@@ -71,8 +71,19 @@ export function PropertyBooking({ property }: PropertyBookingProps) {
         throw new Error(error.message || 'Failed to create booking')
       }
 
-      const booking = await response.json()
-      window.location.href = `/bookings/${booking.id}/confirmation`
+      const data = await response.json()
+      console.log('Booking created successfully:', data);
+      
+      // Use the explicitly returned ID field from the API response
+      const bookingId = data.id;
+      
+      if (!bookingId) {
+        console.error('No booking ID returned from the API:', data);
+        throw new Error('Booking ID not found in response');
+      }
+      
+      // Update the redirect URL to match the existing page structure
+      window.location.href = `/bookings/${bookingId}`;
 
     } catch (error) {
       setBookingError(error instanceof Error ? error.message : 'Failed to process booking')

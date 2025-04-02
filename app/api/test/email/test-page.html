@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Testing Tool</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2563eb;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        textarea {
+            min-height: 100px;
+        }
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #1d4ed8;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+        .success {
+            background-color: #dcfce7;
+            border: 1px solid #86efac;
+        }
+        .error {
+            background-color: #fee2e2;
+            border: 1px solid #fca5a5;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Email Testing Tool</h1>
+    <p>Use this tool to test the email functionality in your local environment.</p>
+    
+    <div class="form-group">
+        <label for="email">Recipient Email:</label>
+        <input type="email" id="email" placeholder="Enter recipient email" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" placeholder="Email subject" value="Test Email from Cluster Estate">
+    </div>
+    
+    <div class="form-group">
+        <label for="template">Email Template:</label>
+        <select id="template">
+            <option value="">Basic Test Email</option>
+            <option value="contact_form">Contact Form</option>
+            <option value="booking_confirmation">Booking Confirmation</option>
+            <option value="booking_approved">Booking Approved</option>
+            <option value="booking_canceled">Booking Canceled</option>
+            <option value="payment_failed">Payment Failed</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea id="message" placeholder="Email message content">This is a test email to verify the email service is working correctly.</textarea>
+    </div>
+    
+    <button id="sendButton">Send Test Email</button>
+    
+    <div id="result" class="result hidden"></div>
+    
+    <script>
+        document.getElementById('sendButton').addEventListener('click', async function() {
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const template = document.getElementById('template').value;
+            const message = document.getElementById('message').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (!email) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Please enter a recipient email address';
+                resultDiv.classList.remove('hidden');
+                return;
+            }
+            
+            try {
+                resultDiv.className = 'result';
+                resultDiv.textContent = 'Sending email...';
+                resultDiv.classList.remove('hidden');
+                
+                const response = await fetch('/api/test/email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        to: email,
+                        subject,
+                        message,
+                        template: template || undefined
+                    }),
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `Success: ${data.message}\n\nDetails: ${JSON.stringify(data.details, null, 2)}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `Error: ${data.error}\n\nDetails: ${JSON.stringify(data.details || {}, null, 2)}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `Error: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>

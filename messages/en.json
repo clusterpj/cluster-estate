@@ -966,6 +966,7 @@
       "totalSpent": "Total Spent"
     },
     "bookings": {
+      "cancel": "Cancel",
       "title": "Your Bookings",
       "upcomingBookings": "Upcoming Bookings",
       "noUpcomingBookings": "No upcoming bookings found",
@@ -986,7 +987,8 @@
         "pending": "Pending",
         "cancelled": "Cancelled",
         "canceled": "Canceled",
-        "completed": "Completed"
+        "completed": "Completed",
+        "awaiting-approval": "Awaiting Approval"
       },
       "paymentStatus": {
         "completed": "Payment completed",
@@ -1064,7 +1066,8 @@
       "confirmed": "Confirmed",
       "canceled": "Canceled",
       "expired": "Expired",
-      "payment_failed": "Payment Failed"
+      "payment_failed": "Payment Failed",
+      "cancel": "Cancel"
     },
     "payment_status": {
       "pending": "Pending",
