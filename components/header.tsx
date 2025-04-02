@@ -42,10 +42,13 @@ const ListItem = React.forwardRef<
 ListItem.displayName = "ListItem";
 
 export function Header() {
-  const { user, signOut, userProfile, refreshProfile } = useAuth();
+  const { user, userProfile, refreshProfile } = useAuth();
   const t = useTranslations();
   const pathname = usePathname();
   const currentLocale = pathname.split('/')[1];
+  const isHomePage = pathname === `/${currentLocale}` || pathname === `/${currentLocale}/`;
+  const textColorClass = isHomePage ? "text-white" : "text-gray-800 dark:text-gray-200";
+  const hoverColorClass = isHomePage ? "hover:text-white" : "hover:text-gray-900 dark:hover:text-white";
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isAdmin, setIsAdmin] = React.useState(false);
   const router = useRouter();
@@ -166,7 +169,7 @@ export function Header() {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 text-white hover:text-white">
+                  <NavigationMenuTrigger className={cn("bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300", textColorClass, hoverColorClass)}>
                     <span className="flex items-center gap-2">
                       <Building2 className="h-4 w-4" />
                       {t('nav.properties')}
@@ -198,7 +201,7 @@ export function Header() {
 
                 <NavigationMenuItem>
                   <Link href={localizedHref('/activities')} legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 text-white hover:text-white")}>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300", textColorClass, hoverColorClass)}>
                       {t('nav.activities')}
                     </NavigationMenuLink>
                   </Link>
@@ -206,7 +209,7 @@ export function Header() {
 
                 <NavigationMenuItem>
                   <Link href={localizedHref('/about')} legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 text-white hover:text-white")}>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300", textColorClass, hoverColorClass)}>
                       {t('nav.about')}
                     </NavigationMenuLink>
                   </Link>
@@ -214,7 +217,7 @@ export function Header() {
 
                 <NavigationMenuItem>
                   <Link href={localizedHref('/contact')} legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300 text-white hover:text-white")}>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:data-[state=open]:bg-transparent transition-colors duration-300", textColorClass, hoverColorClass)}>
                       {t('nav.contact')}
                     </NavigationMenuLink>
                   </Link>
@@ -243,7 +246,7 @@ export function Header() {
             <div className="md:hidden">
               <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" className="px-0 text-base bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 text-white hover:text-white">
+                  <Button variant="ghost" className={cn("px-0 text-base bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300", textColorClass, hoverColorClass)}>
                     <Menu className="h-6 w-6" />
                     <span className="sr-only">Toggle Menu</span>
                   </Button>
@@ -399,7 +402,7 @@ export function Header() {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="hidden sm:flex gap-2 bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 text-white hover:text-white">
+                  <Button variant="ghost" className={cn("hidden sm:flex gap-2 bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300", textColorClass, hoverColorClass)}>
                     <User className="h-5 w-5" />
                     <span className="hidden sm:inline">{t('auth.account')}</span>
                   </Button>
@@ -453,12 +456,12 @@ export function Header() {
               </DropdownMenu>
             ) : (
               <div className="hidden sm:flex items-center gap-2">
-                <Button variant="ghost" className="bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 text-white hover:text-white" asChild>
+                <Button variant="ghost" className={cn("bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300", textColorClass, hoverColorClass)} asChild>
                   <Link href={localizedHref('/auth/login')}>
                     {t('auth.signIn')}
                   </Link>
                 </Button>
-                <Button variant="ghost" className="bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300 text-white hover:text-white" asChild>
+                <Button variant="ghost" className={cn("bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent dark:bg-transparent dark:hover:bg-transparent dark:focus:bg-transparent dark:active:bg-transparent transition-colors duration-300", textColorClass, hoverColorClass)} asChild>
                   <Link href={localizedHref('/auth/register')}>
                     {t('auth.signUp')}
                   </Link>
