@@ -66,9 +66,9 @@ export function SimpleSearchSection({ className }: SimpleSearchSectionProps) {
           transition={{ delay: 0.2 }}
           className="mx-auto max-w-4xl backdrop-blur-sm bg-white/90 rounded-xl shadow-lg p-6 md:p-8"
         >
-          <div className="grid gap-6 md:grid-cols-9">
+          <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-6">
             {/* People Count */}
-            <div className="md:col-span-4 space-y-2">
+            <div className="flex-1 min-w-0 space-y-2">
               <div className="flex items-center">
                 <Users className="mr-2 h-4 w-4 text-primary" />
                 <span className="text-sm font-medium">{t('guests')}</span>
@@ -94,7 +94,7 @@ export function SimpleSearchSection({ className }: SimpleSearchSectionProps) {
             </div>
 
             {/* Check-in/Check-out dates */}
-            <div className="md:col-span-5 space-y-2">
+            <div className="flex-[2] min-w-0 space-y-2">
               <div className="flex items-center">
                 <Calendar className="mr-2 h-4 w-4 text-primary" />
                 <span className="text-sm font-medium">{t('dates')}</span>
@@ -107,26 +107,21 @@ export function SimpleSearchSection({ className }: SimpleSearchSectionProps) {
                 }}
               />
             </div>
+
+            {/* Search Button - Now inline */}
+            <div className="md:self-end md:mb-0.5">
+              <Button
+                type="button"
+                size="lg"
+                className="w-full md:w-auto gap-2"
+                onClick={handleSearch}
+                disabled={isSearching}
+              >
+                <Search className="h-4 w-4" />
+                {t('search')}
+              </Button>
+            </div>
           </div>
-          
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeIn}
-            transition={{ delay: 0.4 }}
-            className="mt-6 flex justify-center"
-          >
-            <Button
-              type="button"
-              size="lg"
-              className="w-full md:w-auto min-w-[200px] gap-2"
-              onClick={handleSearch}
-              disabled={isSearching}
-            >
-              <Search className="h-4 w-4" />
-              {t('search')}
-            </Button>
-          </motion.div>
         </motion.div>
       </div>
     </section>

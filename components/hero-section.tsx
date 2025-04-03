@@ -1,30 +1,15 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 import WaveText from "./home/StandaloneWaveText";
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Animation control based on scroll position
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
-
-
   return (
     <div ref={containerRef} className="relative min-h-screen w-full overflow-hidden">
-      <motion.div
-        style={{ opacity, y, scale }}
-        className="absolute inset-0 z-0"
-      >
+      <div className="absolute inset-0 z-0">
         <video
           ref={videoRef}
           autoPlay
@@ -36,7 +21,7 @@ export function HeroSection() {
           <source src="/hero-video.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black/40" />
-      </motion.div>
+      </div>
 
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
         <div className="mx-auto max-w-5xl text-center">
