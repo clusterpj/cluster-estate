@@ -68,7 +68,7 @@ export function HeroSearchSection({ className }: HeroSearchSectionProps) {
         <div 
           className="absolute inset-0" 
           style={{ 
-            background: 'linear-gradient(to bottom, rgba(128, 207, 255, 0.15), rgba(255, 255, 255, 1))'
+            background: 'linear-gradient(to bottom, rgba(173, 216, 230, 0.15), rgba(255, 255, 255, 1))'
           }}
         />
         
@@ -166,7 +166,7 @@ export function HeroSearchSection({ className }: HeroSearchSectionProps) {
                   <Button
                     type="button"
                     size="lg"
-                    className="w-full md:w-auto gap-2 min-h-[44px] rounded-full px-7 py-3 bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white shadow-md border-0"
+                    className="w-full md:w-auto gap-2 min-h-[44px] rounded-full px-7 py-3 bg-gradient-to-r from-sky-300 to-sky-400 hover:from-sky-400 hover:to-sky-500 text-white shadow-md border-0"
                     onClick={handleSearch}
                     disabled={isSearching}
                   >
@@ -208,7 +208,7 @@ export function HeroSearchSection({ className }: HeroSearchSectionProps) {
                   )}
                 >
                   <div className="relative">
-                    <feature.icon className="h-12 w-12 text-sky-600 transition-transform duration-300 group-hover:scale-110" />
+                    <feature.icon className="h-12 w-12 text-black transition-transform duration-300 group-hover:scale-110" />
                     <div className="mt-6">
                       <h3 className="text-xl font-semibold tracking-tight text-sky-900">
                         {heroT(`features.${feature.title}`)}
