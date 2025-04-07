@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Database } from "@/types/database.types";
+import { CancelBookingButton } from "./cancel-booking-button";
 
 type BookingWithProperty = Database["public"]["Tables"]["bookings"]["Row"] & {
   property: Pick<
@@ -74,6 +75,16 @@ export function BookingCard({ booking, variant = "default" }: BookingCardProps) 
               {t(`dashboard.bookings.paymentStatus.${booking.payment_status}`)}
             </Badge>
           </div>
+          
+          {/* Show cancel button only for bookings that can be canceled */}
+          {(['confirmed', 'pending', 'awaiting-approval', 'awaiting_approval'].includes(booking.status)) && (
+            <div className="flex justify-end mt-2">
+              <CancelBookingButton 
+                bookingId={booking.id} 
+                disabled={['canceled', 'completed'].includes(booking.status)}
+              />
+            </div>
+          )}
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">Total Price</span>
             <span className="font-semibold">

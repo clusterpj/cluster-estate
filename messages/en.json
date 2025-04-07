@@ -747,15 +747,10 @@
     "selectGuests": "Select number of guests",
     "guest": "Guest",
     "dates": "Dates",
-    "search": "Search"
-  },
-  "search": {
-    "placeholder": "Search properties...",
-    "filters": "Search Filters",
-    "filtersDesc": "Customize your property search",
-    "open": "Open Search",
-    "close": "Close Search",
-    "title": "Search Properties"
+    "search": "Search",
+    "findVillas": "Find Villas",
+    "searchAvailableProperties": "Search Available Properties",
+    "perfectVillaHelper": "Find the perfect villa for your Caribbean getaway"
   },
   "PropertyDetails": {
     "overview": {
@@ -966,6 +961,7 @@
       "totalSpent": "Total Spent"
     },
     "bookings": {
+      "cancel": "Cancel",
       "title": "Your Bookings",
       "upcomingBookings": "Upcoming Bookings",
       "noUpcomingBookings": "No upcoming bookings found",
@@ -986,7 +982,8 @@
         "pending": "Pending",
         "cancelled": "Cancelled",
         "canceled": "Canceled",
-        "completed": "Completed"
+        "completed": "Completed",
+        "awaiting-approval": "Awaiting Approval"
       },
       "paymentStatus": {
         "completed": "Payment completed",
@@ -1064,7 +1061,8 @@
       "confirmed": "Confirmed",
       "canceled": "Canceled",
       "expired": "Expired",
-      "payment_failed": "Payment Failed"
+      "payment_failed": "Payment Failed",
+      "cancel": "Cancel"
     },
     "payment_status": {
       "pending": "Pending",
@@ -1146,5 +1144,21 @@
       "bookingHistoryEmpty": "No previous bookings found for this guest.",
       "viewDetails": "View Details"
     }
+  },
+  "HeroSearchSection": {
+    "title": "Find Your Perfect Stay",
+    "subtitle": "Discover why our slice of Caribbean paradise is the perfect place for your next vacation",
+    "features": {
+      "primeLocation": "Prime Location",
+      "primeLocationDesc": "Located in the heart of Cabarete, steps away from world-class kitesurfing beaches",
+      "perfectConditions": "Perfect Conditions",
+      "perfectConditionsDesc": "Consistent trade winds and warm waters make Cabarete a water sports paradise",
+      "beachLifestyle": "Beach Lifestyle",
+      "beachLifestyleDesc": "Experience the perfect blend of relaxation and adventure in our beachfront properties",
+      "localExpertise": "Local Expertise",
+      "localExpertiseDesc": "Over 20 years of experience in Cabarete with deep connections to the community"
+    },
+    "searchTitle": "Search Available Properties",
+    "searchSubtitle": "Find the perfect villa for your Caribbean getaway"
   }
 }

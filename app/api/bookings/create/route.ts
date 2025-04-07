@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         !bookingData.guests || 
         !bookingData.propertyId ||
         !bookingData.totalPrice ||
-        !bookingData.paymentId) {
+        !bookingData.paymentDetails) {
       console.error('Missing required booking data:', bookingData)
       return NextResponse.json(
         { error: 'Missing required booking data' },
@@ -48,10 +48,18 @@ export async function POST(request: Request) {
 
     console.log('Authenticated user:', user.id)
 
-    // Set payment status based on PayPal response
-    const paymentStatus = bookingData.payerDetails?.details?.status?.toLowerCase() === 'completed' 
-      ? 'completed' 
-      : 'authorized'
+    // Get user email for the booking
+    const { data: userProfile } = await supabase
+      .from('profiles')
+      .select('email')
+      .eq('id', user.id)
+      .single()
+    
+    const userEmail = userProfile?.email || user.email
+
+    // Set payment status to a valid value in the database constraint
+    // Valid values are likely: 'pending', 'completed', 'failed', 'refunded'
+    const paymentStatus = 'pending'
 
     // Set booking status to awaiting approval when payment is authorized
     const bookingStatus = 'awaiting-approval'
@@ -59,7 +67,7 @@ export async function POST(request: Request) {
     console.log('Creating booking with status:', {
       paymentStatus,
       bookingStatus,
-      paymentDetails: bookingData.payerDetails?.details
+      paymentDetails: bookingData.paymentDetails
     })
     
     // Check for any conflicting unavailable dates
@@ -87,14 +95,14 @@ export async function POST(request: Request) {
       )
     }
 
-    // Extract authorization ID from PayPal response
-    const authorizationId = bookingData.payerDetails?.details?.purchase_units?.[0]?.payments?.authorizations?.[0]?.id ||
-                          bookingData.payerDetails?.details?.id;
+    // Extract order ID and payer ID from payment details
+    const orderId = bookingData.paymentDetails.orderID;
+    const payerId = bookingData.paymentDetails.payerID;
 
-    if (!authorizationId) {
-      console.error('No authorization ID found in payment details:', bookingData.payerDetails?.details);
+    if (!orderId) {
+      console.error('No order ID found in payment details:', bookingData.paymentDetails);
       return NextResponse.json(
-        { error: 'No payment authorization ID found' },
+        { error: 'No payment order ID found' },
         { status: 400 }
       );
     }
@@ -109,19 +117,16 @@ export async function POST(request: Request) {
         user_id: user.id,
         property_id: bookingData.propertyId,
         total_price: bookingData.totalPrice,
-        payment_id: bookingData.paymentId,
+        payment_id: orderId, // Use orderId as paymentId
         status: bookingStatus,
         payment_status: paymentStatus,
         payment_details: {
-          order_id: bookingData.payerDetails?.details?.id,
-          payer_id: bookingData.payerDetails?.id,
-          status: bookingData.payerDetails?.details?.status,
-          intent: bookingData.payerDetails?.details?.intent,
-          purchase_units: bookingData.payerDetails?.details?.purchase_units,
-          authorization_id: authorizationId
+          order_id: orderId,
+          payer_id: payerId,
         },
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
+        // Removed user_email from here as it doesn't exist in the schema
       })
       .select()
       .single()
@@ -136,7 +141,7 @@ export async function POST(request: Request) {
           userId: user.id,
           propertyId: bookingData.propertyId,
           totalPrice: bookingData.totalPrice,
-          paymentId: bookingData.paymentId,
+          paymentId: orderId,
           status: bookingStatus,
           paymentStatus
         }
@@ -156,7 +161,31 @@ export async function POST(request: Request) {
     }
 
     console.log('Successfully created booking:', booking)
-    return NextResponse.json({ booking })
+    
+    // Create an extended booking object with the user email for email confirmation
+    const extendedBooking = {
+      ...booking,
+      user_email: userEmail
+    }
+    
+    // Send booking confirmation email
+    try {
+      // Import here to avoid circular dependencies
+      const { sendBookingConfirmationEmail } = await import('@/lib/emails')
+      await sendBookingConfirmationEmail(extendedBooking)
+      console.log(`Confirmation email sent for booking ID: ${booking.id}`)
+    } catch (emailError) {
+      // Log the error but don't fail the request
+      console.error('Failed to send confirmation email:', emailError)
+      // We continue with the response as the booking was created successfully
+    }
+    
+    // Return the booking ID explicitly in the response for client-side redirection
+    return NextResponse.json({ 
+      booking,
+      id: booking.id, // Make sure the ID is clearly available at the top level
+      success: true
+    })
 
   } catch (error) {
     console.error('Unexpected error creating booking:', error)

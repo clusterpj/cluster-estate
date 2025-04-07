@@ -159,7 +159,7 @@ export function FeaturedProperties() {
 
   if (loading) {
     return (
-      <section className="relative py-16 bg-background">
+      <section className="relative py-16 bg-white">
         <div className="container mx-auto px-4 text-center">
           <p>{t('loading')}</p>
         </div>
@@ -191,13 +191,13 @@ export function FeaturedProperties() {
     <section className="relative py-16 bg-background">
       <div className="container mx-auto px-4">
         <FadeInView>
-          <h2 className="text-3xl md:text-4xl font-bold text-caribbean-900 dark:text-caribbean-100 mb-4 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-center bg-gradient-to-br from-sky-500 to-sky-700 bg-clip-text text-transparent">
             {t('title')}
           </h2>
         </FadeInView>
 
         <FadeInView delay={0.2}>
-          <p className="text-lg text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
+          <p className="text-lg leading-8 font-normal text-gray-700 text-center mb-12 max-w-2xl mx-auto">
             {t('description')}
           </p>
         </FadeInView>
@@ -235,10 +235,10 @@ export function FeaturedProperties() {
                   </CardHeader>
                   <CardContent className="p-6 flex-grow flex flex-col">
                     <PriceDisplay property={property} />
-                    <CardTitle className="text-xl mb-2 text-caribbean-900 dark:text-caribbean-100 line-clamp-1">
+                    <CardTitle className="text-xl font-semibold tracking-tight text-sky-900 line-clamp-1">
                       {property.title}
                     </CardTitle>
-                    <CardDescription className="flex items-center text-muted-foreground mb-2 dark:text-caribbean-300">
+                    <CardDescription className="flex items-center text-sky-700 font-normal mb-2">
                       <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
                       <span className="line-clamp-1">{property.location}</span>
                     </CardDescription>
