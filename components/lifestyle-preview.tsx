@@ -120,7 +120,7 @@ export function LifestylePreview() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen w-full overflow-hidden bg-background/80 backdrop-blur-sm dark:bg-[#001219]/80 selection:bg-[#1E88E5]/30 selection:text-white"
+      className="relative min-h-screen w-full overflow-hidden bg-white"
     >
       {/* Background Image with Parallax */}
       <motion.div
@@ -140,12 +140,10 @@ export function LifestylePreview() {
       {/* Content Container */}
       <div className="container relative z-10 mx-auto flex min-h-screen flex-col items-center justify-center px-4 py-16">
         <div className="mx-auto max-w-4xl text-center">
-          <h2 className="mb-6 font-serif text-5xl font-extrabold tracking-tight text-sand-100 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] sm:text-6xl md:text-7xl"
-            style={{ textShadow: '2px 4px 4px rgba(0,0,0,0.3)' }}
-          >
+          <h2 className="mb-6 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl bg-gradient-to-br from-sky-500 to-sky-700 bg-clip-text text-transparent">
             Experience Cabarete Living
           </h2>
-          <p className="text-xl leading-relaxed text-caribbean-100 drop-shadow-md md:text-2xl">
+          <p className="text-lg leading-8 font-normal text-gray-700">
             Discover life in the adventure capital of the Caribbean
           </p>
         </div>
@@ -163,10 +161,10 @@ export function LifestylePreview() {
               <div className="mb-6 text-[#1E88E5] transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-glow">
                 {feature.icon}
               </div>
-              <h3 className="mb-3 text-[22px] font-semibold leading-tight tracking-wide text-sand-100 drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
+              <h3 className="mb-3 text-xl font-semibold tracking-tight text-sky-900">
                 {feature.title}
               </h3>
-              <p className="text-base leading-relaxed text-caribbean-100/90 transition-opacity duration-300 group-hover:opacity-100">
+              <p className="text-sky-700 font-normal">
                 {feature.description}
               </p>
             </Card>
