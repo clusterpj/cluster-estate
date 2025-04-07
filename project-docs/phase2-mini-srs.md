@@ -1,8 +1,8 @@
-# Phase 2 Mini-SRS: Cluster Estate
+# Phase 2 Mini-SRS: Cabarete Villas
 
 ## System Overview
 
-The Cluster Estate platform is built on a modern, component-based architecture using Next.js with the App Router pattern. The system employs a clear separation between client and server components, leveraging React Server Components where appropriate for improved performance. Data management is handled through Supabase (PostgreSQL), with React Query for client-side data fetching, caching, and state management. The UI is constructed with a composable component library based on Radix UI primitives and styled with TailwindCSS.
+The Cabarete Villas platform is built on a modern, component-based architecture using Next.js with the App Router pattern. The system employs a clear separation between client and server components, leveraging React Server Components where appropriate for improved performance. Data management is handled through Supabase (PostgreSQL), with React Query for client-side data fetching, caching, and state management. The UI is constructed with a composable component library based on Radix UI primitives and styled with TailwindCSS.
 
 Key technology decisions for Phase 2 include enhancing the geospatial capabilities for advanced search, implementing robust internationalization with next-intl, and developing a comprehensive reporting system using Recharts for data visualization. These enhancements build upon the solid foundation established in Phase 1, maintaining consistency in architecture while extending functionality.
 

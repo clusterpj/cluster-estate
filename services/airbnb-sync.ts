@@ -246,7 +246,7 @@ export class AirbnbSyncService {
     const icalLines = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Cluster Estate//Calendar Sync//EN',
+      'PRODID:-//Cabarete Villas//Calendar Sync//EN',
     ]
 
     for (const event of events) {

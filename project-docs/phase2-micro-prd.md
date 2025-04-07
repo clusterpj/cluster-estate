@@ -1,7 +1,7 @@
-# Phase 2 Micro-PRD: Cluster Estate
+# Phase 2 Micro-PRD: Cabarete Villas
 
 ## Product Vision
-Cluster Estate aims to elevate the real estate management experience by providing an intuitive, feature-rich platform that connects property owners with potential buyers and renters. After establishing core functionality in Phase 1, Phase 2 focuses on enhancing the platform with advanced features, improving user experience, and optimizing performance. This phase will deliver more sophisticated search capabilities, comprehensive internationalization, and robust reporting features to create a more powerful and accessible real estate management solution.
+Cabarete Villas aims to elevate the real estate management experience by providing an intuitive, feature-rich platform that connects property owners with potential buyers and renters. After establishing core functionality in Phase 1, Phase 2 focuses on enhancing the platform with advanced features, improving user experience, and optimizing performance. This phase will deliver more sophisticated search capabilities, comprehensive internationalization, and robust reporting features to create a more powerful and accessible real estate management solution.
 
 ## User Personas
 
@@ -11,7 +11,7 @@ Cluster Estate aims to elevate the real estate management experience by providin
 
 **Real Estate Agent (Carlos)**: Carlos works with property owners to list and manage their properties. He needs tools to track property performance, manage client relationships, and generate reports to demonstrate value to his clients.
 
-**Platform Administrator (Sarah)**: Sarah maintains the Cluster Estate platform, ensuring smooth operation, addressing technical issues, and supporting users. She needs comprehensive administrative tools, analytics, and reporting capabilities.
+**Platform Administrator (Sarah)**: Sarah maintains the Cabarete Villas platform, ensuring smooth operation, addressing technical issues, and supporting users. She needs comprehensive administrative tools, analytics, and reporting capabilities.
 
 ## Feature Modules for Phase 2
 

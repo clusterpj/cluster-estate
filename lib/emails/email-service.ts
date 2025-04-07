@@ -58,7 +58,7 @@ export class EmailService {
 
     // Set default sender and admin recipient
     // Make sure the FROM address matches exactly with the authenticated email account
-    this.defaultFrom = process.env.EMAIL_FROM || 'Cluster Estate <noreply@clusterestate.com>';
+    this.defaultFrom = process.env.EMAIL_FROM || 'Cabarete Villas <noreply@clusterestate.com>';
     this.adminEmail = process.env.ADMIN_EMAIL || 'reservecabaretevillas@gmail.com';
     
     // Verify SMTP connection on initialization
@@ -169,7 +169,7 @@ export class EmailService {
     
     const html = `
       <h2>Booking Confirmation</h2>
-      <p>Thank you for your booking with Cluster Estate!</p>
+      <p>Thank you for your booking with Cabarete Villas!</p>
       <p>Your booking is currently awaiting approval. We'll notify you once it's been reviewed.</p>
       <h3>Booking Details:</h3>
       <p><strong>Booking ID:</strong> ${booking.id}</p>
@@ -178,7 +178,7 @@ export class EmailService {
       <p><strong>Check-out:</strong> ${checkOut}</p>
       <p><strong>Total Amount:</strong> ${booking.currency || 'USD'} ${booking.total_price}</p>
       <p>If you have any questions, please contact us.</p>
-      <p>Thank you for choosing Cluster Estate!</p>
+      <p>Thank you for choosing Cabarete Villas!</p>
     `;
 
     // Send to guest
@@ -237,7 +237,7 @@ export class EmailService {
       <h3>Next Steps:</h3>
       <p>Please make note of your check-in details. We look forward to hosting you!</p>
       <p>If you have any questions or special requests before your stay, please don't hesitate to contact us.</p>
-      <p>Thank you for choosing Cluster Estate!</p>
+      <p>Thank you for choosing Cabarete Villas!</p>
     `;
 
     return this.sendEmail({

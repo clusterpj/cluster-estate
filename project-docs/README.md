@@ -1,4 +1,4 @@
-# Cluster Estate Platform 🏢
+# Cabarete Villas Platform 🏢
 
 [![Next.js](https://img.shields.io/badge/Next.js-14.0-black.svg)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
@@ -7,7 +7,7 @@
 
 A high-end real estate platform connecting international buyers with luxury properties on the North Coast of the Dominican Republic. Built with Next.js and focused on delivering an exceptional user experience for property browsing and inquiry management.
 
-![Cluster Estate Banner](./public/banner.png)
+![Cabarete Villas Banner](./public/banner.png)
 
 ## 📋 Table of Contents
 
@@ -24,7 +24,7 @@ A high-end real estate platform connecting international buyers with luxury prop
 
 ## 🌟 Overview
 
-Cluster Estate is a Progressive Web App (PWA) designed to showcase luxury properties in premier locations along the Dominican Republic's North Coast:
+Cabarete Villas is a Progressive Web App (PWA) designed to showcase luxury properties in premier locations along the Dominican Republic's North Coast:
 
 * **Sosua** - Known for its beautiful beaches and vibrant expat community
 * **Cabarete (Puerto Plata)** - World-famous for water sports and coastal living
@@ -206,4 +206,4 @@ This project is proprietary software. All rights reserved.
 
 ---
 
-*Built with ❤️ by the Cluster Estate team*
+*Built with ❤️ by the Cabarete Villas team*

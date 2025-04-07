@@ -69,7 +69,7 @@ async function runEmailDiagnostics() {
     {
       name: 'With Display Name',
       options: {
-        from: `"Cluster Estate" <${process.env.EMAIL_USER}>`,
+        from: `"Cabarete Villas" <${process.env.EMAIL_USER}>`,
         to: "jisgore@gmail.com", // Temporarily sending to test email
         subject: 'Test Email 2: With Display Name',
         text: 'This is a test email with a display name in the from field.',
@@ -88,7 +88,7 @@ async function runEmailDiagnostics() {
           'X-Priority': '1',
           'X-MSMail-Priority': 'High',
           'Importance': 'High',
-          'X-Mailer': 'Cluster Estate Mailer',
+          'X-Mailer': 'Cabarete Villas Mailer',
         }
       }
     }

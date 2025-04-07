@@ -1,4 +1,4 @@
-# Phase Master Plan: Cluster Estate
+# Phase Master Plan: Cabarete Villas
 
 ## Phase 1: Core Platform Implementation ✅
 **Goal**: Establish foundational real estate platform with property management and booking capabilities

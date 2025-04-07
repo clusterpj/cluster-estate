@@ -2,7 +2,7 @@
 
 ```mermaid
 flowchart TD
-    A[Cluster Estate Platform] --> B[Property Management]
+    A[Cabarete Villas Platform] --> B[Property Management]
     A --> C[Booking System]
     A --> D[User Management]
     A --> E[Admin Dashboard]

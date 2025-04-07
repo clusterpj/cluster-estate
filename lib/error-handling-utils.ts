@@ -1,5 +1,5 @@
 /**
- * Centralized error handling utilities for Cluster Estate
+ * Centralized error handling utilities for Cabarete Villas
  */
 import { toast } from '@/hooks/use-toast'
 

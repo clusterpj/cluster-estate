@@ -1,4 +1,4 @@
-// Cluster Estate PayPal Type Definitions
+// Cabarete Villas PayPal Type Definitions
 
 export interface PayPalAuthorization {
   purchase_units: Array<{

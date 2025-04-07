@@ -1,13 +1,13 @@
-# Cluster Estate: Lean Project Documentation
+# Cabarete Villas: Lean Project Documentation
 
 ## Overview
 
-This directory contains the enhanced Lean Project Documentation for Cluster Estate, a comprehensive real estate management platform. The documentation system is designed to support efficient development with an AI-optimized approach that provides progressive detail and task-oriented context.
+This directory contains the enhanced Lean Project Documentation for Cabarete Villas, a comprehensive real estate management platform. The documentation system is designed to support efficient development with an AI-optimized approach that provides progressive detail and task-oriented context.
 
 ## Project Fundamentals
 
 ### Core Information
-- **Project Name**: Cluster Estate
+- **Project Name**: Cabarete Villas
 - **One-sentence description**: A comprehensive real estate management platform connecting property owners with renters and buyers through an intuitive interface with booking, payment, and administrative capabilities.
 - **Primary goal**: Create a full-featured real estate platform that streamlines property management, booking, and user experience.
 - **Target completion timeframe**: Ongoing development with Phase 2 currently in progress

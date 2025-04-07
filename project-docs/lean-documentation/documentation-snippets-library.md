@@ -1,4 +1,4 @@
-# Documentation Snippets Library: Cluster Estate
+# Documentation Snippets Library: Cabarete Villas
 
 ## Common Validation Patterns
 
@@ -276,7 +276,7 @@ export async function parseICalFeed(feedUrl: string) {
 // Function to generate iCal feed
 export function generateICalFeed(bookings: any[]) {
   const calendar = new ICAL.Component(['vcalendar', [], []]);
-  calendar.updatePropertyWithValue('prodid', '-//Cluster Estate//EN');
+  calendar.updatePropertyWithValue('prodid', '-//Cabarete Villas//EN');
   calendar.updatePropertyWithValue('version', '2.0');
   
   bookings.forEach(booking => {

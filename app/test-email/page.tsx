@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export default function TestEmailPage() {
   const [email, setEmail] = useState('');
-  const [subject, setSubject] = useState('Test Email from Cluster Estate');
+  const [subject, setSubject] = useState('Test Email from Cabarete Villas');
   const [template, setTemplate] = useState('');
   const [message, setMessage] = useState('This is a test email to verify the email service is working correctly.');
   const [result, setResult] = useState<{ status: 'idle' | 'loading' | 'success' | 'error'; message: string }>({ 

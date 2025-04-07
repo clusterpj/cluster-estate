@@ -1,4 +1,4 @@
-# Phase 1 Progress Tracker: Cluster Estate
+# Phase 1 Progress Tracker: Cabarete Villas
 
 ## Milestone 1.1: Authentication and User Management
 

@@ -1,7 +1,7 @@
-# Phase 1 Micro-PRD: Cluster Estate
+# Phase 1 Micro-PRD: Cabarete Villas
 
 ## Product Vision
-Cluster Estate is a comprehensive real estate management platform designed to connect property owners with potential renters and buyers. The platform provides an intuitive interface for property browsing, booking, and management, with secure payment processing and robust administrative capabilities. Phase 1 establishes the core functionality needed to create a viable real estate management solution that serves both property owners and renters with essential features.
+Cabarete Villas is a comprehensive real estate management platform designed to connect property owners with potential renters and buyers. The platform provides an intuitive interface for property browsing, booking, and management, with secure payment processing and robust administrative capabilities. Phase 1 establishes the core functionality needed to create a viable real estate management solution that serves both property owners and renters with essential features.
 
 ## Primary User Persona
 
