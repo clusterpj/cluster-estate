@@ -231,27 +231,89 @@
     ]
   },
   "LifestylePreview": {
-    "title": "Mode de vie des Caraïbes",
-    "description": "Vivez l'alliance parfaite du luxe et de la vie insulaire."
+    "title": "Découvrez la vie à Cabarete",
+    "subtitle": "Explorez la vie dans la capitale de l'aventure des Caraïbes",
+    "features": {
+      "kitesurfing": {
+        "title": "Kitesurf de classe mondiale",
+        "description": "Profitez des meilleures conditions de kitesurf des Caraïbes avec des alizés constants et des eaux chaudes."
+      },
+      "climate": {
+        "title": "Climat idéal",
+        "description": "Bénéficiez d'un climat tropical toute l'année avec des températures moyennes de 25-30°C (77-86°F) et des brises océaniques rafraîchissantes."
+      },
+      "beachTown": {
+        "title": "Charme de ville balnéaire",
+        "description": "Imprégnez-vous du mélange unique de Cabarete entre culture dominicaine, influences internationales et style de vie décontracté en bord de mer."
+      },
+      "adventure": {
+        "title": "Paradis de l'aventure",
+        "description": "Du surf et du windsurf au VTT et au canyoning, Cabarete est la capitale de l'aventure des Caraïbes."
+      }
+    },
+    "cta": {
+      "title": "Prêt à découvrir Cabarete ?",
+      "description": "Laissez-nous vous aider à trouver votre propriété idéale dans ce paradis balnéaire animé",
+      "button": "Trouvez votre propriété à Cabarete"
+    }
   },
   "AboutUs": {
     "title": "À propos des Villas de Cabarete",
     "subtitle": "Votre maison de vacances dans la capitale de l'aventure des Caraïbes",
-    "intro": {
-      "title": "Notre histoire",
-      "content": "Mon mari Chuck et moi venons d'Erie, en Pennsylvanie, aux États-Unis, et avons parcouru le monde pour trouver une deuxième maison. En 2000, nous avons voyagé à Cabarete et avons su que c'était l'endroit parfait pour nous. Nous avons acheté notre maison sur place."
+    "story": {
+      "title": "Notre Histoire",
+      "intro": "Mon mari Chuck et moi venons d'Erie, en Pennsylvanie, aux États-Unis, et avons parcouru le monde pour trouver une deuxième maison. En 2000, nous avons voyagé à Cabarete et avons su que c'était l'endroit parfait pour nous. Nous avons acheté notre maison sur place.",
+      "location": "Cabarete est une ville balnéaire dynamique connue comme \"La capitale de l'aventure des Caraïbes\". Avec des conditions parfaites pour le windsurf, le kitesurf et le surf, Cabarete est l'une des principales destinations mondiales pour les sports nautiques. Vous n'êtes pas amateur de sports nautiques ? Il y a quelque chose pour tout le monde à Cabarete. Vous pouvez faire du vélo, de l'équitation, du kayak, du canyoning, participer à de nombreuses autres aventures ou simplement vous détendre sur la magnifique plage.",
+      "community": "Ce qui rend Cabarete si unique et merveilleux, c'est le charme local combiné à un endroit formidable pour des vacances. Seulement à Cabarete, vous trouverez des habitants et des gens du monde entier et de tous horizons qui se réunissent pour vivre, travailler et s'amuser.",
+      "service": "Aux Villas de Cabarete, vous pouvez laisser tous vos soucis derrière vous pendant que nous prenons soin de tous vos besoins. Notre personnel de gestion est de premier ordre. Nos femmes de ménage et jardiniers vont au-delà pour garder nos villas magnifiques."
     },
     "location": {
       "title": "Cabarete : La capitale de l'aventure",
       "content": "Cabarete est une ville balnéaire dynamique connue comme \"La capitale de l'aventure des Caraïbes\". Avec des conditions parfaites pour le windsurf, le kitesurf et le surf, Cabarete est l'une des principales destinations mondiales pour les sports nautiques. Vous n'êtes pas amateur de sports nautiques ? Il y a quelque chose pour tout le monde à Cabarete. Vous pouvez faire du vélo, de l'équitation, du kayak, du canyoning, participer à de nombreuses autres aventures ou simplement vous détendre sur la magnifique plage."
     },
-    "community": {
-      "title": "Une Communauté Unique",
-      "content": "Ce qui rend Cabarete si unique et merveilleux, c'est le charme local combiné à un endroit formidable pour des vacances. Seulement à Cabarete, vous trouverez des habitants et des gens du monde entier et de tous horizons qui se réunissent pour vivre, travailler et s'amuser."
+    "team": {
+      "title": "Rencontrez Notre Équipe",
+      "description": "Notre personnel dévoué travaille sans relâche pour assurer que votre séjour dépasse vos attentes",
+      "members": {
+        "manager": {
+          "name": "Maria Rodriguez",
+          "role": "Gestionnaire de Propriétés",
+          "bio": "Experte en hôtellerie avec plus de 10 ans d'expérience dans la gestion de villas de luxe"
+        },
+        "maintenance": {
+          "name": "José Ramirez",
+          "role": "Chef de Maintenance",
+          "bio": "Assure que nos propriétés sont maintenues aux plus hauts standards"
+        },
+        "coordinator": {
+          "name": "Ana García",
+          "role": "Coordinatrice d'Expérience Client",
+          "bio": "Dévouée à créer des expériences inoubliables pour nos clients"
+        },
+        "security": {
+          "name": "Carlos Mendoza",
+          "role": "Chef de la Sécurité",
+          "bio": "Assure une sécurité 24/7 et une tranquillité d'esprit pour nos clients"
+        }
+      }
     },
-    "service": {
-      "title": "Notre engagement",
-      "content": "Aux Villas de Cabarete, vous pouvez laisser tous vos soucis derrière vous pendant que nous prenons soin de tous vos besoins. Notre personnel de gestion est de premier ordre. Nos femmes de ménage et jardiniers vont au-delà pour garder nos villas magnifiques."
+    "commitment": {
+      "title": "Notre Engagement Envers Vous",
+      "content": "Aux Villas de Cabarete, votre confort et votre satisfaction sont nos principales priorités. Nous assurons l'excellence dans chaque aspect de votre séjour.",
+      "services": {
+        "concierge": {
+          "title": "Service de Conciergerie 24/7",
+          "description": "Toujours disponible pour répondre à vos demandes, assurant votre confort à tout moment."
+        },
+        "maintenance": {
+          "title": "Maintenance Professionnelle",
+          "description": "Une équipe d'experts assurant l'entretien régulier et les réparations rapides pour maintenir votre villa impeccable."
+        },
+        "quality": {
+          "title": "Assurance Qualité",
+          "description": "Des normes rigoureuses maintenues dans tous les aspects de notre service et de nos propriétés."
+        }
+      }
     },
     "signature": {
       "names": "Chuck et Ronda Janicki",
@@ -1011,5 +1073,21 @@
       },
       "updating": "Mise à jour en cours..."
     }
+  },
+  "HeroSearchSection": {
+    "title": "Trouvez Votre Séjour Idéal",
+    "subtitle": "Découvrez pourquoi notre coin de paradis caribéen est l'endroit idéal pour vos prochaines vacances",
+    "features": {
+      "primeLocation": "Emplacement de Choix",
+      "primeLocationDesc": "Situé au cœur de Cabarete, à quelques pas des plages de kitesurf de renommée mondiale",
+      "perfectConditions": "Conditions Parfaites",
+      "perfectConditionsDesc": "Les alizés constants et les eaux chaudes font de Cabarete un paradis des sports nautiques",
+      "beachLifestyle": "Style de Vie Plage",
+      "beachLifestyleDesc": "Vivez le mélange parfait de détente et d'aventure dans nos propriétés en bord de mer",
+      "localExpertise": "Expertise Locale",
+      "localExpertiseDesc": "Plus de 20 ans d'expérience à Cabarete avec des liens profonds avec la communauté"
+    },
+    "searchTitle": "Rechercher les Propriétés Disponibles",
+    "searchSubtitle": "Trouvez la villa parfaite pour votre escapade caribéenne"
   }
 }

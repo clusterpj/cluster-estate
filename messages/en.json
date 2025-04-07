@@ -224,16 +224,41 @@
     ]
   },
   "LifestylePreview": {
-    "title": "Caribbean Lifestyle",
-    "description": "Experience the perfect blend of luxury and island living."
+    "title": "Experience Cabarete Living",
+    "subtitle": "Discover life in the adventure capital of the Caribbean",
+    "features": {
+      "kitesurfing": {
+        "title": "World-Class Kitesurfing",
+        "description": "Experience some of the best kitesurfing conditions in the Caribbean with consistent trade winds and warm waters."
+      },
+      "climate": {
+        "title": "Perfect Climate",
+        "description": "Enjoy year-round tropical weather with average temperatures of 25-30°C (77-86°F) and refreshing ocean breezes."
+      },
+      "beachTown": {
+        "title": "Beach Town Charm",
+        "description": "Immerse yourself in Cabarete's unique blend of Dominican culture, international influences, and laid-back beach lifestyle."
+      },
+      "adventure": {
+        "title": "Adventure Paradise",
+        "description": "From surfing and windsurfing to mountain biking and canyoning, Cabarete is the adventure capital of the Caribbean."
+      }
+    },
+    "cta": {
+      "title": "Ready to Experience Cabarete?",
+      "description": "Let us help you discover your perfect property in this vibrant beach paradise",
+      "button": "Find Your Cabarete Property"
+    }
   },
   "AboutUs": {
     "title": "About Cabarete Villas",
     "subtitle": "Your Paradise Home in the Adventure Capital of the Caribbean",
-    "intro": {
+    "story": {
       "title": "Our Story",
-      "content": "When Chuck and I first arrived in Cabarete in 2000, we were immediately captivated by its unique blend of natural beauty and vibrant community. Coming from Erie, Pennsylvania, we had traveled extensively in search of the perfect second home, but there was something special about Cabarete that spoke to us instantly. The way the morning sun painted the beach in golden hues, the warm smiles of the locals, and the perfect balance of adventure and tranquility - we knew this was where we wanted to build our dream.",
-      "callToAction": "Begin Your Journey with Us"
+      "intro": "My husband Chuck and I are from Erie, Pennsylvania USA and have traveled the world to find a second home. In 2000 we traveled to Cabarete and knew this was the perfect place for us. We purchased our home on the spot.",
+      "location": "Cabarete is a vibrant beach town known as \"The Adventure Capital of the Caribbean.\" With perfect conditions for windsurfing, kitesurfing, and surfing, Cabarete is one of the top destinations in the world for water sports. Not a water sport enthusiast? There is something for everyone in Cabarete. You can bike, horseback ride, kayak, go canyoning, take part in so many other adventures, or simply just enjoy lounging on the beautiful beach.",
+      "community": "What makes Cabarete so unique and wonderful is the local charm combined with a great place to vacation. Only in Cabarete will you find locals and people from all over the world and all walks of life coming together to live, work, and play.",
+      "service": "At Cabarete Villas you can leave all of your worries behind while we take care of your every need. Our management staff is top notch. Our maids and grounds keepers go above and beyond to keep our villas looking amazing."
     },
     "location": {
       "title": "Cabarete: The Adventure Capital",
@@ -284,22 +309,47 @@
     },
     "team": {
       "title": "Meet Our Team",
-      "subtitle": "The People Who Make Your Stay Special",
-      "leadership": "Leadership Team",
-      "management": "Management Team",
-      "service": "Service Team",
-      "description": "Our dedicated staff works tirelessly to ensure your stay exceeds expectations"
-    },
-    "commitment": {
-      "title": "Our Commitment to You",
-      "content": "At Cabarete Villas, your comfort and satisfaction are our top priorities. Our staff is trained to anticipate your needs and exceed your expectations. From the moment you inquire about a stay until long after your departure, we're here to ensure every aspect of your experience is perfect.",
-      "guarantees": [
-        "24/7 Concierge Service",
-        "Professional Cleaning Standards",
-        "Regular Property Maintenance",
-        "Local Expert Guidance",
-        "Personalized Guest Experience"
-      ]
+      "description": "Our dedicated staff works tirelessly to ensure your stay exceeds expectations",
+      "members": {
+        "manager": {
+          "name": "Maria Rodriguez",
+          "role": "Property Manager",
+          "bio": "Expert in hospitality with 10+ years experience managing luxury villa properties"
+        },
+        "maintenance": {
+          "name": "José Ramirez",
+          "role": "Head of Maintenance",
+          "bio": "Ensuring our properties are maintained to the highest standards"
+        },
+        "coordinator": {
+          "name": "Ana García",
+          "role": "Guest Experience Coordinator",
+          "bio": "Dedicated to creating unforgettable experiences for our guests"
+        },
+        "security": {
+          "name": "Carlos Mendoza",
+          "role": "Head of Security",
+          "bio": "Providing 24/7 security and peace of mind for our guests"
+        }
+      }
+   },
+   "commitment": {
+     "title": "Our Commitment to You",
+     "content": "At Cabarete Villas, your comfort and satisfaction are our top priorities. We ensure excellence in every aspect of your stay.",
+     "services": {
+       "concierge": {
+         "title": "24/7 Concierge Service",
+         "description": "Always available to assist with any request, ensuring your comfort around the clock."
+       },
+       "maintenance": {
+         "title": "Professional Maintenance",
+         "description": "Expert team providing regular maintenance and swift repairs to keep your villa pristine."
+       },
+       "quality": {
+         "title": "Quality Assurance",
+         "description": "Rigorous standards maintained in every aspect of our service and properties."
+       }
+     }
     },
     "community": {
       "title": "A Unique Community",

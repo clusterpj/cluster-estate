@@ -1011,5 +1011,21 @@
       },
       "updating": "Wird aktualisiert..."
     }
+  },
+  "HeroSearchSection": {
+    "title": "Finden Sie Ihren Perfekten Aufenthalt",
+    "subtitle": "Entdecken Sie, warum unser Stück karibisches Paradies der perfekte Ort für Ihren nächsten Urlaub ist",
+    "features": {
+      "primeLocation": "Erstklassige Lage",
+      "primeLocationDesc": "Im Herzen von Cabarete gelegen, nur wenige Schritte von weltklasse Kitesurf-Stränden entfernt",
+      "perfectConditions": "Perfekte Bedingungen",
+      "perfectConditionsDesc": "Konstante Passatwinde und warmes Wasser machen Cabarete zu einem Wassersportparadies",
+      "beachLifestyle": "Strandlebensstil",
+      "beachLifestyleDesc": "Erleben Sie die perfekte Mischung aus Entspannung und Abenteuer in unseren Strandimmobilien",
+      "localExpertise": "Lokale Expertise",
+      "localExpertiseDesc": "Über 20 Jahre Erfahrung in Cabarete mit tiefen Verbindungen zur Gemeinschaft"
+    },
+    "searchTitle": "Verfügbare Immobilien Suchen",
+    "searchSubtitle": "Finden Sie die perfekte Villa für Ihren Karibikurlaub"
   }
 }
