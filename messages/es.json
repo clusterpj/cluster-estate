@@ -964,5 +964,21 @@
       },
       "updating": "Actualizando..."
     }
+  },
+  "HeroSearchSection": {
+    "title": "Encuentra Tu Estancia Perfecta",
+    "subtitle": "Descubre por qué nuestro rincón del paraíso caribeño es el lugar perfecto para tus próximas vacaciones",
+    "features": {
+      "primeLocation": "Ubicación Privilegiada",
+      "primeLocationDesc": "Ubicado en el corazón de Cabarete, a pasos de las mejores playas de kitesurf del mundo",
+      "perfectConditions": "Condiciones Perfectas",
+      "perfectConditionsDesc": "Vientos alisios constantes y aguas cálidas hacen de Cabarete un paraíso para los deportes acuáticos",
+      "beachLifestyle": "Estilo de Vida Playa",
+      "beachLifestyleDesc": "Experimenta la mezcla perfecta de relajación y aventura en nuestras propiedades frente al mar",
+      "localExpertise": "Experiencia Local",
+      "localExpertiseDesc": "Más de 20 años de experiencia en Cabarete con profundas conexiones en la comunidad"
+    },
+    "searchTitle": "Buscar Propiedades Disponibles",
+    "searchSubtitle": "Encuentra la villa perfecta para tu escapada caribeña"
   }
 }

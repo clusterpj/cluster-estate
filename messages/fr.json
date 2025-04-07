@@ -231,8 +231,31 @@
     ]
   },
   "LifestylePreview": {
-    "title": "Mode de vie des Caraïbes",
-    "description": "Vivez l'alliance parfaite du luxe et de la vie insulaire."
+    "title": "Découvrez la vie à Cabarete",
+    "subtitle": "Explorez la vie dans la capitale de l'aventure des Caraïbes",
+    "features": {
+      "kitesurfing": {
+        "title": "Kitesurf de classe mondiale",
+        "description": "Profitez des meilleures conditions de kitesurf des Caraïbes avec des alizés constants et des eaux chaudes."
+      },
+      "climate": {
+        "title": "Climat idéal",
+        "description": "Bénéficiez d'un climat tropical toute l'année avec des températures moyennes de 25-30°C (77-86°F) et des brises océaniques rafraîchissantes."
+      },
+      "beachTown": {
+        "title": "Charme de ville balnéaire",
+        "description": "Imprégnez-vous du mélange unique de Cabarete entre culture dominicaine, influences internationales et style de vie décontracté en bord de mer."
+      },
+      "adventure": {
+        "title": "Paradis de l'aventure",
+        "description": "Du surf et du windsurf au VTT et au canyoning, Cabarete est la capitale de l'aventure des Caraïbes."
+      }
+    },
+    "cta": {
+      "title": "Prêt à découvrir Cabarete ?",
+      "description": "Laissez-nous vous aider à trouver votre propriété idéale dans ce paradis balnéaire animé",
+      "button": "Trouvez votre propriété à Cabarete"
+    }
   },
   "AboutUs": {
     "title": "À propos des Villas de Cabarete",
@@ -1050,5 +1073,21 @@
       },
       "updating": "Mise à jour en cours..."
     }
+  },
+  "HeroSearchSection": {
+    "title": "Trouvez Votre Séjour Idéal",
+    "subtitle": "Découvrez pourquoi notre coin de paradis caribéen est l'endroit idéal pour vos prochaines vacances",
+    "features": {
+      "primeLocation": "Emplacement de Choix",
+      "primeLocationDesc": "Situé au cœur de Cabarete, à quelques pas des plages de kitesurf de renommée mondiale",
+      "perfectConditions": "Conditions Parfaites",
+      "perfectConditionsDesc": "Les alizés constants et les eaux chaudes font de Cabarete un paradis des sports nautiques",
+      "beachLifestyle": "Style de Vie Plage",
+      "beachLifestyleDesc": "Vivez le mélange parfait de détente et d'aventure dans nos propriétés en bord de mer",
+      "localExpertise": "Expertise Locale",
+      "localExpertiseDesc": "Plus de 20 ans d'expérience à Cabarete avec des liens profonds avec la communauté"
+    },
+    "searchTitle": "Rechercher les Propriétés Disponibles",
+    "searchSubtitle": "Trouvez la villa parfaite pour votre escapade caribéenne"
   }
 }

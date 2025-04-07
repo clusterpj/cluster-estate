@@ -224,8 +224,31 @@
     ]
   },
   "LifestylePreview": {
-    "title": "Caribbean Lifestyle",
-    "description": "Experience the perfect blend of luxury and island living."
+    "title": "Experience Cabarete Living",
+    "subtitle": "Discover life in the adventure capital of the Caribbean",
+    "features": {
+      "kitesurfing": {
+        "title": "World-Class Kitesurfing",
+        "description": "Experience some of the best kitesurfing conditions in the Caribbean with consistent trade winds and warm waters."
+      },
+      "climate": {
+        "title": "Perfect Climate",
+        "description": "Enjoy year-round tropical weather with average temperatures of 25-30°C (77-86°F) and refreshing ocean breezes."
+      },
+      "beachTown": {
+        "title": "Beach Town Charm",
+        "description": "Immerse yourself in Cabarete's unique blend of Dominican culture, international influences, and laid-back beach lifestyle."
+      },
+      "adventure": {
+        "title": "Adventure Paradise",
+        "description": "From surfing and windsurfing to mountain biking and canyoning, Cabarete is the adventure capital of the Caribbean."
+      }
+    },
+    "cta": {
+      "title": "Ready to Experience Cabarete?",
+      "description": "Let us help you discover your perfect property in this vibrant beach paradise",
+      "button": "Find Your Cabarete Property"
+    }
   },
   "AboutUs": {
     "title": "About Cabarete Villas",
