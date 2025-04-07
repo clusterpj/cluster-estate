@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname, useRouter } from 'next/navigation';
 import { Menu, Home, Building2, Info, Phone, User, LogOut, Shield, Settings } from "lucide-react";
 import Image from "next/image";
-import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
@@ -472,8 +471,6 @@ export function Header() {
             {/* Language Switcher */}
             <LanguageSwitcher />
 
-            {/* Theme Toggle */}
-            <ModeToggle />
           </div>
         </div>
       </div>
