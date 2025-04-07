@@ -1,104 +1,4 @@
 {
-  "Search": {
-    "findYourPerfectStay": "Encuentra tu Estancia Perfecta",
-    "searchDescription": "Explora nuestra selección de hermosas propiedades en las mejores ubicaciones",
-    "guests": "Huéspedes",
-    "selectGuests": "Seleccionar número de huéspedes",
-    "guest": "Huésped",
-    "dates": "Fechas",
-    "search": "Buscar"
-  },
-  "BookingConfirmation": {
-    "title": "Confirmación de Reserva",
-    "booking_id": "ID de Reserva",
-    "property": "Propiedad",
-    "check_in": "Fecha de Entrada",
-    "check_out": "Fecha de Salida",
-    "guests": "Huéspedes",
-    "total": "Importe Total",
-    "payment_info": "Información de Pago",
-    "payment_id": "ID de Pago",
-    "special_requests": "Peticiones Especiales",
-    "back_to_bookings": "Volver a Mis Reservas",
-    "go_to_dashboard": "Ir al Panel de Control",
-    "cancel_booking": "Cancelar Reserva",
-    "payment_status_label": "Estado del Pago",
-    "status_label": "Estado",
-    "payment_authorization_notice": "IMPORTANTE: Su pago ha sido autorizado pero aún no procesado. Confirmaremos su reserva en breve.",
-    "payment_status": {
-      "captured": "Capturado",
-      "outline": "Pendiente",
-      "completed": "Completado",
-      "authorized": "Autorizado",
-      "pending": "Pendiente",
-      "failed": "Pago Fallido",
-      "refunded": "Reembolsado"
-    },
-    "awaiting_approval": {
-      "title": "Esperando Aprobación",
-      "description": "Esta reserva requiere la aprobación del propietario. Le notificaremos una vez confirmada."
-    },
-    "errors": {
-      "fetch_failed": "Error al cargar los detalles de la reserva",
-      "title": "Error de Reserva",
-      "unknown": "Se produjo un error inesperado"
-    },
-    "status": {
-      "confirmed": "Confirmada",
-      "pending": "Pendiente",
-      "canceled": "Cancelada",
-      "completed": "Completada",
-      "awaiting_approval": "Esperando Aprobación",
-      "payment_failed": "Pago Fallido",
-      "expired": "Expirada"
-    }
-  },
-  "HeroSection": {
-    "title": "Encuentra Tu Propiedad Ideal",
-    "subtitle": "Descubre la propiedad perfecta para tu estilo de vida en nuestra colección exclusiva",
-    "ariaLabel": "Sección de búsqueda de propiedades",
-    "features": {
-      "location": "Ubicaciones Exclusivas",
-      "availability": "Disponibilidad en Tiempo Real",
-      "search": "Búsqueda Inteligente"
-    },
-    "browseProperties": "Explorar Propiedades Destacadas",
-    "browsePropertiesAriaLabel": "Sección de propiedades destacadas",
-    "search": {
-      "locationPlaceholder": "¿Dónde estás buscando?",
-      "locationAriaLabel": "Buscar por ubicación",
-      "datePlaceholder": "Seleccionar fechas",
-      "propertyTypePlaceholder": "Tipo de propiedad",
-      "allPropertyTypes": "Todos los tipos de propiedad",
-      "button": "Buscar",
-      "loading": "Buscando...",
-      "error": "La búsqueda falló. Por favor, inténtalo de nuevo.",
-      "validation": {
-        "dateRequired": "Por favor, selecciona las fechas de entrada y salida",
-        "invalidDateRange": "La fecha de salida debe ser posterior a la fecha de entrada"
-      },
-      "showAdvanced": "Más filtros",
-      "hideAdvanced": "Menos filtros",
-      "bedrooms": "Dormitorios",
-      "anyBeds": "Cualquier dormitorio",
-      "bathrooms": "Baños",
-      "anyBaths": "Cualquier baño",
-      "petsAllowed": "Mascotas",
-      "petsAllowedOnly": "Solo admite mascotas",
-      "dateRange": {
-        "placeholder": "Entrada - Salida",
-        "from": "Entrada",
-        "to": "Salida",
-        "clear": "Borrar"
-      }
-    },
-    "propertyTypes": {
-      "house": "Casa",
-      "villa": "Villa",
-      "condo": "Condominio",
-      "lot": "Terreno/Lote"
-    }
-  },
   "ParadiseLiving": {
     "title": "Experimenta La Vida Paradisíaca",
     "subtitle": "Descubre un estilo de vida donde el lujo se encuentra con el paraíso tropical",
@@ -237,7 +137,61 @@
   "AboutUs": {
     "title": "Acerca de Cabarete Villas",
     "subtitle": "Tu Hogar Paradisíaco en la Capital de Aventuras del Caribe",
-    "intro": {
+    "story": {
+      "title": "Nuestra Historia",
+      "intro": "Mi esposo Chuck y yo somos de Erie, Pensilvania, EE. UU., y hemos viajado por el mundo para encontrar una segunda residencia. En 2000 viajamos a Cabarete y supimos que este era el lugar perfecto para nosotros. Compramos nuestra casa en el momento.",
+      "location": "Cabarete es un vibrante pueblo costero conocido como \"La Capital de Aventuras del Caribe\". Con condiciones perfectas para windsurf, kitesurf y surf, Cabarete es uno de los principales destinos del mundo para deportes acuáticos. ¿No eres entusiasta de los deportes acuáticos? Hay algo para todos en Cabarete. Puedes andar en bicicleta, montar a caballo, hacer kayak, barranquismo, participar en muchas otras aventuras o simplemente disfrutar descansando en la hermosa playa.",
+      "community": "Lo que hace que Cabarete sea tan único y maravilloso es el encanto local combinado con un gran lugar para vacacionar. Solo en Cabarete encontrarás a locales y personas de todo el mundo y de todos los ámbitos de la vida reuniéndose para vivir, trabajar y divertirse.",
+      "service": "En Cabarete Villas puedes dejar todas tus preocupaciones atrás mientras nosotros nos ocupamos de todas tus necesidades. Nuestro personal de gestión es de primera categoría. Nuestras amas de llaves y jardineros se esfuerzan al máximo para mantener nuestras villas con un aspecto increíble."
+    },
+    "team": {
+      "title": "Conoce a Nuestro Equipo",
+      "description": "Nuestro personal dedicado trabaja incansablemente para asegurar que tu estancia supere tus expectativas",
+      "members": {
+        "manager": {
+          "name": "Maria Rodriguez",
+          "role": "Gerente de Propiedades",
+          "bio": "Experta en hospitalidad con más de 10 años de experiencia gestionando villas de lujo"
+        },
+        "maintenance": {
+          "name": "José Ramirez",
+          "role": "Jefe de Mantenimiento",
+          "bio": "Asegura que nuestras propiedades se mantengan en los más altos estándares"
+        },
+        "coordinator": {
+          "name": "Ana García",
+          "role": "Coordinadora de Experiencia del Huésped",
+          "bio": "Dedicada a crear experiencias inolvidables para nuestros huéspedes"
+        },
+        "security": {
+          "name": "Carlos Mendoza",
+          "role": "Jefe de Seguridad",
+          "bio": "Proporciona seguridad las 24 horas y tranquilidad a nuestros huéspedes"
+        }
+      }
+    },
+    "commitment": {
+      "title": "Nuestro Compromiso Contigo",
+      "content": "En Cabarete Villas, tu comodidad y satisfacción son nuestras principales prioridades. Aseguramos la excelencia en cada aspecto de tu estancia.",
+      "services": {
+        "concierge": {
+          "title": "Servicio de Conserjería 24/7",
+          "description": "Siempre disponible para atender cualquier solicitud, asegurando tu comodidad en todo momento."
+        },
+        "maintenance": {
+          "title": "Mantenimiento Profesional",
+          "description": "Equipo experto que proporciona mantenimiento regular y reparaciones rápidas para mantener tu villa impecable."
+        },
+        "quality": {
+          "title": "Garantía de Calidad",
+          "description": "Estándares rigurosos mantenidos en todos los aspectos de nuestro servicio y propiedades."
+        }
+      }
+    },
+    "signature": {
+      "names": "Chuck y Ronda Janicki",
+      "title": "Propietarios, Cabarete Villas"
+    },
       "title": "Nuestra Historia",
       "content": "Mi esposo Chuck y yo somos de Erie, Pensilvania, EE. UU., y hemos viajado por el mundo para encontrar una segunda residencia. En 2000 viajamos a Cabarete y supimos que este era el lugar perfecto para nosotros. Compramos nuestra casa en el momento."
     },
@@ -256,8 +210,7 @@
     "signature": {
       "names": "Chuck y Ronda Janicki",
       "title": "Propietarios, Cabarete Villas"
-    }
-  },
+    },
   "Testimonials": {
     "title": "Lo Que Dicen Nuestros Clientes",
     "subtitle": "Descubre por qué nuestros clientes aman trabajar con nosotros",

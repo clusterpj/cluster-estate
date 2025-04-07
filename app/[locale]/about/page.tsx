@@ -1,79 +1,51 @@
 import { useTranslations } from 'next-intl';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { BeforeAfterSlider } from "@/components/before-after-slider";
-import { TimelineSection } from "@/components/timeline-section";
 import { TeamSection } from "@/components/team-section";
+import { Clock, Shield, Wrench } from "lucide-react";
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function AboutPage() {
   const t = useTranslations('AboutUs');
 
-  const timelineEvents = [
-    {
-      year: '2000',
-      title: t('timeline.events.0.title'),
-      description: t('timeline.events.0.description'),
-      image: '/images/timeline/2000.jpg'
-    },
-    {
-      year: '2005',
-      title: t('timeline.events.1.title'),
-      description: t('timeline.events.1.description'),
-      image: '/images/timeline/2005.jpg'
-    },
-    {
-      year: '2010',
-      title: t('timeline.events.2.title'),
-      description: t('timeline.events.2.description'),
-      image: '/images/timeline/2010.jpg'
-    },
-    {
-      year: '2015',
-      title: t('timeline.events.3.title'),
-      description: t('timeline.events.3.description'),
-      image: '/images/timeline/2015.jpg'
-    },
-    {
-      year: '2020',
-      title: t('timeline.events.4.title'),
-      description: t('timeline.events.4.description'),
-      image: '/images/timeline/2020.jpg'
-    },
-    {
-      year: 'Present',
-      title: t('timeline.events.5.title'),
-      description: t('timeline.events.5.description'),
-      image: '/images/timeline/present.jpg'
-    }
-  ];
-
   const teamMembers = [
     {
-      name: t('signature.names'),
-      role: t('signature.title'),
-      image: "/images/team/owners.jpg",
-      bio: t('intro.content').split('.')[0],
-      tier: 'leadership' as const
+      name: t('team.members.manager.name'),
+      role: t('team.members.manager.role'),
+      image: "/images/team/manager.jpg",
+      bio: t('team.members.manager.bio'),
+      tier: 'management' as const
+    },
+    {
+      name: t('team.members.maintenance.name'),
+      role: t('team.members.maintenance.role'),
+      image: "/images/team/maintenance.jpg",
+      bio: t('team.members.maintenance.bio'),
+      tier: 'management' as const
+    },
+    {
+      name: t('team.members.coordinator.name'),
+      role: t('team.members.coordinator.role'),
+      image: "/images/team/coordinator.jpg",
+      bio: t('team.members.coordinator.bio'),
+      tier: 'management' as const
+    },
+    {
+      name: t('team.members.security.name'),
+      role: t('team.members.security.role'),
+      image: "/images/team/security.jpg",
+      bio: t('team.members.security.bio'),
+      tier: 'management' as const
     }
-  ];
-
-  const guarantees = [
-    t('commitment.guarantees.0'),
-    t('commitment.guarantees.1'),
-    t('commitment.guarantees.2'),
-    t('commitment.guarantees.3'),
-    t('commitment.guarantees.4')
   ];
 
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative h-[90vh] w-full">
+      <section className="relative h-[60vh] w-full">
         <Image
-          src="/images/hero-about.jpg"
+          src="/images/cabarete-beach.jpg"
           alt="Cabarete Villas"
           fill
           className="object-cover"
@@ -91,76 +63,99 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Main Content */}
-      <section id="story" className="bg-background py-24">
+      {/* Owner's Story */}
+      <section id="story" className="py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6 text-primary">{t('intro.title')}</h2>
-            <p className="text-xl leading-relaxed text-foreground/90">{t('intro.content')}</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Before/After Slider */}
-      <section className="py-24 bg-accent">
-        <div className="container mx-auto px-4">
-          <BeforeAfterSlider
-            beforeImage="/images/cabarete-villas-old.png"
-            afterImage="/images/cabarete-villas.png"
-          />
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-primary">{t('timeline.title')}</h2>
-            <p className="text-xl text-muted-foreground">{t('timeline.subtitle')}</p>
-          </div>
-          <TimelineSection events={timelineEvents} />
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-24 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {['guestsHosted', 'satisfactionRate', 'repeatCustomers', 'yearsInBusiness'].map((stat) => (
-              <Card key={stat} className="p-6 text-center bg-primary-foreground/10">
-                <p className="text-3xl font-bold mb-2">{t(`stats.${stat}`)}</p>
-              </Card>
-            ))}
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-12 items-start">
+              <div className="relative">
+                <Image
+                  src="/images/team/owners.jpg"
+                  alt="Chuck and Ronda Janicki"
+                  width={600}
+                  height={450}
+                  className="rounded-lg w-full shadow-lg"
+                  priority
+                />
+              </div>
+              <div className="prose prose-lg">
+                <h2 className="text-4xl font-bold mb-8 text-primary">{t('story.title')}</h2>
+                <p className="mb-6 text-lg">
+                  {t('story.intro')}
+                </p>
+                <p className="mb-6 text-lg">
+                  {t('story.location')}
+                </p>
+                <p className="mb-6 text-lg">
+                  {t('story.community')}
+                </p>
+                <p className="mb-8 text-lg">
+                  {t('story.service')}
+                </p>
+                <div className="mt-8 border-t pt-4">
+                  <p className="text-xl font-semibold text-primary mb-1">
+                    {t('signature.names')}
+                  </p>
+                  <p className="text-base text-muted-foreground">
+                    {t('signature.title')}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Team Section */}
-      <section className="py-24 bg-background">
+      <section className="py-24 bg-background border-t">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-primary">{t('team.title')}</h2>
-            <p className="text-xl text-muted-foreground">{t('team.description')}</p>
+            <h2 className="text-4xl font-bold mb-8 text-primary">{t('team.title')}</h2>
           </div>
           <TeamSection members={teamMembers} />
         </div>
       </section>
 
       {/* Commitment Section */}
-      <section className="py-24 bg-accent">
+      <section className="py-24 bg-background border-t">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold mb-8 text-primary text-center">{t('commitment.title')}</h2>
-            <p className="text-xl mb-12 text-center">{t('commitment.content')}</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {guarantees.map((guarantee, index) => (
-                <Card key={index} className="p-6 bg-background">
-                  <div className="flex items-center gap-4">
-                    <div className="h-10 w-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                      {index + 1}
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-6 text-primary">{t('commitment.title')}</h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">{t('commitment.content')}</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              {[
+                {
+                  icon: Clock,
+                  title: t('commitment.services.concierge.title'),
+                  description: t('commitment.services.concierge.description')
+                },
+                {
+                  icon: Wrench,
+                  title: t('commitment.services.maintenance.title'),
+                  description: t('commitment.services.maintenance.description')
+                },
+                {
+                  icon: Shield,
+                  title: t('commitment.services.quality.title'),
+                  description: t('commitment.services.quality.description')
+                }
+              ].map(({ icon: Icon, title, description }, index) => (
+                <Card
+                  key={index}
+                  className="group relative p-8 bg-gradient-to-br from-background via-background to-background hover:from-primary/5 hover:to-primary/10 transition-all duration-300 border hover:border-primary/20"
+                >
+                  <div className="relative z-10">
+                    <div className="mb-6 transform group-hover:-translate-y-1 transition-transform duration-300">
+                      <div className="h-14 w-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
+                        <Icon className="h-7 w-7" />
+                      </div>
+                      <h3 className="text-xl font-bold mb-3 text-primary">{title}</h3>
+                      <p className="text-base leading-relaxed text-muted-foreground">{description}</p>
                     </div>
-                    <p className="text-lg font-medium">{guarantee}</p>
                   </div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent group-hover:from-primary/5 group-hover:to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
                 </Card>
               ))}
             </div>
@@ -168,21 +163,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Signature Section */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 text-center">
-          <Card className="inline-block p-8 bg-card">
-            <p className="text-2xl font-semibold text-primary mb-2">{t('signature.names')}</p>
-            <p className="text-lg mb-4 text-muted-foreground">{t('signature.title')}</p>
-            <p className="text-xl">{t('signature.message')}</p>
-          </Card>
-        </div>
-      </section>
-
       {/* Final CTA */}
-      <section className="py-24 bg-primary text-primary-foreground text-center">
+      <section className="py-16 bg-primary text-primary-foreground text-center">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-8">{t('intro.callToAction')}</h2>
+          <h2 className="text-4xl font-bold mb-8">Start Your Cabarete Adventure Today</h2>
           <Button asChild size="lg" variant="secondary">
             <Link href="/properties">View Our Properties</Link>
           </Button>
