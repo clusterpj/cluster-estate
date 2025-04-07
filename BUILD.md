@@ -1,6 +1,6 @@
-# Building Cluster Estate Project
+# Building Cabarete Villas Project
 
-This document provides instructions for building the Cluster Estate project, including options for building with TypeScript and ESLint errors.
+This document provides instructions for building the Cabarete Villas project, including options for building with TypeScript and ESLint errors.
 
 ## Standard Build
 

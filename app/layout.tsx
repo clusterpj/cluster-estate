@@ -6,7 +6,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Cluster Estate',
+  title: 'Cabarete Villas',
   description: 'Your premier real estate platform',
 };
 

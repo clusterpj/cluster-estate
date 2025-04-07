@@ -1,7 +1,7 @@
-# Project Overview: Cluster Estate
+# Project Overview: Cabarete Villas
 
 ## Project Description
-Cluster Estate is a comprehensive property management platform designed to streamline vacation rental operations. It provides tools for property listing management, booking synchronization, calendar integration, and multi-language support.
+Cabarete Villas is a comprehensive property management platform designed to streamline vacation rental operations. It provides tools for property listing management, booking synchronization, calendar integration, and multi-language support.
 
 ## Technology Stack
 - **Frontend Framework**: Next.js (App Router)

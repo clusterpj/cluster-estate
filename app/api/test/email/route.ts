@@ -5,7 +5,7 @@ import { z } from 'zod';
 // Define schema for test email data validation
 const testEmailSchema = z.object({
   to: z.string().email({ message: 'Please enter a valid email address.' }),
-  subject: z.string().optional().default('Test Email from Cluster Estate'),
+  subject: z.string().optional().default('Test Email from Cabarete Villas'),
   message: z.string().optional().default('This is a test email to verify the email service is working correctly.'),
   template: z.enum(['contact_form', 'booking_confirmation', 'booking_approved', 'booking_canceled', 'payment_failed']).optional(),
 });

@@ -1,4 +1,4 @@
-# Project Workflow Guidelines: Cluster Estate
+# Project Workflow Guidelines: Cabarete Villas
 
 ## Using the Progressive Detail Approach Effectively
 

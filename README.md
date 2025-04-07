@@ -1,12 +1,12 @@
-# Cluster Estate
+# Cabarete Villas
 
 A mature real estate management platform built with Next.js, TypeScript, and Supabase, providing comprehensive property management capabilities including booking, payments, and administrative functions.
 
-![Cluster Estate](https://via.placeholder.com/1200x630/0A7697/FFFFFF?text=Cluster+Estate)
+![Cabarete Villas](https://via.placeholder.com/1200x630/0A7697/FFFFFF?text=Cluster+Estate)
 
 ## Overview
 
-Cluster Estate is a full-featured real estate management platform designed for property owners, agents, and renters. The system enables seamless property browsing, booking with secure payment processing, and comprehensive management interfaces for administrators.
+Cabarete Villas is a full-featured real estate management platform designed for property owners, agents, and renters. The system enables seamless property browsing, booking with secure payment processing, and comprehensive management interfaces for administrators.
 
 ### Core Features
 
@@ -322,4 +322,4 @@ For questions or support, please contact us at support@clusterestate.com.
 
 ---
 
-Built with ❤️ by the Cluster Estate Team
+Built with ❤️ by the Cabarete Villas Team

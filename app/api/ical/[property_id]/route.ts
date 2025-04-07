@@ -39,7 +39,7 @@ export async function GET(
     let icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Cluster Estate//Property Calendar//EN',
+      'PRODID:-//Cabarete Villas//Property Calendar//EN',
       `X-WR-CALNAME:${property.title}`,
       `X-WR-CALDESC:Availability calendar for ${property.title}`,
       'CALSCALE:GREGORIAN',

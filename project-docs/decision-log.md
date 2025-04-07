@@ -1,4 +1,4 @@
-# Decision Log: Cluster Estate
+# Decision Log: Cabarete Villas
 
 ## Decision: D1 - Next.js App Router Architecture
 - **Date**: Initial project setup
