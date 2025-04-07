@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Home, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
@@ -129,7 +129,7 @@ export function Footer() {
         <Separator className="my-8 bg-stone-800" />
 
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-stone-400">
-          <p className="text-center sm:text-left"> 2024 RealtyWest. All rights reserved.</p>
+          <p className="text-center sm:text-left"> 2025 Cabarete Villas. All rights reserved.</p>
           <nav className="flex items-center gap-4 flex-wrap justify-center">
             {[
               ['Terms of Service', '/terms'],

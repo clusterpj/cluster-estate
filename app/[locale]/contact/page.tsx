@@ -127,9 +127,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold">Address</h3>
                     <p className="text-muted-foreground">
-                      123 Property Street
-                      <br />
-                      Real Estate City, RE 12345
+                      Cabarete
                     </p>
                   </div>
                 </div>
