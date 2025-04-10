@@ -62,8 +62,8 @@ export default function ActivitiesPage() {
 
                 {/* Additional Details */}
                 {activity.details && (
-                  <div className="mt-4 p-4 bg-accent/10 rounded-lg">
-                    <p className="text-sm text-accent-foreground">{activity.details}</p>
+                  <div className="mt-4 p-4 bg-primary/10 rounded-lg border border-primary/20">
+                    <p className="text-sm text-foreground font-medium">{activity.details}</p>
                   </div>
                 )}
 

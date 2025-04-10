@@ -16,10 +16,11 @@ const publicPages = [
   '/properties/[id]',
   '/blog',       
   '/locations',
+  '/activities',  // Added activities page as public
   '/admin-check',
   '/direct-admin',
-  '/admin',      // Temporarily making admin pages public to bypass the issue
-  '/admin-fix',  // Admin fix page
+  // '/admin',      // Re-commenting admin routes for proper checks
+  // '/admin-fix',  // Re-commenting admin routes for proper checks
   '/api/admin-fix', // Admin fix API
   '/api/admin-check' // Admin check API
 ];
@@ -53,11 +54,18 @@ export default async function middleware(req: NextRequest) {
   // Create Supabase client
   const supabase = createMiddlewareClient({ req, res: response });
   
-  // Always refresh the session for all routes
-  try {
-    await supabase.auth.getSession();
-  } catch (error) {
-    console.error('Error refreshing session in middleware:', error);
+  // Always refresh the session AND get the initial session state
+  const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+  if (sessionError) {
+    console.error('Error getting session in middleware:', sessionError);
+    // Handle potential errors during session retrieval if necessary
+    // For now, logging the error might suffice, depending on required behavior
+  }
+
+  // Log the session status for debugging (optional)
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Middleware session status:', session ? 'Authenticated' : 'Not Authenticated');
   }
   
   // Check if the current path is an auth path (login/register)
@@ -96,21 +104,25 @@ export default async function middleware(req: NextRequest) {
     return response;
   }
   
-  const isAdminRoute = pathWithoutLocale.includes('/admin') || pathWithoutLocale.includes('/direct-admin');
-  
-  // For now, we're allowing all admin routes to pass through without blocking
-  // This is temporary until we resolve the admin access issues
-  if (isAdminRoute) {
+  // Re-enable admin route protection check
+  const isAdminRoute = pathWithoutLocale.startsWith('/admin');
+
+  // Protect admin routes - require authentication
+  if (isAdminRoute && !session) {
+     // Redirect to login if not authenticated for admin routes
+    const locale = req.nextUrl.pathname.split('/')[1] || defaultLocale;
+    const redirectUrl = new URL(`/${locale}/auth/login`, req.url);
+    redirectUrl.searchParams.set('callbackUrl', req.nextUrl.pathname);
     if (process.env.NODE_ENV === 'development') {
-      console.log('Admin route detected, allowing access:', pathname);
+      console.log('Redirecting unauthenticated user from admin route to login:', redirectUrl.toString());
     }
-    return response;
+    return NextResponse.redirect(redirectUrl);
   }
-  
-  // For non-public pages, check if the user is authenticated
-  const { data: { session } } = await supabase.auth.getSession();
-  
-  if (!session) {
+
+  // --- Removed temporary bypass for admin routes ---
+
+  // For other non-public, non-admin pages, check if the user is authenticated using the session we already fetched
+  if (!isAdminRoute && !session) {
     // Redirect to login if not authenticated
     // Make sure we're redirecting to the localized login page
     const locale = req.nextUrl.pathname.split('/')[1] || defaultLocale;
