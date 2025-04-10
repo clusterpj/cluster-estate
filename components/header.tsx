@@ -424,12 +424,6 @@ export function Header() {
                           {t('auth.adminDashboard')}
                         </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={localizedHref('/direct-admin')}>
-                          <Settings className="mr-2 h-4 w-4" />
-                          Direct Admin Access
-                        </Link>
-                      </DropdownMenuItem>
                       <DropdownMenuSeparator />
                     </>
                   )}
