@@ -16,6 +16,7 @@ const publicPages = [
   '/properties/[id]',
   '/blog',       
   '/locations',
+  '/activities',  // Added activities page as public
   '/admin-check',
   '/direct-admin',
   '/admin',      // Temporarily making admin pages public to bypass the issue
